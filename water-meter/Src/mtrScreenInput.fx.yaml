@@ -60,7 +60,7 @@ mtrScreenInput As screen:
         Height: =70
         Size: =24
         Width: =446
-        X: =15
+        X: =48
         Y: =487
         ZIndex: =7
 
