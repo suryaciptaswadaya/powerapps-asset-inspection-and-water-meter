@@ -46,7 +46,7 @@ DateScreenInput As screen:
     Label5 As label:
         Height: =70
         Size: =21
-        Text: ="Pa Mubarok Dosen Keren"
+        Text: ="TEST BY AMU"
         Width: =560
         X: =39
         Y: =534
