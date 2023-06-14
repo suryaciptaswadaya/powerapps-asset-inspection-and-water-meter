@@ -99,9 +99,8 @@ mtrScreenInput As screen:
             Set(s_ImageLinkMetering,
                 '[DEV]-UploadImageWaterMeter'.Run(
                     Concatenate("/gal_metering_files/",mtr_ID.Text),
-                    Concatenate(mtr_ID.Text,"-metering.jpg"),
-                    s_Base64ContentMetering
-                    
+                    Concatenate(mtr_ID.Text,Value(current_mtr.Text),"-metering.jpg"),
+                    s_Base64ContentMetering        
                 ).sharepointfilelink
             );
             
