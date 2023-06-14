@@ -455,7 +455,14 @@
     "BarcodeScanner1": {
       "AllowAccessToGlobals": true,
       "ControlPropertyState": [
-        "BarcodeType",
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "",
+          "InvariantPropertyName": "BarcodeType",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
         "Text",
         "BorderColor",
         "DisabledBorderColor",
