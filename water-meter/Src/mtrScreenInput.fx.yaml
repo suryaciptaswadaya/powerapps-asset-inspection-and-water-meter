@@ -50,9 +50,10 @@ mtrScreenInput As screen:
     current_mtr As text:
         BorderColor: =RGBA(0, 106, 59, 1)
         Default: =""
+        Format: =TextFormat.Number
         Height: =70
         Size: =21
-        Width: =446
+        Width: =600
         X: =15
         Y: =321
         ZIndex: =6
@@ -60,8 +61,11 @@ mtrScreenInput As screen:
     date_mtr As datepicker:
         BorderColor: =RGBA(0, 106, 59, 1)
         Height: =70
+        IconBackground: |-
+            =RGBA(0, 106, 59
+            , 1)
         Size: =24
-        Width: =446
+        Width: =600
         X: =17
         Y: =487
         ZIndex: =7
@@ -73,16 +77,47 @@ mtrScreenInput As screen:
             ="Date :"
         Width: =560
         X: =15
-        Y: =417
+        Y: =404
         ZIndex: =8
 
     btn_submit As button:
         BorderColor: =RGBA(255, 255, 255, 1)
         Fill: =RGBA(0, 106, 59, 1)
         Height: =70
-        OnSelect: |
-            =Collect(CollitemsToKeep,{MtrID:mtr_ID.Text,CurrMtr:current_mtr.Text,Date:date_mtr.SelectedDate});
-            SaveData(CollitemsToKeep,"SaveToDevice");
+        OnSelect: |-
+            =//Collect(CollitemsToKeep,{MtrID:mtr_ID.Text,CurrMtr:current_mtr.Text,Date:date_mtr.SelectedDate});
+            //SaveData(CollitemsToKeep,"SaveToDevice");
+            
+            Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData), "",""));
+            Set(s_Base64ContentMetering,
+                Mid(
+                    BinaryImageDataMetering,
+                    Find(",",BinaryImageDataMetering) + 1,
+                    Len(BinaryImageDataMetering) - Find(",",BinaryImageDataMetering) - 1
+                )
+            );
+            Set(s_ImageLinkMetering,
+                '[DEV]-UploadImageWaterMeter'.Run(
+                    //Concatenate(mtr_ID,"-odometer.jpg"),
+                    mtr_ID.Text,
+                    s_Base64ContentMetering,
+                    Concatenate("/gal_metering_files/",mtr_ID.Text)
+                ).sharepointfilelink
+            );
+            
+            Patch(
+                tbl_metering_logs,
+                Defaults(tbl_metering_logs),
+                    {
+                        meter_id:mtr_ID.Text,
+                        current_meter: Value(current_mtr.Text),
+                        url_image:s_ImageLinkMetering
+                    }
+                );
+            
+                Notify("Data Metering Berhasil Disimpan");
+            
+            Navigate(Home);
         Size: =24
         Text: ="Submit"
         Width: =350
@@ -94,7 +129,7 @@ mtrScreenInput As screen:
         BorderColor: =RGBA(255, 255, 255, 1)
         Color: =RGBA(255, 255, 255, 1)
         Icon: =Icon.BackArrow
-        OnSelect: =Navigate(DateScreenInput);
+        OnSelect: =Navigate(Home);
         X: =17
         Y: =18
         ZIndex: =14
