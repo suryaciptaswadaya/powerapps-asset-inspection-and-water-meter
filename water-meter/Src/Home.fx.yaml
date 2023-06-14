@@ -11,7 +11,7 @@ Home As screen:
     start_input As button:
         Fill: =RGBA(0, 106, 59, 1)
         Height: =131
-        OnSelect: =Navigate(DateScreenInput);
+        OnSelect: =Navigate(mtrScreenInput);
         Size: =24
         Text: ="Start"
         Width: =368

@@ -43,12 +43,3 @@ DateScreenInput As screen:
         Y: =18
         ZIndex: =5
 
-    Label5 As label:
-        Height: =70
-        Size: =21
-        Text: ="TEST BY AMU"
-        Width: =560
-        X: =39
-        Y: =534
-        ZIndex: =6
-
