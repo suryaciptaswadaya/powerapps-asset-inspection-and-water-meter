@@ -62,7 +62,7 @@ mtrScreenInput As screen:
         Height: =70
         Size: =24
         Width: =446
-        X: =48
+        X: =17
         Y: =487
         ZIndex: =7
 
@@ -85,20 +85,10 @@ mtrScreenInput As screen:
             SaveData(CollitemsToKeep,"SaveToDevice");
         Size: =24
         Text: ="Submit"
-        Width: =221
-        X: =48
-        Y: =954
+        Width: =350
+        X: =139
+        Y: =986
         ZIndex: =12
-
-    btn_reset As button:
-        Fill: =RGBA(0, 106, 59, 1)
-        Height: =70
-        Size: =24
-        Text: ="Reset"
-        Width: =221
-        X: =375
-        Y: =954
-        ZIndex: =13
 
     back As icon.BackArrow:
         BorderColor: =RGBA(255, 255, 255, 1)
