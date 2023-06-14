@@ -23,8 +23,8 @@ Home As screen:
         Fill: =RGBA(0, 106, 59, 1)
         Height: =128
         OnSelect: |-
-            =Clear(CollitemsToKeep);
-            SaveData(CollitemsToKeep,"SaveToDevice");
+            =//Clear(CollitemsToKeep);
+            //SaveData(CollitemsToKeep,"SaveToDevice");
         Size: =24
         Text: ="Clear data"
         Width: =368
@@ -36,10 +36,10 @@ Home As screen:
         Fill: =RGBA(0, 106, 59, 1)
         Height: =128
         OnSelect: |-
-            =If(IsEmpty(CollitemsToKeep),
+            =/*If(IsEmpty(CollitemsToKeep),
                 LoadData(CollitemsToKeep,"SaveToDevice")
             );
-            Navigate(list_mtr_dayli);
+            Navigate(list_mtr_dayli);*/
         Size: =24
         Text: ="View data"
         Width: =368
