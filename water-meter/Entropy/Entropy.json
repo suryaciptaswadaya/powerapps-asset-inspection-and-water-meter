@@ -43,10 +43,9 @@
   },
   "FunctionParamsInvariantScripts": {},
   "FunctionParamsInvariantScriptsOnInstances": {},
-  "HeaderLastSavedDateTimeUTC": "06/28/2023 07:47:46",
+  "HeaderLastSavedDateTimeUTC": "06/28/2023 07:54:08",
   "IsLegacyComponentAllowGlobalScopeCase": false,
   "LocalConnectionIDReferences": {
-    "5b942f43-d4bd-443c-98df-2add18824bc9": "\"/providers/Microsoft.PowerApps/apis/shared_logicflows/connections/0D61088720B54DCFAAA5E726FE80571D-2B280B2371F2F393\"",
     "e3800f7b-2050-4a3f-9b67-987d6951004a": "\"/providers/microsoft.powerapps/apis/shared_sharepointonline/connections/facc7f36ae6a48868fa6d9f8e91b528b\""
   },
   "LocalDatabaseReferencesAsEmpty": false,
@@ -59,9 +58,8 @@
   "OrderComponentMetadata": {},
   "OrderComponentTemplate": {},
   "OrderDataSource": {
-    "[DEV]-UploadImageWaterMeter": 0,
-    "CustomGallerySample": 1,
-    "tbl_metering_logs": 2
+    "CustomGallerySample": 0,
+    "tbl_metering_logs": 1
   },
   "OrderGroupControls": {
     "AddMediaWithImage1": {
