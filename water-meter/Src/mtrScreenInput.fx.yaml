@@ -90,7 +90,7 @@ mtrScreenInput As screen:
             
             Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData),"",""));
             Set(s_Base64ContentMetering, Mid(BinaryImageDataMetering, Find(",", BinaryImageDataMetering) + 1, Len(BinaryImageDataMetering) - Find(",", BinaryImageDataMetering) - 1));
-            Set(v_UploadResult, '[DEV]-UploadImageWaterMeter'.Run(Concatenate("/gal_metering/",mtr_ID.Text), Concatenate(mtr_ID.Text,"-",Value(current_mtr.Text),"-metering.jpg"), s_Base64ContentMetering));
+            Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(mtr_ID.Text,"-",Value(current_mtr.Text),"-metering.jpg"), s_Base64ContentMetering,Concatenate("/gal_metering/",mtr_ID.Text)));
             Set(s_ImageLinkMetering, v_UploadResult.sharepointfilelink);
             
             /*

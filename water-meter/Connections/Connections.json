@@ -1,4 +1,32 @@
 {
+  "a3e0174b-307e-4660-8ce6-c028043770c8": {
+    "connectionRef": {
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1636/1.0.1636.3297/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "4ae5b5a4-1a88-4aae-9087-ccea7c0b11ea"
+        }
+      },
+      "parameterHintsV2": {
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "4ae5b5a4-1a88-4aae-9087-ccea7c0b11ea"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "[DEV]UploadImage-WaterMeter"
+    ],
+    "dependencies": {
+      "shared_sharepointonline_1": "e3800f7b-2050-4a3f-9b67-987d6951004a"
+    },
+    "dependents": [],
+    "id": "a3e0174b-307e-4660-8ce6-c028043770c8"
+  },
   "e3800f7b-2050-4a3f-9b67-987d6951004a": {
     "connectionRef": {
       "displayName": "SharePoint",
@@ -19,7 +47,7 @@
     ],
     "dependencies": {},
     "dependents": [
-      "5b942f43-d4bd-443c-98df-2add18824bc9"
+      "a3e0174b-307e-4660-8ce6-c028043770c8"
     ],
     "id": "e3800f7b-2050-4a3f-9b67-987d6951004a"
   }
