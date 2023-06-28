@@ -2,8 +2,8 @@
   "ComponentIndexes": {},
   "ControlUniqueGuids": {},
   "ControlUniqueIds": {
-    "AddMediaButton1": 31,
-    "AddMediaWithImage1": 33,
+    "AddMediaButton1": 41,
+    "AddMediaWithImage1": 42,
     "App": 1,
     "back": 22,
     "back_1": 11,
@@ -38,12 +38,12 @@
     "start_input": 6,
     "Subtitle1": 17,
     "Title1": 15,
-    "UploadedImage1": 30,
+    "UploadedImage1": 40,
     "view_call": 8
   },
   "FunctionParamsInvariantScripts": {},
   "FunctionParamsInvariantScriptsOnInstances": {},
-  "HeaderLastSavedDateTimeUTC": "06/28/2023 06:10:06",
+  "HeaderLastSavedDateTimeUTC": "06/28/2023 06:11:43",
   "IsLegacyComponentAllowGlobalScopeCase": false,
   "LocalConnectionIDReferences": {
     "88f67e0e-d717-4813-aa7f-5f18c45ef801": "\"/providers/microsoft.powerapps/apis/shared_logicflows/connections/0e7b49813a7c4510b46cf9828baed0c8-3d4fb6fe7b9c0641\"",
@@ -72,16 +72,16 @@
   "OrderPcfTemplate": {},
   "OrderTemplate": {},
   "OrderXMLTemplate": {
-    "addMedia": 9,
-    "barcodeScanner": 7,
+    "addMedia": 6,
+    "barcodeScanner": 8,
     "button": 1,
-    "datepicker": 8,
+    "datepicker": 9,
     "gallery": 4,
     "icon": 3,
     "image": 0,
     "label": 5,
     "rectangle": 2,
-    "text": 6
+    "text": 7
   },
   "OverridablePropertiesEntry": {
     "AddMediaButton1": {},
@@ -126,8 +126,8 @@
   "PCFDynamicSchemaForIRRetrievalEntry": {},
   "PCFTemplateEntry": {},
   "PublishOrderIndices": {
-    "AddMediaButton1": 36,
-    "AddMediaWithImage1": 38,
+    "AddMediaButton1": 0,
+    "AddMediaWithImage1": 0,
     "App": 0,
     "back": 27,
     "back_1": 16,
@@ -162,7 +162,7 @@
     "start_input": 11,
     "Subtitle1": 23,
     "Title1": 21,
-    "UploadedImage1": 35,
+    "UploadedImage1": 0,
     "view_call": 13
   },
   "ResourcesJsonIndices": {
