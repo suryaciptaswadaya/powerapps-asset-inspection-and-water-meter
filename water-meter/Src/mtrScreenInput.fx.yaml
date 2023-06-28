@@ -88,6 +88,12 @@ mtrScreenInput As screen:
             =//Collect(CollitemsToKeep,{MtrID:mtr_ID.Text,CurrMtr:current_mtr.Text,Date:date_mtr.SelectedDate});
             //SaveData(CollitemsToKeep,"SaveToDevice");
             
+            Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData),"",""));
+            Set(s_Base64ContentMetering, Mid(BinaryImageDataMetering, Find(",", BinaryImageDataMetering) + 1, Len(BinaryImageDataMetering) - Find(",", BinaryImageDataMetering) - 1));
+            Set(v_UploadResult, '[DEV]-UploadImageWaterMeter'.Run(Concatenate("/gal_metering/",mtr_ID.Text), Concatenate(mtr_ID.Text,"-",Value(current_mtr.Text),"-metering.jpg"), s_Base64ContentMetering));
+            Set(s_ImageLinkMetering, v_UploadResult.sharepointfilelink);
+            
+            /*
             Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData), "",""));
             Set(s_Base64ContentMetering,
                 Mid(
@@ -103,7 +109,7 @@ mtrScreenInput As screen:
                     s_Base64ContentMetering        
                 ).sharepointfilelink
             );
-            
+            */
             Patch(
                 tbl_metering_logs,
                 Defaults(tbl_metering_logs),
