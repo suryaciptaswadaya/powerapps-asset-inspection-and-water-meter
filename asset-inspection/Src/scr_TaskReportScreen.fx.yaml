@@ -168,7 +168,11 @@ scr_TaskReportScreen As screen:
                 =Select(Parent);
                 Set(b_ChangePhotoBefore, false);
                 Set(b_ChangePhotoAfter, false);
-                ClearCollect(c_ShowGalleryInspectionPoint, AddColumns(Filter(tbl_assignment_detail_photos, assignment_detail_id = gal_TRSCheckList.Selected.ID), "status_name", First(Filter(c_AllStatus, status_code = tbl_assignment_detail_photos[@status_code]))));
+                
+                ClearCollect(c_TmpShowGalleryInspectionPoint, Filter(tbl_assignment_detail_photos, assignment_detail_id = gal_TRSCheckList.Selected.ID));
+                ClearCollect(c_ShowGalleryInspectionPoint, AddColumns(c_TmpShowGalleryInspectionPoint, "status_name", First(Filter(c_AllStatus, status_code = c_TmpShowGalleryInspectionPoint[@status_code]).status_name)));
+                Clear(c_TmpShowGalleryInspectionPoint);
+                
                 Set(b_PopupAddPhotos, true);
             Width: =42
             X: =495
@@ -873,6 +877,7 @@ scr_TaskReportScreen As screen:
 
         img_TRSImageHistory As image:
             Height: =72
+            Image: =LookUp(gal_progress_photos, ID = ThisItem.photo_id, Thumbnail.Large)
             OnSelect: =Select(Parent)
             RadiusBottomLeft: =8
             RadiusBottomRight: =8
@@ -891,7 +896,7 @@ scr_TaskReportScreen As screen:
             PaddingLeft: =0
             PaddingRight: =0
             PaddingTop: =0
-            Text: =
+            Text: =ThisItem.status_name
             VerticalAlign: =VerticalAlign.Top
             Width: =Parent.TemplateWidth - 173
             X: =103
@@ -906,7 +911,7 @@ scr_TaskReportScreen As screen:
             PaddingLeft: =0
             PaddingRight: =0
             PaddingTop: =0
-            Text: =ThisItem.'Color Tag'
+            Text: =Text(ThisItem.insert_date, "dd-mmm-yyyy")
             VerticalAlign: =VerticalAlign.Top
             Width: =Title2.Width
             X: =Title2.X
