@@ -63,10 +63,11 @@ App As appinfo:
         Set(n_NeedMoreAttention, 301);
         
         //Get All Master Data
+        ClearCollect(c_ProcessModel, Filter(tbl_mst_process, entity_id =n_EntityID));
         ClearCollect(c_AllLocation, Filter(tbl_mst_locations, entity_id = n_EntityID && is_active = 1));
         ClearCollect(c_AllLocationType, tbl_mst_location_types);
         ClearCollect(c_AllSublocation, Filter(tbl_mst_sublocations, entity_id = n_EntityID && is_active = 1));
-        ClearCollect(c_AllStatus, tbl_mst_status);
+        ClearCollect(c_AllStatus, Filter(tbl_mst_status, entity_id = n_EntityID);
         ClearCollect(c_AllJobTitle, tbl_mst_job_title);
         ClearCollect(c_AllSpecialization, tbl_mst_specialization);
         ClearCollect(c_AllSublocationAmenities, Filter(tbl_mst_sublocation_amenities, entity_id = n_EntityID && is_active = 1));
@@ -118,7 +119,7 @@ App As appinfo:
         //Notify("Jumlah Active Task : " & CountRows(c_Task));
         //Clear(c_TmpTask);
         // Flow for Entity ID
-        ClearCollect(c_ProcessModel, Filter(tbl_mst_process, entity_id =n_EntityID));
+        
         ClearCollect(c_AllFlowProcess,
             AddColumns(Filter(tbl_mst_flow_process, entity_id = n_EntityID),
                 "department_name", LookUp(c_AllDepartment, ID = department_id, department_name)
