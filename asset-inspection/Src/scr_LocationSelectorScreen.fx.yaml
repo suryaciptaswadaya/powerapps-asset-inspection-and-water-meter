@@ -263,7 +263,6 @@ scr_LocationSelectorScreen As screen:
                 
                 Set(n_LSCStatusSequenceNumberCurrent,gal_TSTaskList.Selected.status_sequence_number);
                 Set(n_LSCStatusSequenceNumberNext,(gal_TSTaskList.Selected.status_sequence_number + 1));
-                //set time
                 
                 If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0))) > 0,
                     Notify("Mohon pastikan seluruh data tercatat sebagai 'OK'");
@@ -690,6 +689,9 @@ scr_LocationSelectorScreen As screen:
             Height: =50
             OnSelect: |-
                 =//Clear(c_AllNextProcessEmployee);
+                Set(n_LSCStatusSequenceNumberCurrent,gal_TSTaskList.Selected.status_sequence_number);
+                Set(n_LSCStatusSequenceNumberNext,(gal_TSTaskList.Selected.status_sequence_number + 1));
+                
                 ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = gal_TSTaskList.Selected.department_id && IsBlank(spv_id)));
                 Patch(tbl_assignment_headers, First(
                         Filter(
@@ -698,16 +700,16 @@ scr_LocationSelectorScreen As screen:
                         )
                     ),
                     {
-                        status_code: n_ReadyForSale,
+                        status_code: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
                         approver_id: First(c_ActiveUserData).ID,
                         approve_date:Now()
                     }
                 );
                 Patch(c_Task, { ID : gal_TSTaskList.Selected.ID}, 
                     {
-                        status_code: n_ReadyForSale,
-                        status_name: First(Filter(c_AllStatus, Value(status_code) = n_ReadyForSale)).status_name,
-                        status_color:First(Filter(c_AllStatus, Value(status_code) = n_ReadyForSale)).hex_color,
+                        status_code: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
+                        status_name: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_name,
+                        status_color:First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).hex_color,
                         approver_id: First(c_ActiveUserData).ID,
                         approve_date:Now()
                     }
@@ -717,13 +719,13 @@ scr_LocationSelectorScreen As screen:
                         Patch(tbl_notification_list, Defaults(tbl_notification_list), 
                         {
                             employee_id : c_AllNextProcessEmployee[@ID],
-                            notification_preview : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name,
-                            notification_content : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name,
+                            notification_preview : "Preventive Maintence Lokasi " & gal_TSTaskList.Selected.location_name & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name,
+                            notification_content : "Preventive Maintence Lokasi " & gal_TSTaskList.Selected.location_name & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name,
                             notification_date : Now(),
                             is_read : 0
                         });
                 
-                        '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Mohon Kerjakan Penugasan " & gal_TSTaskList.Selected.assignment_code);
+                        '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Preventive Maintence Lokasi " & gal_TSTaskList.Selected.location_name & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name);
                         );
                 
                 Navigate(scr_TaskScreen);
