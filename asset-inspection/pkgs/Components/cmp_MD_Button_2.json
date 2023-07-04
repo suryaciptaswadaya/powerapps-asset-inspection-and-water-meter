@@ -99,7 +99,7 @@
         "Name": "html_boxShadow_1",
         "Parent": "cmp_MD_Button_2",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 362,
+        "PublishOrderIndex": 58,
         "Rules": [
           {
             "Category": "Data",
@@ -470,7 +470,7 @@
         "Name": "btn_buttonBackground_1",
         "Parent": "cmp_MD_Button_2",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 363,
+        "PublishOrderIndex": 59,
         "Rules": [
           {
             "Category": "Data",
@@ -885,7 +885,7 @@
             "Name": "img_icon_1",
             "Parent": "con_img_text_1",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 365,
+            "PublishOrderIndex": 63,
             "Rules": [
               {
                 "Category": "Data",
@@ -1297,7 +1297,7 @@
             "Name": "lbl_text_1",
             "Parent": "con_img_text_1",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 366,
+            "PublishOrderIndex": 64,
             "Rules": [
               {
                 "Category": "Data",
@@ -1650,7 +1650,7 @@
         "Name": "con_img_text_1",
         "Parent": "cmp_MD_Button_2",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 364,
+        "PublishOrderIndex": 60,
         "Rules": [
           {
             "Category": "Design",
@@ -2069,7 +2069,7 @@
         "Name": "btn_button_1",
         "Parent": "cmp_MD_Button_2",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 367,
+        "PublishOrderIndex": 61,
         "Rules": [
           {
             "Category": "Data",
@@ -2466,7 +2466,7 @@
         "Name": "html_textWidthButton_1",
         "Parent": "cmp_MD_Button_2",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 368,
+        "PublishOrderIndex": 62,
         "Rules": [
           {
             "Category": "Data",
@@ -2735,7 +2735,7 @@
         "NameMapSourceSchema": "?"
       }
     ],
-    "LastModifiedTimestamp": "638240607116011378",
+    "LastModifiedTimestamp": "638240640163792610",
     "Name": "cmp_MD_Button_2",
     "Rules": [
       {
@@ -3073,7 +3073,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "638240607116011378",
+  "LastModifiedTimestamp": "638240640163792610",
   "Name": "9639de17c5b047a6a85705c693e5dbcc",
   "OverridableProperties": {},
   "TemplateOriginalName": "7e45e24a47db4ab19eb50e4cc28ad283",
