@@ -409,7 +409,7 @@ scr_TaskScreenCreate As screen:
                                 assigned_pic1_id: c_FlowPICDepartment[@picID],
                                 department_id: c_FlowPICDepartment[@departmentID],
                                 spv_id: c_FlowPICDepartment[@spvID],
-                                status_code: If(c_FlowPICDepartment[@sequenceNumber] = 1, n_NotStarted, Text(n_NotStarted)),
+                                status_code: If(c_FlowPICDepartment[@sequenceNumber] = 1, First(Filter(c_AllStatus,sort_number = 1)).status_code,First(Filter(c_AllStatus,sort_number = 1)).status_code),
                                 location_name: c_TSC_TempLocation[@LocationName],
                                 status_name: If(c_FlowPICDepartment[@sequenceNumber] = 1, First(Filter(c_AllStatus,Value(status_code) = n_NotStarted)).status_name,First(Filter(c_AllStatus,status_code = Text(n_NotStarted))).status_name),
                                 status_color: If(c_FlowPICDepartment[@sequenceNumber] = 1, First(Filter(c_AllStatus,Value(status_code) = n_NotStarted)).hex_color,First(Filter(c_AllStatus,status_code = Text(n_NotStarted))).hex_color),
