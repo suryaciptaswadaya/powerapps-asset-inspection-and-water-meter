@@ -114,7 +114,7 @@ App As appinfo:
                 "pic_name",  LookUp(c_AllEmployee, ID = assigned_pic1_id,name)
             ), is_deleted = 0)
         );
-        
+        //
         //Notify("Jumlah Active Task : " & CountRows(c_Task));
         //Clear(c_TmpTask);
         // Flow for Entity ID
