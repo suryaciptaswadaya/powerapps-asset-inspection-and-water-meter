@@ -263,7 +263,7 @@ scr_LocationSelectorScreen As screen:
                 
                 Set(n_LSCStatusSequenceNumberCurrent,gal_TSTaskList.Selected.status_sequence_number);
                 Set(n_LSCStatusSequenceNumberNext,(gal_TSTaskList.Selected.status_sequence_number + 1));
-                
+                //set time
                 
                 If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0))) > 0,
                     Notify("Mohon pastikan seluruh data tercatat sebagai 'OK'");
