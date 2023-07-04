@@ -461,10 +461,9 @@ scr_LocationSelectorScreen As screen:
                 
                 ForAll(c_NextFlowProcess,
                 //Notify(First(Filter(c_Task,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])).ID);
-                    Patch(c_Task,
-                        First(
+                    Patch(c_Task, First(
                             Filter(c_Task,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])
-                            ),
+                        ),
                         {
                             status_code: n_NeedMoreAttention,
                             status_name: First(
@@ -541,7 +540,8 @@ scr_LocationSelectorScreen As screen:
                         ).hex_color
                     }
                 );
-                ForAll(
+                
+                /*ForAll(
                     c_AssignmentDetail,
                     Patch(tbl_assignment_details,
                         First(Filter(
@@ -561,7 +561,7 @@ scr_LocationSelectorScreen As screen:
                         is_not_ok: 0,
                         is_ok: 0
                     }
-                );
+                );*/
                 
                 
                 
