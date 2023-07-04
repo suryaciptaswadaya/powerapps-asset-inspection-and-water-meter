@@ -407,6 +407,71 @@ scr_TaskReportScreen As screen:
         Y: =1040
         ZIndex: =6
 
+    cmp_TRSAppBar_top_3 As cmp_MD_AppBar_top:
+        onSelectIcon1: =Back();
+        onSelectIcon2: =Navigate(scr_NotificationScreen);
+        svgIcon1: |-
+            ="<svg width='11px' height='20px' viewBox='0 0 11 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+                <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+                <title>arrow_back_ios</title>
+                <desc>Created with Sketch.</desc>
+                <g id='Icons' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
+                    <g id='Rounded' transform='translate(-548.000000, -3434.000000)'>
+                        <g id='Navigation' transform='translate(100.000000, 3378.000000)'>
+                            <g id='-Round-/-Navigation-/-arrow_back_ios' transform='translate(442.000000, 54.000000)'>
+                                <g>
+                                    <polygon id='Path' opacity='0.87' points='0 0 24 0 24 24 0 24'></polygon>
+                                    <path d='M16.62,2.99 C16.13,2.5 15.34,2.5 14.85,2.99 L6.54,11.3 C6.15,11.69 6.15,12.32 6.54,12.71 L14.85,21.02 C15.34,21.51 16.13,21.51 16.62,21.02 C17.11,20.53 17.11,19.74 16.62,19.25 L9.38,12 L16.63,4.75 C17.11,4.27 17.11,3.47 16.62,2.99 Z' id='🔹-Icon-Color' fill='#ffff'></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>"
+        svgIcon2: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21'/></svg>"
+        svgIcon3: =""
+        svgIcon4: =""
+        titleText: =s_SelectedSublocation //&" " &n_CurrentSublocationID
+        tooltipIcon1: ="Kembali"
+        tooltipIcon2: ="Notifikasi"
+        tooltipIcon3: =""
+        tooltipIcon4: =""
+        ZIndex: =14
+
+    btn_TRSHiddenInput As button:
+        Height: =70
+        OnSelect: |-
+            =/*If(First(c_ActiveUserData).is_approver = 1, 
+                Patch(tbl_assignment_sublocation_comment, First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationRowNumber && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )
+                ), { comment: TextInput1.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }),
+                ""
+                );*/
+            
+            /*Notify(TextInput1.Text);
+            If(First(c_ActiveUserData).is_approver = 1, 
+                Patch(tbl_assignment_sublocation_comment, First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID
+                    )
+                ), { comment: TextInput1.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }),
+                ""
+                );*/
+            
+               
+        Size: =24
+        Text: ="Button"
+        Visible: =false
+        Width: =280
+        X: =24
+        Y: =695
+        ZIndex: =15
+
     grp_TRSAddNotes As group:
         Height: =5
         Width: =5
@@ -492,7 +557,7 @@ scr_TaskReportScreen As screen:
             Width: =158
             X: =398
             Y: =788
-            ZIndex: =12
+            ZIndex: =11
 
         txt_TRSNotes As text:
             Default: =gal_TRSCheckList.Selected.notes
@@ -505,7 +570,7 @@ scr_TaskReportScreen As screen:
             Width: =507
             X: =68
             Y: =337
-            ZIndex: =13
+            ZIndex: =12
 
         cbb_TRSStaff As combobox:
             ChevronBackground: =RGBA(33, 86, 117, 1)
@@ -524,72 +589,7 @@ scr_TaskReportScreen As screen:
             Width: =507
             X: =68
             Y: =236
-            ZIndex: =14
-
-    cmp_TRSAppBar_top_3 As cmp_MD_AppBar_top:
-        onSelectIcon1: =Back();
-        onSelectIcon2: =Navigate(scr_NotificationScreen);
-        svgIcon1: |-
-            ="<svg width='11px' height='20px' viewBox='0 0 11 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
-                <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
-                <title>arrow_back_ios</title>
-                <desc>Created with Sketch.</desc>
-                <g id='Icons' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
-                    <g id='Rounded' transform='translate(-548.000000, -3434.000000)'>
-                        <g id='Navigation' transform='translate(100.000000, 3378.000000)'>
-                            <g id='-Round-/-Navigation-/-arrow_back_ios' transform='translate(442.000000, 54.000000)'>
-                                <g>
-                                    <polygon id='Path' opacity='0.87' points='0 0 24 0 24 24 0 24'></polygon>
-                                    <path d='M16.62,2.99 C16.13,2.5 15.34,2.5 14.85,2.99 L6.54,11.3 C6.15,11.69 6.15,12.32 6.54,12.71 L14.85,21.02 C15.34,21.51 16.13,21.51 16.62,21.02 C17.11,20.53 17.11,19.74 16.62,19.25 L9.38,12 L16.63,4.75 C17.11,4.27 17.11,3.47 16.62,2.99 Z' id='🔹-Icon-Color' fill='#ffff'></path>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </svg>"
-        svgIcon2: |-
-            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21'/></svg>"
-        svgIcon3: =""
-        svgIcon4: =""
-        titleText: =s_SelectedSublocation //&" " &n_CurrentSublocationID
-        tooltipIcon1: ="Kembali"
-        tooltipIcon2: ="Notifikasi"
-        tooltipIcon3: =""
-        tooltipIcon4: =""
-        ZIndex: =26
-
-    btn_TRSHiddenInput As button:
-        Height: =70
-        OnSelect: |-
-            =/*If(First(c_ActiveUserData).is_approver = 1, 
-                Patch(tbl_assignment_sublocation_comment, First(
-                    Filter(
-                        tbl_assignment_sublocation_comment,
-                        sublocation_id = n_CurrentSublocationRowNumber && assignment_header_id = gal_TSTaskList.Selected.ID
-                    )
-                ), { comment: TextInput1.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }),
-                ""
-                );*/
-            
-            /*Notify(TextInput1.Text);
-            If(First(c_ActiveUserData).is_approver = 1, 
-                Patch(tbl_assignment_sublocation_comment, First(
-                    Filter(
-                        tbl_assignment_sublocation_comment,
-                        sublocation_id = First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID
-                    )
-                ), { comment: TextInput1.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }),
-                ""
-                );*/
-            
-               
-        Size: =24
-        Text: ="Button"
-        Visible: =false
-        Width: =280
-        X: =24
-        Y: =695
-        ZIndex: =27
+            ZIndex: =13
 
     lbl_TRSDate As label:
         Height: =70
@@ -600,7 +600,7 @@ scr_TaskReportScreen As screen:
         Width: =450
         X: =103
         Y: =278
-        ZIndex: =28
+        ZIndex: =16
 
     lbl_TRSPhotoGallery As label:
         Height: =73
@@ -611,7 +611,7 @@ scr_TaskReportScreen As screen:
         Width: =438
         X: =65
         Y: =550
-        ZIndex: =32
+        ZIndex: =20
 
     "'[HIDDEN-TBD]grp_TRSUnusedControl' As group":
         Height: =5
@@ -629,7 +629,7 @@ scr_TaskReportScreen As screen:
             Width: =476
             X: =100
             Y: =562
-            ZIndex: =29
+            ZIndex: =17
 
         "'[HIDDEN-TBD]img_TRSPhotoAfter' As image":
             BorderColor: =RGBA(128, 128, 128, 1)
@@ -658,7 +658,7 @@ scr_TaskReportScreen As screen:
             Width: =469
             X: =106
             Y: =623
-            ZIndex: =30
+            ZIndex: =18
 
         "'[HIDDEN-TBD]med_TRSPhotoAfter' As addMedia":
             BorderColor: =RGBA(128, 128, 128, 1)
@@ -684,7 +684,7 @@ scr_TaskReportScreen As screen:
             Width: =460
             X: =106
             Y: =623
-            ZIndex: =31
+            ZIndex: =19
 
     grp_TRSAddPhotos As group:
         Height: =5
@@ -702,7 +702,7 @@ scr_TaskReportScreen As screen:
             PressedFill: =shp_TRSBackground1_1.Fill
             Visible: =b_PopupAddPhotos
             Width: =640
-            ZIndex: =15
+            ZIndex: =22
 
         shp_TRSBackground2_1 As rectangle:
             DisabledFill: =shp_TRSBackground2_1.Fill
@@ -715,7 +715,7 @@ scr_TaskReportScreen As screen:
             Width: =551
             X: =44
             Y: =106
-            ZIndex: =16
+            ZIndex: =23
 
         lbl_TRSAddPhotosHeader As label:
             FocusedBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
@@ -734,7 +734,7 @@ scr_TaskReportScreen As screen:
             Width: =326
             X: =65
             Y: =120
-            ZIndex: =17
+            ZIndex: =24
 
         ico_TRSAddPhotoCancel As icon.Cancel:
             Color: =RGBA(0, 0, 0, 1)
@@ -745,7 +745,7 @@ scr_TaskReportScreen As screen:
             Width: =36
             X: =546
             Y: =112
-            ZIndex: =18
+            ZIndex: =25
 
         btn_TRSSavePhotos As button:
             DisplayMode: |-
@@ -821,7 +821,7 @@ scr_TaskReportScreen As screen:
             Width: =158
             X: =398
             Y: =524
-            ZIndex: =19
+            ZIndex: =26
 
         lbl_TRSBefore As label:
             Height: =73
@@ -832,7 +832,7 @@ scr_TaskReportScreen As screen:
             Width: =438
             X: =86
             Y: =177
-            ZIndex: =20
+            ZIndex: =27
 
         img_TRSPhoto As image:
             BorderColor: =RGBA(128, 128, 128, 1)
@@ -868,7 +868,7 @@ scr_TaskReportScreen As screen:
             Width: =469
             X: =86
             Y: =236
-            ZIndex: =22
+            ZIndex: =28
 
         med_TRSPhoto As addMedia:
             BorderColor: =RGBA(128, 128, 128, 1)
@@ -893,7 +893,7 @@ scr_TaskReportScreen As screen:
             Width: =469
             X: =86
             Y: =236
-            ZIndex: =23
+            ZIndex: =29
 
         "gal_TRSPhotoGallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
             BorderThickness: =1
@@ -908,7 +908,68 @@ scr_TaskReportScreen As screen:
             Width: =501
             X: =65
             Y: =610
-            ZIndex: =33
+            ZIndex: =30
+
+            img_TRSPreviewHistoryPhoto As image:
+                Height: =72
+                Image: =LookUp(gal_progress_photos, ID = ThisItem.photo_id, Thumbnail.Small)
+                OnSelect: =Select(Parent)
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Width: =72
+                X: =16
+                Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            lbl_TRSStatus As label:
+                FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                Height: =Self.Size * 1.8
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =18
+                Text: =ThisItem.status_name
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Parent.TemplateWidth - 173
+                X: =103
+                Y: =(Parent.TemplateHeight - (Self.Size * 1.8 + lbl_TRSPhotoTakenDate.Size * 1.8)) / 2
+                ZIndex: =2
+
+            lbl_TRSPhotoTakenDate As label:
+                FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                Height: =Self.Size * 1.8
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =18
+                Text: |-
+                    =Text(ThisItem.insert_date, "dd-mmm-yyyy hh:mm:ss")
+                VerticalAlign: =VerticalAlign.Top
+                Width: =lbl_TRSStatus.Width
+                X: =lbl_TRSStatus.X
+                Y: =lbl_TRSStatus.Y + lbl_TRSStatus.Height
+                ZIndex: =3
+
+            Separator2 As rectangle:
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =8
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =Parent.TemplateHeight - Self.Height
+                ZIndex: =4
+
+            Rectangle1 As rectangle:
+                Height: =Parent.TemplateHeight - Separator2.Height
+                OnSelect: =Select(Parent)
+                Visible: =ThisItem.IsSelected
+                Width: =4
+                ZIndex: =5
 
             btn_TRSShowHistoryPhoto As button:
                 Fill: =RGBA(0, 0, 0, 0)
@@ -920,7 +981,7 @@ scr_TaskReportScreen As screen:
                 Size: =24
                 Text: =""
                 Width: =501
-                ZIndex: =7
+                ZIndex: =6
 
     grp_TRSShowPhotos As group:
         Height: =5
@@ -938,7 +999,7 @@ scr_TaskReportScreen As screen:
             PressedFill: =shp_TRSBackground1_2.Fill
             Visible: =b_PopupShowPhotos
             Width: =640
-            ZIndex: =34
+            ZIndex: =31
 
         shp_TRSBackground2_2 As rectangle:
             DisabledFill: =shp_TRSBackground2_2.Fill
@@ -951,7 +1012,7 @@ scr_TaskReportScreen As screen:
             Width: =551
             X: =44
             Y: =106
-            ZIndex: =35
+            ZIndex: =32
 
         ico_TRSShowHistoryPhotoCancel As icon.Cancel:
             Color: =RGBA(0, 0, 0, 1)
@@ -962,7 +1023,7 @@ scr_TaskReportScreen As screen:
             Width: =36
             X: =546
             Y: =112
-            ZIndex: =37
+            ZIndex: =33
 
         img_TRSShowHistoryPhoto As image:
             BorderColor: =RGBA(128, 128, 128, 1)
@@ -977,5 +1038,5 @@ scr_TaskReportScreen As screen:
             Width: =469
             X: =86
             Y: =236
-            ZIndex: =40
+            ZIndex: =34
 
