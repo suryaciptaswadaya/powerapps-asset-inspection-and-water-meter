@@ -151,7 +151,7 @@ scr_TaskScreen As screen:
             OnSelect: |-
                 =Select(Parent);
                 If(ThisItem.is_ready_to_start = 1,
-                    If(ThisItem.sequence_number > 1 && ThisItem.status_code = Text(n_NotStarted) && First(c_ActiveUserData).is_approver = 0,
+                    If(ThisItem.sequence_number > 1 && ThisItem.status_code = First(Filter(c_AllStatus,sort_number = 1)).status_code && First(c_ActiveUserData).is_approver = 0,
                         Set(b_ConfirmReady, -1);
                         
                         If(!IsBlank(ThisItem.comment),
@@ -326,7 +326,7 @@ scr_TaskScreen As screen:
                 
                         Patch(tbl_assignment_headers, First(c_PreviousTask), 
                         {
-                            status_code: n_NotStarted,
+                            status_code: First(Filter(c_AllStatus,sort_number = 1)).status_code,
                             comment: txt_TSComment.Text,
                             comment_user_id: n_UserID,
                             comment_date: Now()
