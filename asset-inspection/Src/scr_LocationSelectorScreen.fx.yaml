@@ -289,30 +289,55 @@ scr_LocationSelectorScreen As screen:
                 ForAll(
                     c_AllFlowProcess,
                 
-                    Patch(tbl_assignment_headers,
-                        First(Filter(tbl_assignment_headers,
-                            assignment_code = gal_TSTaskList.Selected.assignment_code,
-                            sequence_number = c_AllFlowProcess[@sequence_number]                
-                        )),
-                        {
-                            status_code: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
-                            status_sequence_number : n_LSCStatusSequenceNumberNext,
-                            end_time_task: If(gal_TSTaskList.Selected.sequence_number = c_AllFlowProcess[@sequence_number],If(IsEmpty(tbl_assignment_headers[@end_time_task]),Now()))
-                        }
-                    );
-                    Patch(c_Task, 
-                        {
-                            assignment_code : gal_TSTaskList.Selected.assignment_code,
-                            sequence_number : c_AllFlowProcess[@sequence_number]
-                        }, 
-                        {
-                            status_sequence_number : n_LSCStatusSequenceNumberNext,
-                            status_code:First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
-                            status_name: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_name,
-                            status_color:First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).hex_color,
-                            end_time_task: If(gal_TSTaskList.Selected.sequence_number = c_AllFlowProcess[@sequence_number],If(IsEmpty(tbl_assignment_headers[@end_time_task]),Now()))
-                        }
-                    );
+                    If(gal_TSTaskList.Selected.sequence_number = c_AllFlowProcess[@sequence_number],
+                
+                        Patch(tbl_assignment_headers,
+                            First(Filter(tbl_assignment_headers,
+                                assignment_code = gal_TSTaskList.Selected.assignment_code,
+                                sequence_number = c_AllFlowProcess[@sequence_number]                
+                            )),
+                            {
+                                status_code: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
+                                status_sequence_number : n_LSCStatusSequenceNumberNext,
+                                end_time_task:Now()
+                            }
+                        );
+                        Patch(c_Task, 
+                            {
+                                assignment_code : gal_TSTaskList.Selected.assignment_code,
+                                sequence_number : c_AllFlowProcess[@sequence_number]
+                            }, 
+                            {
+                                status_sequence_number : n_LSCStatusSequenceNumberNext,
+                                status_code:First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
+                                status_name: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_name,
+                                status_color:First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).hex_color,
+                                end_time_task: Now()
+                            }
+                        );
+                        ,
+                         Patch(tbl_assignment_headers,
+                            First(Filter(tbl_assignment_headers,
+                                assignment_code = gal_TSTaskList.Selected.assignment_code,
+                                sequence_number = c_AllFlowProcess[@sequence_number]                
+                            )),
+                            {
+                                status_code: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
+                                status_sequence_number : n_LSCStatusSequenceNumberNext
+                            }
+                        );
+                        Patch(c_Task, 
+                            {
+                                assignment_code : gal_TSTaskList.Selected.assignment_code,
+                                sequence_number : c_AllFlowProcess[@sequence_number]
+                            }, 
+                            {
+                                status_sequence_number : n_LSCStatusSequenceNumberNext,
+                                status_code:First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
+                                status_name: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_name,
+                                status_color:First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).hex_color
+                            }
+                        );
                     
                 );
                     
