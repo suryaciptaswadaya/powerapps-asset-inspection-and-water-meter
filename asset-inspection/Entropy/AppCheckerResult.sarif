@@ -8589,66 +8589,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSCheckList.ico_TRSPhotos.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSCheckList.ico_TRSPhotos.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "scr_TaskReportScreen",
-                "type": "scr_TaskReportScreen.gal_TRSCheckList.ico_TRSPhotos"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 6
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSCheckList.ico_TRSPhotos.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSCheckList.ico_TRSPhotos.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "scr_TaskReportScreen",
-                "type": "scr_TaskReportScreen.gal_TRSCheckList.ico_TRSPhotos"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 5
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSCheckList.ico_TRSNotes.AccessibleLabel"
                 }
               ],
@@ -9429,36 +9369,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.tbl_assignment_detail_photos"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "App.tbl_assignment_detail_photos",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "tbl_assignment_detail_photos",
-                "module": "App",
-                "type": "App"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-NotOfflineConnectors",
-          "ruleIndex": 12
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "App.tbl_assignment_headers"
                 }
               ],
@@ -9920,6 +9830,36 @@
               },
               "properties": {
                 "member": "tbl_transaction_log",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-NotOfflineConnectors",
+          "ruleIndex": 12
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App.tbl_assignment_detail_photos"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App.tbl_assignment_detail_photos",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "tbl_assignment_detail_photos",
                 "module": "App",
                 "type": "App"
               }
