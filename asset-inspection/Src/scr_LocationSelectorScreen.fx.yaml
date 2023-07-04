@@ -487,8 +487,9 @@ scr_LocationSelectorScreen As screen:
                             Filter(tbl_assignment_headers,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])
                             ),
                         {
-                            status_code: n_NeedMoreAttention,
-                            is_ready_to_start:0
+                            status_code: ComboBox2.Selected.status_code,
+                            is_ready_to_start:0,
+                            status_sequence_number:ComboBox2.Selected.status_sequence_number
                         }
                     );
                 
@@ -517,7 +518,10 @@ scr_LocationSelectorScreen As screen:
                             ID = gal_TSTaskList.Selected.ID
                         )
                     ),
-                    {status_code: n_NeedMoreAttention}
+                    {
+                        status_code: ComboBox2.Selected.status_code,
+                        status_sequence_number:ComboBox2.Selected.status_sequence_number
+                    }
                 );
                 Patch(
                     c_Task,
