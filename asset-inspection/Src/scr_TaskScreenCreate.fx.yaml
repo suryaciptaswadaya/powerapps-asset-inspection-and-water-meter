@@ -770,6 +770,7 @@ scr_TaskScreenCreate As screen:
             DisplayFields: =["name"]
             Height: =50
             InputTextPlaceholder: ="Pilih PIC " &ThisItem.department_name
+            IsSearchable: =false
             Items: |-
                 =
                 Filter(c_AllEmployee, IsBlank(spv_id), department_id = ThisItem.department_id)
@@ -786,9 +787,7 @@ scr_TaskScreenCreate As screen:
                 );
             Reset: =varTSCReset
             SearchFields: =["name"]
-            SearchItems: |-
-                =Search(
-                Filter(c_AllEmployee, IsBlank(spv_id), department_id = ThisItem.department_id),cbb_TSC_PICDepartment.SearchText,"name")
+            SearchItems: =[]
             SelectMultiple: =false
             Size: =18
             Width: =567.5

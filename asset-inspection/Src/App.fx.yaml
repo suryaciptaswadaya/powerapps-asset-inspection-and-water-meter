@@ -67,7 +67,7 @@ App As appinfo:
         ClearCollect(c_AllLocation, Filter(tbl_mst_locations, entity_id = n_EntityID && is_active = 1));
         ClearCollect(c_AllLocationType, tbl_mst_location_types);
         ClearCollect(c_AllSublocation, Filter(tbl_mst_sublocations, entity_id = n_EntityID && is_active = 1));
-        ClearCollect(c_AllStatus, Filter(tbl_mst_status, entity_id = n_EntityID);
+        ClearCollect(c_AllStatus, Filter(tbl_mst_status, entity_id = n_EntityID));
         ClearCollect(c_AllJobTitle, tbl_mst_job_title);
         ClearCollect(c_AllSpecialization, tbl_mst_specialization);
         ClearCollect(c_AllSublocationAmenities, Filter(tbl_mst_sublocation_amenities, entity_id = n_EntityID && is_active = 1));
