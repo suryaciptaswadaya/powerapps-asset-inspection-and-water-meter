@@ -391,7 +391,8 @@ scr_TaskScreenCreate As screen:
                                 process_id: c_FlowPICDepartment[@processID],
                                 sequence_number: c_FlowPICDepartment[@sequenceNumber],
                                 is_ready_to_start: If(c_FlowPICDepartment[@sequenceNumber] = 1, 1, 0),
-                                location_type_id:c_TSC_TempLocation[@LocationType]
+                                location_type_id:c_TSC_TempLocation[@LocationType],
+                                status_sequence_number: First(Filter(c_AllStatus,sort_number = 1)).status_sequence_number
                             }
                         );
                         //If(c_FlowPICDepartment[@departmentID] = n_DepartmentID,
@@ -416,7 +417,8 @@ scr_TaskScreenCreate As screen:
                                 process_id: c_FlowPICDepartment[@processID],
                                 sequence_number: c_FlowPICDepartment[@sequenceNumber],
                                 is_ready_to_start: If(c_FlowPICDepartment[@sequenceNumber] = 1, 1, 0),
-                                location_type_id:c_TSC_TempLocation[@LocationType]
+                                location_type_id:c_TSC_TempLocation[@LocationType],
+                                status_sequence_number: First(Filter(c_AllStatus,sort_number = 1)).status_sequence_number
                             }
                         );
                         //);
