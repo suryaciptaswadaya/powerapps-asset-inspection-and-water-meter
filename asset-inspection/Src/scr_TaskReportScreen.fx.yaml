@@ -790,7 +790,7 @@ scr_TaskReportScreen As screen:
                 )
             DisplayMode: =btn_TRSOK.DisplayMode
             Height: =260
-            OnChange: =Set(b_ChangePhotoBefore, true);
+            OnChange: =Set(b_ChangePhotoAfter, true);
             Size: =25
             Text: |-
                 =If(!b_ChangePhotoBefore,
@@ -922,6 +922,7 @@ scr_TaskReportScreen As screen:
             PaddingLeft: =0
             PaddingRight: =0
             PaddingTop: =0
+            Size: =20
             Text: =ThisItem.status_name
             VerticalAlign: =VerticalAlign.Top
             Width: =Parent.TemplateWidth - 173
@@ -937,6 +938,7 @@ scr_TaskReportScreen As screen:
             PaddingLeft: =0
             PaddingRight: =0
             PaddingTop: =0
+            Size: =18
             Text: =Text(ThisItem.insert_date, "dd-mmm-yyyy")
             VerticalAlign: =VerticalAlign.Top
             Width: =Title2.Width
