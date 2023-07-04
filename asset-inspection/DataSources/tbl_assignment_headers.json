@@ -53,6 +53,7 @@
       "spv_id": "spv_id",
       "start_date": "start_date",
       "status": "status_code",
+      "status_sequence_number": "status_sequence_number",
       "time_task_pic1": "start_time_task",
       "Title": "Title"
     },
