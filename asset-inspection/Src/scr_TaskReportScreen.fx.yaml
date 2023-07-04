@@ -170,7 +170,7 @@ scr_TaskReportScreen As screen:
                 Set(b_ChangePhotoAfter, false);
                 
                 ClearCollect(c_TmpShowGalleryInspectionPoint, Filter(tbl_assignment_detail_photos, assignment_detail_id = gal_TRSCheckList.Selected.ID));
-                ClearCollect(c_ShowGalleryInspectionPoint, AddColumns(c_TmpShowGalleryInspectionPoint, "status_name", First(Filter(c_AllStatus, status_code = c_TmpShowGalleryInspectionPoint[@status_code]).status_name)));
+                ClearCollect(c_ShowGalleryInspectionPoint, AddColumns(c_TmpShowGalleryInspectionPoint, "status_name", First(Filter(c_AllStatus, status_code = c_TmpShowGalleryInspectionPoint[@status_code])).status_name));
                 Clear(c_TmpShowGalleryInspectionPoint);
                 
                 Set(b_PopupAddPhotos, true);
@@ -675,7 +675,8 @@ scr_TaskReportScreen As screen:
             OnSelect: |-
                 =Set(d_TimestampforPhoto,Text(Now(),"[$-en-US]yymmddhhmmss"));
                 
-                //Save Before Photo
+                //Save Before Photo - not used anymore
+                /*
                 If(b_ChangePhotoBefore,
                     Set(BinaryImageDataBefore, Substitute(JSON(img_TRSPhoto.Image, JSONFormat.IncludeBinaryData),"",""));
                     Set(s_Base64ContentBefore, Mid(BinaryImageDataBefore, Find(",", BinaryImageDataBefore) + 1, Len(BinaryImageDataBefore) - Find(",", BinaryImageDataBefore) - 1));
@@ -686,20 +687,43 @@ scr_TaskReportScreen As screen:
                     Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail, ID = gal_TRSCheckList.Selected.ID)), { url_photo_before : s_ImageLinkBefore, photo_before_id : n_ImageIDBefore });
                     Patch(c_AssignmentDetailAmenities, First(Filter(c_AssignmentDetailAmenities, ID = gal_TRSCheckList.Selected.ID)), { url_photo_before : s_ImageLinkBefore, photo_before_id : n_ImageIDBefore });
                 );
+                */
                 
-                //Save After Photo
+                //Save Photo
                 If(b_ChangePhotoAfter,
                     Set(BinaryImageDataAfter, Substitute(JSON('[HIDDEN-TBD]img_TRSPhotoAfter'.Image, JSONFormat.IncludeBinaryData),"",""));
                     Set(s_Base64ContentAfter, Mid(BinaryImageDataAfter, Find(",", BinaryImageDataAfter) + 1, Len(BinaryImageDataAfter) - Find(",", BinaryImageDataAfter) - 1));
-                    Set(v_UploadResultAfter, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, "-1.jpg"), s_Base64ContentAfter, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
+                    Set(v_UploadResultAfter, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentAfter, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
                     Set(s_ImageLinkAfter, v_UploadResultAfter.sharepointfilelink);
                     Set(n_ImageIDAfter, Value(v_UploadResultAfter.img_id));
+                
+                    Patch(tbl_assignment_detail_photos, Defaults(tbl_assignment_detail_photos),
+                    {
+                        assignment_detail_id: gal_TRSCheckList.Selected.ID,
+                        status_code: gal_TSTaskList.Selected.status_code,
+                        photo_url: s_ImageLinkAfter,
+                        photo_id: n_ImageIDAfter,
+                        insert_date: Now()
+                    });
+                
+                    Patch(c_ShowGalleryInspectionPoint, Defaults(c_ShowGalleryInspectionPoint),
+                    {
+                        assignment_detail_id: gal_TRSCheckList.Selected.ID,
+                        status_code: gal_TSTaskList.Selected.status_code,
+                        status_name: gal_TSTaskList.Selected.status_name,
+                        photo_url: s_ImageLinkAfter,
+                        photo_id: n_ImageIDAfter,
+                        insert_date: Now()
+                    });
+                    
+                    /*
                     Patch(tbl_assignment_details, First(Filter(tbl_assignment_details, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
                     Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
                     Patch(c_AssignmentDetailAmenities, First(Filter(c_AssignmentDetailAmenities, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
+                    */
                 );
                 
-                Set(b_PopupAddPhotos, false);
+                //Set(b_PopupAddPhotos, false);
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
