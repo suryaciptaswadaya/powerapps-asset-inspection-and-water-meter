@@ -35,7 +35,7 @@
       "Modified": "Modified",
       "OData__ColorTag": "Color Tag",
       "process_id": "process_id",
-      "sort_number": "sort_number",
+      "sort_number": "status_sequence_number",
       "status_code": "status_code",
       "status_name": "status_name",
       "Title": "Title"

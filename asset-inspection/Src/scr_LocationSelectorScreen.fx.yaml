@@ -125,7 +125,7 @@ scr_LocationSelectorScreen As screen:
             ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21'/></svg>"
         svgIcon3: =""
         svgIcon4: =""
-        titleText: =gal_TSTaskList.Selected.location_name//&" "&gal_TSTaskList.Selected.ID
+        titleText: =gal_TSTaskList.Selected.location_name //&" "&gal_TSTaskList.Selected.ID
         tooltipIcon1: ="Kembali"
         tooltipIcon2: ="Notifikasi"
         tooltipIcon3: =""
@@ -261,46 +261,63 @@ scr_LocationSelectorScreen As screen:
                 
                 Set(b_LSCMandatoryPhoto ,First(Filter(c_AllFlowProcess,sequence_number = gal_TSTaskList.Selected.sequence_number)).is_photo_mandatory);
                 
+                Set(n_LSCStatusSequenceNumberCurrent,gal_TSTaskList.Selected.status_sequence_number);
+                Set(n_LSCStatusSequenceNumberNext,(gal_TSTaskList.Selected.status_sequence_number + 1));
+                
+                
                 If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0))) > 0,
                     Notify("Mohon pastikan seluruh data tercatat sebagai 'OK'");
                     Set(b_Continue, false);    
                 );
                 
                 If(b_LSCMandatoryPIC = 1,
-                
                     If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && IsBlank(staff_id))) > 0,
                         Notify("Mohon pastikan seluruh pekerjaan sudah terpilih PIC nya");
                         Set(b_Continue, false);    
-                    );
-                
-                    
+                    );    
                 );
+                
                 If(b_LSCMandatoryPhoto = 1,
                     If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID &&( IsBlank(url_photo_before) || IsBlank(url_photo_after))) )> 0,
                             Notify("Mohon pastikan seluruh pekerjaan sudah terpilih Gambarnya nya");
                             Set(b_Continue, false);    
                         );
                 );
+                
                 If(b_Continue,
+                
+                ForAll(
+                    c_AllFlowProcess,
+                
                     Patch(tbl_assignment_headers, First(
                             Filter(
                                 tbl_assignment_headers,
-                                ID = gal_TSTaskList.Selected.ID
+                                assignment_code = gal_TSTaskList.Selected.assignment_code,
+                                sequence_number = c_AllFlowProcess[@sequence_number]
                             )
                         ),
                         {
-                            status_code: n_WaitingGMApprovalStatus,
+                            status_code: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
                             end_time_task: Now()
                         }
                     );
-                    Patch(c_Task, { ID : gal_TSTaskList.Selected.ID}, 
+                    Patch(c_Task, First(
+                            Filter(
+                                c_Task,
+                                assignment_code = gal_TSTaskList.Selected.assignment_code,
+                                sequence_number = c_AllFlowProcess[@sequence_number]
+                            )
+                        ), 
                         {
-                            status_code: n_WaitingGMApprovalStatus,
-                            status_name: First(Filter(c_AllStatus, Value(status_code) = n_WaitingGMApprovalStatus)).status_name,
-                            status_color:First(Filter(c_AllStatus, Value(status_code) = n_WaitingGMApprovalStatus)).hex_color,
+                            status_code:First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
+                            status_name: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_name,
+                            status_color:First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).hex_color,
                             end_time_task: Now()
                         }
                     );
+                    
+                );
+                    
                     //Gabisa pake cara ini nanti jadinya insert
                     /*Patch(tbl_assignment_headers, { ID : gal_TSTaskList.Selected.ID},
                         {status_code: n_WaitingGMApprovalStatus}
@@ -312,7 +329,8 @@ scr_LocationSelectorScreen As screen:
                 
                     //TO DO : Sent Notification to Approver
                     // bukan ke approver tetapi ke departement selanjutnya
-                    ClearCollect(c_UserApprover, Filter(c_AllEmployee, department_id = n_DepartmentID && is_approver = 1));
+                
+                    /*ClearCollect(c_UserApprover, Filter(c_AllEmployee, department_id = n_DepartmentID && is_approver = 1));
                 
                     ForAll(c_UserApprover,
                         Patch(tbl_notification_list, Defaults(tbl_notification_list), 
@@ -325,7 +343,7 @@ scr_LocationSelectorScreen As screen:
                         });
                 
                         '[DEV]AssetMaintenance-SendPushNotification'.Run(c_UserApprover[@email], "Mohon Review Penugasan " & gal_TSTaskList.Selected.assignment_code);
-                    );
+                    );*/
                 
                     //Get Current Process Number
                     Set(n_NextSequenceNumber, First(Filter(c_AllFlowProcess, process_id = gal_TSTaskList.Selected.process_id && department_id = First(c_ActiveUserData).department_id)).sequence_number + 1);
@@ -335,7 +353,16 @@ scr_LocationSelectorScreen As screen:
                 
                     //Update Next Process to be available
                     If(CountRows(c_NextAssignmentHeader) > 0,
-                        Patch(tbl_assignment_headers, { ID : First(c_NextAssignmentHeader).ID, sequence_number: n_NextSequenceNumber}, { status_code: First(Filter(c_AllStatus,sort_number = 1)).status_code, is_ready_to_start: 1});
+                        Patch(tbl_assignment_headers, 
+                            { 
+                                ID : First(c_NextAssignmentHeader).ID, 
+                                sequence_number: n_NextSequenceNumber
+                            }, 
+                            { 
+                                status_code: First(Filter(c_AllStatus,status_sequence_number = 1)).status_code, 
+                                is_ready_to_start: 1
+                            }
+                        );
                         Set(n_NextDepartmentID, First(c_NextAssignmentHeader).department_id);
                         //TO DO : Sent Notification to Next Process Division
                         ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = n_NextDepartmentID && IsBlank(spv_id)));
@@ -343,13 +370,13 @@ scr_LocationSelectorScreen As screen:
                             Patch(tbl_notification_list, Defaults(tbl_notification_list), 
                             {
                                 employee_id : c_AllNextProcessEmployee[@ID],
-                                notification_preview : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah selesai dikerjakan oleh " & First(c_ActiveUserData).name & ". Mohon melakukan penyelesaian penugasan tersebut",
-                                notification_content : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah selesai dikerjakan oleh " & First(c_ActiveUserData).name & ". Mohon melakukan penyelesaian penugasan tersebut",
+                                notification_preview : "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name ,
+                                notification_content : "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name,
                                 notification_date : Now(),
                                 is_read : 0
                             });
                 
-                            '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Mohon Kerjakan Penugasan " & gal_TSTaskList.Selected.assignment_code);
+                            '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name);
                         );
                     );
                 

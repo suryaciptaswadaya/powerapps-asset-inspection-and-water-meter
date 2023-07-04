@@ -387,12 +387,12 @@ scr_TaskScreenCreate As screen:
                                 assigned_pic1_id: c_FlowPICDepartment[@picID],
                                 department_id: c_FlowPICDepartment[@departmentID],
                                 spv_id: c_FlowPICDepartment[@spvID],
-                                status_code:  First(Filter(c_AllStatus,sort_number = 1)).status_code,
+                                status_code:  First(Filter(c_AllStatus,status_sequence_number = 1)).status_code,
                                 process_id: c_FlowPICDepartment[@processID],
                                 sequence_number: c_FlowPICDepartment[@sequenceNumber],
                                 is_ready_to_start: If(c_FlowPICDepartment[@sequenceNumber] = 1, 1, 0),
                                 location_type_id:c_TSC_TempLocation[@LocationType],
-                                status_sequence_number: First(Filter(c_AllStatus,sort_number = 1)).status_sequence_number
+                                status_sequence_number: First(Filter(c_AllStatus,status_sequence_number = 1)).status_sequence_number
                             }
                         );
                         //If(c_FlowPICDepartment[@departmentID] = n_DepartmentID,
@@ -410,15 +410,15 @@ scr_TaskScreenCreate As screen:
                                 assigned_pic1_id: c_FlowPICDepartment[@picID],
                                 department_id: c_FlowPICDepartment[@departmentID],
                                 spv_id: c_FlowPICDepartment[@spvID],
-                                status_code: First(Filter(c_AllStatus,sort_number = 1)).status_code,
+                                status_code: First(Filter(c_AllStatus,status_sequence_number = 1)).status_code,
                                 location_name: c_TSC_TempLocation[@LocationName],
-                                status_name: First(Filter(c_AllStatus,sort_number = 1)).status_name,
-                                status_color: First(Filter(c_AllStatus,sort_number = 1)).hex_color,
+                                status_name: First(Filter(c_AllStatus,status_sequence_number = 1)).status_name,
+                                status_color: First(Filter(c_AllStatus,status_sequence_number = 1)).hex_color,
                                 process_id: c_FlowPICDepartment[@processID],
                                 sequence_number: c_FlowPICDepartment[@sequenceNumber],
                                 is_ready_to_start: If(c_FlowPICDepartment[@sequenceNumber] = 1, 1, 0),
                                 location_type_id:c_TSC_TempLocation[@LocationType],
-                                status_sequence_number: First(Filter(c_AllStatus,sort_number = 1)).status_sequence_number
+                                status_sequence_number: First(Filter(c_AllStatus,status_sequence_number = 1)).status_sequence_number
                             }
                         );
                         //);
@@ -654,7 +654,7 @@ scr_TaskScreenCreate As screen:
                                 assigned_pic1_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.ID,
                                 department_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.department_id,
                                 spv_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.spv_id,
-                                status_code: First(Filter(c_AllStatus,sort_number = 1)).status_code
+                                status_code: First(Filter(c_AllStatus,status_sequence_number = 1)).status_code
                             }
                         );
                         Patch(
@@ -667,7 +667,7 @@ scr_TaskScreenCreate As screen:
                                 assigned_pic1_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.ID,
                                 department_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.department_id,
                                 spv_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.spv_id,
-                                status_code: First(Filter(c_AllStatus,sort_number = 1)).status_code,
+                                status_code: First(Filter(c_AllStatus,status_sequence_number = 1)).status_code,
                                 location_name: c_TSC_TempLocation[@LocationName],
                                 status_name: "Belum Dimulai",
                                 status_color: "#E74C3C"

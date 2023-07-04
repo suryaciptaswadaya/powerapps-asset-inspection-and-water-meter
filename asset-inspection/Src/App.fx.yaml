@@ -91,7 +91,7 @@ App As appinfo:
         );*/
         
         If((First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 1) || (First(c_ActiveUserData).is_admin = 0 && First(c_ActiveUserData).is_approver = 1 || (First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 0)),
-            ClearCollect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && (status_code = First(Filter(c_AllStatus,sort_number = 1)).status_code || status_code = Text(n_OnProgress) || status_code = Text(n_WaitingFromOther) || status_code = Text(n_NeedMoreAttention))), "assignment_start_date", SortOrder.Ascending));
+            ClearCollect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && (status_code = First(Filter(c_AllStatus,status_sequence_number = 1)).status_code || status_code = Text(n_OnProgress) || status_code = Text(n_WaitingFromOther) || status_code = Text(n_NeedMoreAttention))), "assignment_start_date", SortOrder.Ascending));
             Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && status_code = Text(n_WaitingGMApprovalStatus)), "assignment_start_date", SortOrder.Ascending));
             Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && status_code = Text(n_ReadyForSale)), "assignment_start_date", SortOrder.Ascending));
         ,
@@ -100,7 +100,7 @@ App As appinfo:
                 Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && status_code = Text(n_WaitingGMApprovalStatus)), "assignment_start_date", SortOrder.Ascending));
                 Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && status_code = Text(n_ReadyForSale)), "assignment_start_date", SortOrder.Ascending));
             ,*/
-                ClearCollect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && (status_code = First(Filter(c_AllStatus,sort_number = 1)).status_code || status_code = Text(n_OnProgress) || status_code = Text(n_WaitingFromOther) || status_code = Text(n_NeedMoreAttention))), "assignment_start_date", SortOrder.Ascending));
+                ClearCollect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && (status_code = First(Filter(c_AllStatus,status_sequence_number = 1)).status_code || status_code = Text(n_OnProgress) || status_code = Text(n_WaitingFromOther) || status_code = Text(n_NeedMoreAttention))), "assignment_start_date", SortOrder.Ascending));
                 Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && status_code = Text(n_WaitingGMApprovalStatus)), "assignment_start_date", SortOrder.Ascending));
                 Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && status_code = Text(n_ReadyForSale)), "assignment_start_date", SortOrder.Ascending));
             //)
