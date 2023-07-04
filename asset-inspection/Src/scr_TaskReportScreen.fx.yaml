@@ -691,6 +691,7 @@ scr_TaskReportScreen As screen:
                 
                 //Save Photo
                 If(b_ChangePhotoAfter,
+                    Notify("masuk");
                     Set(BinaryImageDataAfter, Substitute(JSON('[HIDDEN-TBD]img_TRSPhotoAfter'.Image, JSONFormat.IncludeBinaryData),"",""));
                     Set(s_Base64ContentAfter, Mid(BinaryImageDataAfter, Find(",", BinaryImageDataAfter) + 1, Len(BinaryImageDataAfter) - Find(",", BinaryImageDataAfter) - 1));
                     Set(v_UploadResultAfter, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentAfter, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
