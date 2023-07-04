@@ -602,208 +602,6 @@ scr_TaskReportScreen As screen:
         Y: =278
         ZIndex: =28
 
-    grp_TRSAddPhotos As group:
-        Height: =5
-        Width: =5
-        X: =40
-        Y: =40
-        ZIndex: =28
-
-        shp_TRSBackground1_1 As rectangle:
-            DisabledFill: =shp_TRSBackground1_1.Fill
-            Fill: =    RGBA(0,0,0,.6)
-            FocusedBorderColor: =shp_TRSBackground1_1.BorderColor
-            Height: =1136
-            HoverFill: =shp_TRSBackground1_1.Fill
-            PressedFill: =shp_TRSBackground1_1.Fill
-            Visible: =b_PopupAddPhotos
-            Width: =640
-            ZIndex: =15
-
-        shp_TRSBackground2_1 As rectangle:
-            DisabledFill: =shp_TRSBackground2_1.Fill
-            Fill: =Color.White
-            FocusedBorderColor: =shp_TRSBackground2_1.BorderColor
-            Height: =903
-            HoverFill: =shp_TRSBackground2_1.Fill
-            PressedFill: =shp_TRSBackground2_1.Fill
-            Visible: =b_PopupAddPhotos
-            Width: =551
-            X: =44
-            Y: =106
-            ZIndex: =16
-
-        lbl_TRSAddPhotosHeader As label:
-            FocusedBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
-            FontWeight: =FontWeight.Semibold
-            Height: =57
-            HoverBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
-            HoverColor: =lbl_TRSAddPhotosHeader.Color
-            HoverFill: =lbl_TRSAddPhotosHeader.Fill
-            PaddingTop: =10
-            PressedBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
-            PressedColor: =lbl_TRSAddPhotosHeader.Color
-            PressedFill: =lbl_TRSAddPhotosHeader.Fill
-            Size: =21
-            Text: ="Tambahkan Foto"
-            Visible: =b_PopupAddPhotos
-            Width: =326
-            X: =65
-            Y: =120
-            ZIndex: =17
-
-        ico_TRSAddPhotoCancel As icon.Cancel:
-            Color: =RGBA(0, 0, 0, 1)
-            Height: =39
-            Icon: =Icon.Cancel
-            OnSelect: =Set(b_PopupAddPhotos, false)
-            Visible: =b_PopupAddPhotos
-            Width: =36
-            X: =546
-            Y: =112
-            ZIndex: =18
-
-        btn_TRSSavePhotos As button:
-            DisplayMode: |-
-                =If(
-                    gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
-                    DisplayMode.Disabled,
-                    DisplayMode.Edit
-                )
-            Fill: =RGBA(33, 86, 117, 1)
-            Height: =48
-            OnSelect: |-
-                =Set(d_TimestampforPhoto,Text(Now(),"[$-en-US]yymmddhhmmss"));
-                
-                //Save Before Photo - not used anymore
-                /*
-                If(b_ChangePhotoBefore,
-                    Set(BinaryImageDataBefore, Substitute(JSON(img_TRSPhoto.Image, JSONFormat.IncludeBinaryData),"",""));
-                    Set(s_Base64ContentBefore, Mid(BinaryImageDataBefore, Find(",", BinaryImageDataBefore) + 1, Len(BinaryImageDataBefore) - Find(",", BinaryImageDataBefore) - 1));
-                    Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, "-0.jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
-                    Set(s_ImageLinkBefore, v_UploadResultBefore.sharepointfilelink);
-                    Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id));
-                    Patch(tbl_assignment_details, First(Filter(tbl_assignment_details, ID = gal_TRSCheckList.Selected.ID)), { url_photo_before : s_ImageLinkBefore, photo_before_id : n_ImageIDBefore });
-                    Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail, ID = gal_TRSCheckList.Selected.ID)), { url_photo_before : s_ImageLinkBefore, photo_before_id : n_ImageIDBefore });
-                    Patch(c_AssignmentDetailAmenities, First(Filter(c_AssignmentDetailAmenities, ID = gal_TRSCheckList.Selected.ID)), { url_photo_before : s_ImageLinkBefore, photo_before_id : n_ImageIDBefore });
-                );
-                */
-                
-                //Save Photo
-                If(b_ChangePhotoAfter,
-                    Set(BinaryImageDataAfter, Substitute(JSON('[HIDDEN-TBD]img_TRSPhotoAfter'.Image, JSONFormat.IncludeBinaryData),"",""));
-                    Set(s_Base64ContentAfter, Mid(BinaryImageDataAfter, Find(",", BinaryImageDataAfter) + 1, Len(BinaryImageDataAfter) - Find(",", BinaryImageDataAfter) - 1));
-                    Set(v_UploadResultAfter, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentAfter, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
-                    Set(s_ImageLinkAfter, v_UploadResultAfter.sharepointfilelink);
-                    Set(n_ImageIDAfter, Value(v_UploadResultAfter.img_id));
-                
-                    Patch(tbl_assignment_detail_photos, Defaults(tbl_assignment_detail_photos),
-                    {
-                        assignment_detail_id: gal_TRSCheckList.Selected.ID,
-                        status_code: gal_TSTaskList.Selected.status_code,
-                        photo_url: s_ImageLinkAfter,
-                        photo_id: n_ImageIDAfter,
-                        insert_date: Now()
-                    });
-                
-                    Patch(c_ShowGalleryInspectionPoint, Defaults(c_ShowGalleryInspectionPoint),
-                    {
-                        assignment_detail_id: gal_TRSCheckList.Selected.ID,
-                        status_code: gal_TSTaskList.Selected.status_code,
-                        status_name: gal_TSTaskList.Selected.status_name,
-                        photo_url: s_ImageLinkAfter,
-                        photo_id: n_ImageIDAfter,
-                        insert_date: Now()
-                    });
-                    
-                    /*
-                    Patch(tbl_assignment_details, First(Filter(tbl_assignment_details, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
-                    Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
-                    Patch(c_AssignmentDetailAmenities, First(Filter(c_AssignmentDetailAmenities, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
-                    */
-                );
-                
-                //Set(b_PopupAddPhotos, false);
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Size: =18
-            Text: ="Simpan"
-            Visible: =b_PopupAddPhotos
-            Width: =158
-            X: =398
-            Y: =524
-            ZIndex: =19
-
-        lbl_TRSBefore As label:
-            Height: =73
-            Size: =18
-            Text: |-
-                ="Foto :"
-            Visible: =b_PopupAddPhotos
-            Width: =438
-            X: =86
-            Y: =177
-            ZIndex: =20
-
-        img_TRSPhoto As image:
-            BorderColor: =RGBA(128, 128, 128, 1)
-            BorderThickness: =1
-            Height: =260
-            Image: |-
-                =SampleImage
-                
-                /*
-                If(IsBlankOrError(gal_TRSCheckList.Selected.photo_before_id), 
-                    If(b_ChangePhotoBefore,
-                        med_TRSPhoto.Media
-                    ,
-                        SampleImage
-                    )
-                ,
-                    If(b_ChangePhotoBefore,
-                        med_TRSPhoto.Media
-                    ,
-                        LookUp(gal_progress_photos, ID = gal_TRSCheckList.Selected.photo_before_id, Thumbnail.Large)
-                    )
-                )*/
-            ImagePosition: =ImagePosition.Fill
-            RadiusBottomLeft: =5
-            RadiusBottomRight: =5
-            RadiusTopLeft: =5
-            RadiusTopRight: =5
-            Visible: =b_PopupAddPhotos
-            Width: =469
-            X: =86
-            Y: =236
-            ZIndex: =22
-
-        med_TRSPhoto As addMedia:
-            BorderColor: =RGBA(128, 128, 128, 1)
-            ChangePictureText: |-
-                =If(IsBlankOrError(gal_TRSCheckList.Selected.photo_before_id), 
-                    If(!b_ChangePhotoBefore,
-                        "Tap or click to add a picture","Change Picture"
-                    )
-                    ,
-                    "Change Picture"
-                )
-            DisplayMode: =btn_TRSOK.DisplayMode
-            Height: =260
-            OnChange: =Set(b_ChangePhotoAfter, true);
-            Size: =25
-            Text: |-
-                =If(!b_ChangePhotoBefore,
-                    "Tap or click to add a picture","Change Picture"
-                )
-                    
-            Visible: =b_PopupAddPhotos
-            Width: =469
-            X: =86
-            Y: =236
-            ZIndex: =23
-
     lbl_TRSPhotoGallery As label:
         Height: =73
         Size: =18
@@ -888,77 +686,356 @@ scr_TaskReportScreen As screen:
             Y: =623
             ZIndex: =31
 
-    "gal_TRSPhotoGallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
-        BorderThickness: =1
-        DelayItemLoading: =true
-        Height: =368
-        Items: =c_ShowGalleryInspectionPoint
-        Layout: =Layout.Vertical
-        LoadingSpinner: =LoadingSpinner.Data
-        TemplatePadding: =0
-        TemplateSize: =104
-        Width: =501
-        X: =65
-        Y: =610
-        ZIndex: =33
+    grp_TRSAddPhotos As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =34
 
-        img_TRSImageHistory As image:
-            Height: =72
-            Image: =LookUp(gal_progress_photos, ID = ThisItem.photo_id, Thumbnail.Large)
-            OnSelect: =Select(Parent)
-            RadiusBottomLeft: =8
-            RadiusBottomRight: =8
-            RadiusTopLeft: =8
-            RadiusTopRight: =8
-            Width: =72
-            X: =16
-            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
-            ZIndex: =1
+        shp_TRSBackground1_1 As rectangle:
+            DisabledFill: =shp_TRSBackground1_1.Fill
+            Fill: =    RGBA(0,0,0,.6)
+            FocusedBorderColor: =shp_TRSBackground1_1.BorderColor
+            Height: =1136
+            HoverFill: =shp_TRSBackground1_1.Fill
+            PressedFill: =shp_TRSBackground1_1.Fill
+            Visible: =b_PopupAddPhotos
+            Width: =640
+            ZIndex: =15
 
-        Title2 As label:
-            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
-            Height: =Self.Size * 1.8
-            OnSelect: =Select(Parent)
-            PaddingBottom: =0
-            PaddingLeft: =0
-            PaddingRight: =0
-            PaddingTop: =0
-            Size: =20
-            Text: =ThisItem.status_name
-            VerticalAlign: =VerticalAlign.Top
-            Width: =Parent.TemplateWidth - 173
-            X: =103
-            Y: =(Parent.TemplateHeight - (Self.Size * 1.8 + Subtitle1.Size * 1.8)) / 2
-            ZIndex: =2
+        shp_TRSBackground2_1 As rectangle:
+            DisabledFill: =shp_TRSBackground2_1.Fill
+            Fill: =Color.White
+            FocusedBorderColor: =shp_TRSBackground2_1.BorderColor
+            Height: =903
+            HoverFill: =shp_TRSBackground2_1.Fill
+            PressedFill: =shp_TRSBackground2_1.Fill
+            Visible: =b_PopupAddPhotos
+            Width: =551
+            X: =44
+            Y: =106
+            ZIndex: =16
 
-        Subtitle1 As label:
-            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
-            Height: =Self.Size * 1.8
-            OnSelect: =Select(Parent)
-            PaddingBottom: =0
-            PaddingLeft: =0
-            PaddingRight: =0
-            PaddingTop: =0
+        lbl_TRSAddPhotosHeader As label:
+            FocusedBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
+            FontWeight: =FontWeight.Semibold
+            Height: =57
+            HoverBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
+            HoverColor: =lbl_TRSAddPhotosHeader.Color
+            HoverFill: =lbl_TRSAddPhotosHeader.Fill
+            PaddingTop: =10
+            PressedBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
+            PressedColor: =lbl_TRSAddPhotosHeader.Color
+            PressedFill: =lbl_TRSAddPhotosHeader.Fill
+            Size: =21
+            Text: ="Tambahkan Foto"
+            Visible: =b_PopupAddPhotos
+            Width: =326
+            X: =65
+            Y: =120
+            ZIndex: =17
+
+        ico_TRSAddPhotoCancel As icon.Cancel:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =39
+            Icon: =Icon.Cancel
+            OnSelect: =Set(b_PopupAddPhotos, false)
+            Visible: =b_PopupAddPhotos
+            Width: =36
+            X: =546
+            Y: =112
+            ZIndex: =18
+
+        btn_TRSSavePhotos As button:
+            DisplayMode: |-
+                =If(
+                    gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
+                    DisplayMode.Disabled,
+                    DisplayMode.Edit
+                )
+            Fill: =RGBA(33, 86, 117, 1)
+            Height: =48
+            OnSelect: |-
+                =Set(d_TimestampforPhoto,Text(Now(),"[$-en-US]yymmddhhmmss"));
+                
+                //Save Before Photo - not used anymore
+                /*
+                If(b_ChangePhotoBefore,
+                    Set(BinaryImageDataBefore, Substitute(JSON(img_TRSPhoto.Image, JSONFormat.IncludeBinaryData),"",""));
+                    Set(s_Base64ContentBefore, Mid(BinaryImageDataBefore, Find(",", BinaryImageDataBefore) + 1, Len(BinaryImageDataBefore) - Find(",", BinaryImageDataBefore) - 1));
+                    Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, "-0.jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
+                    Set(s_ImageLinkBefore, v_UploadResultBefore.sharepointfilelink);
+                    Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id));
+                    Patch(tbl_assignment_details, First(Filter(tbl_assignment_details, ID = gal_TRSCheckList.Selected.ID)), { url_photo_before : s_ImageLinkBefore, photo_before_id : n_ImageIDBefore });
+                    Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail, ID = gal_TRSCheckList.Selected.ID)), { url_photo_before : s_ImageLinkBefore, photo_before_id : n_ImageIDBefore });
+                    Patch(c_AssignmentDetailAmenities, First(Filter(c_AssignmentDetailAmenities, ID = gal_TRSCheckList.Selected.ID)), { url_photo_before : s_ImageLinkBefore, photo_before_id : n_ImageIDBefore });
+                );
+                */
+                
+                //Save Photo
+                If(b_ChangePhotoBefore,
+                    Set(BinaryImageDataBefore, Substitute(JSON(img_TRSPhoto.Image, JSONFormat.IncludeBinaryData),"",""));
+                    Set(s_Base64ContentBefore, Mid(BinaryImageDataBefore, Find(",", BinaryImageDataBefore) + 1, Len(BinaryImageDataBefore) - Find(",", BinaryImageDataBefore) - 1));
+                    Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
+                    Set(s_ImageLinkBefore, v_UploadResultBefore.sharepointfilelink);
+                    Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id));
+                
+                    Patch(tbl_assignment_detail_photos, Defaults(tbl_assignment_detail_photos),
+                    {
+                        assignment_detail_id: gal_TRSCheckList.Selected.ID,
+                        status_code: gal_TSTaskList.Selected.status_code,
+                        photo_url: s_ImageLinkBefore,
+                        photo_id: n_ImageIDBefore,
+                        insert_date: Now()
+                    });
+                
+                    Patch(c_ShowGalleryInspectionPoint, Defaults(c_ShowGalleryInspectionPoint),
+                    {
+                        assignment_detail_id: gal_TRSCheckList.Selected.ID,
+                        status_code: gal_TSTaskList.Selected.status_code,
+                        status_name: gal_TSTaskList.Selected.status_name,
+                        photo_url: s_ImageLinkBefore,
+                        photo_id: n_ImageIDBefore,
+                        insert_date: Now()
+                    });
+                
+                    Set(b_ChangePhotoBefore, false);
+                    Reset(med_TRSPhoto);
+                    
+                    /*
+                    Patch(tbl_assignment_details, First(Filter(tbl_assignment_details, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
+                    Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
+                    Patch(c_AssignmentDetailAmenities, First(Filter(c_AssignmentDetailAmenities, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
+                    */
+                );
+                
+                //Set(b_PopupAddPhotos, false);
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
             Size: =18
-            Text: =Text(ThisItem.insert_date, "dd-mmm-yyyy")
-            VerticalAlign: =VerticalAlign.Top
-            Width: =Title2.Width
-            X: =Title2.X
-            Y: =Title2.Y + Title2.Height
-            ZIndex: =3
+            Text: ="Simpan"
+            Visible: =b_PopupAddPhotos
+            Width: =158
+            X: =398
+            Y: =524
+            ZIndex: =19
 
-        Separator2 As rectangle:
-            Fill: =RGBA(255, 255, 255, 1)
-            Height: =8
-            OnSelect: =Select(Parent)
-            Width: =Parent.TemplateWidth
-            Y: =Parent.TemplateHeight - Self.Height
-            ZIndex: =5
+        lbl_TRSBefore As label:
+            Height: =73
+            Size: =18
+            Text: |-
+                ="Foto :"
+            Visible: =b_PopupAddPhotos
+            Width: =438
+            X: =86
+            Y: =177
+            ZIndex: =20
 
-        Rectangle1 As rectangle:
-            Height: =Parent.TemplateHeight - Separator2.Height
-            OnSelect: =Select(Parent)
-            Visible: =ThisItem.IsSelected
-            Width: =4
-            ZIndex: =6
+        img_TRSPhoto As image:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            BorderThickness: =1
+            Height: =260
+            Image: |-
+                =If(b_ChangePhotoBefore,
+                        med_TRSPhoto.Media
+                    ,
+                        SampleImage
+                    )
+                
+                /*
+                If(IsBlankOrError(gal_TRSCheckList.Selected.photo_before_id), 
+                    If(b_ChangePhotoBefore,
+                        med_TRSPhoto.Media
+                    ,
+                        SampleImage
+                    )
+                ,
+                    If(b_ChangePhotoBefore,
+                        med_TRSPhoto.Media
+                    ,
+                        LookUp(gal_progress_photos, ID = gal_TRSCheckList.Selected.photo_before_id, Thumbnail.Large)
+                    )
+                )*/
+            ImagePosition: =ImagePosition.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Visible: =b_PopupAddPhotos
+            Width: =469
+            X: =86
+            Y: =236
+            ZIndex: =22
+
+        med_TRSPhoto As addMedia:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            ChangePictureText: |-
+                =If(IsBlankOrError(gal_TRSCheckList.Selected.photo_before_id), 
+                    If(!b_ChangePhotoBefore,
+                        "Tap or click to add a picture","Change Picture"
+                    )
+                    ,
+                    "Change Picture"
+                )
+            DisplayMode: =btn_TRSOK.DisplayMode
+            Height: =260
+            OnChange: =Set(b_ChangePhotoBefore, true);
+            Size: =25
+            Text: |-
+                =If(!b_ChangePhotoBefore,
+                    "Tap or click to add a picture","Change Picture"
+                )
+                    
+            Visible: =b_PopupAddPhotos
+            Width: =469
+            X: =86
+            Y: =236
+            ZIndex: =23
+
+        "gal_TRSPhotoGallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+            BorderThickness: =1
+            DelayItemLoading: =true
+            Height: =368
+            Items: =c_ShowGalleryInspectionPoint
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =104
+            Visible: =b_PopupAddPhotos
+            Width: =501
+            X: =65
+            Y: =610
+            ZIndex: =33
+
+            img_TRSImageHistory As image:
+                Height: =72
+                Image: =LookUp(gal_progress_photos, ID = ThisItem.photo_id, Thumbnail.Large)
+                OnSelect: =Select(Parent)
+                RadiusBottomLeft: =8
+                RadiusBottomRight: =8
+                RadiusTopLeft: =8
+                RadiusTopRight: =8
+                Width: =72
+                X: =16
+                Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+                ZIndex: =1
+
+            Title2 As label:
+                FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                Height: =Self.Size * 1.8
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =20
+                Text: =ThisItem.status_name
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Parent.TemplateWidth - 173
+                X: =103
+                Y: =(Parent.TemplateHeight - (Self.Size * 1.8 + Subtitle1.Size * 1.8)) / 2
+                ZIndex: =2
+
+            Subtitle1 As label:
+                FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                Height: =Self.Size * 1.8
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =18
+                Text: =Text(ThisItem.insert_date, "dd-mmm-yyyy")
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Title2.Width
+                X: =Title2.X
+                Y: =Title2.Y + Title2.Height
+                ZIndex: =3
+
+            Separator2 As rectangle:
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =8
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =Parent.TemplateHeight - Self.Height
+                ZIndex: =5
+
+            Rectangle1 As rectangle:
+                Height: =Parent.TemplateHeight - Separator2.Height
+                OnSelect: =Select(Parent)
+                Visible: =ThisItem.IsSelected
+                Width: =4
+                ZIndex: =6
+
+            btn_TRSShowHistoryPhoto As button:
+                Fill: =RGBA(0, 0, 0, 0)
+                Height: =104
+                HoverFill: =Color.Transparent
+                OnSelect: |-
+                    =Select(Parent);
+                    Set(b_PopupShowPhotos, true);
+                Size: =24
+                Text: =""
+                Width: =501
+                ZIndex: =7
+
+    grp_TRSShowPhotos As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =43
+
+        shp_TRSBackground1_2 As rectangle:
+            DisabledFill: =shp_TRSBackground1_2.Fill
+            Fill: =    RGBA(0,0,0,.6)
+            FocusedBorderColor: =shp_TRSBackground1_2.BorderColor
+            Height: =1136
+            HoverFill: =shp_TRSBackground1_2.Fill
+            PressedFill: =shp_TRSBackground1_2.Fill
+            Visible: =b_PopupShowPhotos
+            Width: =640
+            ZIndex: =34
+
+        shp_TRSBackground2_2 As rectangle:
+            DisabledFill: =shp_TRSBackground2_2.Fill
+            Fill: =Color.White
+            FocusedBorderColor: =shp_TRSBackground2_2.BorderColor
+            Height: =903
+            HoverFill: =shp_TRSBackground2_2.Fill
+            PressedFill: =shp_TRSBackground2_2.Fill
+            Visible: =b_PopupShowPhotos
+            Width: =551
+            X: =44
+            Y: =106
+            ZIndex: =35
+
+        ico_TRSShowHistoryPhotoCancel As icon.Cancel:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =39
+            Icon: =Icon.Cancel
+            OnSelect: =Set(b_PopupShowPhotos, false)
+            Visible: =b_PopupShowPhotos
+            Width: =36
+            X: =546
+            Y: =112
+            ZIndex: =37
+
+        img_TRSShowHistoryPhoto As image:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            BorderThickness: =1
+            Height: =675
+            Image: =LookUp(gal_progress_photos, ID = gal_TRSPhotoGallery.Selected.photo_id, Thumbnail.Large)
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Visible: =b_PopupShowPhotos
+            Width: =469
+            X: =86
+            Y: =236
+            ZIndex: =40
 

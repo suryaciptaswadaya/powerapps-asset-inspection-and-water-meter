@@ -99,7 +99,7 @@
         "Name": "html_boxShadow",
         "Parent": "cmp_MD_Button",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 50,
+        "PublishOrderIndex": 361,
         "Rules": [
           {
             "Category": "Data",
@@ -470,7 +470,7 @@
         "Name": "btn_buttonBackground",
         "Parent": "cmp_MD_Button",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 51,
+        "PublishOrderIndex": 362,
         "Rules": [
           {
             "Category": "Data",
@@ -885,7 +885,7 @@
             "Name": "img_icon",
             "Parent": "con_img_text",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 55,
+            "PublishOrderIndex": 364,
             "Rules": [
               {
                 "Category": "Data",
@@ -1297,7 +1297,7 @@
             "Name": "lbl_text",
             "Parent": "con_img_text",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 56,
+            "PublishOrderIndex": 365,
             "Rules": [
               {
                 "Category": "Data",
@@ -1650,7 +1650,7 @@
         "Name": "con_img_text",
         "Parent": "cmp_MD_Button",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 52,
+        "PublishOrderIndex": 363,
         "Rules": [
           {
             "Category": "Design",
@@ -2069,7 +2069,7 @@
         "Name": "btn_button",
         "Parent": "cmp_MD_Button",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 53,
+        "PublishOrderIndex": 366,
         "Rules": [
           {
             "Category": "Data",
@@ -2466,7 +2466,7 @@
         "Name": "html_textWidthButton",
         "Parent": "cmp_MD_Button",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 54,
+        "PublishOrderIndex": 367,
         "Rules": [
           {
             "Category": "Data",
