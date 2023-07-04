@@ -1,0 +1,266 @@
+{
+  "163b7f2c-b540-42ce-8e92-d264119b0256": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "OneDrive for Business",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/shgogna/globalperconnector-train1/1.0.1639.3310/onedriveforbusiness/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_onedriveforbusiness",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [],
+    "dependencies": {},
+    "dependents": [
+      "ebde8202-208c-42c7-ac98-9eb9ef1acb60"
+    ],
+    "id": "163b7f2c-b540-42ce-8e92-d264119b0256"
+  },
+  "6d44453f-40c7-47d4-bb1d-c41a5ac432f0": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Power Apps Notification V2",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1623/1.0.1623.3209/powerappsnotificationv2/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_powerappsnotificationv2",
+      "parameterHints": {},
+      "parameterHintsV2": {},
+      "sharedConnectionId": "/providers/microsoft.powerapps/apis/shared_powerappsnotificationv2/connections/shared-powerappsnoti-9c1c28e7-f2ec-484f-b801-e6ff0500551f"
+    },
+    "datasets": {},
+    "dataSources": [],
+    "dependencies": {},
+    "dependents": [
+      "cccc9c19-c2a4-4130-aeb0-47dfd29257b2"
+    ],
+    "id": "6d44453f-40c7-47d4-bb1d-c41a5ac432f0"
+  },
+  "9625cc4b-066f-4416-b8fd-b9587fe6cfdc": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Outlook",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/laborbol/partial-builds/390724148/1.0.1641.3326/office365/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Outlook"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "9625cc4b-066f-4416-b8fd-b9587fe6cfdc"
+  },
+  "a7568118-f227-4473-bbbd-1d031b09f5a9": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1636/1.0.1636.3297/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "faa4b6b0-d8bf-4d0f-8bc2-dc835ef0b975": {
+          "value": "shared_sharepointonline_1"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "8f7ca2e3-827e-420b-be88-2f349976c9b8"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_sharepointonline_1": {
+          "value": "faa4b6b0-d8bf-4d0f-8bc2-dc835ef0b975"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "8f7ca2e3-827e-420b-be88-2f349976c9b8"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "[DEV]UploadImage-TaskAssetMaintenance"
+    ],
+    "dependencies": {
+      "shared_sharepointonline_1": "faa4b6b0-d8bf-4d0f-8bc2-dc835ef0b975"
+    },
+    "dependents": [],
+    "id": "a7568118-f227-4473-bbbd-1d031b09f5a9"
+  },
+  "cccc9c19-c2a4-4130-aeb0-47dfd29257b2": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1636/1.0.1636.3297/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "6d44453f-40c7-47d4-bb1d-c41a5ac432f0": {
+          "value": "shared_powerappsnotificationv2"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "7116c76f-c534-499b-8a59-5205b13b4f6c"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_powerappsnotificationv2": {
+          "value": "6d44453f-40c7-47d4-bb1d-c41a5ac432f0"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "7116c76f-c534-499b-8a59-5205b13b4f6c"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "[DEV]AssetMaintenance-SendPushNotification"
+    ],
+    "dependencies": {
+      "shared_powerappsnotificationv2": "6d44453f-40c7-47d4-bb1d-c41a5ac432f0"
+    },
+    "dependents": [],
+    "id": "cccc9c19-c2a4-4130-aeb0-47dfd29257b2"
+  },
+  "ebde8202-208c-42c7-ac98-9eb9ef1acb60": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1636/1.0.1636.3297/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "163b7f2c-b540-42ce-8e92-d264119b0256": {
+          "value": "shared_onedriveforbusiness"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "30097dd9-729f-47d4-ae5c-92648671f12e"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_onedriveforbusiness": {
+          "value": "163b7f2c-b540-42ce-8e92-d264119b0256"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "30097dd9-729f-47d4-ae5c-92648671f12e"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "[DEV]-ExporttoCSVAssetPreventiveMaintenance"
+    ],
+    "dependencies": {
+      "shared_onedriveforbusiness": "163b7f2c-b540-42ce-8e92-d264119b0256"
+    },
+    "dependents": [],
+    "id": "ebde8202-208c-42c7-ac98-9eb9ef1acb60"
+  },
+  "faa4b6b0-d8bf-4d0f-8bc2-dc835ef0b975": {
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/shgogna/globalperconnector-train1/1.0.1639.3310/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://suryainternusa.sharepoint.com/sites/DEV-SSITaskAssetMaintenance": {
+        "dataSources": {
+          "[backup]tbl_mst_sublocation_amenities": {
+            "tableName": "12d81142-2ab9-4f73-b1db-9502b7242fb7"
+          },
+          "[backup]tbl_mst_sublocations": {
+            "tableName": "c996cd81-8dad-437b-9dcc-56a303153b37"
+          },
+          "gal_progress_photos": {
+            "tableName": "12f3e6d6-7f88-4a57-8219-adab104b47af"
+          },
+          "gal_sublocation_photos": {
+            "tableName": "606e3cbd-5f0b-4394-b981-f54caf6aa43d"
+          },
+          "tbl_assignment_details": {
+            "tableName": "5ad89d99-81e1-4bb0-b8e0-20f0195cd1d4"
+          },
+          "tbl_assignment_headers": {
+            "tableName": "67e6deda-40c2-4f94-8fec-a8cadea21ead"
+          },
+          "tbl_assignment_sublocation_comment": {
+            "tableName": "1e3663da-b579-450a-b77a-cdcc61f4c7a4"
+          },
+          "tbl_mst_departments": {
+            "tableName": "87639d9d-0bfc-4257-81d9-527971ddcf89"
+          },
+          "tbl_mst_employees": {
+            "tableName": "a6a9e9d3-1680-4d74-a38b-64afdfd96ef1"
+          },
+          "tbl_mst_entities": {
+            "tableName": "7b3ce094-aa84-48f5-82bd-229ffd28a553"
+          },
+          "tbl_mst_flow_process": {
+            "tableName": "c1c066da-fcfc-496b-a531-dcc827ac208f"
+          },
+          "tbl_mst_job_title": {
+            "tableName": "7487de48-fcfa-4378-a258-09b19138fb9c"
+          },
+          "tbl_mst_location_types": {
+            "tableName": "729da46a-7a1e-47f3-bc44-494fc7fb1f30"
+          },
+          "tbl_mst_locations": {
+            "tableName": "03210185-8454-4cc9-8869-b4057ac73e76"
+          },
+          "tbl_mst_process": {
+            "tableName": "40bfe9d6-2372-4745-aa96-bd245a7ccfe2"
+          },
+          "tbl_mst_specialization": {
+            "tableName": "b9f28501-29c0-4790-acac-9ccfb157f75a"
+          },
+          "tbl_mst_status": {
+            "tableName": "d820e744-5f8d-4892-b206-fdd507b81c75"
+          },
+          "tbl_mst_sublocation_amenities": {
+            "tableName": "8e90853b-67ff-497f-bb5b-dcd5c3a23e48"
+          },
+          "tbl_mst_sublocations": {
+            "tableName": "0d530f81-9d48-43f5-83d9-8c4115f54d8e"
+          },
+          "tbl_notification_list": {
+            "tableName": "0753cebd-9354-4d28-933c-aae4291032ae"
+          },
+          "tbl_transaction_log": {
+            "tableName": "365cba6a-1538-4581-b8e9-e3b144e87035"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "gal_progress_photos",
+      "gal_sublocation_photos",
+      "tbl_assignment_details",
+      "tbl_assignment_headers",
+      "tbl_mst_departments",
+      "tbl_mst_employees",
+      "tbl_mst_entities",
+      "tbl_mst_job_title",
+      "tbl_mst_location_types",
+      "tbl_mst_locations",
+      "tbl_mst_specialization",
+      "tbl_mst_status",
+      "tbl_mst_sublocation_amenities",
+      "tbl_mst_sublocations",
+      "tbl_mst_flow_process",
+      "tbl_mst_process",
+      "tbl_notification_list",
+      "tbl_assignment_sublocation_comment",
+      "tbl_transaction_log",
+      "[backup]tbl_mst_sublocation_amenities",
+      "[backup]tbl_mst_sublocations"
+    ],
+    "dependencies": {},
+    "dependents": [
+      "a7568118-f227-4473-bbbd-1d031b09f5a9"
+    ],
+    "id": "faa4b6b0-d8bf-4d0f-8bc2-dc835ef0b975"
+  }
+}

@@ -1,0 +1,130 @@
+cmp_MD_Bottom_Navigation_3 As CanvasComponent:
+    backgroundColorHex: =defaults.backgroundColorHex
+    elementBackgroundColorHex: =defaults.elementBackgroundColorHex
+    Fill: =RGBA(0, 0, 0, 0)
+    font: =defaults.font
+    fontSize: =defaults.fontSize-4
+    fontWeight: ="Normal"
+    Height: =56
+    iconSize: =24
+    items: |-
+        =Table(
+            {
+                id: 1,
+                title: "Favorites",
+                svgIcon: "<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z'/></svg>",
+                screen: App.ActiveScreen
+            },
+            {
+                id: 2,
+                title: "Music",
+                svgIcon: "<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M12 3V13.55C11.41 13.21 10.73 13 10 13C7.79 13 6 14.79 6 17S7.79 21 10 21 14 19.21 14 17V7H18V3H12Z'/></svg>"
+            },
+            {
+                id: 3,
+                title: "News",
+                svgIcon: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+           <path d='M20 3H4C2.89 3 2 3.89 2 5V19C2 20.11 2.89 21 4 21H20C21.11 21 22 20.11 22 19V5C22 3.89 21.11 3 20 3M5 7H10V13H5V7M19 17H5V15H19V17M19 13H12V11H19V13M19 9H12V7H19V9Z' />
+        </svg>"
+            },
+            {
+                id: 4,
+                title: "Places",
+                svgIcon: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+           <path d='M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z' />
+        </svg>"
+            }
+        )
+    navigate: |-
+        =//set to false if you don't want to navigate to another screen
+        true
+    onSelect: |-
+        =//execute additional code when clicking on an item
+        true
+    primaryColorHex: =defaults.primaryColorHex
+    selectedItem: =gal_Nav_2.Selected.id
+    Width: =App.DesignWidth
+    X: =0
+    Y: =0
+    ZIndex: =12
+
+    "gal_Nav_2 As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver4.0'":
+        Fill: =ColorValue(cmp_MD_Bottom_Navigation_3.primaryColorHex)
+        Height: =Parent.Height
+        Items: =cmp_MD_Bottom_Navigation_3.items
+        TemplatePadding: =0
+        TemplateSize: |
+            =IfError(Parent.Width/CountRows(cmp_MD_Bottom_Navigation_3.items),128)
+        Width: =Parent.Width
+        ZIndex: =1
+
+        con_botNav_2 As groupContainer.verticalAutoLayoutContainer:
+            Height: =Parent.TemplateHeight
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =8
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.TemplateWidth
+            ZIndex: =3
+
+            img_navIcon_2 As image:
+                Height: =cmp_MD_Bottom_Navigation_3.iconSize
+                Image: |-
+                    ="data:image/svg+xml;utf8, " & EncodeUrl(
+                    
+                    Substitute(ThisItem.svgIcon, "<svg ", "<svg fill='"&If(ThisItem.screen=App.ActiveScreen, cmp_MD_Bottom_Navigation_3.backgroundColorHex, cmp_MD_Bottom_Navigation_3.backgroundColorHex&"88")&"' ")
+                    )
+                LayoutMinHeight: =320
+                LayoutMinWidth: =320
+                OnSelect: =
+                Width: =cmp_MD_Bottom_Navigation_3.iconSize
+                ZIndex: =1
+
+            lbl_navTitle_2 As label:
+                Align: =Align.Center
+                AutoHeight: =true
+                Color: |-
+                    =If(
+                        ThisItem.screen = App.ActiveScreen,
+                        ColorValue(cmp_MD_Bottom_Navigation_3.backgroundColorHex),
+                        ColorFade(ColorValue(cmp_MD_Bottom_Navigation_3.backgroundColorHex),-30%)
+                    )
+                Font: =cmp_MD_Bottom_Navigation_3.font
+                FontWeight: =cmp_MD_Bottom_Navigation_3.fontWeight
+                Height: =12
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                OnSelect: =
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =cmp_MD_Bottom_Navigation_3.fontSize
+                Text: =ThisItem.title
+                VerticalAlign: =VerticalAlign.Top
+                Width: =gal_Nav_2.TemplateWidth
+                ZIndex: =2
+
+        btn_navSelect_2 As button:
+            Color: =Color.Transparent
+            Fill: =Color.Transparent
+            FocusedBorderColor: =ColorValue(cmp_MD_Bottom_Navigation_3.backgroundColorHex)
+            FocusedBorderThickness: =0
+            Height: =Parent.TemplateHeight
+            HoverColor: =Color.Transparent
+            HoverFill: =Color.Transparent
+            OnSelect: |-
+                =cmp_MD_Bottom_Navigation_3.onSelect();
+                
+                If(
+                    cmp_MD_Bottom_Navigation_3.navigate,
+                    Navigate(ThisItem.screen)
+                )
+            PressedColor: =Color.Transparent
+            Size: =24
+            Text: =
+            Tooltip: =
+            Width: =Parent.TemplateWidth
+            ZIndex: =4
+

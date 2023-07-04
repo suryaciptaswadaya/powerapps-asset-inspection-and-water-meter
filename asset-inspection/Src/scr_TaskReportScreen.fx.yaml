@@ -1,0 +1,840 @@
+scr_TaskReportScreen As screen:
+    OnVisible: |-
+        =Set(s_TRSComment,First(
+            Filter(
+                tbl_assignment_sublocation_comment,
+                sublocation_id = n_CurrentSublocationRowNumber && assignment_header_id = gal_TSTaskList.Selected.ID
+            )
+        ).comment);
+
+    btn_TRSPreviousSublocation_1 As button:
+        Fill: =RGBA(33, 86, 117, 1)
+        Height: =50
+        OnSelect: =Back();
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="Kembali Ke Kategori"
+        Visible: =(n_CurrentSublocationRowNumber = n_QtySublocation) && n_QtySublocation > 0
+        Width: =300
+        X: =310
+        Y: =1040
+        ZIndex: =1
+
+    lbl_TSRComment As label:
+        Height: =50
+        Size: =18
+        Text: ="Komentar Approval"
+        Visible: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || b_showComment = true,true,false)
+        Width: =591
+        X: =23
+        Y: =800
+        ZIndex: =2
+
+    txi_TRSComment As text:
+        Default: |+
+            =/*First(
+                Filter(
+                    tbl_assignment_sublocation_comment,
+                    sublocation_id = n_CurrentSublocationRowNumber && assignment_header_id = gal_TSTaskList.Selected.ID
+                )
+            ).comment*/
+            
+            /*First(
+                Filter(
+                    tbl_assignment_sublocation_comment,
+                    sublocation_id = First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID
+                )
+            ).comment*/
+            
+            /*
+            First(
+                Filter(
+                    tbl_assignment_sublocation_comment,
+                    sublocation_id = First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID && assignment_header_id = gal_TSTaskList.Selected.ID
+                )
+            ).comment
+            */
+            
+            //If(IsBlank(s_ApproverComment), "", s_ApproverComment)
+            s_ApproverComment
+            
+        DisplayMode: |-
+            =If(
+                First(c_ActiveUserData).is_approver = 1 && (gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)),
+                DisplayMode.Edit,
+                If(
+                    First(c_ActiveUserData).is_approver = 0,
+                    DisplayMode.Disabled,
+                    btn_TRSOK.DisplayMode
+                )
+            )
+        Fill: =RGBA(0, 0, 0, 0)
+        Height: =141
+        HintText: ="Belum ada komentar untuk " &s_SelectedSublocation
+        Mode: =TextMode.MultiLine
+        OnChange: |+
+            =//TextInput1.DisplayMode.Disabled;
+            //btn_TRSNextSublocation.DisplayMode.Disabled;
+            
+            /*Patch(tbl_assignment_sublocation_comment, First(
+                Filter(
+                    tbl_assignment_sublocation_comment,
+                    sublocation_id = n_CurrentSublocationRowNumber && assignment_header_id = gal_TSTaskList.Selected.ID
+                )
+            ), { comment: TextInput1.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID });*/
+            
+            //TextInput1.DisplayMode.Edit;
+            //btn_TRSNextSublocation.DisplayMode.Edit;
+            
+        Size: =18
+        Visible: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || b_showComment = true,true,false)
+        Width: =580
+        X: =30
+        Y: =853
+        ZIndex: =3
+
+    "gal_TRSCheckList As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        BorderColor: =RGBA(202, 202, 202, 1)
+        DelayItemLoading: =true
+        Height: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || b_showComment = true,700,936)
+        Items: =c_AssignmentDetailAmenities
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =151
+        Width: =595
+        X: =22
+        Y: =80
+        ZIndex: =4
+
+        lbl_TRSAmenitiesName As label:
+            FontWeight: =FontWeight.Normal
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: =ThisItem.RowNumber & ". " & ThisItem.amenity_name
+            VerticalAlign: =VerticalAlign.Top
+            Width: =453
+            X: =10
+            Y: =14
+            ZIndex: =1
+
+        Separator1_2 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =0.5
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =143
+            ZIndex: =2
+
+        btn_TRSNeedRepair As button:
+            BorderColor: =Color.Black
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            DisplayMode: =btn_TRSOK.DisplayMode
+            Fill: =If(ThisItem.is_not_ok = 1, Color.LightSkyBlue, Color.Transparent)
+            FontWeight: =FontWeight.Normal
+            Height: =50
+            OnSelect: |-
+                =Select(Parent);
+                //Patch(tbl_assignment_details, First(Filter(tbl_assignment_details, ID = gal_TRSCheckList.Selected.ID)), { is_ok : 0, is_need_repair: 1 });
+                Patch(tbl_assignment_details, { ID : gal_TRSCheckList.Selected.ID }, { is_ok : 0, is_not_ok: 1 });
+                Patch(c_AssignmentDetail, { ID : gal_TRSCheckList.Selected.ID }, { is_ok : 0, is_not_ok: 1 });
+                Patch(c_AssignmentDetailAmenities, { ID : gal_TRSCheckList.Selected.ID }, { is_ok : 0, is_not_ok: 1 });
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =18
+            Text: ="Need Repair"
+            Width: =240
+            X: =330
+            Y: =70
+            ZIndex: =3
+
+        ico_TRSPhotos As icon.Camera:
+            Color: =RGBA(77, 77, 77, 1)
+            Height: =43
+            Icon: =Icon.Camera
+            OnSelect: |
+                =Select(Parent);
+                Set(b_ChangePhotoBefore, false);
+                Set(b_ChangePhotoAfter, false);
+                Set(b_PopupAddPhotos, true);
+            Width: =42
+            X: =495
+            Y: =8
+            ZIndex: =4
+
+        ico_TRSNotes As icon.Note:
+            Color: =RGBA(77, 77, 77, 1)
+            Height: =43
+            Icon: =Icon.Note
+            OnSelect: |
+                =Select(Parent);
+                Set(b_PopupAddNotes, true);
+            Width: =43
+            X: =545
+            Y: =8
+            ZIndex: =5
+
+        btn_TRSOK As button:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderThickness: =1
+            Color: =RGBA(0, 0, 0, 1)
+            DisplayMode: |
+                =/*If(
+                    gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
+                    DisplayMode.View,
+                    DisplayMode.Edit
+                )*/
+                
+                If(
+                   ( gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale)) || gal_TSTaskList.Selected.assigned_pic1_id <> First(c_ActiveUserData).ID,
+                    DisplayMode.View,
+                    DisplayMode.Edit
+                )
+            Fill: =If(ThisItem.is_ok = 1, Color.LightSkyBlue, Color.Transparent)
+            FontWeight: =FontWeight.Normal
+            Height: =50
+            OnSelect: |-
+                =Select(Parent);
+                Patch(tbl_assignment_details, { ID : gal_TRSCheckList.Selected.ID }, { is_ok : 1, is_not_ok: 0 });
+                Patch(c_AssignmentDetail, { ID : gal_TRSCheckList.Selected.ID }, { is_ok : 1, is_not_ok: 0 });
+                Patch(c_AssignmentDetailAmenities, { ID : gal_TRSCheckList.Selected.ID }, { is_ok : 1, is_not_ok: 0 });
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =18
+            Text: ="Ok"
+            Width: =240
+            X: =40
+            Y: =70
+            ZIndex: =6
+
+    btn_TRSPreviousSublocation As button:
+        Fill: =RGBA(33, 86, 117, 1)
+        Height: =50
+        OnSelect: |+
+            =
+            If(First(c_ActiveUserData).is_approver = 1, 
+                Patch(tbl_assignment_sublocation_comment, 
+                First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )
+                ),
+                { comment: txi_TRSComment.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }
+                );
+                Refresh(tbl_assignment_sublocation_comment);
+            
+                Reset(txi_TRSComment);
+            
+                If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment),
+            
+                    Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
+                    Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    //Set(b_showComment,true);
+                    //Notify(s_ApproverComment&"jika tidak blank");
+                ,
+                    Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
+                    Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    //Notify(s_ApproverComment&"jika blank");
+                    //Set(s_ApproverComment, "");
+                    ""
+                    
+                );
+                ,
+                Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
+                Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            
+                Set(s_ApproverComment, First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )).comment);
+            
+                If(!IsBlank(s_ApproverComment),
+                    Set(b_showComment,true),
+                    Set(b_showComment,false)
+                );
+            );
+                
+            //Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
+            //Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            //Notify(First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            /*Reset(txi_TRSComment);
+            
+            If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment),
+                Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+            ,
+                Set(s_ApproverComment, "");
+            );*/
+            
+            ClearCollect(c_TmpAssignmentDetailAmenities, Filter(c_AssignmentDetail, sublocation_id = First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID));
+            //Generate Row Number
+            ClearCollect(
+                c_AssignmentDetailAmenities,
+                ForAll(
+                    Sequence(CountRows(c_TmpAssignmentDetailAmenities)),
+                    Patch(
+                        Last(FirstN(c_TmpAssignmentDetailAmenities, Value)),
+                        { RowNumber : Value }
+                    )
+                )
+            );
+            Clear(c_TmpAssignmentDetailAmenities);
+            Set(s_SelectedSublocation, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).sublocation_name);
+            
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="<< Prev"
+        Visible: =!(n_CurrentSublocationRowNumber = 1 || n_QtySublocation = 0)
+        Width: =180
+        X: =22
+        Y: =1040
+        ZIndex: =5
+
+    btn_TRSNextSublocation As button:
+        Fill: =RGBA(33, 86, 117, 1)
+        Height: =50
+        OnSelect: |+
+            =
+            If(First(c_ActiveUserData).is_approver = 1, 
+                Patch(tbl_assignment_sublocation_comment, 
+                First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )
+                ),
+                { comment: txi_TRSComment.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }
+                );
+                Refresh(tbl_assignment_sublocation_comment);
+            
+                Reset(txi_TRSComment);
+            
+                If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment),
+            
+                    Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
+                    Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    //Set(b_showComment,true);
+                    //Notify(s_ApproverComment&"jika tidak blank");
+                ,
+                    Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
+                    Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    //Notify(s_ApproverComment&"jika blank");
+                    
+                   // Set(s_ApproverComment, "");
+                    
+                );
+                ,
+                Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
+                Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            
+                Set(s_ApproverComment, First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )).comment
+                );
+            
+                If(!IsBlank(s_ApproverComment),
+                    Set(b_showComment,true),
+                    Set(b_showComment,false)
+                );
+                
+            
+            );
+                
+            //Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
+            //Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            //Notify(First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            /*Reset(txi_TRSComment);
+            
+            If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment),
+                Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+            ,
+                Set(s_ApproverComment, "");
+            );*/
+            
+            ClearCollect(c_TmpAssignmentDetailAmenities, Filter(c_AssignmentDetail, sublocation_id = First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID));
+            //Generate Row Number
+            ClearCollect(
+                c_AssignmentDetailAmenities,
+                ForAll(
+                    Sequence(CountRows(c_TmpAssignmentDetailAmenities)),
+                    Patch(
+                        Last(FirstN(c_TmpAssignmentDetailAmenities, Value)),
+                        { RowNumber : Value }
+                    )
+                )
+            );
+            Clear(c_TmpAssignmentDetailAmenities);
+            Set(s_SelectedSublocation, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).sublocation_name);
+            
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="Next >>"
+        Visible: =!(n_CurrentSublocationRowNumber = n_QtySublocation) && n_QtySublocation > 0
+        Width: =180
+        X: =437
+        Y: =1040
+        ZIndex: =6
+
+    grp_TRSAddNotes As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =15
+
+        shp_TRSBackground1 As rectangle:
+            DisabledFill: =shp_TRSBackground1.Fill
+            Fill: =    RGBA(0,0,0,.6)
+            FocusedBorderColor: =shp_TRSBackground1.BorderColor
+            Height: =1136
+            HoverFill: =shp_TRSBackground1.Fill
+            PressedFill: =shp_TRSBackground1.Fill
+            Visible: =b_PopupAddNotes
+            Width: =640
+            ZIndex: =7
+
+        shp_TRSBackground2 As rectangle:
+            DisabledFill: =shp_TRSBackground2.Fill
+            Fill: =Color.White
+            FocusedBorderColor: =shp_TRSBackground2.BorderColor
+            Height: =744
+            HoverFill: =shp_TRSBackground2.Fill
+            PressedFill: =shp_TRSBackground2.Fill
+            Visible: =b_PopupAddNotes
+            Width: =551
+            X: =46
+            Y: =129
+            ZIndex: =8
+
+        lbl_TRSAddNotesHeader As label:
+            FocusedBorderColor: =lbl_TRSAddNotesHeader.BorderColor
+            FontWeight: =FontWeight.Semibold
+            Height: =66
+            HoverBorderColor: =lbl_TRSAddNotesHeader.BorderColor
+            HoverColor: =lbl_TRSAddNotesHeader.Color
+            HoverFill: =lbl_TRSAddNotesHeader.Fill
+            PaddingTop: =10
+            PressedBorderColor: =lbl_TRSAddNotesHeader.BorderColor
+            PressedColor: =lbl_TRSAddNotesHeader.Color
+            PressedFill: =lbl_TRSAddNotesHeader.Fill
+            Size: =21
+            Text: ="Tambahkan Catatan"
+            Visible: =b_PopupAddNotes
+            Width: =369
+            X: =68
+            Y: =138
+            ZIndex: =9
+
+        ico_TRSAddNotesCancel As icon.Cancel:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =39
+            Icon: =Icon.Cancel
+            OnSelect: =Set(b_PopupAddNotes, false)
+            Visible: =b_PopupAddNotes
+            Width: =36
+            X: =548
+            Y: =134
+            ZIndex: =10
+
+        btn_TRSSaveNotes As button:
+            DisplayMode: |-
+                =If(
+                    gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
+                    DisplayMode.Disabled,
+                    DisplayMode.Edit
+                )
+            Fill: =RGBA(33, 86, 117, 1)
+            Height: =48
+            OnSelect: |-
+                =Patch(tbl_assignment_details, First(Filter(tbl_assignment_details, ID = gal_TRSCheckList.Selected.ID)), { notes : txt_TRSNotes.Text, staff_id: cbb_TRSStaff.Selected.ID });
+                Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail, ID = gal_TRSCheckList.Selected.ID)), { notes : txt_TRSNotes.Text, staff_id: cbb_TRSStaff.Selected.ID });
+                Patch(c_AssignmentDetailAmenities, First(Filter(c_AssignmentDetailAmenities, ID = gal_TRSCheckList.Selected.ID)), { notes : txt_TRSNotes.Text, staff_id: cbb_TRSStaff.Selected.ID });
+                Set(b_PopupAddNotes, false);
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =24
+            Text: ="Simpan"
+            Visible: =b_PopupAddNotes
+            Width: =158
+            X: =398
+            Y: =788
+            ZIndex: =12
+
+        txt_TRSNotes As text:
+            Default: =gal_TRSCheckList.Selected.notes
+            DisplayMode: =btn_TRSOK.DisplayMode
+            Height: =404
+            Mode: =TextMode.MultiLine
+            Size: =21
+            Tooltip: =
+            Visible: =b_PopupAddNotes
+            Width: =507
+            X: =68
+            Y: =337
+            ZIndex: =13
+
+        cbb_TRSStaff As combobox:
+            ChevronBackground: =RGBA(33, 86, 117, 1)
+            DefaultSelectedItems: =First(Filter(c_AllEmployee, ID = gal_TRSCheckList.Selected.staff_id))
+            DisplayFields: =["name"]
+            DisplayMode: =btn_TRSOK.DisplayMode
+            Height: =70
+            IsSearchable: =false
+            Items: =c_AllEmployeeCoworkers
+            NoSelectionText: ="PIC"
+            SearchFields: =["name"]
+            SearchItems: =[]
+            SelectMultiple: =false
+            Size: =21
+            Visible: =b_PopupAddNotes
+            Width: =507
+            X: =68
+            Y: =236
+            ZIndex: =14
+
+    cmp_TRSAppBar_top_3 As cmp_MD_AppBar_top:
+        onSelectIcon1: =Back();
+        onSelectIcon2: =Navigate(scr_NotificationScreen);
+        svgIcon1: |-
+            ="<svg width='11px' height='20px' viewBox='0 0 11 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+                <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+                <title>arrow_back_ios</title>
+                <desc>Created with Sketch.</desc>
+                <g id='Icons' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
+                    <g id='Rounded' transform='translate(-548.000000, -3434.000000)'>
+                        <g id='Navigation' transform='translate(100.000000, 3378.000000)'>
+                            <g id='-Round-/-Navigation-/-arrow_back_ios' transform='translate(442.000000, 54.000000)'>
+                                <g>
+                                    <polygon id='Path' opacity='0.87' points='0 0 24 0 24 24 0 24'></polygon>
+                                    <path d='M16.62,2.99 C16.13,2.5 15.34,2.5 14.85,2.99 L6.54,11.3 C6.15,11.69 6.15,12.32 6.54,12.71 L14.85,21.02 C15.34,21.51 16.13,21.51 16.62,21.02 C17.11,20.53 17.11,19.74 16.62,19.25 L9.38,12 L16.63,4.75 C17.11,4.27 17.11,3.47 16.62,2.99 Z' id='🔹-Icon-Color' fill='#ffff'></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>"
+        svgIcon2: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21'/></svg>"
+        svgIcon3: =""
+        svgIcon4: =""
+        titleText: =s_SelectedSublocation //&" " &n_CurrentSublocationID
+        tooltipIcon1: ="Kembali"
+        tooltipIcon2: ="Notifikasi"
+        tooltipIcon3: =""
+        tooltipIcon4: =""
+        ZIndex: =26
+
+    btn_TRSHiddenInput As button:
+        Height: =70
+        OnSelect: |-
+            =/*If(First(c_ActiveUserData).is_approver = 1, 
+                Patch(tbl_assignment_sublocation_comment, First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationRowNumber && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )
+                ), { comment: TextInput1.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }),
+                ""
+                );*/
+            
+            /*Notify(TextInput1.Text);
+            If(First(c_ActiveUserData).is_approver = 1, 
+                Patch(tbl_assignment_sublocation_comment, First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID
+                    )
+                ), { comment: TextInput1.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }),
+                ""
+                );*/
+            
+               
+        Size: =24
+        Text: ="Button"
+        Visible: =false
+        Width: =280
+        X: =24
+        Y: =695
+        ZIndex: =27
+
+    lbl_TRSDate As label:
+        Height: =70
+        Size: =21
+        Text: |-
+            ="Tanggal:"
+        Visible: =b_NSDetailNotification
+        Width: =450
+        X: =103
+        Y: =278
+        ZIndex: =28
+
+    grp_TRSAddPhotos As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =28
+
+        shp_TRSBackground1_1 As rectangle:
+            DisabledFill: =shp_TRSBackground1_1.Fill
+            Fill: =    RGBA(0,0,0,.6)
+            FocusedBorderColor: =shp_TRSBackground1_1.BorderColor
+            Height: =1136
+            HoverFill: =shp_TRSBackground1_1.Fill
+            PressedFill: =shp_TRSBackground1_1.Fill
+            Visible: =b_PopupAddPhotos
+            Width: =640
+            ZIndex: =15
+
+        shp_TRSBackground2_1 As rectangle:
+            DisabledFill: =shp_TRSBackground2_1.Fill
+            Fill: =Color.White
+            FocusedBorderColor: =shp_TRSBackground2_1.BorderColor
+            Height: =903
+            HoverFill: =shp_TRSBackground2_1.Fill
+            PressedFill: =shp_TRSBackground2_1.Fill
+            Visible: =b_PopupAddPhotos
+            Width: =551
+            X: =44
+            Y: =106
+            ZIndex: =16
+
+        lbl_TRSAddPhotosHeader As label:
+            FocusedBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
+            FontWeight: =FontWeight.Semibold
+            Height: =57
+            HoverBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
+            HoverColor: =lbl_TRSAddPhotosHeader.Color
+            HoverFill: =lbl_TRSAddPhotosHeader.Fill
+            PaddingTop: =10
+            PressedBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
+            PressedColor: =lbl_TRSAddPhotosHeader.Color
+            PressedFill: =lbl_TRSAddPhotosHeader.Fill
+            Size: =21
+            Text: ="Tambahkan Foto"
+            Visible: =b_PopupAddPhotos
+            Width: =326
+            X: =65
+            Y: =120
+            ZIndex: =17
+
+        ico_TRSAddPhotoCancel As icon.Cancel:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =39
+            Icon: =Icon.Cancel
+            OnSelect: =Set(b_PopupAddPhotos, false)
+            Visible: =b_PopupAddPhotos
+            Width: =36
+            X: =546
+            Y: =112
+            ZIndex: =18
+
+        btn_TRSSavePhotos As button:
+            DisplayMode: |-
+                =If(
+                    gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
+                    DisplayMode.Disabled,
+                    DisplayMode.Edit
+                )
+            Fill: =RGBA(33, 86, 117, 1)
+            Height: =48
+            OnSelect: |-
+                =Set(d_TimestampforPhoto,Text(Now(),"[$-en-US]yymmddhhmmss"));
+                
+                //Save Before Photo
+                If(b_ChangePhotoBefore,
+                    Set(BinaryImageDataBefore, Substitute(JSON(img_TRSPhotoBefore.Image, JSONFormat.IncludeBinaryData),"",""));
+                    Set(s_Base64ContentBefore, Mid(BinaryImageDataBefore, Find(",", BinaryImageDataBefore) + 1, Len(BinaryImageDataBefore) - Find(",", BinaryImageDataBefore) - 1));
+                    Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, "-0.jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
+                    Set(s_ImageLinkBefore, v_UploadResultBefore.sharepointfilelink);
+                    Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id));
+                    Patch(tbl_assignment_details, First(Filter(tbl_assignment_details, ID = gal_TRSCheckList.Selected.ID)), { url_photo_before : s_ImageLinkBefore, photo_before_id : n_ImageIDBefore });
+                    Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail, ID = gal_TRSCheckList.Selected.ID)), { url_photo_before : s_ImageLinkBefore, photo_before_id : n_ImageIDBefore });
+                    Patch(c_AssignmentDetailAmenities, First(Filter(c_AssignmentDetailAmenities, ID = gal_TRSCheckList.Selected.ID)), { url_photo_before : s_ImageLinkBefore, photo_before_id : n_ImageIDBefore });
+                );
+                
+                //Save After Photo
+                If(b_ChangePhotoAfter,
+                    Set(BinaryImageDataAfter, Substitute(JSON(img_TRSPhotoAfter.Image, JSONFormat.IncludeBinaryData),"",""));
+                    Set(s_Base64ContentAfter, Mid(BinaryImageDataAfter, Find(",", BinaryImageDataAfter) + 1, Len(BinaryImageDataAfter) - Find(",", BinaryImageDataAfter) - 1));
+                    Set(v_UploadResultAfter, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, "-1.jpg"), s_Base64ContentAfter, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
+                    Set(s_ImageLinkAfter, v_UploadResultAfter.sharepointfilelink);
+                    Set(n_ImageIDAfter, Value(v_UploadResultAfter.img_id));
+                    Patch(tbl_assignment_details, First(Filter(tbl_assignment_details, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
+                    Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
+                    Patch(c_AssignmentDetailAmenities, First(Filter(c_AssignmentDetailAmenities, ID = gal_TRSCheckList.Selected.ID)), { url_photo_after : s_ImageLinkAfter, photo_after_id : n_ImageIDAfter });
+                );
+                
+                Set(b_PopupAddPhotos, false);
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =18
+            Text: ="Simpan"
+            Visible: =b_PopupAddPhotos
+            Width: =158
+            X: =398
+            Y: =921
+            ZIndex: =19
+
+        lbl_TRSBeforePhotos As label:
+            Height: =73
+            Size: =18
+            Text: |-
+                ="Foto Kondisi Awal :"
+            Visible: =b_PopupAddPhotos
+            Width: =438
+            X: =80
+            Y: =190
+            ZIndex: =20
+
+        lbl_TRSAfterPhotos As label:
+            Height: =62
+            Size: =18
+            Text: |-
+                ="Foto Setelah Perbaikan (Jika Ada) :"
+            Visible: =b_PopupAddPhotos
+            Width: =476
+            X: =80
+            Y: =542
+            ZIndex: =21
+
+        img_TRSPhotoBefore As image:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            BorderThickness: =1
+            Height: =260
+            Image: |-
+                =If(IsBlankOrError(gal_TRSCheckList.Selected.photo_before_id), 
+                    If(b_ChangePhotoBefore,
+                        med_TRSPhotoBefore.Media
+                    ,
+                        SampleImage
+                    )
+                ,
+                    If(b_ChangePhotoBefore,
+                        med_TRSPhotoBefore.Media
+                    ,
+                        LookUp(gal_progress_photos, ID = gal_TRSCheckList.Selected.photo_before_id, Thumbnail.Large)
+                    )
+                )
+            ImagePosition: =ImagePosition.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Visible: =b_PopupAddPhotos
+            Width: =469
+            X: =86
+            Y: =257
+            ZIndex: =22
+
+        med_TRSPhotoBefore As addMedia:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            ChangePictureText: |-
+                =If(IsBlankOrError(gal_TRSCheckList.Selected.photo_before_id), 
+                    If(!b_ChangePhotoBefore,
+                        "Tap or click to add a picture","Change Picture"
+                    )
+                    ,
+                    "Change Picture"
+                )
+            DisplayMode: =btn_TRSOK.DisplayMode
+            Height: =260
+            OnChange: =Set(b_ChangePhotoBefore, true);
+            Size: =25
+            Text: |-
+                =If(!b_ChangePhotoBefore,
+                    "Tap or click to add a picture","Change Picture"
+                )
+                    
+            Visible: =b_PopupAddPhotos
+            Width: =469
+            X: =86
+            Y: =257
+            ZIndex: =23
+
+        img_TRSPhotoAfter As image:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            BorderThickness: =1
+            Height: =260
+            Image: |-
+                =If(IsBlankOrError(gal_TRSCheckList.Selected.photo_after_id), 
+                    If(b_ChangePhotoAfter,
+                        med_TRSPhotoAfter.Media
+                    ,
+                        SampleImage
+                    )
+                ,
+                    If(b_ChangePhotoAfter,
+                        med_TRSPhotoAfter.Media
+                    ,
+                        LookUp(gal_progress_photos, ID = gal_TRSCheckList.Selected.photo_after_id, Thumbnail.Large)
+                    )
+                )
+            ImagePosition: =ImagePosition.Fill
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Visible: =b_PopupAddPhotos
+            Width: =469
+            X: =86
+            Y: =603
+            ZIndex: =24
+
+        med_TRSPhotoAfter As addMedia:
+            BorderColor: =RGBA(128, 128, 128, 1)
+            ChangePictureText: |-
+                =If(IsBlankOrError(gal_TRSCheckList.Selected.photo_after_id), 
+                    If(!b_ChangePhotoAfter,
+                        "Tap or click to add a picture","Change Picture"
+                    )
+                    ,
+                    "Change Picture"
+                )
+            DisplayMode: =btn_TRSOK.DisplayMode
+            Height: =260
+            OnChange: =Set(b_ChangePhotoAfter, true);
+            Size: =25
+            Text: |
+                =If(!b_ChangePhotoAfter,
+                    "Tap or click to add a picture","Change Picture"
+                )
+                    
+                    
+            Visible: =b_PopupAddPhotos
+            Width: =460
+            X: =86
+            Y: =603
+            ZIndex: =25
+

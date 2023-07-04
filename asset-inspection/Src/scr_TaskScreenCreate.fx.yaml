@@ -1,0 +1,798 @@
+scr_TaskScreenCreate As screen:
+    OnVisible: |
+        =Reset(dtp_TSC_StartTask);
+        Reset(dtp_TSC_EndTask);
+        Reset(cbb_TSC_Location);
+        
+        
+        //Select(gal_TSC_PICList);
+           
+        
+        ClearCollect(
+            c_TSC_TempLocation,
+            Blank()
+        );
+        Set(
+            b_TSC_DisableButton,
+            false
+        );
+        
+        Clear(c_FlowPICDepartment);
+        Clear(c_AssignmentCode);
+        
+        ForAll(
+            c_AllFlowProcess,
+            Collect(
+                c_FlowPICDepartment,
+                {
+                    labelName: department_name,
+                    departmentID: department_id,
+                    picID: Value(""),
+                    email: Text(""),
+                    spvID: Value(""),
+                    processID: c_AllFlowProcess[@process_id],
+                    sequenceNumber: c_AllFlowProcess[@sequence_number]
+                }
+            )
+        );
+
+    cmp_TSC_TopNavigation As cmp_MD_AppBar_top:
+        onSelectIcon1: |-
+            =UpdateContext({varTSCReset:true});
+            UpdateContext({varTSCReset:false});
+            
+            Navigate(scr_TaskScreenView,ScreenTransition.UnCoverRight);
+        onSelectIcon2: =Navigate(scr_NotificationScreen)
+        svgIcon1: |-
+            ="<svg width='11px' height='20px' viewBox='0 0 11 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+                <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+                <title>arrow_back_ios</title>
+                <desc>Created with Sketch.</desc>
+                <g id='Icons' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
+                    <g id='Rounded' transform='translate(-548.000000, -3434.000000)'>
+                        <g id='Navigation' transform='translate(100.000000, 3378.000000)'>
+                            <g id='-Round-/-Navigation-/-arrow_back_ios' transform='translate(442.000000, 54.000000)'>
+                                <g>
+                                    <polygon id='Path' opacity='0.87' points='0 0 24 0 24 24 0 24'></polygon>
+                                    <path d='M16.62,2.99 C16.13,2.5 15.34,2.5 14.85,2.99 L6.54,11.3 C6.15,11.69 6.15,12.32 6.54,12.71 L14.85,21.02 C15.34,21.51 16.13,21.51 16.62,21.02 C17.11,20.53 17.11,19.74 16.62,19.25 L9.38,12 L16.63,4.75 C17.11,4.27 17.11,3.47 16.62,2.99 Z' id='🔹-Icon-Color' fill='#ffff'></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>"
+        svgIcon2: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21'/></svg>"
+        svgIcon3: =""
+        svgIcon4: =""
+        titleText: ="Buat Tugas"
+        tooltipIcon1: =""
+        tooltipIcon2: ="Notifikasi"
+        tooltipIcon3: =""
+        tooltipIcon4: =""
+        ZIndex: =1
+
+    dtp_TSC_StartTask As datepicker:
+        BorderColor: =defaults.borderColor
+        BorderThickness: =defaults.inputBorderThickness
+        CalendarHeaderFill: =defaults.primaryColor
+        DayColor: =defaults.primaryColor
+        DefaultDate: =d_TSV_Date
+        DisabledBorderColor: =defaults.disabledColor
+        DisabledColor: =defaults.disabledColor
+        DisabledFill: =defaults.elementBackgroundColor
+        Fill: =defaults.inputFill
+        FocusedBorderThickness: =2
+        Font: =defaults.font
+        Format: ="dd-mmm-yyyy"
+        Height: =50
+        HoverDateFill: =ColorValue(defaults.primaryColorTransparentHex)
+        IconBackground: =Self.Fill
+        IconFill: =defaults.primaryColor
+        InputTextPlaceholder: ="Tanggal Mulai"
+        MonthColor: =defaults.primaryColor
+        OnChange: =Set(d_TSV_Date, dtp_TSC_StartTask.SelectedDate)
+        PaddingBottom: =9
+        PaddingLeft: =10
+        PaddingTop: =5
+        SelectedDateFill: =defaults.primaryColor
+        Size: =18
+        WeekColor: =defaults.primaryColor
+        Width: =250
+        X: =35
+        Y: =91
+        ZIndex: =2
+
+    dtp_TSC_EndTask As datepicker:
+        BorderColor: =defaults.borderColor
+        BorderThickness: =defaults.inputBorderThickness
+        CalendarHeaderFill: =defaults.primaryColor
+        Color: =defaults.textColor
+        DayColor: =defaults.primaryColor
+        DefaultDate: =d_TSV_Date
+        DisabledBorderColor: =defaults.disabledColor
+        DisabledColor: =defaults.disabledColor
+        DisabledFill: =defaults.elementBackgroundColor
+        Fill: =defaults.inputFill
+        FocusedBorderThickness: =2
+        Font: =defaults.font
+        Format: ="dd-mmm-yyyy"
+        Height: =50
+        HoverDateFill: =ColorValue(defaults.primaryColorTransparentHex)
+        IconBackground: =Self.Fill
+        IconFill: =defaults.primaryColor
+        InputTextPlaceholder: ="Tanggal Selesai"
+        MonthColor: =defaults.primaryColor
+        OnChange: =//Set(d_TSV_Date, dtp_TSC_EndTask.SelectedDate)
+        PaddingBottom: =9
+        PaddingLeft: =10
+        PaddingTop: =5
+        SelectedDateFill: =defaults.primaryColor
+        Size: =18
+        WeekColor: =defaults.primaryColor
+        Width: =250
+        X: =352
+        Y: =91
+        ZIndex: =3
+
+    icn_TSC_Line As icon.HorizontalLine:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Height: =55
+        Icon: =Icon.HorizontalLine
+        Width: =43
+        X: =296.5
+        Y: =91
+        ZIndex: =4
+
+    BACKUP_cbb_TSC_EmployeeEngineering As combobox:
+        ChevronBackground: =RGBA(33, 86, 117, 1)
+        DisplayFields: =["name"]
+        Height: =65
+        InputTextPlaceholder: ="Pilih "& First(c_ActiveUserData).department_name
+        IsSearchable: =false
+        Items: =c_AllEmployeeCoworkers
+        SearchFields: =["name"]
+        SearchItems: =[]
+        SelectMultiple: =false
+        Size: =21
+        Visible: =false
+        Width: =567
+        X: =35
+        Y: =183
+        ZIndex: =5
+
+    cmp_TSC_InputFrame As cmp_MD_GenericInputFrame:
+        errorText: =""
+        Height: =324
+        helperText: ="Lokasi Penugasan Bisa Lebih dari 1"
+        labelText: ="Lokasi Penugasan"
+        showErrors: =false
+        Width: =606
+        X: =16.5
+        Y: =305
+        ZIndex: =6
+
+    cbb_TSC_Location As combobox:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        ChevronBackground: =RGBA(12, 36, 47, 1)
+        DisplayFields: =["location_name"]
+        Height: =50
+        InputTextPlaceholder: ="Pilih Lokasi"
+        Items: =c_AllLocation
+        SearchFields: =["location_name"]
+        SearchItems: =Search(c_AllLocation,cbb_TSC_Location.SearchText,"location_name")
+        SelectMultiple: =false
+        Size: =18
+        Width: =396
+        X: =46
+        Y: =348
+        ZIndex: =7
+
+    btn_TSC_AddLocation As cmp_MD_Button:
+        boxShadow: =false
+        buttonText: ="Tambah"
+        fontSize: |
+            =18
+        onSelect: |
+            =Set(
+                b_TSC_Assign,
+                true
+            );
+            If(
+                IsBlank(cbb_TSC_Location.Selected),
+                Set(
+                    b_TSC_Snackbar,
+                    !b_TSC_Snackbar
+                );
+                Set(
+                    s_TSC_TextSnackBar,
+                    "Kamar Tidak Boleh Kosong"
+                );
+                Set(
+                    b_TSC_Assign,
+                    false
+                )
+            );
+            If(CountRows(Filter(c_TSC_TempLocation, LocationID = cbb_TSC_Location.Selected.ID))>0,
+               Set(
+                    b_TSC_Snackbar,
+                    !b_TSC_Snackbar
+                );
+                Set(
+                    s_TSC_TextSnackBar,
+                    "Kamar Sudah Dipilih"
+                );
+                Set(
+                    b_TSC_Assign,
+                    false
+                );
+            );
+            If(
+                b_TSC_Assign,
+                Collect(
+                    c_TSC_TempLocation,
+                    {
+                        LocationID: cbb_TSC_Location.Selected.ID,
+                        LocationName: cbb_TSC_Location.Selected.location_name,
+                        LocationType: cbb_TSC_Location.Selected.location_type_id
+                    }
+                )
+            );
+        svgIcon: =""
+        Width: =174
+        X: =432
+        Y: =328
+        ZIndex: =8
+
+    "gal_TSC_LocationList As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        DelayItemLoading: =true
+        Height: =172
+        Items: =c_TSC_TempLocation
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =60
+        Width: =543
+        X: =47
+        Y: =413
+        ZIndex: =9
+
+        spr_TSC_LocationName As rectangle:
+            Fill: =RGBA(56, 96, 178, 0.28)
+            Height: =48
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            ZIndex: =5
+
+        lbl_TSC_LocationName As label:
+            Height: =48
+            OnSelect: =Select(Parent)
+            Size: =18
+            Text: =ThisItem.LocationName
+            Width: =296
+            ZIndex: =8
+
+        Icon1 As icon.Cancel:
+            Height: =21
+            Icon: =Icon.Cancel
+            OnSelect: =Remove(c_TSC_TempLocation,LookUp(c_TSC_TempLocation, LocationID = ThisItem.LocationID));
+            Width: =27
+            X: =509
+            Y: =5
+            ZIndex: =9
+
+    icn_TSC_EmptyState As icon.Information:
+        Color: =RGBA(0, 0, 0, 1)
+        Icon: =Icon.Information
+        Visible: |-
+            =If(CountRows(c_TSC_TempLocation) = 0 ,
+                true,
+                false
+            )
+        Width: =75
+        X: =281
+        Y: =450
+        ZIndex: =10
+
+    lbl_TSC_EmptyState As label:
+        Align: =Align.Center
+        Height: =74
+        Size: =16
+        Text: ="Belum Ada Lokasi Penugasan"
+        Visible: |-
+            =If(CountRows(c_TSC_TempLocation) = 0 ,
+                true,
+                false
+            )
+        Width: =380
+        X: =130
+        Y: =503
+        ZIndex: =11
+
+    btn_TSC_Save As cmp_MD_Button_2:
+        buttonText: ="Simpan"
+        displayMode: =If(b_TSC_DisableButton, DisplayMode.Disabled, DisplayMode.Edit)
+        onSelect: |
+            =Clear(c_TSC_TempLocationAssigned);
+            Set(b_Continue, true);
+            
+            If(IsBlank(cbb_TSC_PICDepartment.Selected),
+                Set(b_TSC_Snackbar, !b_TSC_Snackbar);
+                Set(s_TSC_TextSnackBar, "Pastikan Semua PIC Sudah Terpilih");
+                Set(b_Continue, false);
+            );
+            
+            If(Or(IsBlank(dtp_TSC_StartTask.SelectedDate), IsBlank(dtp_TSC_EndTask.SelectedDate)),
+                Set(b_TSC_Snackbar, !b_TSC_Snackbar);
+                Set(s_TSC_TextSnackBar, "Tanggal Tidak Boleh Kosong");
+                Set(b_Continue, false);
+            );
+            
+            If(Or(dtp_TSC_StartTask.SelectedDate < Today(), dtp_TSC_EndTask.SelectedDate < Today()),
+                Set(b_TSC_Snackbar, !b_TSC_Snackbar);
+                Set(s_TSC_TextSnackBar, "Tanggal Penugasan Tidak Boleh Back Date");
+                Set(b_Continue, false);
+            );
+            
+            If(dtp_TSC_StartTask.SelectedDate >  dtp_TSC_EndTask.SelectedDate,
+                Set(b_TSC_Snackbar, !b_TSC_Snackbar);
+                Set(s_TSC_TextSnackBar, "Periksa kembali tanggal mulai dan tanggal selesainya");
+                Set(b_Continue, false);
+            );
+            
+            If(CountRows(c_TSC_TempLocation) = 0,
+                Set(b_TSC_Snackbar, !b_TSC_Snackbar);
+                Set(s_TSC_TextSnackBar, "Pilih Lokasi Penugasan");
+                Set(b_Continue, false);
+            );
+            
+            ForAll(c_TSC_TempLocation,
+            If(
+                CountRows(
+                    Filter(tbl_assignment_headers, location_id  = c_TSC_TempLocation[@LocationID],start_date = dtp_TSC_StartTask.SelectedDate)) > 0,
+                    Collect(c_TSC_TempLocationAssigned,{
+                        location_name:c_TSC_TempLocation[@LocationID]
+                    }) 
+            
+            ));
+            
+            If(
+                CountRows(c_TSC_TempLocationAssigned) > 0,
+                Set(b_TSC_Snackbar, !b_TSC_Snackbar);
+                Set(s_TSC_TextSnackBar, "Lokasi Penugasan sudah ada pada tanggal tersebut");
+                Set(b_Continue, false);
+            );
+            
+            
+            If(b_Continue,
+                Set(b_TSC_DisableButton, true);
+                Set(s_AssignmentCode,Text(Now(),"[$-en-US]yymmddhhmmss"));
+                ForAll(c_TSC_TempLocation,Collect(c_AssignmentCode,s_AssignmentCode&"-"&Substitute(LocationName," ","")));
+            
+                ForAll(
+                    c_FlowPICDepartment,
+                    ForAll(
+                        c_TSC_TempLocation,
+                        Patch(
+                            tbl_assignment_headers,
+                            Defaults(tbl_assignment_headers),
+                            {
+                                entity_id: n_EntityID,
+                                location_id: c_TSC_TempLocation[@LocationID],
+                                assignment_date: Now(),
+                                assignment_code: s_AssignmentCode&"-"&Substitute(LocationName," ",""),
+                                start_date: dtp_TSC_StartTask.SelectedDate,
+                                end_date:dtp_TSC_EndTask.SelectedDate,
+                                assigned_pic1_id: c_FlowPICDepartment[@picID],
+                                department_id: c_FlowPICDepartment[@departmentID],
+                                spv_id: c_FlowPICDepartment[@spvID],
+                                status_code:  If(c_FlowPICDepartment[@sequenceNumber] = 1, n_NotStarted, n_NotStarted),
+                                process_id: c_FlowPICDepartment[@processID],
+                                sequence_number: c_FlowPICDepartment[@sequenceNumber],
+                                is_ready_to_start: If(c_FlowPICDepartment[@sequenceNumber] = 1, 1, 0),
+                                location_type_id:c_TSC_TempLocation[@LocationType]
+                            }
+                        );
+                        //If(c_FlowPICDepartment[@departmentID] = n_DepartmentID,
+                        Patch(
+                            c_Task,
+                            Defaults(c_Task),
+                            {
+                                entity_id: n_EntityID,
+                                location_id: c_TSC_TempLocation[@LocationID],
+                                department_name: First(Filter(c_AllDepartment,ID = c_FlowPICDepartment[@departmentID])).department_name,
+                                assignment_date: Now(),
+                                assignment_code: s_AssignmentCode&"-"&Substitute(LocationName," ",""),
+                                start_date: dtp_TSC_StartTask.SelectedDate,
+                                end_date: dtp_TSC_EndTask.SelectedDate,
+                                assigned_pic1_id: c_FlowPICDepartment[@picID],
+                                department_id: c_FlowPICDepartment[@departmentID],
+                                spv_id: c_FlowPICDepartment[@spvID],
+                                status_code: If(c_FlowPICDepartment[@sequenceNumber] = 1, n_NotStarted, Text(n_NotStarted)),
+                                location_name: c_TSC_TempLocation[@LocationName],
+                                status_name: If(c_FlowPICDepartment[@sequenceNumber] = 1, First(Filter(c_AllStatus,Value(status_code) = n_NotStarted)).status_name,First(Filter(c_AllStatus,status_code = Text(n_NotStarted))).status_name),
+                                status_color: If(c_FlowPICDepartment[@sequenceNumber] = 1, First(Filter(c_AllStatus,Value(status_code) = n_NotStarted)).hex_color,First(Filter(c_AllStatus,status_code = Text(n_NotStarted))).hex_color),
+                                process_id: c_FlowPICDepartment[@processID],
+                                sequence_number: c_FlowPICDepartment[@sequenceNumber],
+                                is_ready_to_start: If(c_FlowPICDepartment[@sequenceNumber] = 1, 1, 0),
+                                location_type_id:c_TSC_TempLocation[@LocationType]
+                            }
+                        );
+                        //);
+                        /*Patch(tbl_notification_list, Defaults(tbl_notification_list),
+                        {
+                            employee_id: c_FlowPICDepartment[@picID],
+                            notification_preview: "Tugas baru telah dibuat untuk : " & c_TSC_TempLocation[@LocationName],
+                            notification_content: "Tugas baru telah dibuat untuk : " & c_TSC_TempLocation[@LocationName] & " di tanggal " & Text(dtp_TSC_StartTask.SelectedDate, "dd-mmm-yyyy") & " oleh " & First(c_ActiveUserData).email,
+                            notification_date: Now(),
+                            is_read: 0
+                        });*/
+            
+                    If(c_FlowPICDepartment[@sequenceNumber] = 1, 
+                    Patch(tbl_notification_list, Defaults(tbl_notification_list),
+                        {
+                            employee_id: c_FlowPICDepartment[@picID],
+                            notification_preview: "Tugas Baru - Preventive Maintenance " & c_TSC_TempLocation[@LocationName],
+                            notification_content: "Tugas Baru - Preventive Maintenance " & c_TSC_TempLocation[@LocationName] & " untuk tanggal " & Text(dtp_TSC_StartTask.SelectedDate, "dd-mmm-yyyy") & " telah ditugaskan oleh " & First(c_ActiveUserData).email,
+                            notification_date: Now(),
+                            is_read: 0
+                        });
+            
+                        '[DEV]AssetMaintenance-SendPushNotification'.Run(c_FlowPICDepartment[@email], "Tugas Baru - Preventive Maintenance Lokasi " &  c_TSC_TempLocation[@LocationName]);
+                    );
+            
+                        
+            
+                        Patch(tbl_transaction_log, Defaults(tbl_transaction_log),
+                        {
+                            assignment_code: s_AssignmentCode&"-"&Substitute(LocationName," ",""),
+                            log: "Tugas baru telah dibuat untuk : " & c_TSC_TempLocation[@LocationName] & " di tanggal " & Text(dtp_TSC_StartTask.SelectedDate, "dd-mmm-yyyy") & " oleh " & First(c_ActiveUserData).email,
+                            user_id: n_UserID,
+                            log_date: Now()
+                        });
+                    )
+                );
+                
+                Refresh(tbl_assignment_headers);
+                ClearCollect(
+                    c_NewInsertedTask,
+                    LastN(
+                        Filter(tbl_assignment_headers, assignment_code in c_AssignmentCode),
+                        CountRows(c_FlowPICDepartment) * CountRows(c_TSC_TempLocation)
+                    )
+                );
+                ForAll(
+                    c_NewInsertedTask,
+                    ForAll(
+                        /*Filter(
+                            c_AllSublocationAmenities,
+                            location_id = c_NewInsertedTask[@location_id] && department_id = c_NewInsertedTask[@department_id]
+                        )*/
+                        Filter(
+                            c_AllSublocationAmenities,
+                            location_type_id = c_NewInsertedTask[@location_type_id] && department_id = c_NewInsertedTask[@department_id]
+                        ),
+                        Patch(
+                            tbl_assignment_details,
+                            Defaults(tbl_assignment_details),
+                            {
+                                assignment_header_id: c_NewInsertedTask[@ID],
+                                //location_id:c_NewInsertedTask[@location_id],
+                                location_type_id:c_NewInsertedTask[@location_type_id],
+                                sublocation_id: sublocation_id,
+                                amenity_id:ID,
+                                department_id: c_NewInsertedTask[@department_id] 
+                            }
+                        )
+                    );
+                    ForAll(
+                        /*Filter(
+                            c_AllSublocation,
+                            location_id = c_NewInsertedTask[@location_id]
+                        ),*/
+                        Filter(
+                            c_AllSublocation,
+                            location_type_id = c_NewInsertedTask[@location_type_id]
+                        ),
+                        Patch(
+                            tbl_assignment_sublocation_comment,
+                            Defaults(tbl_assignment_sublocation_comment),
+                            {
+                                assignment_header_id: c_NewInsertedTask[@ID],
+                                sublocation_id: ID
+                            }
+                        )
+                    );
+                );
+            
+                
+                UpdateContext({varTSCReset:true});
+                UpdateContext({varTSCReset:false});
+                
+                Set(b_TSV_showPopUp, true);
+                Set(s_TSV_TextPopUp, "Penugasan Berhasil Disimpan");
+                Navigate(scr_TaskScreenView, ScreenTransition.UnCoverRight);
+            );
+        svgIcon: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z'/></svg>"
+        Width: =606
+        X: =17
+        Y: =685
+        ZIndex: =12
+
+    cmp_TSC_Snackbar As cmp_MD_Snackbar_1:
+        actionOnSelect: =Set(b_TSC_Snackbar, false)
+        actionText: ="Close"
+        backgroundColorHex: =defaults.secondaryColorHex
+        borderRadius: =10
+        boxShadow: =false
+        Height: =180
+        onHide: =Set(b_TSC_Snackbar, false)
+        outsideMargin: =50
+        text: =s_TSC_TextSnackBar
+        textColorHex: |-
+            ="#FFFFFF"
+        timerStart: =b_TSC_Snackbar
+        Visible: =b_TSC_Snackbar
+        Width: =Parent.Width
+        Y: =939
+        ZIndex: =13
+
+    BACKUP_btn_TSC_Save As cmp_MD_Button_2:
+        buttonText: ="Simpan"
+        displayMode: =If(b_TSC_DisableButton, DisplayMode.Disabled, DisplayMode.Edit)
+        Height: =101
+        onSelect: |
+            =Set(
+                b_TSC_Save,
+                true
+            );
+            If(
+                IsBlank(BACKUP_cbb_TSC_EmployeeEngineering.Selected),
+                Set(
+                    b_TSC_Snackbar,
+                    !b_TSC_Snackbar
+                );
+                Set(
+                    s_TSC_TextSnackBar,
+                    "Petugas Engineering Tidak Boleh Kosong"
+                );
+                Set(
+                    b_TSC_Save,
+                    false
+                )
+            );
+            If(
+                Or(
+                    IsBlank(dtp_TSC_StartTask.SelectedDate),
+                    IsBlank(dtp_TSC_EndTask.SelectedDate)
+                ),
+                Set(
+                    b_TSC_Snackbar,
+                    !b_TSC_Snackbar
+                );
+                Set(
+                    s_TSC_TextSnackBar,
+                    "Tanggal Tidak Boleh Kosong"
+                );
+                Set(
+                    b_TSC_Save,
+                    false
+                )
+            );
+            If(
+                CountRows(c_TSC_TempLocation) = 0,
+                Set(
+                    b_TSC_Snackbar,
+                    !b_TSC_Snackbar
+                );
+                Set(
+                    s_TSC_TextSnackBar,
+                    "Pilih Lokasi Penugasan"
+                );
+                Set(
+                    b_TSC_Save,
+                    false
+                )
+            );
+            If(
+                b_TSC_Save,
+                Set(
+                    b_TSC_DisableButton,
+                    true
+                );
+                Set(
+                    CountDaysTask,
+                    If(
+                        DateDiff(
+                            dtp_TSC_StartTask.SelectedDate,
+                            dtp_TSC_EndTask.SelectedDate,
+                            TimeUnit.Days
+                        ) < 0,
+                        (DateDiff(
+                            dtp_TSC_StartTask.SelectedDate,
+                            dtp_TSC_EndTask.SelectedDate,
+                            TimeUnit.Days
+                        ) * -1) + 1,
+                        (DateDiff(
+                            dtp_TSC_StartTask.SelectedDate,
+                            dtp_TSC_EndTask.SelectedDate,
+                            TimeUnit.Days
+                        )) + 1
+                    )
+                );
+                ForAll(
+                    Sequence(
+                        CountDaysTask,
+                        0
+                    ),
+                    Collect(
+                        c_TSC_AssignTaskDate,
+                        {
+                            assignment_date: DateAdd(
+                                dtp_TSC_StartTask.SelectedDate,
+                                Value,
+                                TimeUnit.Days
+                            )
+                        }
+                    )
+                );
+                ForAll(
+                    c_TSC_AssignTaskDate,
+                    ForAll(
+                        c_TSC_TempLocation,
+                        Patch(
+                            tbl_assignment_headers,
+                            Defaults(tbl_assignment_headers),
+                            {
+                                entity_id: n_EntityID,
+                                location_id: c_TSC_TempLocation[@LocationID],
+                                assignment_date: DateValue(c_TSC_AssignTaskDate[@assignment_date]),
+                                assigned_pic1_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.ID,
+                                department_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.department_id,
+                                spv_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.spv_id,
+                                status_code: n_NotStarted
+                            }
+                        );
+                        Patch(
+                            c_Task,
+                            Defaults(c_Task),
+                            {
+                                entity_id: n_EntityID,
+                                location_id: c_TSC_TempLocation[@LocationID],
+                                assignment_date: DateValue(c_TSC_AssignTaskDate[@assignment_date]),
+                                assigned_pic1_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.ID,
+                                department_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.department_id,
+                                spv_id: BACKUP_cbb_TSC_EmployeeEngineering.Selected.spv_id,
+                                status_code: n_NotStarted,
+                                location_name: c_TSC_TempLocation[@LocationName],
+                                status_name: "Belum Dimulai",
+                                status_color: "#E74C3C"
+                            }
+                        );
+                    )
+                );
+                /*ForAll(
+                    c_TSC_AssignTaskDate,
+                    ForAll(
+                        c_TSC_TempLocation,
+                        Patch(
+                            c_Task,
+                            Defaults(c_Task),
+                            {
+                                entity_id: n_EntityID,
+                                location_id: c_TSC_TempLocation[@LocationID],
+                                assignment_date: DateValue(c_TSC_AssignTaskDate[@assignment_date]),
+                                assigned_pic1_id: cbb_TSC_EmployeeEngineering.Selected.ID,
+                                department_id: cbb_TSC_EmployeeEngineering.Selected.department_id,
+                                spv_id: cbb_TSC_EmployeeEngineering.Selected.spv_id,
+                                status_id: 100,
+                                location_name: c_TSC_TempLocation[@LocationName],
+                                status_name: "Belum Dimulai",
+                                status_color: "#E74C3C"
+                            }
+                        );
+                    )
+                );*/
+                Refresh(tbl_assignment_headers);
+                ClearCollect(
+                    c_NewInsertedTask,
+                    LastN(
+                        Filter(
+                            tbl_assignment_headers,
+                            BACKUP_cbb_TSC_EmployeeEngineering.Selected.ID = assigned_pic1_id
+                        ),
+                        CountRows(c_TSC_AssignTaskDate) * CountRows(c_TSC_TempLocation)
+                    )
+                );
+                ForAll(
+                    c_NewInsertedTask,
+                    ForAll(
+                        Filter(
+                            c_AllSublocationAmenities,
+                            location_id = c_NewInsertedTask[@location_id]
+                        ),
+                        Patch(
+                            tbl_assignment_details,
+                            Defaults(tbl_assignment_details),
+                            {
+                                assignment_header_id: c_NewInsertedTask[@ID],
+                                location_id:c_NewInsertedTask[@location_id],
+                                sublocation_id: sublocation_id,
+                                amenity_id:ID
+            
+                            }
+                        )
+                    )
+                );
+                Set(
+                    b_TSV_showPopUp,
+                    true
+                );
+                Set(
+                    s_TSV_TextPopUp,
+                    "Penugasan Berhasil Disimpan"
+                );
+                Navigate(
+                    scr_TaskScreenView,
+                    ScreenTransition.UnCoverRight
+                );
+                
+            );
+        svgIcon: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z'/></svg>"
+        Visible: =false
+        Width: =606
+        Y: =955
+        ZIndex: =14
+
+    "gal_TSC_PICList As gallery.'BrowseLayout_Flexible_SocialFeed_ver4.0'":
+        BorderColor: =RGBA(0, 0, 0, 0)
+        Default: ={}
+        DelayItemLoading: =true
+        Height: =137
+        Items: =c_AllFlowProcess
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: =Reset(cbb_TSC_PICDepartment);
+        ShowScrollbar: =false
+        TemplatePadding: =4
+        TemplateSize: =109
+        Y: =160
+        ZIndex: =15
+
+        cbb_TSC_PICDepartment As combobox:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            ChevronBackground: =RGBA(12, 36, 47, 1)
+            Default: =Blank()
+            DefaultSelectedItems: =Blank()
+            DisplayFields: =["name"]
+            Height: =50
+            InputTextPlaceholder: ="Pilih PIC " &ThisItem.department_name
+            Items: |-
+                =
+                Filter(c_AllEmployee, IsBlank(spv_id), department_id = ThisItem.department_id)
+            OnChange: |-
+                =
+                Patch(
+                    c_FlowPICDepartment,
+                    {departmentID: ThisItem.department_id},
+                    {
+                        picID: cbb_TSC_PICDepartment.Selected.ID,
+                        spvID: cbb_TSC_PICDepartment.Selected.spv_id,
+                        email: cbb_TSC_PICDepartment.Selected.email
+                    }
+                );
+            Reset: =varTSCReset
+            SearchFields: =["name"]
+            SearchItems: |-
+                =Search(
+                Filter(c_AllEmployee, IsBlank(spv_id), department_id = ThisItem.department_id),cbb_TSC_PICDepartment.SearchText,"name")
+            SelectMultiple: =false
+            Size: =18
+            Width: =567.5
+            X: =31
+            Y: =8
+            ZIndex: =1
+

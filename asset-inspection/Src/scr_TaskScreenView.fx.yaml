@@ -1,0 +1,321 @@
+scr_TaskScreenView As screen:
+    OnVisible: |+
+        =
+        Set(d_TSV_Date, dtp_TSV_TaskDate.SelectedDate);
+        
+
+    dtp_TSV_TaskDate As datepicker:
+        BorderColor: =defaults.borderColor
+        BorderThickness: =defaults.inputBorderThickness
+        CalendarHeaderFill: =defaults.primaryColor
+        Color: =defaults.textColor
+        DayColor: =defaults.primaryColor
+        DisabledBorderColor: =defaults.disabledColor
+        DisabledColor: =defaults.disabledColor
+        DisabledFill: =defaults.elementBackgroundColor
+        Fill: =defaults.inputFill
+        FocusedBorderThickness: =2
+        Font: =defaults.font
+        Format: ="dd-mmm-yyyy"
+        Height: =50
+        HoverDateFill: =ColorValue(defaults.primaryColorTransparentHex)
+        IconBackground: =Self.Fill
+        IconFill: =defaults.primaryColor
+        MonthColor: =defaults.primaryColor
+        OnChange: =Set(d_TSV_Date, dtp_TSV_TaskDate.SelectedDate)
+        OnSelect: =Set(d_TSV_Date, dtp_TSV_TaskDate.SelectedDate)
+        PaddingLeft: =5
+        PaddingTop: =5
+        SelectedDateFill: =defaults.primaryColor
+        Size: =18
+        WeekColor: =defaults.primaryColor
+        Width: =483
+        X: =24
+        Y: =98
+        ZIndex: =3
+
+    cmp_TSV_TopNavigation As cmp_MD_AppBar_top:
+        onSelectIcon2: =Navigate(scr_NotificationScreen);
+        onSelectIcon4: =scr_NotificationScreen
+        svgIcon1: |-
+            =//"<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z'/></svg>"
+        svgIcon2: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21'/></svg>"
+        svgIcon3: =""
+        svgIcon4: =
+        titleText: ="Tugas " & First(c_ActiveUserData).department_name
+        tooltipIcon1: =""
+        tooltipIcon2: ="Notifikasi"
+        tooltipIcon3: =""
+        tooltipIcon4: =
+        ZIndex: =5
+
+    btn_TSV_CreateTask As cmp_MD_Button:
+        boxShadow: =false
+        buttonText: =""
+        iconSize: =60
+        onSelect: |
+            =Reset(gal_TSC_PICList);
+            Navigate(scr_TaskScreenCreate,ScreenTransition.Cover);
+        svgIcon: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z'/></svg>"
+        Visible: =If(First(c_ActiveUserData).is_admin = 1, true, false)
+        Width: =129
+        X: =507
+        Y: =78
+        ZIndex: =6
+
+    "gal_TSV_EmployeeList As gallery.'BrowseLayout_Flexible_SocialFeed_ver4.0'":
+        BorderColor: =RGBA(202, 202, 202, 1)
+        DelayItemLoading: =true
+        Height: =840
+        Items: =Filter(c_AllEmployee, IsBlank(spv_id))
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =4
+        TemplateSize: =238
+        Width: =602
+        X: =20
+        Y: =182
+        ZIndex: =7
+
+        "gal_TSV_TaskList As gallery.'BrowseLayout_Flexible_SocialFeed_ver4.0'":
+            BorderColor: =RGBA(219, 219, 219, 1)
+            BorderThickness: =3
+            DelayItemLoading: =true
+            Height: =144
+            Items: |+
+                =Filter(
+                    c_Task,
+                    assigned_pic1_id = n_TSV_EmployeeID,
+                    start_date = d_TSV_Date
+                )
+                
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            ShowScrollbar: =false
+            TemplatePadding: =4
+            TemplateSize: =78
+            Visible: =If(n_TSV_EmployeeID = ThisItem.ID,true,false)
+            Width: =592
+            X: =0.5
+            Y: =77
+            ZIndex: =1
+
+            rct_TSV_TaskColor As rectangle:
+                Fill: =RGBA(237, 237, 237, 1)
+                Height: =51
+                OnSelect: =Select(Parent)
+                Width: =569
+                X: =8
+                Y: =12
+                ZIndex: =5
+
+            lbl_TSV_TaskLocation As label:
+                Color: =RGBA(47, 79, 79, 1)
+                Height: =31
+                OnSelect: =Select(Parent)
+                Size: =16
+                Text: =ThisItem.location_name
+                Width: =304
+                X: =16
+                Y: =22
+                ZIndex: =6
+
+            btn_TSV_TaskStatus As button:
+                DisplayMode: =DisplayMode.View
+                Fill: =ColorValue(ThisItem.status_color)
+                Height: =27
+                OnSelect: =Select(Parent)
+                Size: =11
+                Text: =ThisItem.status_name
+                Width: =166
+                X: =399
+                Y: =24
+                ZIndex: =7
+
+        btn_TSV_EmployeeColor As button:
+            Fill: =Color.WhiteSmoke
+            Height: =81
+            HoverFill: =RGBA(167, 137, 47, 0.24)
+            OnSelect: |+
+                =Set(n_TSV_EmployeeID,ThisItem.ID);
+                Set(n_TSV_SpvID,ThisItem.spv_id);
+                Set(n_TSV_departmentID,ThisItem.department_id);
+                
+            PressedFill: |-
+                =ColorValue("#DCDCDC")
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =24
+            Text: =""
+            Width: =593
+            ZIndex: =2
+
+        img_TSV_ProfilePicute As image:
+            Height: =64
+            Image: =ThisItem.employee_id.Picture
+            ImagePosition: =ImagePosition.Fill
+            OnSelect: =Select(Parent)
+            RadiusBottomLeft: =50
+            RadiusBottomRight: =50
+            RadiusTopLeft: =50
+            RadiusTopRight: =50
+            Width: =64
+            X: =15
+            Y: =8
+            ZIndex: =3
+
+        lbl_TSV_EmployeeName As label:
+            Color: =Color.DarkSlateGray
+            Height: =36
+            OnSelect: =Set(n_TSV_EmployeeID,ThisItem.ID)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: =ThisItem.name
+            VerticalAlign: =VerticalAlign.Top
+            Width: =342
+            X: =100
+            Y: =10
+            ZIndex: =4
+
+        lbl_TSV_JobTitle As label:
+            Color: =Color.DarkSlateGray
+            Height: =28
+            OnSelect: =Set(n_TSV_EmployeeID,ThisItem.ID)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.job_title_name&" - "&ThisItem.specialization_name
+            VerticalAlign: =VerticalAlign.Top
+            Width: =299
+            X: =100
+            Y: =40
+            ZIndex: =5
+
+        btn_TSV_Edit As button:
+            Fill: =RGBA(167, 137, 47, 1)
+            FontWeight: =FontWeight.Normal
+            Height: =25
+            HoverFill: |-
+                =ColorFade(ColorValue("#A7892F"), -20%)
+            OnSelect: |-
+                =Select(Parent);
+                Set(n_TSV_EmployeeID, ThisItem.ID);
+                Set(d_TSV_Date, dtp_TSV_TaskDate.SelectedDate);
+                ClearCollect(c_TempDetailsEmployees,Filter(c_AllEmployee,ID = n_TSV_EmployeeID));
+                Navigate(scr_TaskScreenEdit,ScreenTransition.Cover);
+            Size: =12
+            Text: ="View"
+            Width: =77
+            X: =499
+            Y: =14
+            ZIndex: =6
+
+        lbl_TSV_EmptyState_Text As label:
+            Color: =RGBA(47, 79, 79, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =34
+            OnSelect: =Select(Parent)
+            Size: =18
+            Text: ="Belum ada pekerjaan"
+            Visible: |-
+                =If(CountRows(Filter(c_Task, assigned_pic1_id = n_TSV_EmployeeID && start_date = d_TSV_Date)) = 0 && n_TSV_EmployeeID = ThisItem.ID, true, false)
+                
+                /*
+                If(
+                    And(CountRows(
+                        Filter(
+                            AddColumns(
+                                c_App_MstAssignments,
+                                "location_name",
+                                LookUp(
+                                    c_App_MstLocations,
+                                    ID = Value(location_id),
+                                    location_name
+                                )
+                            ),
+                            assigned_pic1_id = n_TSV_EmployeeID,
+                            assignment_date = d_TSV_Date
+                        )
+                    ) = 0,n_TSV_EmployeeID = ThisItem.ID),
+                    true,
+                    false
+                )
+                */
+            Width: =299
+            X: =205
+            Y: =132
+            ZIndex: =7
+
+        icn_TSV_EmptyState_Calendar As icon.Calendar:
+            Color: =RGBA(47, 79, 79, 1)
+            Height: =52
+            Icon: =Icon.AddToCalendar
+            OnSelect: =Select(Parent)
+            Visible: |-
+                =If(CountRows(Filter(c_Task, assigned_pic1_id = n_TSV_EmployeeID && start_date = d_TSV_Date)) = 0 && n_TSV_EmployeeID = ThisItem.ID, true, false)
+                
+                /*If(
+                    And(CountRows(
+                        Filter(
+                            AddColumns(
+                                c_App_MstAssignments,
+                                "location_name",
+                                LookUp(
+                                    c_App_MstLocations,
+                                    ID = Value(location_id),
+                                    location_name
+                                )
+                            ),
+                            assigned_pic1_id = n_TSV_EmployeeID,
+                            assignment_date = d_TSV_Date
+                        )
+                    ) = 0,n_TSV_EmployeeID = ThisItem.ID),
+                    true,
+                    false
+                )
+                */
+            Width: =52
+            X: =145
+            Y: =125
+            ZIndex: =8
+
+    cmp_TSV_PopUp As cmp_MD_Banner:
+        action1OnSelect: =Set(b_TSV_showPopUp,false);
+        action1Width: =125
+        action2Text: =""
+        action2Width: =0
+        svgIcon: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z'/></svg>"
+        text: =s_TSV_TextPopUp
+        Visible: =b_TSV_showPopUp
+        Y: =883
+        ZIndex: =9
+
+    btn_TSV_Refresh As cmp_MD_Button:
+        boxShadow: =false
+        buttonText: =""
+        iconSize: =60
+        onSelect: =c_AllEmployeeCoworkers
+        svgIcon: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z'/></svg>"
+        Visible: =false
+        Width: =129
+        X: =409
+        Y: =78
+        ZIndex: =10
+
+    cmp_TSV_BottomNavigation As cmp_MD_Bottom_Navigation_2:
+        Height: =89
+        iconSize: =34
+        items: =c_NavigationMenu
+        Y: =1046
+        ZIndex: =11
+

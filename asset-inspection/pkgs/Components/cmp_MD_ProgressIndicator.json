@@ -1,0 +1,58 @@
+{
+  "ComponentAllowCustomization": true,
+  "ComponentChangedSinceFileImport": true,
+  "ComponentManifest": {
+    "AllowAccessToGlobals": false,
+    "AllowCustomization": true,
+    "Description": "",
+    "Name": "cmp_MD_ProgressIndicator",
+    "TemplateGuid": "0841d668bc404e7bb899295c8a759bbd"
+  },
+  "ComponentType": "CanvasComponent",
+  "CustomGroupControlTemplateName": "",
+  "CustomProperties": [
+    {
+      "Category": 0,
+      "DisplayName": "transitionStart",
+      "Hidden": false,
+      "IsResettable": true,
+      "Name": "transitionStart",
+      "PropertyDataTypeKey": "Boolean",
+      "Tooltip": "A custom property",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Boolean\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "primaryColorHex",
+      "Hidden": false,
+      "Name": "primaryColorHex",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "A custom property",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "primaryColorTransparentHex",
+      "Hidden": false,
+      "Name": "primaryColorTransparentHex",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "A custom property",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    }
+  ],
+  "FirstParty": true,
+  "Id": "http://microsoft.com/appmagic/Component",
+  "IsComponentLocked": true,
+  "IsComponentTemplate": true,
+  "IsCustomGroupControlTemplate": false,
+  "IsPcfControl": false,
+  "IsPremiumPcfControl": false,
+  "IsWidgetTemplate": false,
+  "LastModifiedTimestamp": "638240347852166786",
+  "Name": "0841d668bc404e7bb899295c8a759bbd",
+  "OverridableProperties": {},
+  "SourceLibraryId": "eafaa033-e6a8-486e-9253-f81a7179740f",
+  "SourceLibraryLogicalName": "crfd0_materialdesign_d4b4d",
+  "TemplateOriginalName": "371aca5f6aa348f1aff79a65fb3058f2",
+  "Version": "637975764934180048"
+}

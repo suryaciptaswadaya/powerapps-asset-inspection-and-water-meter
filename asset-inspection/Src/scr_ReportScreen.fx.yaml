@@ -1,0 +1,383 @@
+scr_ReportScreen As screen:
+    OnVisible: |
+        =ClearCollect(c_TaskEngineering, Filter(c_Task,department_id = s_EngineeringDepartment));
+        ClearCollect(c_TaskHouseKeeping, Filter(c_Task,department_id = s_HouseKeepingDepartment));
+        ClearCollect(
+            c_GroupedDataReport,
+            AddColumns(
+                c_TaskEngineering,
+                "pic_name_2",LookUp(c_TaskHouseKeeping, assignment_code = c_TaskEngineering[@assignment_code], pic_name),
+                "status_name_2",LookUp(c_TaskHouseKeeping, assignment_code = c_TaskEngineering[@assignment_code], status_name),
+                "status_color_2",LookUp(c_TaskHouseKeeping, assignment_code = c_TaskEngineering[@assignment_code], status_color)
+        ));
+        
+        Reset(dtp_TSTaskDate_1);
+        Reset(dtp_TSTaskDate_2);
+        Reset(ComboBox1);
+        
+        //ClearCollect(GroupedData, AddColumns(c_TaskEngineering,"pic_name_2",LookUp(c_TaskHouseKeeping,assignment_code = c_TaskEngineering[@assignment_code],pic_name)));
+
+    cmp_RSBottomNavigation As cmp_MD_Bottom_Navigation_2:
+        Height: =89
+        iconSize: =34
+        items: =c_NavigationMenu
+        Y: =1046
+        ZIndex: =1
+
+    cmp_RSAppBar_top As cmp_MD_AppBar_top:
+        onSelectIcon2: =Navigate(scr_NotificationScreen);
+        svgIcon1: =""
+        svgIcon2: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21'/></svg>"
+        svgIcon3: =
+        svgIcon4: =""
+        titleText: ="Laporan"
+        tooltipIcon2: =""
+        tooltipIcon3: =""
+        tooltipIcon4: =""
+        ZIndex: =2
+
+    ComboBox1 As combobox:
+        BorderColor: =RGBA(12, 36, 47, 1)
+        ChevronBackground: =RGBA(12, 36, 47, 1)
+        DisplayFields: =["location_name"]
+        Height: =50
+        InputTextPlaceholder: ="Cari Lokasi"
+        IsSearchable: =false
+        Items: =c_AllLocation
+        SearchFields: =["location_name"]
+        SearchItems: =[]
+        SelectMultiple: =false
+        Size: =18
+        Width: =595
+        X: =22
+        Y: =97
+        ZIndex: =3
+
+    icn_TSC_Line_1 As icon.HorizontalLine:
+        Height: =55
+        Icon: =Icon.HorizontalLine
+        Width: =50
+        X: =294
+        Y: =167
+        ZIndex: =4
+
+    dtp_TSTaskDate_2 As datepicker:
+        BorderColor: =defaults.borderColor
+        BorderThickness: =defaults.inputBorderThickness
+        CalendarHeaderFill: =defaults.primaryColor
+        Color: =defaults.textColor
+        DayColor: =defaults.primaryColor
+        DisabledBorderColor: =defaults.disabledColor
+        DisabledColor: =defaults.disabledColor
+        DisabledFill: =defaults.elementBackgroundColor
+        Fill: =defaults.inputFill
+        FocusedBorderThickness: =2
+        Font: =defaults.font
+        Format: ="dd-mmm-yyyy"
+        Height: =50
+        HoverDateFill: =ColorValue(defaults.primaryColorTransparentHex)
+        IconBackground: =Self.Fill
+        IconFill: =defaults.primaryColor
+        MonthColor: =defaults.primaryColor
+        OnChange: =Set(d_TSV_Date, dtp_TSTaskDate_2.SelectedDate)
+        OnSelect: =Set(d_TSV_Date, dtp_TSTaskDate_2.SelectedDate)
+        PaddingLeft: =10
+        PaddingTop: =5
+        SelectedDateFill: =defaults.primaryColor
+        Size: =18
+        WeekColor: =defaults.primaryColor
+        Width: =275
+        X: =22
+        Y: =172
+        ZIndex: =5
+
+    dtp_TSTaskDate_1 As datepicker:
+        BorderColor: =defaults.borderColor
+        BorderThickness: =defaults.inputBorderThickness
+        CalendarHeaderFill: =defaults.primaryColor
+        Color: =defaults.textColor
+        DayColor: =defaults.primaryColor
+        DisabledBorderColor: =defaults.disabledColor
+        DisabledColor: =defaults.disabledColor
+        DisabledFill: =defaults.elementBackgroundColor
+        Fill: =defaults.inputFill
+        FocusedBorderThickness: =2
+        Font: =defaults.font
+        Format: ="dd-mmm-yyyy"
+        Height: =50
+        HoverDateFill: =ColorValue(defaults.primaryColorTransparentHex)
+        IconBackground: =Self.Fill
+        IconFill: =defaults.primaryColor
+        MonthColor: =defaults.primaryColor
+        OnChange: =Set(d_TSV_Date, dtp_TSTaskDate_1.SelectedDate)
+        OnSelect: =Set(d_TSV_Date, dtp_TSTaskDate_1.SelectedDate)
+        PaddingLeft: =10
+        PaddingTop: =5
+        SelectedDateFill: =defaults.primaryColor
+        Size: =18
+        WeekColor: =defaults.primaryColor
+        Width: =275
+        X: =342
+        Y: =172
+        ZIndex: =6
+
+    cmp_MD_GenericInputFrame_1 As cmp_MD_GenericInputFrame:
+        Height: =806
+        helperText: =""
+        labelText: ="Laporan"
+        Width: =640
+        Y: =240
+        ZIndex: =7
+
+    "Gallery1 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+        DelayItemLoading: =true
+        Height: =697
+        Items: |-
+            =Filter(
+                c_GroupedDataReport,
+                start_date >= dtp_TSTaskDate_2.SelectedDate,
+                start_date <= dtp_TSTaskDate_1.SelectedDate,
+                location_name = ComboBox1.Selected.location_name
+            )
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =121
+        Visible: =false
+        Width: =595
+        X: =22
+        Y: =275
+        ZIndex: =8
+
+        Separator1 As rectangle:
+            BorderColor: =RGBA(202, 202, 202, 1)
+            BorderThickness: =2
+            Fill: =RGBA(245, 245, 245, 1)
+            Height: =108
+            OnSelect: =Select(Parent)
+            Width: =578
+            X: =9
+            ZIndex: =1
+
+        Title1 As label:
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.location_name
+            VerticalAlign: =VerticalAlign.Top
+            Width: =132
+            X: =20
+            Y: =11
+            ZIndex: =2
+
+        Title1_1 As label:
+            Align: =Align.Right
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =21
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =9
+            Text: =Text(ThisItem.start_date,"dd-mmm-yyyy")&" s/d "&Text(ThisItem.end_date,"dd-mmm-yyyy")
+            VerticalAlign: =VerticalAlign.Top
+            Width: =165
+            X: =413
+            Y: =89
+            ZIndex: =3
+
+        Title1_2 As label:
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.pic_name
+            VerticalAlign: =VerticalAlign.Top
+            Width: |
+                =250
+            X: =145
+            Y: =11
+            ZIndex: =4
+
+        Title1_3 As label:
+            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+            Height: =Self.Size * 1.8
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.pic_name_2
+            VerticalAlign: =VerticalAlign.Top
+            Width: |
+                =250
+            X: =145
+            Y: =55
+            ZIndex: =5
+
+        Button1 As button:
+            Color: =RGBA(255,255,255,1)
+            Fill: =ColorValue(ThisItem.status_color)
+            Height: =25
+            OnSelect: =Select(Parent)
+            Size: =10
+            Text: =ThisItem.status_name
+            Width: =166
+            X: =412
+            Y: =11
+            ZIndex: =6
+
+        Button1_1 As button:
+            Fill: =ColorValue(ThisItem.status_color_2)
+            Height: =25
+            OnSelect: =Select(Parent)
+            Size: =10
+            Text: =ThisItem.status_name_2
+            Width: =166
+            X: =412
+            Y: =55
+            ZIndex: =7
+
+        rct_TSV_TaskColor_1 As rectangle:
+            Fill: =RGBA(202, 202, 202, 1)
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =435
+            X: =142
+            Y: =45
+            ZIndex: =8
+
+    DataTable2 As dataTable.datatable:
+        BorderStyle: =BorderStyle.Solid
+        DisplayMode: =DisplayMode.Edit
+        Fill: =RGBA(0, 0, 0, 0)
+        HeadingSize: =21
+        Height: =724
+        Items: |-
+            =Filter(
+                c_GroupedDataReport,
+                start_date >= dtp_TSTaskDate_2.SelectedDate,
+                start_date <= dtp_TSTaskDate_1.SelectedDate,
+                location_name = ComboBox1.Selected.location_name
+            )
+        Size: =21
+        Width: =576
+        X: =29
+        Y: =275
+        ZIndex: =9
+
+        location_name_Column1 As dataTableColumn.textualColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Lokasi"
+            FieldName: ="location_name"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =1
+            Text: =ThisItem.location_name
+            Width: =256
+            X: =-11
+            Y: =0
+            ZIndex: =9
+
+        end_date_Column1 As dataTableColumn.textualColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Tanggal Selesai"
+            FieldName: ="end_date"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =3
+            Text: =Text(ThisItem.end_date,"dd-mmm-yyyy")
+            Width: =253
+            X: =0
+            Y: =0
+            ZIndex: =10
+
+        start_date_Column1 As dataTableColumn.textualColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Tanggal Mulai"
+            FieldName: ="start_date"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =2
+            Text: =Text(ThisItem.start_date,"dd-mmm-yyyy")
+            Width: =241
+            X: =0
+            Y: =0
+            ZIndex: =11
+
+        pic_name_Column1 As dataTableColumn.textualColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Engineering"
+            FieldName: ="pic_name"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =4
+            Text: =ThisItem.pic_name
+            Width: =341
+            X: =0
+            Y: =0
+            ZIndex: =12
+
+        pic_name_2_Column1 As dataTableColumn.textualColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="House Keeping"
+            FieldName: ="pic_name_2"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =5
+            Text: =ThisItem.pic_name_2
+            Width: =346
+            X: =0
+            Y: =0
+            ZIndex: =13
+
+        status_name_Column1 As dataTableColumn.textualColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Status Engineering"
+            FieldName: ="status_name"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =6
+            Text: =ThisItem.status_name
+            Width: =340
+            X: =0
+            Y: =0
+            ZIndex: =14
+
+        status_name_2_Column1 As dataTableColumn.textualColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Status House Keeping"
+            FieldName: ="status_name_2"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =7
+            Text: =ThisItem.status_name_2
+            Width: =350
+            X: =0
+            Y: =0
+            ZIndex: =15
+

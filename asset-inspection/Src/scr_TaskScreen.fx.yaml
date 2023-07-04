@@ -1,0 +1,594 @@
+scr_TaskScreen As screen:
+    OnVisible: |+
+        =/*Set(b_IsApproverByFlow,
+            If(First(c_ActiveUserData).is_approver = 1 && First(c_ProcessModel).is_approval_by_flow = 1,
+                true,
+                false
+            )
+        );
+        
+        Set(b_TSShowTaskList,false);
+        Set(b_TSShowGroupedTaskList,true);
+        Set(n_TSTaskDateWidth,600);
+        
+        ClearCollect(c_TaskByAssignmentCode,
+            GroupBy(
+                c_Task,
+                "assignment_code","start_date","location_name","task_assignment_code"
+            )
+        );*/
+        
+
+    cmp_TSGenericInputFrame As cmp_MD_GenericInputFrame:
+        Height: =882
+        helperText: =""
+        labelText: ="Tugas "&First(c_ActiveUserData).name
+        Width: =640
+        Y: =150
+
+    dtp_TSTaskDate As datepicker:
+        BorderColor: =defaults.borderColor
+        BorderThickness: =defaults.inputBorderThickness
+        CalendarHeaderFill: =defaults.primaryColor
+        Color: =defaults.textColor
+        DayColor: =defaults.primaryColor
+        DisabledBorderColor: =defaults.disabledColor
+        DisabledColor: =defaults.disabledColor
+        DisabledFill: =defaults.elementBackgroundColor
+        Fill: =defaults.inputFill
+        FocusedBorderThickness: =2
+        Font: =defaults.font
+        Format: ="dd-mmm-yyyy"
+        Height: =50
+        HoverDateFill: =ColorValue(defaults.primaryColorTransparentHex)
+        IconBackground: =Self.Fill
+        IconFill: =defaults.primaryColor
+        MonthColor: =defaults.primaryColor
+        OnChange: =Set(d_TSV_Date, dtp_TSTaskDate.SelectedDate)
+        OnSelect: =Set(d_TSV_Date, dtp_TSTaskDate.SelectedDate)
+        PaddingLeft: =10
+        PaddingTop: =5
+        SelectedDateFill: =defaults.primaryColor
+        Size: =18
+        WeekColor: =defaults.primaryColor
+        Width: =If(First(c_ActiveUserData).is_approver = 1,n_TSTaskDateWidth,600)
+        X: =19.5
+        Y: =87
+        ZIndex: =1
+
+    "gal_TSTaskList As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        DelayItemLoading: =true
+        Height: =808
+        Items: |-
+            =//Filter(c_Task,assigned_pic1_id = n_UserID)
+            If(b_IsApproverByFlow = true,
+                Filter(c_Task,assignment_code = gal_TSTaskList_1.Selected.assignment_code ),    
+                Filter(c_Task,start_date = dtp_TSTaskDate.SelectedDate && department_id = n_DepartmentID)
+            )
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =100
+        Visible: |
+            =If(First(c_ActiveUserData).is_approver = 1,b_TSShowTaskList,true)
+        Width: =593
+        X: =24
+        Y: =185
+        ZIndex: =3
+
+        rct_TSSeparator As rectangle:
+            BorderColor: =RGBA(237, 237, 237, 1)
+            BorderThickness: =3
+            Fill: =RGBA(237, 237, 237, 0.32)
+            Height: =90
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: =Select(Parent)
+            Width: =570
+            X: =11.5
+            ZIndex: =1
+
+        lbl_TSTaskLocation As label:
+            Color: =Color.DarkSlateGray
+            Height: =34
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: =ThisItem.department_name &" - "& ThisItem.location_name
+            VerticalAlign: =VerticalAlign.Top
+            Width: =380
+            X: =31
+            Y: =15
+            ZIndex: =2
+
+        lbl_TSTaskTimestamp As label:
+            Color: =Color.DarkSlateGray
+            FontWeight: =FontWeight.Normal
+            Height: =36
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =16
+            Text: =Text(ThisItem.start_date, "dd-mmm-yyyy")
+            VerticalAlign: =VerticalAlign.Top
+            Width: =214
+            X: =31
+            Y: =44
+            ZIndex: =3
+
+        btn_TSStatus As button:
+            Fill: =ColorValue(ThisItem.status_color)
+            Height: =34
+            HoverFill: |-
+                =ColorFade(ColorValue("#A7892F"), -20%)
+            OnSelect: |-
+                =Select(Parent);
+                //Set(n_TSV_EmployeeID, ThisItem.ID);
+                //Set(d_TSV_Date, dtp_TSV_TaskDate.SelectedDate);
+                //ClearCollect(c_TempDetailsEmployees,Filter(c_AllEmployeeCoworkers,ID = n_TSV_EmployeeID));
+                //Navigate(scr_TaskScreenEdit,ScreenTransition.Cover);
+            Size: =11
+            Text: =ThisItem.status_name
+            Width: =166
+            X: =400
+            Y: =28
+            ZIndex: =4
+
+        btn_TSTaskBorder As button:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =90
+            HoverBorderColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(167, 137, 47, 0.24)
+            OnSelect: |-
+                =Select(Parent);
+                If(ThisItem.is_ready_to_start = 1,
+                    If(ThisItem.sequence_number > 1 && ThisItem.status_code = Text(n_NotStarted) && First(c_ActiveUserData).is_approver = 0,
+                        Set(b_ConfirmReady, -1);
+                        
+                        If(!IsBlank(ThisItem.comment),
+                            Select('[HIDDEN]btn_TSInitializeTaskData');
+                            Navigate(scr_LocationSelectorScreen);
+                            ,
+                            Set(b_PopupConfirmReady, true);
+                        )
+                    ,
+                        Select('[HIDDEN]btn_TSInitializeTaskData');
+                        Navigate(scr_LocationSelectorScreen);
+                    );
+                , 
+                    Notify("Kamu Belum bisa mengerjakan pekerjaan ini")
+                )
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =18
+            Text: =""
+            Width: =570
+            X: =11
+            ZIndex: =5
+
+    cmp_TSAppBar_top As cmp_MD_AppBar_top:
+        onSelectIcon2: =Navigate(scr_NotificationScreen);
+        svgIcon1: =""
+        svgIcon2: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21'/></svg>"
+        svgIcon3: =""
+        svgIcon4: =""
+        titleText: ="Tugas Saya"
+        ZIndex: =4
+
+    cmp_TSBottomNavigation As cmp_MD_Bottom_Navigation_2:
+        Height: =89
+        iconSize: =34
+        items: =c_NavigationMenu
+        Y: =1046
+        ZIndex: =5
+
+    "'[HIDDEN]btn_TSInitializeTaskData' As button":
+        Height: =70
+        OnSelect: |-
+            =ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = gal_TSTaskList.Selected.ID && department_id = gal_TSTaskList.Selected.department_id));
+            ClearCollect(c_AssignmentDetail, 
+                AddColumns(c_TmpAssignmentDetail, 
+                    "amenity_name", First(Filter(c_AllSublocationAmenities, ID = c_TmpAssignmentDetail[@amenity_id])).amenity_name
+                )
+            );
+            Clear(c_TmpAssignmentDetail);
+            
+            ClearCollect(c_TmpSubLocation, Filter(c_AllSublocation, location_type_id = gal_TSTaskList.Selected.location_type_id && department_id = gal_TSTaskList.Selected.department_id)); 
+            
+            //Generate Row Number
+            ClearCollect(
+                c_SubLocation,
+                ForAll(
+                    Sequence(CountRows(c_TmpSubLocation)),
+                    Patch(
+                        Last(FirstN(c_TmpSubLocation, Value)),
+                        { RowNumber : Value }
+                    )
+                )
+            );
+            Set(n_QtySublocation, CountRows(c_SubLocation));
+            Set(n_CurrentSublocationRowNumber, 1);
+            
+            Clear(c_TmpSubLocation);
+        Size: =24
+        Text: ="Initialize"
+        Visible: =false
+        Width: =280
+        X: =24
+        Y: =962
+        ZIndex: =16
+
+    grp_TSConfirmWork As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =16
+
+        shp_TSBackground1 As rectangle:
+            DisabledFill: =shp_TSBackground1.Fill
+            Fill: =    RGBA(0,0,0,.6)
+            FocusedBorderColor: =shp_TSBackground1.BorderColor
+            Height: =1136
+            HoverFill: =shp_TSBackground1.Fill
+            PressedFill: =shp_TSBackground1.Fill
+            Visible: =b_PopupConfirmReady
+            Width: =640
+            ZIndex: =6
+
+        shp_TSBackground2 As rectangle:
+            DisabledFill: =shp_TSBackground2.Fill
+            Fill: =Color.White
+            FocusedBorderColor: =shp_TSBackground2.BorderColor
+            Height: =923
+            HoverFill: =shp_TSBackground2.Fill
+            PressedFill: =shp_TSBackground2.Fill
+            Visible: =b_PopupConfirmReady
+            Width: =551
+            X: =44
+            Y: =70
+            ZIndex: =7
+
+        lbl_TSConfirmationLocation As label:
+            FocusedBorderColor: =lbl_TSConfirmationLocation.BorderColor
+            FontWeight: =FontWeight.Semibold
+            Height: =66
+            HoverBorderColor: =lbl_TSConfirmationLocation.BorderColor
+            HoverColor: =lbl_TSConfirmationLocation.Color
+            HoverFill: =lbl_TSConfirmationLocation.Fill
+            PaddingTop: =10
+            PressedBorderColor: =lbl_TSConfirmationLocation.BorderColor
+            PressedColor: =lbl_TSConfirmationLocation.Color
+            PressedFill: =lbl_TSConfirmationLocation.Fill
+            Size: =24
+            Text: =gal_TSTaskList.Selected.location_name
+            Visible: =b_PopupConfirmReady
+            Width: =369
+            X: =66
+            Y: =71
+            ZIndex: =8
+
+        ico_TSConfirmationCancel As icon.Cancel:
+            Height: =49
+            Icon: =Icon.Cancel
+            OnSelect: =Set(b_PopupConfirmReady, false)
+            Visible: =b_PopupConfirmReady
+            Width: =44
+            X: =523
+            Y: =87
+            ZIndex: =9
+
+        btn_TSConfirmWork As button:
+            Fill: =RGBA(33, 86, 117, 1)
+            Height: =62
+            OnSelect: |
+                =Set(b_Continue, true);
+                
+                If(b_ConfirmReady = -1,
+                    Notify("Tolong pilih apakah pekerjaan sudah siap atau belum");
+                    Set(b_Continue, false);
+                );
+                
+                If(b_ConfirmReady = 0 && IsBlank(txt_TSComment.Text),
+                    Notify("Tolong sertakan alasan mengapa pekerjaan belum siap");
+                    Set(b_Continue, false);
+                );
+                
+                If(b_Continue,
+                    //Pekerjaan Siap dilakukan
+                    If(b_ConfirmReady = 1,
+                        Select('[HIDDEN]btn_TSInitializeTaskData');
+                
+                        Patch(tbl_assignment_headers, { ID: gal_TSTaskList.Selected.ID }, { comment : "sudah siap dikerjakan" });
+                        Patch(c_Task, { ID: gal_TSTaskList.Selected.ID }, { comment : "sudah siap dikerjakan" });
+                
+                
+                        Navigate(scr_LocationSelectorScreen);
+                    );
+                
+                    //Pekerjaan belum siap dilakukan, kirim ke user sebelumnya
+                    If(b_ConfirmReady = 0,
+                        //Reactivate pekerjaan sebelumnya
+                        ClearCollect(c_PreviousTask, Filter(tbl_assignment_headers, process_id = gal_TSTaskList.Selected.process_id && assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = gal_TSTaskList.Selected.sequence_number - 1));
+                        Set(s_Reason, "Data penugasan untuk tugas " & gal_TSTaskList.Selected.assignment_code & " dikembalikan oleh " & First(c_ActiveUserData).name & " dikarenakan " & txt_TSComment.Text);
+                
+                        Patch(tbl_assignment_headers, First(c_PreviousTask), 
+                        {
+                            status_code: n_NotStarted,
+                            comment: txt_TSComment.Text,
+                            comment_user_id: n_UserID,
+                            comment_date: Now()
+                        });
+                
+                        Patch(tbl_assignment_headers, { ID: gal_TSTaskList.Selected.ID }, { is_ready_to_start : 0 });
+                        Patch(c_Task, { ID: gal_TSTaskList.Selected.ID }, { is_ready_to_start : 0 });
+                
+                        //Send Push Notification
+                        ClearCollect(c_PreviousProcessUser, Filter(tbl_mst_employees, entity_id = n_EntityID && department_id = First(c_PreviousTask).department_id && IsBlank(spv_id)));
+                
+                        ForAll(c_PreviousProcessUser,
+                            '[DEV]AssetMaintenance-SendPushNotification'.Run(c_PreviousProcessUser[@email], s_Reason);
+                
+                            //Save Push Notification
+                            Patch(tbl_notification_list, Defaults(tbl_notification_list),
+                            {
+                                employee_id: c_PreviousProcessUser[@ID],
+                                notification_preview: s_Reason,
+                                notification_content: s_Reason,
+                                notification_date: Now(),
+                                is_read: 0
+                            });
+                        );
+                
+                        //Save Log
+                        Patch(tbl_transaction_log, Defaults(tbl_transaction_log),
+                        {
+                            assignment_code: gal_TSTaskList.Selected.assignment_code,
+                            assignment_header_id: gal_TSTaskList.Selected.ID,
+                            log: s_Reason,
+                            user_id: n_UserID,
+                            log_date: Now()
+                        });
+                
+                        Patch(tbl_assignment_headers, { ID : gal_TSTaskList.Selected.ID}, 
+                        {
+                            status_code: n_WaitingFromOther
+                        });
+                    );
+                
+                    Reset(txt_TSComment);
+                    Set(b_PopupConfirmReady, false);
+                );
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =24
+            Text: ="Confirm"
+            Visible: =b_PopupConfirmReady
+            Width: =420
+            X: =109
+            Y: =869
+            ZIndex: =10
+
+        txt_TSComment As text:
+            Default: =
+            Height: =215
+            Mode: =TextMode.MultiLine
+            Size: =21
+            Tooltip: =
+            Visible: =b_PopupConfirmReady
+            Width: =507
+            X: =60
+            Y: =445
+            ZIndex: =11
+
+        lbl_TSComment As label:
+            FocusedBorderColor: =lbl_TSComment.BorderColor
+            FontWeight: =FontWeight.Semibold
+            Height: =66
+            HoverBorderColor: =lbl_TSComment.BorderColor
+            HoverColor: =lbl_TSComment.Color
+            HoverFill: =lbl_TSComment.Fill
+            PaddingTop: =10
+            PressedBorderColor: =lbl_TSComment.BorderColor
+            PressedColor: =lbl_TSComment.Color
+            PressedFill: =lbl_TSComment.Fill
+            Size: =24
+            Text: |-
+                ="Catatan : "
+            Visible: =b_PopupConfirmReady
+            Width: =182
+            X: =58
+            Y: =379
+            ZIndex: =12
+
+        lbl_TSConfirmation As label:
+            FocusedBorderColor: =lbl_TSConfirmation.BorderColor
+            FontWeight: =FontWeight.Semibold
+            Height: =91
+            HoverBorderColor: =lbl_TSConfirmation.BorderColor
+            HoverColor: =lbl_TSConfirmation.Color
+            HoverFill: =lbl_TSConfirmation.Fill
+            PaddingTop: =10
+            PressedBorderColor: =lbl_TSConfirmation.BorderColor
+            PressedColor: =lbl_TSConfirmation.Color
+            PressedFill: =lbl_TSConfirmation.Fill
+            Size: =24
+            Text: ="Apakah pekerjaan siap untuk dikerjakan?"
+            Visible: =b_PopupConfirmReady
+            Width: =506
+            X: =61
+            Y: =163
+            ZIndex: =13
+
+        btn_TSOK As button:
+            BorderColor: =Color.Black
+            Color: =RGBA(0, 0, 0, 1)
+            DisplayMode: |+
+                =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus),DisplayMode.View,DisplayMode.Edit)
+                
+            Fill: =If(b_ConfirmReady = 1, Color.LightSkyBlue, Color.Transparent)
+            Height: =65
+            OnSelect: =Set(b_ConfirmReady, 1);
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =20
+            Text: ="YA"
+            Visible: =b_PopupConfirmReady
+            Width: =220
+            X: =84
+            Y: =284
+            ZIndex: =14
+
+        btn_TSNotOK As button:
+            BorderColor: =Color.Black
+            Color: =RGBA(0, 0, 0, 1)
+            DisplayMode: =btn_TSOK.DisplayMode
+            Fill: =If(b_ConfirmReady = 0, Color.LightSkyBlue, Color.Transparent)
+            Height: =65
+            OnSelect: =Set(b_ConfirmReady, 0)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =20
+            Text: ="TIDAK"
+            Visible: =b_PopupConfirmReady
+            Width: =220
+            X: =338
+            Y: =284
+            ZIndex: =15
+
+    "gal_TSTaskList_1 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        DelayItemLoading: =true
+        Height: =808
+        Items: |-
+            =Filter(c_TaskByAssignmentCode,start_date = dtp_TSTaskDate.SelectedDate,counted_task_for_gm = counted_all_flow_for_gm)
+            //c_TaskByAssignmentCode
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: |-
+            =Set(b_TSShowTaskList,true);
+            Set(b_TSShowGroupedTaskList,false);
+            Set(n_TSTaskDateWidth,450);
+            
+            If(b_IsApproverByFlow = true,
+                    ClearCollect(c_CheckingTaskFlow, 
+                        Filter(c_Task,assignment_code = ThisItem.assignment_code && status_code = Text(n_WaitingGMApprovalStatus))
+                    );
+                    If(CountRows(c_AllFlowProcess) = CountRows(c_CheckingTaskFlow),
+                        Set(b_ShowRecheckApproveButton,true),
+                        Set(b_ShowRecheckApproveButton,false)
+                    );
+                ,
+                    Set(b_ShowRecheckApproveButton,false);
+            );
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =100
+        Visible: |-
+            =//!b_IsApproverByFlow
+            If(First(c_ActiveUserData).is_approver = 1,b_TSShowGroupedTaskList,false)
+        Width: =593
+        X: =22
+        Y: =185
+        ZIndex: =17
+
+        rct_TSSeparator_1 As rectangle:
+            BorderColor: =RGBA(237, 237, 237, 1)
+            BorderThickness: =3
+            Fill: =RGBA(237, 237, 237, 0.32)
+            Height: =90
+            HoverFill: =RGBA(0, 0, 0, 0)
+            OnSelect: =Select(Parent)
+            Width: =570
+            X: =11.5
+            ZIndex: =1
+
+        lbl_TSTaskLocation_1 As label:
+            Color: =Color.DarkSlateGray
+            Height: =34
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: =ThisItem.location_name
+            VerticalAlign: =VerticalAlign.Top
+            Width: =380
+            X: =31
+            Y: =15
+            ZIndex: =2
+
+        lbl_TSTaskTimestamp_1 As label:
+            Color: =Color.DarkSlateGray
+            FontWeight: =FontWeight.Normal
+            Height: =36
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =16
+            Text: =Text(ThisItem.start_date, "dd-mmm-yyyy")
+            VerticalAlign: =VerticalAlign.Top
+            Width: =214
+            X: =31
+            Y: =44
+            ZIndex: =3
+
+        btn_TSTaskBorder_1 As button:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderThickness: =0
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =90
+            HoverBorderColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(167, 137, 47, 0.24)
+            OnSelect: =Select(Parent);
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =18
+            Text: =""
+            Width: =570
+            X: =11
+            ZIndex: =5
+
+    Button3 As button:
+        Fill: =ColorValue(defaults.primaryColorHex)
+        Height: =50
+        OnSelect: |-
+            =Set(b_TSShowTaskList,false);
+            Set(b_TSShowGroupedTaskList,true);
+            Set(n_TSTaskDateWidth,600);
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =18
+        Text: ="Back"
+        Visible: =If(First(c_ActiveUserData).is_approver = 1,b_TSShowTaskList,false)
+        Width: =120
+        X: =497
+        Y: =87
+        ZIndex: =18
+

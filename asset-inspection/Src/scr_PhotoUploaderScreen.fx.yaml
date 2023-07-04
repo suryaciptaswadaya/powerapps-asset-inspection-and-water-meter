@@ -1,0 +1,52 @@
+scr_PhotoUploaderScreen As screen:
+
+    cbb_PUSSublocation As dropdown:
+        Height: =70
+        Items: =c_AllSublocation
+        Size: =21
+        Width: =575
+        X: =40
+        Y: =40
+        ZIndex: =1
+
+    grp_PUSImage As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =2
+
+        img_PUSImageSelected As image:
+            Height: =med_PUSImage.Height
+            Image: =If(IsBlank(med_PUSImage.Media), SampleImage, med_PUSImage.Media)
+            ImagePosition: =ImagePosition.Fill
+            Width: =med_PUSImage.Width
+            X: =med_PUSImage.X
+            Y: =med_PUSImage.Y
+            ZIndex: =3
+
+        med_PUSImage As addMedia:
+            Height: =432
+            Size: =25
+            Width: =575
+            X: =40
+            Y: =157
+            ZIndex: =4
+
+    btn_PUSSaveImage As button:
+        Height: =97
+        OnSelect: |-
+            =Set(BinaryImageData, Substitute(JSON(img_PUSImageSelected.Image, JSONFormat.IncludeBinaryData),"",""));
+            Set(s_Base64Content, Mid(BinaryImageData, Find(",", BinaryImageData) + 1, Len(BinaryImageData) - Find(",", BinaryImageData) - 1));
+            Set(v_UploadResult, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(cbb_PUSSublocation.Selected.ID), ".jpg"), s_Base64Content, Concatenate("/gal_sublocation_photos/", Text(cbb_PUSSublocation.Selected.ID))));
+            Set(s_ImageLink, v_UploadResult.sharepointfilelink);
+            Set(n_ImageID, Value(v_UploadResult.img_id));
+            //Notify("ImageID : " & v_UploadResult.img_id);
+            Patch(tbl_mst_sublocations, First(Filter(tbl_mst_sublocations, ID = cbb_PUSSublocation.Selected.ID)), { img_url : s_ImageLink, img_id : n_ImageID });
+        Size: =24
+        Text: ="Update Image"
+        Width: =575
+        X: =40
+        Y: =630
+        ZIndex: =5
+

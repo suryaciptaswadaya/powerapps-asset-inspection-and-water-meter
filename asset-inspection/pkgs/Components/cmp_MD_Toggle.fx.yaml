@@ -1,0 +1,123 @@
+cmp_MD_Toggle As CanvasComponent:
+    default: =false
+    disabledColorHex: =defaults.backgroundColorHex
+    displayMode: =DisplayMode.Edit
+    elementBackgroundColorHex: =defaults.elementBackgroundColorHex
+    Fill: =Color.Transparent
+    Height: =cmp_MD_Toggle.outsideMargin*2 + cmp_MD_Toggle.toggleSize
+    lineSize: =32
+    OnReset: =
+    onSelect: =true
+    outsideMargin: =20
+    primaryColorHex: =defaults.primaryColorHex
+    primaryColorTransparentHex: =defaults.primaryColorTransparentHex
+    toggleSize: =20
+    value: =isCheck
+    Width: =cmp_MD_Toggle.outsideMargin*2 + cmp_MD_Toggle.lineSize + cmp_MD_Toggle.toggleSize
+    X: =0
+    Y: =0
+    ZIndex: =11
+
+    html_toggleShadow As htmlViewer:
+        Height: =cir_Toggle.Width+11
+        HtmlText: |-
+            ="<div style='
+            margin: 5px;
+            width: "& cir_Toggle.Width&"px; 
+            height: "& cir_Toggle.Height&"px; 
+            box-shadow: 0.5px 0.5px 2px 0px rgba(0,0,0,0.5); 
+            border-radius: 50%
+            '>
+            </div>"
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Size: =30
+        Width: =cir_Toggle.Width+10
+        X: =cir_Toggle.X-5
+        Y: =cir_Toggle.Y-5
+        ZIndex: =1
+
+    btn_line As button:
+        BorderColor: |-
+            =ColorValue("#6200EE4d")
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =0
+        DisabledFill: =ColorValue(cmp_MD_Toggle.elementBackgroundColorHex)
+        DisplayMode: =cmp_MD_Toggle.displayMode
+        Fill: =If(!isCheck, ColorValue(cmp_MD_Toggle.elementBackgroundColorHex), ColorValue(cmp_MD_Toggle.primaryColorTransparentHex))
+        Height: =12
+        HoverBorderColor: =Color.Transparent
+        HoverFill: =Self.Fill
+        OnSelect: |-
+            =Set(isCheck, !isCheck);
+            Select(tgl_HelperToggle);
+            cmp_MD_Toggle.onSelect()
+        PaddingLeft: =0
+        PaddingRight: =0
+        PressedBorderColor: =Color.Transparent
+        PressedFill: =Self.Fill
+        RadiusBottomLeft: =32
+        RadiusBottomRight: =32
+        RadiusTopLeft: =32
+        RadiusTopRight: =32
+        Size: =24
+        TabIndex: =-1
+        Text: =""
+        Width: =cmp_MD_Toggle.lineSize
+        X: =cmp_MD_Toggle.outsideMargin+cmp_MD_Toggle.toggleSize/2
+        Y: =cir_Toggle.Y + (cir_Toggle.Height-Self.Height)/2
+        ZIndex: =2
+
+    cir_Toggle As circle:
+        BorderColor: =ColorFade(Self.Fill, -50%)
+        DisabledFill: =ColorValue(cmp_MD_Toggle.disabledColorHex)
+        DisplayMode: =cmp_MD_Toggle.displayMode
+        Fill: =If(isCheck, ColorValue(cmp_MD_Toggle.primaryColorHex), ColorValue(cmp_MD_Toggle.disabledColorHex))
+        FocusedBorderThickness: =3
+        Height: =cmp_MD_Toggle.toggleSize
+        OnSelect: |-
+            =Set(isCheck, !isCheck);
+            Select(tgl_HelperToggle);
+            cmp_MD_Toggle.onSelect()
+        TabIndex: =0
+        Width: =cmp_MD_Toggle.toggleSize
+        X: =If(!isCheck, cmp_MD_Toggle.outsideMargin, cmp_MD_Toggle.outsideMargin+ btn_line.Width)
+        Y: =cmp_MD_Toggle.outsideMargin
+        ZIndex: =3
+
+    btn_toggleHover As button:
+        DisplayMode: =cmp_MD_Toggle.displayMode
+        Fill: =Color.Transparent
+        Height: =cmp_MD_Toggle.toggleSize+4
+        HoverFill: =ColorValue(cmp_MD_Toggle.primaryColorTransparentHex)
+        OnSelect: |-
+            =Set(isCheck, !isCheck);
+            Select(tgl_HelperToggle);
+            cmp_MD_Toggle.onSelect()
+        PressedFill: =Self.Fill
+        RadiusBottomLeft: =32
+        RadiusBottomRight: =32
+        RadiusTopLeft: =32
+        RadiusTopRight: =32
+        Size: =24
+        TabIndex: =-1
+        Text: =""
+        Visible: =cmp_MD_Toggle.displayMode=DisplayMode.Edit
+        Width: =cmp_MD_Toggle.toggleSize+4
+        X: =cir_Toggle.X-2
+        Y: =cir_Toggle.Y-2
+        ZIndex: =4
+
+    tgl_HelperToggle As toggleSwitch:
+        Default: =cmp_MD_Toggle.default
+        Height: =24
+        OnChange: =Set(isCheck, cmp_MD_Toggle.default)
+        Size: =21
+        Visible: =false
+        Width: =40
+        X: =12
+        Y: =36
+        ZIndex: =5
+

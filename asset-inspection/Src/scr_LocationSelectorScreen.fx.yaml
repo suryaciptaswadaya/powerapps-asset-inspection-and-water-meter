@@ -1,0 +1,695 @@
+scr_LocationSelectorScreen As screen:
+    OnVisible: |+
+        =Set(b_LSConfirmationSubmitReport,false);
+        Set(b_LSConfirmationRecheckReport,false);
+        Set(b_LSConfirmationApproveReport,false);
+        Set(b_LSStartTask,If(IsBlank(gal_TSTaskList.Selected.start_time_task),true,false));
+        Set(dm_LSTask,If(IsBlank(gal_TSTaskList.Selected.start_time_task),DisplayMode.Disabled,DisplayMode.Edit));
+        
+        /*If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
+            ClearCollect(c_TaskComment,Filter(tbl_assignment_sublocation_comment, assignment_header_id = gal_TSTaskList.Selected.ID))
+        ,
+            ""
+        )*/
+        
+
+    "gal_LSSSublocationList As gallery.'BrowseLayout_Vertical_TwoTextOneImageTwoColumnOverlayVariant_ver4.0'":
+        DelayItemLoading: =true
+        DisplayMode: =dm_LSTask
+        Height: =928
+        Items: =c_SubLocation
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        OnSelect: =
+        ShowScrollbar: =false
+        TemplatePadding: =20
+        TemplateSize: =Min(320, Self.Height - 60)
+        Width: =599
+        WrapCount: =2
+        X: =20
+        Y: =82
+        ZIndex: =2
+
+        img_LSSPreview As image:
+            Height: =285
+            Image: |-
+                =//ThisItem.img_url
+                LookUp(gal_sublocation_photos, ID = ThisItem.img_id, Thumbnail.Large)
+            ImagePosition: =ImagePosition.Fill
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            ZIndex: =1
+
+        shp_LSSOverlay As rectangle:
+            Height: =73
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 108
+            ZIndex: =2
+
+        lbl_LSSSublocationName As label:
+            Align: =Align.Center
+            Height: =57
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.sublocation_name //& " - " & ThisItem.RowNumber
+            VerticalAlign: =VerticalAlign.Top
+            Width: =269
+            Y: =shp_LSSOverlay.Y + 16
+            ZIndex: =3
+
+        btn_LSSOnSelectHandler As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =320
+            HoverFill: =Color.Transparent
+            OnSelect: |-
+                =Select(Parent);
+                Set(s_SelectedSublocation, gal_LSSSublocationList.Selected.sublocation_name);
+                Set(n_CurrentSublocationRowNumber, gal_LSSSublocationList.Selected.RowNumber);
+                Set(n_CurrentSublocationID, ThisItem.ID);
+                
+                ClearCollect(c_TmpAssignmentDetailAmenities, Filter(c_AssignmentDetail, sublocation_id = gal_LSSSublocationList.Selected.ID));
+                //Generate Row Number
+                ClearCollect(
+                    c_AssignmentDetailAmenities,
+                    ForAll(
+                        Sequence(CountRows(c_TmpAssignmentDetailAmenities)),
+                        Patch(
+                            Last(FirstN(c_TmpAssignmentDetailAmenities, Value)),
+                            { RowNumber : Value }
+                        )
+                    )
+                );
+                Clear(c_TmpAssignmentDetailAmenities);
+                
+                Set(s_ApproverComment, First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )
+                ).comment);
+                
+                If(!IsBlank(s_ApproverComment),Set(b_showComment,true),Set(b_showComment,false));
+                
+                Navigate(scr_TaskReportScreen);
+            Size: =24
+            Text: =""
+            Width: =269.5
+            ZIndex: =4
+
+    cmp_LSAppBar_top As cmp_MD_AppBar_top:
+        onSelectIcon1: =Back();
+        onSelectIcon2: =Navigate(scr_NotificationScreen);
+        svgIcon1: |-
+            ="<svg width='11px' height='20px' viewBox='0 0 11 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+                <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+                <title>arrow_back_ios</title>
+                <desc>Created with Sketch.</desc>
+                <g id='Icons' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
+                    <g id='Rounded' transform='translate(-548.000000, -3434.000000)'>
+                        <g id='Navigation' transform='translate(100.000000, 3378.000000)'>
+                            <g id='-Round-/-Navigation-/-arrow_back_ios' transform='translate(442.000000, 54.000000)'>
+                                <g>
+                                    <polygon id='Path' opacity='0.87' points='0 0 24 0 24 24 0 24'></polygon>
+                                    <path d='M16.62,2.99 C16.13,2.5 15.34,2.5 14.85,2.99 L6.54,11.3 C6.15,11.69 6.15,12.32 6.54,12.71 L14.85,21.02 C15.34,21.51 16.13,21.51 16.62,21.02 C17.11,20.53 17.11,19.74 16.62,19.25 L9.38,12 L16.63,4.75 C17.11,4.27 17.11,3.47 16.62,2.99 Z' id='🔹-Icon-Color' fill='#ffff'></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>"
+        svgIcon2: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21'/></svg>"
+        svgIcon3: =""
+        svgIcon4: =""
+        titleText: =gal_TSTaskList.Selected.location_name//&" "&gal_TSTaskList.Selected.ID
+        tooltipIcon1: ="Kembali"
+        tooltipIcon2: ="Notifikasi"
+        tooltipIcon3: =""
+        tooltipIcon4: =""
+        ZIndex: =3
+
+    btn_LSSSubmitReport As button:
+        Fill: =RGBA(33, 86, 117, 1)
+        Height: =50
+        OnSelect: |
+            =Set(b_LSConfirmationSubmitReport,true);
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =24
+        Text: ="Simpan Laporan"
+        Visible: |-
+            =If(
+                gal_TSTaskList.Selected.status_code <> Text(n_WaitingGMApprovalStatus) && gal_TSTaskList.Selected.status_code <> Text(n_ReadyForSale) && gal_TSTaskList.Selected.assigned_pic1_id = First(c_ActiveUserData).ID,
+                true,
+                If(
+                    First(c_ActiveUserData).is_approver = 1,
+                    false,
+                    false
+                )
+            )
+            /*If(
+                First(c_ActiveUserData).is_approver = 1,
+                false,
+                If(
+                    gal_TSTaskList.Selected.status_code <> Text(n_WaitingGMApprovalStatus),
+                    true
+                )
+            )*/
+        Width: =560
+        X: =39
+        Y: =1035
+        ZIndex: =4
+
+    btn_LSRecheck As button:
+        Fill: =RGBA(246, 88, 16, 1)
+        Height: =50
+        OnSelect: =Set(b_LSConfirmationRecheckReport,true);
+        Size: =20
+        Text: ="Recheck"
+        Visible: =btn_LSApprove.Visible
+        Width: =250
+        X: =39
+        Y: =1052
+        ZIndex: =5
+
+    btn_LSApprove As button:
+        Fill: =RGBA(141, 198, 63, 1)
+        Height: =50
+        OnSelect: |
+            =Set(b_LSConfirmationApproveReport,true);
+        Size: =20
+        Text: ="Setuju"
+        Visible: |-
+            =//If(gal_TSTaskList.Selected.status_code <> Text(n_WaitingGMApprovalStatus),false,If(First(c_ActiveUserData).is_approver = 1,true,false))
+            b_ShowRecheckApproveButton
+        Width: =250
+        X: =349
+        Y: =1052
+        ZIndex: =6
+
+    grp_ConfirmationSubmitReport As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =13
+
+        Rectangle2 As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.5)
+            Height: =1136
+            Visible: =b_LSConfirmationSubmitReport
+            Width: =640
+            ZIndex: =7
+
+        Rectangle3 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =447
+            Visible: =b_LSConfirmationSubmitReport
+            Width: =535
+            X: =51
+            Y: =303
+            ZIndex: =8
+
+        Label3 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            Size: =21
+            Text: ="Mohon Konfirmasi"
+            Visible: =b_LSConfirmationSubmitReport
+            Width: =342
+            X: =147
+            Y: =338
+            ZIndex: =9
+
+        Label4 As label:
+            Align: =Align.Center
+            Height: =119
+            Size: =21
+            Text: ="Pekerjaan ini akan terkunci dan tidak dapat diubah. apakah anda setuju?"
+            Visible: =b_LSConfirmationSubmitReport
+            Width: =427
+            X: =106
+            Y: =454
+            ZIndex: =10
+
+        Button2 As button:
+            Fill: =RGBA(246, 88, 16, 1)
+            Height: =50
+            OnSelect: =Set(b_LSConfirmationSubmitReport,false);
+            Size: =24
+            Text: ="Kembali"
+            Visible: =b_LSConfirmationSubmitReport
+            Width: =200
+            X: =106
+            Y: =641
+            ZIndex: =11
+
+        Button2_1 As button:
+            Fill: =RGBA(152, 208, 70, 1)
+            Height: =50
+            OnSelect: |-
+                =Set(b_Continue,true);
+                
+                Set(b_LSCMandatoryPIC ,First(Filter(c_AllFlowProcess,sequence_number = gal_TSTaskList.Selected.sequence_number)).is_pic_mandatory);
+                
+                Set(b_LSCMandatoryPhoto ,First(Filter(c_AllFlowProcess,sequence_number = gal_TSTaskList.Selected.sequence_number)).is_photo_mandatory);
+                
+                If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0))) > 0,
+                    Notify("Mohon pastikan seluruh data tercatat sebagai 'OK'");
+                    Set(b_Continue, false);    
+                );
+                
+                If(b_LSCMandatoryPIC = 1,
+                
+                    If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && IsBlank(staff_id))) > 0,
+                        Notify("Mohon pastikan seluruh pekerjaan sudah terpilih PIC nya");
+                        Set(b_Continue, false);    
+                    );
+                
+                    
+                );
+                If(b_LSCMandatoryPhoto = 1,
+                    If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID &&( IsBlank(url_photo_before) || IsBlank(url_photo_after))) )> 0,
+                            Notify("Mohon pastikan seluruh pekerjaan sudah terpilih Gambarnya nya");
+                            Set(b_Continue, false);    
+                        );
+                );
+                If(b_Continue,
+                    Patch(tbl_assignment_headers, First(
+                            Filter(
+                                tbl_assignment_headers,
+                                ID = gal_TSTaskList.Selected.ID
+                            )
+                        ),
+                        {
+                            status_code: n_WaitingGMApprovalStatus,
+                            end_time_task: Now()
+                        }
+                    );
+                    Patch(c_Task, { ID : gal_TSTaskList.Selected.ID}, 
+                        {
+                            status_code: n_WaitingGMApprovalStatus,
+                            status_name: First(Filter(c_AllStatus, Value(status_code) = n_WaitingGMApprovalStatus)).status_name,
+                            status_color:First(Filter(c_AllStatus, Value(status_code) = n_WaitingGMApprovalStatus)).hex_color,
+                            end_time_task: Now()
+                        }
+                    );
+                    //Gabisa pake cara ini nanti jadinya insert
+                    /*Patch(tbl_assignment_headers, { ID : gal_TSTaskList.Selected.ID},
+                        {status_code: n_WaitingGMApprovalStatus}
+                    );*/
+                
+                    
+                
+                
+                
+                    //TO DO : Sent Notification to Approver
+                    // bukan ke approver tetapi ke departement selanjutnya
+                    ClearCollect(c_UserApprover, Filter(c_AllEmployee, department_id = n_DepartmentID && is_approver = 1));
+                
+                    ForAll(c_UserApprover,
+                        Patch(tbl_notification_list, Defaults(tbl_notification_list), 
+                        {
+                            employee_id : c_UserApprover[@ID],
+                            notification_preview : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah selesai dikerjakan oleh " & First(c_ActiveUserData).name & ". Mohon review nya",
+                            notification_content : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah selesai dikerjakan oleh " & First(c_ActiveUserData).name & ". Mohon review nya",
+                            notification_date : Now(),
+                            is_read : 0
+                        });
+                
+                        '[DEV]AssetMaintenance-SendPushNotification'.Run(c_UserApprover[@email], "Mohon Review Penugasan " & gal_TSTaskList.Selected.assignment_code);
+                    );
+                
+                    //Get Current Process Number
+                    Set(n_NextSequenceNumber, First(Filter(c_AllFlowProcess, process_id = gal_TSTaskList.Selected.process_id && department_id = First(c_ActiveUserData).department_id)).sequence_number + 1);
+                    
+                    //Get Next Process
+                    ClearCollect(c_NextAssignmentHeader, Filter(tbl_assignment_headers, assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = n_NextSequenceNumber && process_id = gal_TSTaskList.Selected.process_id));
+                
+                    //Update Next Process to be available
+                    If(CountRows(c_NextAssignmentHeader) > 0,
+                        Patch(tbl_assignment_headers, { ID : First(c_NextAssignmentHeader).ID, sequence_number: n_NextSequenceNumber}, { status_code: n_NotStarted, is_ready_to_start: 1});
+                        Set(n_NextDepartmentID, First(c_NextAssignmentHeader).department_id);
+                        //TO DO : Sent Notification to Next Process Division
+                        ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = n_NextDepartmentID && IsBlank(spv_id)));
+                        ForAll(c_AllNextProcessEmployee,
+                            Patch(tbl_notification_list, Defaults(tbl_notification_list), 
+                            {
+                                employee_id : c_AllNextProcessEmployee[@ID],
+                                notification_preview : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah selesai dikerjakan oleh " & First(c_ActiveUserData).name & ". Mohon melakukan penyelesaian penugasan tersebut",
+                                notification_content : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah selesai dikerjakan oleh " & First(c_ActiveUserData).name & ". Mohon melakukan penyelesaian penugasan tersebut",
+                                notification_date : Now(),
+                                is_read : 0
+                            });
+                
+                            '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Mohon Kerjakan Penugasan " & gal_TSTaskList.Selected.assignment_code);
+                        );
+                    );
+                
+                	Set(b_LSConfirmationSubmitReport,false);
+                    Notify("Data berhasil disubmit.");
+                    Navigate(scr_TaskScreen);
+                    
+                );
+            Size: =24
+            Text: ="Simpan"
+            Visible: =b_LSConfirmationSubmitReport
+            Width: =200
+            X: =333
+            Y: =641
+            ZIndex: =12
+
+    grp_ConfirmationRecheckReport As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =19
+
+        Rectangle2_1 As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.5)
+            Height: =1136
+            Visible: =b_LSConfirmationRecheckReport
+            Width: =640
+            ZIndex: =13
+
+        Rectangle3_1 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =447
+            Visible: =b_LSConfirmationRecheckReport
+            Width: =535
+            X: =51
+            Y: =303
+            ZIndex: =14
+
+        Label3_1 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            Size: =21
+            Text: ="Mohon Konfirmasi"
+            Visible: =b_LSConfirmationRecheckReport
+            Width: =342
+            X: =147
+            Y: =338
+            ZIndex: =15
+
+        Label4_1 As label:
+            Align: =Align.Center
+            Height: =119
+            Size: =21
+            Text: ="Apakah anda yakin pekerjaan ini akan dikembalikan untuk pengecekan ulang?"
+            Visible: =b_LSConfirmationRecheckReport
+            Width: =427
+            X: =106
+            Y: =454
+            ZIndex: =16
+
+        Button2_3 As button:
+            Fill: =RGBA(246, 88, 16, 1)
+            Height: =50
+            OnSelect: =Set(b_LSConfirmationRecheckReport,false);
+            Size: =24
+            Text: ="Kembali"
+            Visible: =b_LSConfirmationRecheckReport
+            Width: =200
+            X: =106
+            Y: =641
+            ZIndex: =17
+
+        Button2_2 As button:
+            Fill: =RGBA(152, 208, 70, 1)
+            Height: =50
+            OnSelect: |-
+                =Clear(c_AllNextProcessEmployee);
+                Clear(c_NextFlowProcess);
+                Collect(c_NextFlowProcess,Filter(c_AllFlowProcess,sequence_number > gal_TSTaskList.Selected.sequence_number));
+                
+                ForAll(c_NextFlowProcess,
+                //Notify(First(Filter(c_Task,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])).ID);
+                    Patch(c_Task,
+                        First(
+                            Filter(c_Task,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])
+                            ),
+                        {
+                            status_code: n_NeedMoreAttention,
+                            status_name: First(
+                                Filter(
+                                    c_AllStatus,
+                                    Value(status_code) = n_NeedMoreAttention
+                                )
+                            ).status_name,
+                            status_color: First(
+                                Filter(
+                                    c_AllStatus,
+                                    Value(status_code) = n_NeedMoreAttention
+                                )
+                            ).hex_color,
+                
+                            is_ready_to_start:0
+                        }
+                    );
+                
+                    Patch(
+                        tbl_assignment_headers,
+                        First(
+                            Filter(tbl_assignment_headers,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])
+                            ),
+                        {
+                            status_code: n_NeedMoreAttention,
+                            is_ready_to_start:0
+                        }
+                    );
+                
+                    Collect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = c_NextFlowProcess[@department_id] && IsBlank(spv_id)));
+                        
+                );
+                
+                ForAll(c_AllNextProcessEmployee,
+                            Patch(tbl_notification_list, Defaults(tbl_notification_list), 
+                            {
+                                employee_id : c_AllNextProcessEmployee[@ID],
+                                notification_preview : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
+                                notification_content : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
+                                notification_date : Now(),
+                                is_read : 0
+                            });
+                
+                            '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Mohon Kerjakan Penugasan " & gal_TSTaskList.Selected.assignment_code);
+                        );
+                
+                Patch(
+                    tbl_assignment_headers,
+                    First(
+                        Filter(
+                            tbl_assignment_headers,
+                            ID = gal_TSTaskList.Selected.ID
+                        )
+                    ),
+                    {status_code: n_NeedMoreAttention}
+                );
+                Patch(
+                    c_Task,
+                    {ID: gal_TSTaskList.Selected.ID},
+                    {
+                        status_code: n_NeedMoreAttention,
+                        status_name: First(
+                            Filter(
+                                c_AllStatus,
+                                Value(status_code) = n_NeedMoreAttention
+                            )
+                        ).status_name,
+                        status_color: First(
+                            Filter(
+                                c_AllStatus,
+                                Value(status_code) = n_NeedMoreAttention
+                            )
+                        ).hex_color
+                    }
+                );
+                ForAll(
+                    c_AssignmentDetail,
+                    Patch(tbl_assignment_details,
+                        First(Filter(
+                            tbl_assignment_details,
+                            ID = c_AssignmentDetail[@ID]
+                        )),
+                        {
+                            is_not_ok: 0,
+                            is_ok: 0
+                        }
+                    );   
+                   
+                );
+                
+                UpdateIf(c_AssignmentDetail, 1 = 1, 
+                    { 
+                        is_not_ok: 0,
+                        is_ok: 0
+                    }
+                );
+                
+                
+                
+                Navigate(scr_TaskScreen);
+            Size: =24
+            Text: ="Ya"
+            Visible: =b_LSConfirmationRecheckReport
+            Width: =200
+            X: =333
+            Y: =641
+            ZIndex: =18
+
+    btn_LSSSubmitReport_1 As button:
+        Fill: =RGBA(141, 198, 63, 1)
+        Height: =75
+        OnSelect: |-
+            =Set(b_LSStartTask,false);
+            Set(dm_LSTask,DisplayMode.Edit);
+            
+            Patch(tbl_assignment_headers, 
+                First(
+                    Filter(tbl_assignment_headers, ID = gal_TSTaskList.Selected.ID)
+                    ),
+                    {start_time_task: Now()}
+            );
+            
+            Patch(c_Task, { ID : gal_TSTaskList.Selected.ID}, 
+                {start_time_task: Now()}
+            );
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =24
+        Text: ="Mulai Pekerjaan"
+        Visible: |-
+            =If(
+                gal_TSTaskList.Selected.status_code <> Text(n_WaitingGMApprovalStatus) && gal_TSTaskList.Selected.status_code <> Text(n_ReadyForSale) && gal_TSTaskList.Selected.assigned_pic1_id = First(c_ActiveUserData).ID && b_LSStartTask = true,
+                true,
+                If(
+                    First(c_ActiveUserData).is_approver = 1,
+                    false,
+                    false
+                )
+            )
+        Width: =581
+        X: =27
+        Y: =1017
+        ZIndex: =25
+
+    grp_ConfirmationApproveReport As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =25
+
+        Rectangle2_2 As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.5)
+            Height: =1136
+            Visible: =b_LSConfirmationApproveReport
+            Width: =640
+            ZIndex: =19
+
+        Rectangle3_2 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =447
+            Visible: =b_LSConfirmationApproveReport
+            Width: =535
+            X: =51
+            Y: =303
+            ZIndex: =20
+
+        Label3_2 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            Size: =21
+            Text: ="Mohon Konfirmasi"
+            Visible: =b_LSConfirmationApproveReport
+            Width: =342
+            X: =147
+            Y: =338
+            ZIndex: =21
+
+        Label4_2 As label:
+            Align: =Align.Center
+            Height: =119
+            Size: =21
+            Text: ="Apakah anda yakin untuk menyetujui tugas ini?"
+            Visible: =b_LSConfirmationApproveReport
+            Width: =427
+            X: =106
+            Y: =454
+            ZIndex: =22
+
+        Button2_5 As button:
+            Fill: =RGBA(246, 88, 16, 1)
+            Height: =50
+            OnSelect: =Set(b_LSConfirmationApproveReport,false);
+            Size: =24
+            Text: ="Kembali"
+            Visible: =b_LSConfirmationApproveReport
+            Width: =200
+            X: =106
+            Y: =641
+            ZIndex: =23
+
+        Button2_4 As button:
+            Fill: =RGBA(152, 208, 70, 1)
+            Height: =50
+            OnSelect: |-
+                =//Clear(c_AllNextProcessEmployee);
+                ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = gal_TSTaskList.Selected.department_id && IsBlank(spv_id)));
+                Patch(tbl_assignment_headers, First(
+                        Filter(
+                            tbl_assignment_headers,
+                            ID = gal_TSTaskList.Selected.ID
+                        )
+                    ),
+                    {
+                        status_code: n_ReadyForSale,
+                        approver_id: First(c_ActiveUserData).ID,
+                        approve_date:Now()
+                    }
+                );
+                Patch(c_Task, { ID : gal_TSTaskList.Selected.ID}, 
+                    {
+                        status_code: n_ReadyForSale,
+                        status_name: First(Filter(c_AllStatus, Value(status_code) = n_ReadyForSale)).status_name,
+                        status_color:First(Filter(c_AllStatus, Value(status_code) = n_ReadyForSale)).hex_color,
+                        approver_id: First(c_ActiveUserData).ID,
+                        approve_date:Now()
+                    }
+                );
+                
+                ForAll(c_AllNextProcessEmployee,
+                        Patch(tbl_notification_list, Defaults(tbl_notification_list), 
+                        {
+                            employee_id : c_AllNextProcessEmployee[@ID],
+                            notification_preview : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name,
+                            notification_content : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name,
+                            notification_date : Now(),
+                            is_read : 0
+                        });
+                
+                        '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Mohon Kerjakan Penugasan " & gal_TSTaskList.Selected.assignment_code);
+                        );
+                
+                Navigate(scr_TaskScreen);
+            Size: =24
+            Text: ="Ya"
+            Visible: =b_LSConfirmationApproveReport
+            Width: =200
+            X: =333
+            Y: =641
+            ZIndex: =24
+

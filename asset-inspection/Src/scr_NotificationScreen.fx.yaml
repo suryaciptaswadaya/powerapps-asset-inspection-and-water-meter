@@ -1,0 +1,198 @@
+scr_NotificationScreen As screen:
+    OnVisible: =Set(b_NSDetailNotification,false);
+
+    "gal_NSNotifications As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        DelayItemLoading: =true
+        Height: =1015
+        Items: =c_AllNotification
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =173
+        Width: =599
+        X: =21
+        Y: =90
+        ZIndex: =1
+
+        lbl_NSMessage As label:
+            FontWeight: =FontWeight.Normal
+            Height: =122
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =18
+            Text: =ThisItem.notification_preview
+            VerticalAlign: =VerticalAlign.Top
+            Width: =515
+            X: =54
+            Y: =27
+            ZIndex: =1
+
+        lbl_NSTimestamp As label:
+            Align: =Align.Right
+            Color: =RGBA(116, 116, 116, 1)
+            FontWeight: =FontWeight.Normal
+            Height: =26
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =14
+            Text: =Text(ThisItem.notification_date, "dd-mm-yyyy")
+            VerticalAlign: =VerticalAlign.Top
+            Width: =116
+            X: =443
+            Y: =138
+            ZIndex: =2
+
+        cir_NSUnreadNotification As circle:
+            Fill: =RGBA(255, 0, 0, 1)
+            Height: =12
+            Visible: =If(ThisItem.is_read = 0, true, false)
+            Width: =12
+            X: =30
+            Y: =36
+            ZIndex: =3
+
+        btn_NSMessageBorder As button:
+            Align: =Align.Left
+            BorderColor: =RGBA(0, 0, 0, 1)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =154
+            HoverBorderColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =Color.Transparent
+            OnSelect: |-
+                =Select(Parent);
+                Patch(tbl_notification_list, { ID : gal_NSNotifications.Selected.ID }, { is_read: 1 });
+                Patch(c_AllNotification, { ID : gal_NSNotifications.Selected.ID }, { is_read: 1 });
+                Set(b_NSDetailNotification,true);
+            RadiusBottomLeft: =25
+            RadiusBottomRight: =25
+            RadiusTopLeft: =25
+            RadiusTopRight: =25
+            Size: =18
+            Text: =""
+            Width: =565
+            X: =16
+            Y: =13
+            ZIndex: =4
+
+    cmp_NSAppBar_top As cmp_MD_AppBar_top:
+        onSelectIcon1: =Back();
+        onSelectIcon2: =Navigate(scr_NotificationScreen);
+        svgIcon1: |-
+            ="<svg width='11px' height='20px' viewBox='0 0 11 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+                <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+                <title>arrow_back_ios</title>
+                <desc>Created with Sketch.</desc>
+                <g id='Icons' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
+                    <g id='Rounded' transform='translate(-548.000000, -3434.000000)'>
+                        <g id='Navigation' transform='translate(100.000000, 3378.000000)'>
+                            <g id='-Round-/-Navigation-/-arrow_back_ios' transform='translate(442.000000, 54.000000)'>
+                                <g>
+                                    <polygon id='Path' opacity='0.87' points='0 0 24 0 24 24 0 24'></polygon>
+                                    <path d='M16.62,2.99 C16.13,2.5 15.34,2.5 14.85,2.99 L6.54,11.3 C6.15,11.69 6.15,12.32 6.54,12.71 L14.85,21.02 C15.34,21.51 16.13,21.51 16.62,21.02 C17.11,20.53 17.11,19.74 16.62,19.25 L9.38,12 L16.63,4.75 C17.11,4.27 17.11,3.47 16.62,2.99 Z' id='🔹-Icon-Color' fill='#ffff'></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>"
+        svgIcon2: =""
+        svgIcon3: =""
+        svgIcon4: =""
+        titleText: ="Notifikasi Saya"
+        tooltipIcon1: ="Kembali"
+        tooltipIcon2: ="Notifikasi"
+        tooltipIcon3: =""
+        tooltipIcon4: =""
+        ZIndex: =2
+
+    rct_NSBackgroundNotification As rectangle:
+        Fill: =RGBA(128, 128, 128, 0.6)
+        Height: =1136
+        Visible: =b_NSDetailNotification
+        Width: =640
+        ZIndex: =3
+
+    rct_NSBaseNotification As rectangle:
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =596
+        Visible: =b_NSDetailNotification
+        Width: =509
+        X: =65
+        Y: =192
+        ZIndex: =4
+
+    lbl_NSDetailHeader As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Semibold
+        Height: =72
+        Size: =21
+        Text: ="Detail Notifikasi"
+        Visible: =b_NSDetailNotification
+        Width: =480
+        X: =80
+        Y: =206
+        ZIndex: =5
+
+    lbl_NSFulDetail As label:
+        Height: =243
+        Size: =18
+        Text: =gal_NSNotifications.Selected.notification_content
+        VerticalAlign: =VerticalAlign.Top
+        Visible: =b_NSDetailNotification
+        Width: =435
+        X: =101
+        Y: =435
+        ZIndex: =6
+
+    btn_NSOK As button:
+        Height: =60
+        OnSelect: =Set(b_NSDetailNotification,false);
+        Size: =24
+        Text: ="Ok"
+        Visible: =b_NSDetailNotification
+        Width: =311
+        X: =164
+        Y: =691
+        ZIndex: =7
+
+    lbl_NSDateTitle As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="Tanggal"
+        Visible: =b_NSDetailNotification
+        Width: =450
+        X: =103
+        Y: =278
+        ZIndex: =8
+
+    lbl_NSDate As label:
+        Height: =55
+        Size: =18
+        Text: =Text(gal_NSNotifications.Selected.notification_date,"dd-mm-yyyy")
+        Visible: =b_NSDetailNotification
+        Width: =450
+        X: =103
+        Y: =326
+        ZIndex: =9
+
+    lbl_NSDetail As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: ="Rincian"
+        Visible: =b_NSDetailNotification
+        Width: =450
+        X: =101
+        Y: =379
+        ZIndex: =10
+

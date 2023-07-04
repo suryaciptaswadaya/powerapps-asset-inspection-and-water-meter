@@ -1,0 +1,462 @@
+scr_TaskScreenEdit As screen:
+    OnVisible: |
+        =//Clear(c_TSE_TempLocation);
+        //Clear(c_TSE_TempLocationRemoved);
+        Clear(c_TSE_TempLocation);
+        ClearCollect(
+            c_TSE_EmployeeTaskLocation,
+            Filter(
+                c_Task,
+                start_date = d_TSV_Date && assigned_pic1_id = n_TSV_EmployeeID
+            )
+        );
+        
+        ForAll(
+            c_TSE_EmployeeTaskLocation,
+            Collect(
+                c_TSE_TempLocation,
+                {
+                    id: ID,
+                    LocationID:location_id,
+                    LocationName:location_name,
+                    status: ""
+                }
+            )
+        );
+        Set(
+            b_TSE_DisableButton,
+            false
+        );
+        
+        //ClearCollect(c_TempDetailsEmployees,Filter(c_AllEmployeeCoworkers,ID = n_TSV_EmployeeID));
+
+    cmp_TSE_TopNavigation As cmp_MD_AppBar_top:
+        onSelectIcon1: =Navigate(scr_TaskScreenView,ScreenTransition.UnCoverRight)
+        onSelectIcon2: =Navigate(scr_NotificationScreen)
+        svgIcon1: |-
+            ="<svg width='11px' height='20px' viewBox='0 0 11 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
+                <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+                <title>arrow_back_ios</title>
+                <desc>Created with Sketch.</desc>
+                <g id='Icons' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
+                    <g id='Rounded' transform='translate(-548.000000, -3434.000000)'>
+                        <g id='Navigation' transform='translate(100.000000, 3378.000000)'>
+                            <g id='-Round-/-Navigation-/-arrow_back_ios' transform='translate(442.000000, 54.000000)'>
+                                <g>
+                                    <polygon id='Path' opacity='0.87' points='0 0 24 0 24 24 0 24'></polygon>
+                                    <path d='M16.62,2.99 C16.13,2.5 15.34,2.5 14.85,2.99 L6.54,11.3 C6.15,11.69 6.15,12.32 6.54,12.71 L14.85,21.02 C15.34,21.51 16.13,21.51 16.62,21.02 C17.11,20.53 17.11,19.74 16.62,19.25 L9.38,12 L16.63,4.75 C17.11,4.27 17.11,3.47 16.62,2.99 Z' id='🔹-Icon-Color' fill='#ffff'></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>"
+        svgIcon2: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21'/></svg>"
+        svgIcon3: =""
+        svgIcon4: =""
+        titleText: ="Rincian Tugas"
+        tooltipIcon1: =""
+        tooltipIcon2: ="Tugas"
+        tooltipIcon3: =""
+        tooltipIcon4: =""
+        ZIndex: =1
+
+    cmp_TSE_InputFrame As cmp_MD_GenericInputFrame:
+        errorText: =""
+        Height: =530
+        helperText: ="Lokasi Penugasan Bisa Lebih dari 1"
+        labelText: ="Lokasi Penugasan"
+        showErrors: =false
+        Width: =606
+        X: =17
+        Y: =228
+        ZIndex: =6
+
+    cbb_TSE_Location As combobox:
+        ChevronBackground: =RGBA(33, 86, 117, 1)
+        DisplayFields: =["location_name"]
+        Height: =70
+        InputTextPlaceholder: ="Pilih Lokasi"
+        IsSearchable: =false
+        Items: =c_AllLocation
+        SearchFields: =["ComplianceAssetId"]
+        SearchItems: =[]
+        SelectMultiple: =false
+        Size: =21
+        Visible: =false
+        Width: =323
+        X: =47
+        Y: =270
+        ZIndex: =7
+
+    btn_TSE_AddLocation As cmp_MD_Button:
+        boxShadow: =false
+        buttonText: ="Tambah"
+        Height: =109
+        onSelect: |
+            =Set(
+                b_TSE_Assign,
+                true
+            );
+            If(
+                IsBlank(cbb_TSE_Location.Selected),
+                Set(
+                    b_TSE_Snackbar,
+                    !b_TSE_Snackbar
+                );
+                Set(
+                    s_TSE_TextSnackBar,
+                    "Kamar Tidak Boleh Kosong"
+                );
+                Set(
+                    b_TSE_Assign,
+                    false
+                )
+            );
+            If(CountRows(Filter(c_TSE_TempLocation, LocationID = cbb_TSE_Location.Selected.ID && status <> "deleted"))>0,
+               Set(
+                    b_TSE_Snackbar,
+                    !b_TSE_Snackbar
+                );
+                Set(
+                    s_TSE_TextSnackBar,
+                    "Kamar Sudah Dipilih"
+                );
+                Set(
+                    b_TSE_Assign,
+                    false
+                );
+            );
+            If(
+                b_TSE_Assign,
+                Collect(
+                    c_TSE_TempLocation,
+                    {            
+                        LocationID: cbb_TSE_Location.Selected.ID,
+                        LocationName: cbb_TSE_Location.Selected.location_name,
+                        status: "added"
+                    }
+                )
+            );
+        svgIcon: =""
+        Visible: =false
+        Width: =247
+        X: =370
+        Y: =250
+        ZIndex: =8
+
+    "gal_TSE_LocationList As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        DelayItemLoading: =true
+        Height: =437
+        Items: =Filter(c_TSE_TempLocation,status <> "deleted")
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =60
+        Width: =543
+        X: =47
+        Y: =270
+        ZIndex: =9
+
+        Separator1_1 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        Icon1_1 As icon.HorizontalLine:
+            Color: =RGBA(168, 0, 0, 1)
+            Height: =60
+            Icon: =Icon.HorizontalLine
+            OnSelect: |-
+                =//Patch(c_TSE_TempLocation,{LocationID:ThisItem.LocationID},{status:"deleted"});
+            Visible: =false
+            Width: =35
+            X: =487
+            ZIndex: =7
+
+        Label2_1 As label:
+            Height: =60
+            OnSelect: =Select(Parent)
+            Size: =21
+            Text: =ThisItem.LocationName
+            Width: =296
+            ZIndex: =8
+
+    icn_TSE_EmptyState As icon.Information:
+        Color: =RGBA(33, 86, 117, 1)
+        Height: =95
+        Icon: =Icon.Information
+        Visible: |-
+            =If(CountRows(c_TSE_TempLocation) = 0 ,
+                true,
+                false
+            )
+        Width: =102
+        X: =269
+        Y: =507
+        ZIndex: =10
+
+    lbl_TSE_EmptyState As label:
+        Color: =RGBA(33, 86, 117, 1)
+        Height: =70
+        Size: =21
+        Text: ="Belum Ada Lokasi Penugasan"
+        Visible: |-
+            =If(CountRows(c_TSE_TempLocation) = 0 ,
+                true,
+                false
+            )
+        Width: =408
+        X: =116
+        Y: =591
+        ZIndex: =11
+
+    btn_TSE_Save As cmp_MD_Button_2:
+        buttonText: ="Simpan"
+        displayMode: =If(b_TSE_DisableButton, DisplayMode.Disabled, DisplayMode.Edit)
+        Height: =101
+        onSelect: |
+            =Set(
+                b_TSE_Save,
+                true
+            );
+            If(
+                CountRows(c_TSE_TempLocation) = 0,
+                Set(
+                    b_TSE_Snackbar,
+                    !b_TSE_Snackbar
+                );
+                Set(
+                    s_TSC_TextSnackBar,
+                    "Pilih Lokasi Penugasan"
+                );
+                Set(
+                    b_TSE_Save,
+                    false
+                )
+            );
+            If(
+                b_TSE_Save,
+                Set(
+                    b_TSE_DisableButton,
+                    true
+                );
+                ForAll(
+                    Filter(
+                        c_TSE_TempLocation,
+                        status = "deleted"
+                    ),
+                    Patch(
+                        tbl_assignment_headers,
+                        {ID: id},
+                        {is_deleted: 1}
+                    )
+                );
+                ForAll(
+                    Filter(
+                        c_TSE_TempLocation,
+                        status = "deleted"
+                    ),
+                    Remove(
+                        c_Task,
+                        LookUp(
+                            c_Task,
+                            ID = id
+                        )
+                    );
+                );
+                ForAll(
+                    Filter(
+                        c_TSE_TempLocation,
+                        status = "added"
+                    ),
+                    Patch(
+                        tbl_assignment_headers,
+                        Defaults(tbl_assignment_headers),
+                        {
+                            entity_id: n_EntityID,
+                            location_id: LocationID,
+                            assignment_date: d_TSV_Date,
+                            assigned_pic1_id: n_TSV_EmployeeID,
+                            department_id: n_TSV_departmentID,
+                            spv_id: n_TSV_SpvID,
+                            status_code: 100
+                        }
+                    )
+                );
+                Refresh(tbl_assignment_headers);
+                ClearCollect(
+                    c_NewInsertedTask,
+                    LastN(
+                        Filter(
+                            tbl_assignment_headers,
+                            n_TSV_EmployeeID = assigned_pic1_id
+                        ),
+                        CountRows(
+                            Filter(
+                                c_TSE_TempLocation,
+                                status = "added"
+                            )
+                        )
+                    )
+                );
+                ForAll(
+                    c_NewInsertedTask,
+                    ForAll(
+                        Filter(
+                            c_AllSublocationAmenities,
+                            location_id
+                        ),
+                        Patch(
+                            tbl_assignment_details,
+                            Defaults(tbl_assignment_details),
+                            {
+                                assignment_header_id: c_NewInsertedTask[@ID],
+                                location_id: c_NewInsertedTask[@location_id],
+                                sublocation_id: sublocation_id,
+                                amenity_id: ID
+                            }
+                        )
+                    )
+                );
+                ForAll(
+                    Filter(
+                        c_TSE_TempLocation,
+                        status = "added"
+                    ),
+                    Patch(
+                        c_Task,
+                        Defaults(c_Task),
+                        {
+                            entity_id: n_EntityID,
+                            location_id: LocationID,
+                            assignment_date: d_TSV_Date,
+                            assigned_pic1_id: n_TSV_EmployeeID,
+                            department_id: n_TSV_departmentID,
+                            spv_id: n_TSV_SpvID,
+                            status_code: 100,
+                            location_name: LocationName,
+                            status_name: "Belum Dimulai",
+                            status_color: "#E74C3C"
+                        }
+                    )
+                );
+                Set(
+                    b_TSV_showPopUp,
+                    true
+                );
+                Set(
+                    s_TSV_TextPopUp,
+                    "Penugasan Berhasil Diperbarui"
+                );
+                Navigate(
+                    scr_TaskScreenView,
+                    ScreenTransition.UnCoverRight
+                );
+                
+            );
+        svgIcon: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z'/></svg>"
+        Visible: =false
+        Width: =606
+        X: =17
+        Y: =769
+        ZIndex: =12
+
+    cmp_TSE_Snackbar As cmp_MD_Snackbar_1:
+        actionOnSelect: =Set(b_TSE_Snackbar, false)
+        actionText: ="Close"
+        backgroundColorHex: =defaults.secondaryColorHex
+        borderRadius: =10
+        boxShadow: =false
+        Height: =203
+        onHide: =Set(b_TSE_Snackbar, false)
+        outsideMargin: =50
+        text: =s_TSE_TextSnackBar
+        textColorHex: |-
+            ="#FFFFFF"
+        timerStart: =b_TSE_Snackbar
+        Visible: =b_TSE_Snackbar
+        Width: =Parent.Width
+        Y: =932
+        ZIndex: =13
+
+    img_TSE_ProfilePicute As image:
+        Height: =121
+        Image: =First(c_TempDetailsEmployees).employee_id.Picture
+        ImagePosition: =ImagePosition.Fill
+        OnSelect: =
+        Width: =121
+        X: =63
+        Y: =90
+        ZIndex: =14
+
+    lbl_TSE_EmployeeName As label:
+        Color: =Color.DarkSlateGray
+        Height: =41
+        OnSelect: =
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Size: =25
+        Text: =First(c_TempDetailsEmployees).name
+        VerticalAlign: =VerticalAlign.Top
+        Width: =390
+        X: =214
+        Y: =93
+        ZIndex: =15
+
+    lbl_TSE_JobTitle As label:
+        Color: =Color.DarkSlateGray
+        Height: =28
+        OnSelect: =
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Size: =18
+        Text: =First(c_TempDetailsEmployees).job_title_name&" - "&First(c_TempDetailsEmployees).specialization_name
+        VerticalAlign: =VerticalAlign.Top
+        Width: =325
+        X: =214
+        Y: =128
+        ZIndex: =16
+
+    lbl_TSE_TaskDateInfo As label:
+        Color: =Color.DarkSlateGray
+        Height: =28
+        OnSelect: =
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Size: =18
+        Text: =d_TSV_Date
+        VerticalAlign: =VerticalAlign.Top
+        Width: =325
+        X: =214
+        Y: =183
+        ZIndex: =18
+
+    lbl_TSE_TaskDate As label:
+        Color: =Color.DarkSlateGray
+        FontWeight: =FontWeight.Bold
+        Height: =24
+        OnSelect: =
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Size: =12
+        Text: |-
+            ="Tanggal Tugas:"
+        VerticalAlign: =VerticalAlign.Top
+        Width: =325
+        X: =214
+        Y: =165
+        ZIndex: =19
+

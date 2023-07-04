@@ -1,0 +1,192 @@
+{
+  "ComponentAllowCustomization": true,
+  "ComponentChangedSinceFileImport": true,
+  "ComponentManifest": {
+    "AllowAccessToGlobals": false,
+    "AllowCustomization": true,
+    "Description": "",
+    "Name": "cmp_MD_Snackbar",
+    "TemplateGuid": "34e335fdcdda47878d8e00b0b41fd262"
+  },
+  "ComponentType": "CanvasComponent",
+  "CustomGroupControlTemplateName": "",
+  "CustomProperties": [
+    {
+      "Category": 0,
+      "DisplayName": "text",
+      "Hidden": false,
+      "Name": "text",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "Text",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "actionText",
+      "Hidden": false,
+      "Name": "actionText",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "A custom property",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "fontSize",
+      "Hidden": false,
+      "Name": "fontSize",
+      "PropertyDataTypeKey": "Number",
+      "Tooltip": "A custom property",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "fontWeight",
+      "Hidden": false,
+      "Name": "fontWeight",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "Font Weight of the Button",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 2,
+      "DisplayName": "actionOnSelect",
+      "Hidden": false,
+      "Name": "actionOnSelect",
+      "PropertyDataTypeKey": "Boolean",
+      "Tooltip": "OnSelect Property of the action",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Boolean\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "transitionAnimation",
+      "Hidden": false,
+      "Name": "transitionAnimation",
+      "PropertyDataTypeKey": "Boolean",
+      "Tooltip": "Animate the transition or stay in place?",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Boolean\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "timerStart",
+      "Hidden": false,
+      "Name": "timerStart",
+      "PropertyDataTypeKey": "Boolean",
+      "Tooltip": "Set to true when timer should start, set to false in onHide property",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Boolean\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "duration",
+      "Hidden": false,
+      "Name": "duration",
+      "PropertyDataTypeKey": "Number",
+      "Tooltip": "A custom property",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "transitionTime",
+      "Hidden": false,
+      "Name": "transitionTime",
+      "PropertyDataTypeKey": "Number",
+      "Tooltip": "transition TIme in ms",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 2,
+      "DisplayName": "onHide",
+      "Hidden": false,
+      "Name": "onHide",
+      "PropertyDataTypeKey": "Boolean",
+      "Tooltip": "Set visibility to false",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Boolean\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "outsideMargin",
+      "Hidden": false,
+      "Name": "outsideMargin",
+      "PropertyDataTypeKey": "Number",
+      "Tooltip": "Margin of the Button to all sides",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "borderRadius",
+      "Hidden": false,
+      "Name": "borderRadius",
+      "PropertyDataTypeKey": "Number",
+      "Tooltip": "Border Radius of the Button",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "actionColor",
+      "Hidden": false,
+      "Name": "actionColor",
+      "PropertyDataTypeKey": "Color",
+      "Tooltip": "A custom property",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Color\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "backgroundColorHex",
+      "Hidden": false,
+      "Name": "backgroundColorHex",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "A custom property",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "boxShadow",
+      "Hidden": false,
+      "Name": "boxShadow",
+      "PropertyDataTypeKey": "Boolean",
+      "Tooltip": "If you want custom box shadow, insert it here in the format \"box-shadow: 5px 5px 15px 5px #000000;\"",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Boolean\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "textColorHex",
+      "Hidden": false,
+      "Name": "textColorHex",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "A custom property",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "textPaddingLeft",
+      "Hidden": false,
+      "Name": "textPaddingLeft",
+      "PropertyDataTypeKey": "Number",
+      "Tooltip": "TextPaddingLeft in Pixels",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"Number\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "font",
+      "Hidden": false,
+      "Name": "font",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "Font of the Button",
+      "Type": "{\"Version\":\"1.332\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    }
+  ],
+  "FirstParty": true,
+  "Id": "http://microsoft.com/appmagic/Component",
+  "IsComponentLocked": true,
+  "IsComponentTemplate": true,
+  "IsCustomGroupControlTemplate": false,
+  "IsPcfControl": false,
+  "IsPremiumPcfControl": false,
+  "IsWidgetTemplate": false,
+  "LastModifiedTimestamp": "638240347852154296",
+  "Name": "34e335fdcdda47878d8e00b0b41fd262",
+  "OverridableProperties": {},
+  "SourceLibraryId": "eafaa033-e6a8-486e-9253-f81a7179740f",
+  "SourceLibraryLogicalName": "crfd0_materialdesign_d4b4d",
+  "TemplateOriginalName": "959425fe24684b25a75fb5a04b43c5c4",
+  "Version": "637973753888304613"
+}

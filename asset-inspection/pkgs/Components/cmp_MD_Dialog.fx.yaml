@@ -1,0 +1,226 @@
+cmp_MD_Dialog As CanvasComponent:
+    action1OnSelect: =true
+    action1Text: ="ACTION1"
+    action1Width: =70
+    action2OnSelect: =true
+    action2Text: ="ACTION2"
+    action2Width: =70
+    backGroundColorHex: =defaults.backgroundColorHex
+    borderRadius: =Max(defaults.borderRadius, 20)
+    boxShadow: =true
+    dialogWidth: =500
+    Fill: =RGBA(0,0,0,0.3)
+    focusedButton: |-
+        =//0 for no focus, 1 for action1, 2 for action2
+        1
+    font: =defaults.font
+    fontSize: =defaults.fontSize
+    header: ="Meaningful Header"
+    Height: =App.Height
+    OnReset: =false
+    primaryColorHex: =defaults.primaryColorHex
+    text: ="Use this dialog for situations when the user immediately needs to take action and always provide 2 options."
+    textColorHex: ="Text"
+    Visible: =true
+    Width: =App.Width
+    X: =0
+    Y: =0
+    ZIndex: =6
+
+    con_DialogArea As groupContainer.horizontalAutoLayoutContainer:
+        Height: =Parent.Height
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Width: =Parent.Width
+        ZIndex: =5
+
+        con_DialogBG As groupContainer.manualLayoutContainer:
+            AlignInContainer: =AlignInContainer.SetByContainer
+            Fill: =Color.Transparent
+            FillPortions: =0
+            Height: |
+                =con_DialogMain.Height+20
+            LayoutMinHeight: =112
+            LayoutMinWidth: =250
+            Width: =cmp_MD_Dialog.dialogWidth
+            X: =(Parent.Width-Self.Width)/2
+            Y: =(Parent.Height-Self.Height)/2
+            ZIndex: =1
+
+            html_dialogBoxshadow As htmlViewer:
+                Fill: =Color.Transparent
+                Height: =Parent.Height
+                HtmlText: |-
+                    ="<div 
+                        style='
+                            top:10px;
+                            left:10px;
+                            position: absolute;
+                            width: "&Parent.Width-20&"px;
+                            height: "&Parent.Height-20&"px;     
+                            box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.25);
+                            border-radius: "&cmp_MD_Dialog.borderRadius&"px;
+                            '
+                    >
+                    
+                    </div>
+                    
+                    "
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Visible: =cmp_MD_Dialog.boxShadow
+                Width: =Parent.Width
+                ZIndex: =1
+
+            btn_dialogBG As button:
+                BorderStyle: =BorderStyle.None
+                BorderThickness: =0
+                DisabledBorderColor: =Color.Transparent
+                DisabledFill: =ColorValue(cmp_MD_Dialog.backGroundColorHex)
+                DisplayMode: =DisplayMode.Disabled
+                Height: =Parent.Height-20
+                RadiusBottomLeft: =cmp_MD_Dialog.borderRadius
+                RadiusBottomRight: =cmp_MD_Dialog.borderRadius
+                RadiusTopLeft: =cmp_MD_Dialog.borderRadius
+                RadiusTopRight: =cmp_MD_Dialog.borderRadius
+                Size: =24
+                Text: =""
+                Width: =Parent.Width-20
+                X: =10
+                Y: =10
+                ZIndex: =2
+
+            con_DialogMain As groupContainer.verticalAutoLayoutContainer:
+                Height: =con_DialogBtns.Y+45
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutDirection: =LayoutDirection.Vertical
+                LayoutGap: =20
+                LayoutMode: =LayoutMode.Auto
+                PaddingBottom: =20
+                PaddingLeft: =40
+                PaddingRight: =40
+                PaddingTop: =30
+                Width: =Parent.Width
+                ZIndex: =7
+
+                lbl_dialogHeader As label:
+                    AutoHeight: =true
+                    Color: =Color.Black
+                    FontWeight: =FontWeight.Bold
+                    Height: =72
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =100
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =cmp_MD_Dialog.fontSize+4
+                    Text: =cmp_MD_Dialog.header
+                    Visible: =!IsBlank(cmp_MD_Dialog.header)
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                lbl_dialogText As label:
+                    AutoHeight: =true
+                    Color: =Color.Black
+                    Height: =72
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =100
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =cmp_MD_Dialog.fontSize
+                    Text: =cmp_MD_Dialog.text
+                    Width: =Parent.Width
+                    Y: =If(IsBlank(cmp_MD_Dialog.header), 0, lbl_dialogHeader.Height)
+                    ZIndex: =2
+
+                con_DialogBtns As groupContainer.horizontalAutoLayoutContainer:
+                    AlignInContainer: =AlignInContainer.SetByContainer
+                    FillPortions: =0
+                    Height: =29
+                    LayoutAlignItems: =LayoutAlignItems.Center
+                    LayoutGap: =20
+                    LayoutJustifyContent: =LayoutJustifyContent.End
+                    LayoutMinHeight: =112
+                    LayoutMinWidth: =250
+                    LayoutMode: =LayoutMode.Auto
+                    PaddingBottom: =2
+                    PaddingLeft: =2
+                    PaddingRight: =2
+                    PaddingTop: =2
+                    ZIndex: =3
+
+                    btn_dialogAction1 As button:
+                        Color: =ColorValue(cmp_MD_Dialog.primaryColorHex)
+                        DisabledFill: =Color.Transparent
+                        Fill: =Color.Transparent
+                        FocusedBorderColor: =ColorFade(ColorValue(cmp_MD_Dialog.primaryColorHex), -30%)
+                        FocusedBorderThickness: =2
+                        Font: =cmp_MD_Dialog.font
+                        FontWeight: =FontWeight.Normal
+                        Height: =25
+                        HoverColor: =ColorFade(Self.Color, 30%)
+                        HoverFill: =Color.Transparent
+                        LayoutMinHeight: =25
+                        LayoutMinWidth: =280
+                        OnSelect: =cmp_MD_Dialog.action1OnSelect()
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedFill: =Color.Transparent
+                        Size: =cmp_MD_Dialog.fontSize
+                        Text: =cmp_MD_Dialog.action1Text
+                        Width: =cmp_MD_Dialog.action1Width
+                        Y: |-
+                            =//Parent.Height-Self.Height-10
+                            lbl_dialogText.Y+lbl_dialogText.Height
+                        ZIndex: =1
+
+                    btn_dialogAction2 As button:
+                        Color: =ColorValue(cmp_MD_Dialog.primaryColorHex)
+                        DisabledFill: =Color.Transparent
+                        Fill: =Color.Transparent
+                        FocusedBorderColor: =ColorFade(ColorValue(cmp_MD_Dialog.primaryColorHex), -30%)
+                        FocusedBorderThickness: =2
+                        Font: =cmp_MD_Dialog.font
+                        FontWeight: =FontWeight.Normal
+                        Height: =25
+                        HoverColor: =ColorFade(Self.Color, 30%)
+                        HoverFill: =Color.Transparent
+                        LayoutMinHeight: =25
+                        LayoutMinWidth: =280
+                        OnSelect: =cmp_MD_Dialog.action2OnSelect()
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        PaddingTop: =0
+                        PressedFill: =Color.Transparent
+                        Size: =cmp_MD_Dialog.fontSize
+                        Text: =cmp_MD_Dialog.action2Text
+                        Width: =cmp_MD_Dialog.action2Width
+                        Y: |-
+                            =//Parent.Height-Self.Height-10
+                            lbl_dialogText.Y+lbl_dialogText.Height
+                        ZIndex: =2
+
+    tgl_DialogFocus As toggleSwitch:
+        Default: =cmp_MD_Dialog.Visible
+        Height: =34
+        OnCheck: |-
+            =Switch(
+                cmp_MD_Dialog.focusedButton,
+                1, SetFocus(btn_dialogAction1),
+                2, SetFocus(btn_dialogAction2)
+            )
+        Size: =21
+        TabIndex: =-1
+        Width: =108
+        Y: =Parent.Height+5
+        ZIndex: =6
+
