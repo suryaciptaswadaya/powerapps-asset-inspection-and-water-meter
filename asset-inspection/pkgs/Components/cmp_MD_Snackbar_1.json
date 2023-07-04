@@ -1855,7 +1855,7 @@
       "boxShadow",
       "transitionAnimation"
     ],
-    "LastModifiedTimestamp": "638240636507924823",
+    "LastModifiedTimestamp": "638240607116025724",
     "Name": "cmp_MD_Snackbar_1",
     "Rules": [
       {
@@ -2185,7 +2185,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "638240636507924823",
+  "LastModifiedTimestamp": "638240607116025724",
   "Name": "3bc912716ae8469f8c2136c77b39395d",
   "OverridableProperties": {},
   "TemplateOriginalName": "959425fe24684b25a75fb5a04b43c5c4",
