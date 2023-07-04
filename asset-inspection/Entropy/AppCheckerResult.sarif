@@ -5428,40 +5428,40 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSCheckList.ico_TRSPhotos.OnSelect"
+                  "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSPhotoGallery.Title2.Text"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSCheckList.ico_TRSPhotos.OnSelect",
+                  "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSPhotoGallery.Title2.Text",
                   "relativeAddress": 0
                 },
                 "region": {
-                  "charLength": 1,
-                  "charOffset": 282,
+                  "charLength": 12,
+                  "charOffset": 8,
                   "snippet": {
-                    "text": "="
+                    "text": ".status_name"
                   }
                 }
               },
               "properties": {
-                "member": "OnSelect",
+                "member": "Text",
                 "module": "scr_TaskReportScreen",
-                "type": "scr_TaskReportScreen.gal_TRSCheckList.ico_TRSPhotos"
+                "type": "scr_TaskReportScreen.gal_TRSPhotoGallery.Title2"
               }
             }
           ],
           "message": {
             "arguments": [
               "Text",
-              "Table"
+              "Record"
             ],
             "id": "issue"
           },
           "properties": {
             "level": "High"
           },
-          "ruleId": "app-ErrIncompatibleTypesForEquality-Left-Right",
+          "ruleId": "app-ErrIncompatibleRulePropTypes-PropKind-RuleKind",
           "ruleIndex": 3
         },
         {
@@ -9369,36 +9369,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.tbl_assignment_detail_photos"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "App.tbl_assignment_detail_photos",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "tbl_assignment_detail_photos",
-                "module": "App",
-                "type": "App"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-NotOfflineConnectors",
-          "ruleIndex": 12
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "App.tbl_assignment_headers"
                 }
               ],
@@ -9879,6 +9849,36 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "App.tbl_assignment_detail_photos"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App.tbl_assignment_detail_photos",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "tbl_assignment_detail_photos",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-NotOfflineConnectors",
+          "ruleIndex": 12
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "App.[DEV]AssetMaintenance-SendPushNotification"
                 }
               ],
@@ -9999,17 +9999,16 @@
               }
             },
             {
-              "id": "app-ErrIncompatibleTypesForEquality-Left-Right",
+              "id": "app-ErrIncompatibleRulePropTypes-PropKind-RuleKind",
               "messageStrings": {
                 "issue": {
-                  "text": "Incompatible types for comparison. These types can't be compared: {0}, {1}."
+                  "text": "Expected {0} value."
                 }
               },
               "properties": {
                 "componentType": "app",
                 "howToFix": [
-                  "You might need to convert the value to be the same type, such as converting a date string (e.g., \"12/31/2018\") to a date value.",
-                  "If you’re comparing records or tables, the field or column types must match exactly."
+                  "Change the rule to produce a {0} value."
                 ],
                 "level": "High",
                 "primaryCategory": "formula",
