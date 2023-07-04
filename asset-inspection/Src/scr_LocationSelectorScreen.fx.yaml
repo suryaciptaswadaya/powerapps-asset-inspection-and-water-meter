@@ -316,7 +316,7 @@ scr_LocationSelectorScreen As screen:
                             }
                         );
                         ,
-                         Patch(tbl_assignment_headers,
+                        Patch(tbl_assignment_headers,
                             First(Filter(tbl_assignment_headers,
                                 assignment_code = gal_TSTaskList.Selected.assignment_code,
                                 sequence_number = c_AllFlowProcess[@sequence_number]                
@@ -339,6 +339,7 @@ scr_LocationSelectorScreen As screen:
                             }
                         );
                     
+                    );
                 );
                     
                     //Gabisa pake cara ini nanti jadinya insert
