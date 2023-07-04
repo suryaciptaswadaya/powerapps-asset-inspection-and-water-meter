@@ -4698,6 +4698,18 @@
               "message": {
                 "text": "Error occurred running rule app-InefficientDelayLoading."
               }
+            },
+            {
+              "associatedRule": {
+                "id": "app-InefficientDelayLoading",
+                "index": 12
+              },
+              "descriptor": {
+                "id": "app-InefficientDelayLoading"
+              },
+              "message": {
+                "text": "Error occurred running rule app-InefficientDelayLoading."
+              }
             }
           ]
         }
@@ -8788,6 +8800,66 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "scr_TaskReportScreen",
+                "type": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 5
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "scr_TaskReportScreen",
+                "type": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "scr_TaskReportScreen.cbb_TRSStaff.AccessibleLabel"
                 }
               ],
@@ -8878,6 +8950,36 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "scr_TaskReportScreen",
+                "type": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 5
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSPhotoGallery.AccessibleLabel"
                 }
               ],
@@ -8932,36 +9034,6 @@
           },
           "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
           "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "scr_TaskReportScreen",
-                "type": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 5
         },
         {
           "locations": [
