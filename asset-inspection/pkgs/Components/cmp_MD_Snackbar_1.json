@@ -90,7 +90,7 @@
         "Name": "tim_duration_1",
         "Parent": "cmp_MD_Snackbar_1",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 270,
+        "PublishOrderIndex": 128,
         "Rules": [
           {
             "Category": "Data",
@@ -398,7 +398,7 @@
             "Name": "html_snackShadow_1",
             "Parent": "con_Snackbar_1",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 272,
+            "PublishOrderIndex": 130,
             "Rules": [
               {
                 "Category": "Data",
@@ -805,7 +805,7 @@
             "Name": "btn_snackBackground_1",
             "Parent": "con_Snackbar_1",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 273,
+            "PublishOrderIndex": 131,
             "Rules": [
               {
                 "Category": "Data",
@@ -1284,7 +1284,7 @@
             "Name": "btn_snackAction_1",
             "Parent": "con_Snackbar_1",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 274,
+            "PublishOrderIndex": 132,
             "Rules": [
               {
                 "Category": "Data",
@@ -1614,7 +1614,7 @@
         "Name": "con_Snackbar_1",
         "Parent": "cmp_MD_Snackbar_1",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 271,
+        "PublishOrderIndex": 129,
         "Rules": [
           {
             "Category": "Design",

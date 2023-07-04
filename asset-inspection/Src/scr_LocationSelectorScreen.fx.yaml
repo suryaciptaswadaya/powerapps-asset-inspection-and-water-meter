@@ -375,16 +375,15 @@ scr_LocationSelectorScreen As screen:
                 
                     //Update Next Process to be available
                     If(CountRows(c_NextAssignmentHeader) > 0,
-                        /*Patch(tbl_assignment_headers, 
+                        Patch(tbl_assignment_headers, 
                             { 
                                 ID : First(c_NextAssignmentHeader).ID, 
                                 sequence_number: n_NextSequenceNumber
                             }, 
-                            { 
-                                status_code: First(Filter(c_AllStatus,status_sequence_number = 1)).status_code, 
+                            {                 
                                 is_ready_to_start: 1
                             }
-                        );*/
+                        );
                         Set(n_NextDepartmentID, First(c_NextAssignmentHeader).department_id);
                         //TO DO : Sent Notification to Next Process Division
                         ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = n_NextDepartmentID && IsBlank(spv_id)));
