@@ -125,7 +125,7 @@ scr_LocationSelectorScreen As screen:
                 ).comment);
                 );
                 
-                Notify(n_CurrentSublocationID & " " & n_TmpHeaderID );
+                //Notify(n_CurrentSublocationID & " " & n_TmpHeaderID );
                 
                 If(!IsBlank(s_ApproverComment),Set(b_showComment,true),Set(b_showComment,false));
                 
@@ -527,6 +527,7 @@ scr_LocationSelectorScreen As screen:
                 If(b_SelectedRecheckStatus = true,
                 Clear(c_AllNextProcessEmployee);
                 Clear(c_NextFlowProcess);
+                //ini masih cuma bisa balik ke flow pertama
                 Collect(c_NextFlowProcess,Filter(c_AllFlowProcess,sequence_number > gal_TSTaskList.Selected.sequence_number));
                 
                 ForAll(c_NextFlowProcess,

@@ -502,7 +502,7 @@ scr_TaskScreen As screen:
                 ClearCollect(c_TmpCheckingTaskFlow, Filter(c_Task, assignment_code = ThisItem.assignment_code && status_code = Text(n_WaitingGMApprovalStatus)));
                 //Generate Row Number
                 ClearCollect(
-                    c_CheckingTaskFlow,
+                    c_CheckingTaskFlow,//kumpulan task
                     ForAll(
                         Sequence(CountRows(c_TmpCheckingTaskFlow)),
                         Patch(
