@@ -276,6 +276,7 @@ scr_LocationSelectorScreen As screen:
                     );    
                 );
                 
+                //TO DO Check to new Photo Function
                 /*If(b_LSCMandatoryPhoto = 1,
                     If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID &&( IsBlank(url_photo_before) || IsBlank(url_photo_after))) )> 0,
                             Notify("Mohon pastikan seluruh pekerjaan sudah terpilih Gambarnya nya");
