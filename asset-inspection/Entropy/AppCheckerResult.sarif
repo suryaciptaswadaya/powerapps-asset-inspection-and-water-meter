@@ -4710,6 +4710,42 @@
               "message": {
                 "text": "Error occurred running rule app-InefficientDelayLoading."
               }
+            },
+            {
+              "associatedRule": {
+                "id": "app-InefficientDelayLoading",
+                "index": 12
+              },
+              "descriptor": {
+                "id": "app-InefficientDelayLoading"
+              },
+              "message": {
+                "text": "Error occurred running rule app-InefficientDelayLoading."
+              }
+            },
+            {
+              "associatedRule": {
+                "id": "app-InefficientDelayLoading",
+                "index": 12
+              },
+              "descriptor": {
+                "id": "app-InefficientDelayLoading"
+              },
+              "message": {
+                "text": "Error occurred running rule app-InefficientDelayLoading."
+              }
+            },
+            {
+              "associatedRule": {
+                "id": "app-InefficientDelayLoading",
+                "index": 12
+              },
+              "descriptor": {
+                "id": "app-InefficientDelayLoading"
+              },
+              "message": {
+                "text": "Error occurred running rule app-InefficientDelayLoading."
+              }
             }
           ]
         }
@@ -5369,10 +5405,10 @@
                   "relativeAddress": 0
                 },
                 "region": {
-                  "charLength": 143,
+                  "charLength": 146,
                   "charOffset": 1161,
                   "snippet": {
-                    "text": "CountRows(\r\n        Filter(tbl_assignment_headers, location_id  = c_TSC_TempLocation[@LocationID],start_date = dtp_TSC_StartTask.SelectedDate))"
+                    "text": "CountRows(\r\n        Filter(tbl_assignment_headers, location_id  = c_TSC_TempLocation[@LocationID] && start_date = dtp_TSC_StartTask.SelectedDate))"
                   }
                 }
               },
@@ -5410,7 +5446,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 7060,
+                  "charOffset": 7230,
                   "snippet": {
                     "text": "in"
                   }

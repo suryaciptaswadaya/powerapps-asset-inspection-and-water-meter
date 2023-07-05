@@ -350,7 +350,7 @@ scr_TaskScreenCreate As screen:
             ForAll(c_TSC_TempLocation,
             If(
                 CountRows(
-                    Filter(tbl_assignment_headers, location_id  = c_TSC_TempLocation[@LocationID],start_date = dtp_TSC_StartTask.SelectedDate)) > 0,
+                    Filter(tbl_assignment_headers, location_id  = c_TSC_TempLocation[@LocationID] && start_date = dtp_TSC_StartTask.SelectedDate)) > 0,
                     Collect(c_TSC_TempLocationAssigned,{
                         location_name:c_TSC_TempLocation[@LocationID]
                     }) 
@@ -369,7 +369,7 @@ scr_TaskScreenCreate As screen:
                 Set(b_TSC_DisableButton, true);
                 Set(s_AssignmentCode,Text(Now(),"[$-en-US]yymmddhhmmss"));
                 ForAll(c_TSC_TempLocation,Collect(c_AssignmentCode,s_AssignmentCode&"-"&Substitute(LocationName," ","")));
-            
+                
                 ForAll(
                     c_FlowPICDepartment,
                     ForAll(
@@ -456,6 +456,10 @@ scr_TaskScreenCreate As screen:
                     )
                 );
                 
+                Set(b_TSV_showPopUp, true);
+                Set(s_TSV_TextPopUp, "Penugasan Berhasil Disimpan");
+                Navigate(scr_TaskScreenView, ScreenTransition.UnCoverRight);
+                
                 Refresh(tbl_assignment_headers);
                 ClearCollect(
                     c_NewInsertedTask,
@@ -507,14 +511,15 @@ scr_TaskScreenCreate As screen:
                         )
                     );
                 );
-            
                 
                 UpdateContext({varTSCReset:true});
                 UpdateContext({varTSCReset:false});
                 
+                /*
                 Set(b_TSV_showPopUp, true);
                 Set(s_TSV_TextPopUp, "Penugasan Berhasil Disimpan");
                 Navigate(scr_TaskScreenView, ScreenTransition.UnCoverRight);
+                */
             );
         svgIcon: |-
             ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z'/></svg>"

@@ -6498,7 +6498,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_TRSPreviewHistoryPhoto",
-      "ParentIndex": 3,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8893,7 +8893,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_TRSPhotoTakenDate",
-      "ParentIndex": 5,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9138,7 +9138,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_TRSStatus",
-      "ParentIndex": 4,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
