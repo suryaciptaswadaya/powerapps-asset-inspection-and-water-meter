@@ -785,6 +785,17 @@ scr_LocationSelectorScreen As screen:
         Y: =589
         ZIndex: =26
 
+    lbl_LSSDepartmentName As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Bold
+        Height: =50
+        Size: =18
+        Text: =First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_name
+        Width: =200
+        X: =219
+        Y: =81
+        ZIndex: =29
+
     grp_LSSHeaderApproval As group:
         Height: =5
         Width: =5
@@ -925,15 +936,4 @@ scr_LocationSelectorScreen As screen:
             X: =419
             Y: =81
             ZIndex: =28
-
-    lbl_LSSDepartmentName As label:
-        Align: =Align.Center
-        FontWeight: =FontWeight.Bold
-        Height: =50
-        Size: =18
-        Text: =First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_name
-        Width: =200
-        X: =219
-        Y: =81
-        ZIndex: =29
 
