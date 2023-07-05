@@ -16,7 +16,7 @@ scr_LocationSelectorScreen As screen:
     "gal_LSSSublocationList As gallery.'BrowseLayout_Vertical_TwoTextOneImageTwoColumnOverlayVariant_ver4.0'":
         DelayItemLoading: =true
         DisplayMode: =dm_LSTask
-        Height: =928
+        Height: =If(b_IsApproverByFlow, 868, 928)
         Items: =c_SubLocation
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
@@ -27,7 +27,7 @@ scr_LocationSelectorScreen As screen:
         Width: =599
         WrapCount: =2
         X: =20
-        Y: =82
+        Y: =If(b_IsApproverByFlow, 142, 82)
         ZIndex: =2
 
         img_LSSPreview As image:
@@ -71,6 +71,7 @@ scr_LocationSelectorScreen As screen:
                 Set(n_CurrentSublocationRowNumber, gal_LSSSublocationList.Selected.RowNumber);
                 Set(n_CurrentSublocationID, ThisItem.ID);
                 
+                Notify(gal_LSSSublocationList.Selected.ID);
                 ClearCollect(c_TmpAssignmentDetailAmenities, Filter(c_AssignmentDetail, sublocation_id = gal_LSSSublocationList.Selected.ID));
                 //Generate Row Number
                 ClearCollect(
@@ -753,4 +754,113 @@ scr_LocationSelectorScreen As screen:
         X: =106
         Y: =589
         ZIndex: =26
+
+    grp_LSSHeaderApproval As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =29
+
+        btn_LSSPreviousTask As button:
+            Fill: =RGBA(33, 86, 117, 1)
+            Height: =50
+            OnSelect: |-
+                =Set(n_CurrentApprovalTaskRowNumber, n_CurrentApprovalTaskRowNumber - 1); 
+                
+                ClearCollect(c_TmpSubLocation, Filter(c_AllSublocation, location_type_id = First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).location_type_id && department_id = First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_id)); 
+                
+                //Generate Row Number
+                ClearCollect(
+                    c_SubLocation,
+                    ForAll(
+                        Sequence(CountRows(c_TmpSubLocation)),
+                        Patch(
+                            Last(FirstN(c_TmpSubLocation, Value)),
+                            { RowNumber : Value }
+                        )
+                    )
+                );
+                Set(n_QtySublocation, CountRows(c_SubLocation));
+                Set(n_CurrentSublocationRowNumber, 1);
+                
+                Clear(c_TmpSubLocation);
+                
+                ClearCollect(c_TmpAssignmentDetailAmenities, Filter(c_AssignmentDetail, sublocation_id = First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID));
+                //Generate Row Number
+                ClearCollect(
+                    c_AssignmentDetailAmenities,
+                    ForAll(
+                        Sequence(CountRows(c_TmpAssignmentDetailAmenities)),
+                        Patch(
+                            Last(FirstN(c_TmpAssignmentDetailAmenities, Value)),
+                            { RowNumber : Value }
+                        )
+                    )
+                );
+                Clear(c_TmpAssignmentDetailAmenities);
+                Set(s_SelectedSublocation, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).sublocation_name);
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =20
+            Text: ="<< Prev"
+            Visible: =(!(n_CurrentApprovalTaskRowNumber = 1 || CountRows(c_CheckingTaskFlow) = 0)) && b_IsApproverByFlow
+            Width: =180
+            X: =39
+            Y: =81
+            ZIndex: =27
+
+        btn_LSSNextTask As button:
+            Fill: =RGBA(33, 86, 117, 1)
+            Height: =50
+            OnSelect: |+
+                =
+                Set(n_CurrentApprovalTaskRowNumber, n_CurrentApprovalTaskRowNumber + 1); 
+                
+                ClearCollect(c_TmpSubLocation, Filter(c_AllSublocation, location_type_id = First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).location_type_id && department_id = First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_id)); 
+                
+                //Generate Row Number
+                ClearCollect(
+                    c_SubLocation,
+                    ForAll(
+                        Sequence(CountRows(c_TmpSubLocation)),
+                        Patch(
+                            Last(FirstN(c_TmpSubLocation, Value)),
+                            { RowNumber : Value }
+                        )
+                    )
+                );
+                Set(n_QtySublocation, CountRows(c_SubLocation));
+                Set(n_CurrentSublocationRowNumber, 1);
+                
+                Clear(c_TmpSubLocation);
+                
+                ClearCollect(c_TmpAssignmentDetailAmenities, Filter(c_AssignmentDetail, sublocation_id = First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID));
+                //Generate Row Number
+                ClearCollect(
+                    c_AssignmentDetailAmenities,
+                    ForAll(
+                        Sequence(CountRows(c_TmpAssignmentDetailAmenities)),
+                        Patch(
+                            Last(FirstN(c_TmpAssignmentDetailAmenities, Value)),
+                            { RowNumber : Value }
+                        )
+                    )
+                );
+                Clear(c_TmpAssignmentDetailAmenities);
+                Set(s_SelectedSublocation, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).sublocation_name);
+                
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =20
+            Text: ="Next >>"
+            Visible: =(!(n_CurrentApprovalTaskRowNumber = CountRows(c_CheckingTaskFlow)) && CountRows(c_CheckingTaskFlow) > 0) && b_IsApproverByFlow
+            Width: =180
+            X: =419
+            Y: =81
+            ZIndex: =28
 

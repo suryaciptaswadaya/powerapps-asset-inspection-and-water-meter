@@ -846,7 +846,8 @@ scr_TaskReportScreen As screen:
                         status_code: gal_TSTaskList.Selected.status_code,
                         photo_url: s_ImageLinkBefore,
                         photo_id: n_ImageIDBefore,
-                        insert_date: Now()
+                        insert_date: Now(),
+                        insert_user_id: n_UserID
                     });
                 
                     Patch(c_ShowGalleryInspectionPoint, Defaults(c_ShowGalleryInspectionPoint),
@@ -856,7 +857,8 @@ scr_TaskReportScreen As screen:
                         status_name: gal_TSTaskList.Selected.status_name,
                         photo_url: s_ImageLinkBefore,
                         photo_id: n_ImageIDBefore,
-                        insert_date: Now()
+                        insert_date: Now(),
+                        insert_user_id: n_UserID
                     });
                 
                     Set(b_ChangePhotoBefore, false);
