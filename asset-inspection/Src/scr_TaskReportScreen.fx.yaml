@@ -749,11 +749,12 @@ scr_TaskReportScreen As screen:
 
         btn_TRSSavePhotos As button:
             DisplayMode: |-
-                =If(
+                =/*If(
                     gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
                     DisplayMode.Disabled,
                     DisplayMode.Edit
-                )
+                )*/
+                DisplayMode.Edit
             Fill: =RGBA(33, 86, 117, 1)
             Height: =48
             OnSelect: |-
