@@ -24,9 +24,9 @@ scr_TaskReportScreen As screen:
         SearchItems: =Search(c_AllEmployeeCoworkers,ComboBox3.SearchText,"name")
         SelectMultiple: =false
         Size: =21
-        Width: =600
+        Width: =595
         X: =21
-        Y: =96
+        Y: =127
         ZIndex: =1
 
     btn_TRSPreviousSublocation_1 As button:
@@ -129,8 +129,8 @@ scr_TaskReportScreen As screen:
         TemplatePadding: =0
         TemplateSize: =151
         Width: =595
-        X: =22
-        Y: =173
+        X: =21
+        Y: =188
         ZIndex: =5
 
         lbl_TRSAmenitiesName As label:
@@ -1028,6 +1028,15 @@ scr_TaskReportScreen As screen:
                 Text: =""
                 Width: =501
                 ZIndex: =6
+
+    Label2 As label:
+        Height: =70
+        Size: =21
+        Text: ="Person in Charge"
+        Width: =560
+        X: =16
+        Y: =64
+        ZIndex: =35
 
     grp_TRSShowPhotos As group:
         Height: =5
