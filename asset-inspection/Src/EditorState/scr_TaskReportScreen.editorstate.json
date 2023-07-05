@@ -4547,7 +4547,14 @@
           "IsLockable": false,
           "NameMapSourceSchema": "?"
         },
-        "DisplayMode",
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "DisplayMode.Edit",
+          "InvariantPropertyName": "DisplayMode",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
         "ZIndex",
         "BorderThickness",
         "FocusedBorderThickness",
@@ -4557,6 +4564,22 @@
           "AutoRuleBindingEnabled": false,
           "AutoRuleBindingString": "\"Find items\"",
           "InvariantPropertyName": "InputTextPlaceholder",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "",
+          "InvariantPropertyName": "SelectMultiple",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "",
+          "InvariantPropertyName": "DefaultSelectedItems",
           "IsLockable": false,
           "NameMapSourceSchema": "?"
         }
@@ -4602,6 +4625,16 @@
         {
           "Category": "Data",
           "PropertyName": "InputTextPlaceholder",
+          "RuleProviderType": "Unknown"
+        },
+        {
+          "Category": "Data",
+          "PropertyName": "SelectMultiple",
+          "RuleProviderType": "Unknown"
+        },
+        {
+          "Category": "Data",
+          "PropertyName": "DefaultSelectedItems",
           "RuleProviderType": "Unknown"
         },
         {
