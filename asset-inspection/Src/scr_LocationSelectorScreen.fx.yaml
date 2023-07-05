@@ -109,14 +109,23 @@ scr_LocationSelectorScreen As screen:
                 );
                 Clear(c_TmpAssignmentDetailAmenities);
                 
+                If(First(c_ActiveUserData).is_approver = 1,
+                Set(s_ApproverComment, First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = n_TmpHeaderID
+                    )
+                ).comment)
+                ,
                 Set(s_ApproverComment, First(
                     Filter(
                         tbl_assignment_sublocation_comment,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
                     )
                 ).comment);
+                );
                 
-                Notify(gal_TSTaskList.Selected.ID);
+                Notify(n_CurrentSublocationID & " " & n_TmpHeaderID );
                 
                 If(!IsBlank(s_ApproverComment),Set(b_showComment,true),Set(b_showComment,false));
                 
@@ -570,11 +579,13 @@ scr_LocationSelectorScreen As screen:
                         Filter(
                             tbl_assignment_headers,
                             ID = gal_TSTaskList.Selected.ID
+                            
                         )
                     ),
                     {
                         status_code: ComboBox2.Selected.status_code,
-                        status_sequence_number:ComboBox2.Selected.status_sequence_number
+                        status_sequence_number:ComboBox2.Selected.status_sequence_number,
+                        end_time_task: Blank()
                     }
                 );
                 Patch(
@@ -583,7 +594,8 @@ scr_LocationSelectorScreen As screen:
                     {
                         status_code: ComboBox2.Selected.status_code,
                         status_name: ComboBox2.Selected.status_name,
-                        status_color: ComboBox2.Selected.hex_color
+                        status_color: ComboBox2.Selected.hex_color,
+                        end_time_task: Blank()
                     }
                 );
                 
