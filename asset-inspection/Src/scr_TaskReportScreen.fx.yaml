@@ -7,6 +7,19 @@ scr_TaskReportScreen As screen:
             )
         ).comment);
 
+    ComboBox3 As combobox:
+        DisplayFields: =["name"]
+        Height: =50
+        InputTextPlaceholder: ="PIC"
+        Items: =c_AllEmployeeCoworkers
+        SearchFields: =["name"]
+        SearchItems: =Search(c_AllEmployeeCoworkers,ComboBox3.SearchText,"name")
+        Size: =21
+        Width: =600
+        X: =21
+        Y: =96
+        ZIndex: =1
+
     btn_TRSPreviousSublocation_1 As button:
         Fill: =RGBA(33, 86, 117, 1)
         Height: =50
@@ -21,7 +34,7 @@ scr_TaskReportScreen As screen:
         Width: =300
         X: =310
         Y: =1040
-        ZIndex: =1
+        ZIndex: =2
 
     lbl_TSRComment As label:
         Height: =50
@@ -31,7 +44,7 @@ scr_TaskReportScreen As screen:
         Width: =591
         X: =23
         Y: =800
-        ZIndex: =2
+        ZIndex: =3
 
     txi_TRSComment As text:
         Default: |+
@@ -94,12 +107,12 @@ scr_TaskReportScreen As screen:
         Width: =580
         X: =30
         Y: =853
-        ZIndex: =3
+        ZIndex: =4
 
     "gal_TRSCheckList As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
         BorderColor: =RGBA(202, 202, 202, 1)
         DelayItemLoading: =true
-        Height: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || b_showComment = true,700,936)
+        Height: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || b_showComment = true,620,800)
         Items: =c_AssignmentDetailAmenities
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
@@ -108,8 +121,8 @@ scr_TaskReportScreen As screen:
         TemplateSize: =151
         Width: =595
         X: =22
-        Y: =80
-        ZIndex: =4
+        Y: =173
+        ZIndex: =5
 
         lbl_TRSAmenitiesName As label:
             FontWeight: =FontWeight.Normal
@@ -313,7 +326,7 @@ scr_TaskReportScreen As screen:
         Width: =180
         X: =22
         Y: =1040
-        ZIndex: =5
+        ZIndex: =6
 
     btn_TRSNextSublocation As button:
         Fill: =RGBA(33, 86, 117, 1)
@@ -328,7 +341,11 @@ scr_TaskReportScreen As screen:
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
                     )
                 ),
-                { comment: txi_TRSComment.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }
+                { 
+                    comment: txi_TRSComment.Text, 
+                    comment_date:Now(),
+                    user_id:First(c_ActiveUserData).ID 
+                }
                 );
                 Refresh(tbl_assignment_sublocation_comment);
             
@@ -351,9 +368,24 @@ scr_TaskReportScreen As screen:
                     
                 );
                 ,
+            
+                Patch(tbl_assignment_sublocation_comment, 
+                First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )
+                ),
+                { 
+                    pic_id:ComboBox3.Selected.ID
+                }
+                );
+                Refresh(tbl_assignment_sublocation_comment);
+            
+                Reset(ComboBox3);
+            
                 Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
                 Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
-            
                 Set(s_ApproverComment, First(
                     Filter(
                         tbl_assignment_sublocation_comment,
@@ -405,7 +437,7 @@ scr_TaskReportScreen As screen:
         Width: =180
         X: =437
         Y: =1040
-        ZIndex: =6
+        ZIndex: =7
 
     cmp_TRSAppBar_top_3 As cmp_MD_AppBar_top:
         onSelectIcon1: =Back();
@@ -437,7 +469,126 @@ scr_TaskReportScreen As screen:
         tooltipIcon2: ="Notifikasi"
         tooltipIcon3: =""
         tooltipIcon4: =""
-        ZIndex: =14
+        ZIndex: =15
+
+    grp_TRSAddNotes As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =15
+
+        shp_TRSBackground1 As rectangle:
+            DisabledFill: =shp_TRSBackground1.Fill
+            Fill: =    RGBA(0,0,0,.6)
+            FocusedBorderColor: =shp_TRSBackground1.BorderColor
+            Height: =1136
+            HoverFill: =shp_TRSBackground1.Fill
+            PressedFill: =shp_TRSBackground1.Fill
+            Visible: =b_PopupAddNotes
+            Width: =640
+            ZIndex: =8
+
+        shp_TRSBackground2 As rectangle:
+            DisabledFill: =shp_TRSBackground2.Fill
+            Fill: =Color.White
+            FocusedBorderColor: =shp_TRSBackground2.BorderColor
+            Height: =744
+            HoverFill: =shp_TRSBackground2.Fill
+            PressedFill: =shp_TRSBackground2.Fill
+            Visible: =b_PopupAddNotes
+            Width: =551
+            X: =46
+            Y: =129
+            ZIndex: =9
+
+        lbl_TRSAddNotesHeader As label:
+            FocusedBorderColor: =lbl_TRSAddNotesHeader.BorderColor
+            FontWeight: =FontWeight.Semibold
+            Height: =66
+            HoverBorderColor: =lbl_TRSAddNotesHeader.BorderColor
+            HoverColor: =lbl_TRSAddNotesHeader.Color
+            HoverFill: =lbl_TRSAddNotesHeader.Fill
+            PaddingTop: =10
+            PressedBorderColor: =lbl_TRSAddNotesHeader.BorderColor
+            PressedColor: =lbl_TRSAddNotesHeader.Color
+            PressedFill: =lbl_TRSAddNotesHeader.Fill
+            Size: =21
+            Text: ="Tambahkan Catatan"
+            Visible: =b_PopupAddNotes
+            Width: =369
+            X: =68
+            Y: =138
+            ZIndex: =10
+
+        ico_TRSAddNotesCancel As icon.Cancel:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =39
+            Icon: =Icon.Cancel
+            OnSelect: =Set(b_PopupAddNotes, false)
+            Visible: =b_PopupAddNotes
+            Width: =36
+            X: =548
+            Y: =134
+            ZIndex: =11
+
+        btn_TRSSaveNotes As button:
+            DisplayMode: |-
+                =If(
+                    gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
+                    DisplayMode.Disabled,
+                    DisplayMode.Edit
+                )
+            Fill: =RGBA(33, 86, 117, 1)
+            Height: =48
+            OnSelect: |-
+                =Patch(tbl_assignment_details, First(Filter(tbl_assignment_details, ID = gal_TRSCheckList.Selected.ID)), { notes : txt_TRSNotes.Text, staff_id: cbb_TRSStaff.Selected.ID });
+                Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail, ID = gal_TRSCheckList.Selected.ID)), { notes : txt_TRSNotes.Text, staff_id: cbb_TRSStaff.Selected.ID });
+                Patch(c_AssignmentDetailAmenities, First(Filter(c_AssignmentDetailAmenities, ID = gal_TRSCheckList.Selected.ID)), { notes : txt_TRSNotes.Text, staff_id: cbb_TRSStaff.Selected.ID });
+                Set(b_PopupAddNotes, false);
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =24
+            Text: ="Simpan"
+            Visible: =b_PopupAddNotes
+            Width: =158
+            X: =398
+            Y: =788
+            ZIndex: =12
+
+        txt_TRSNotes As text:
+            Default: =gal_TRSCheckList.Selected.notes
+            DisplayMode: =btn_TRSOK.DisplayMode
+            Height: =404
+            Mode: =TextMode.MultiLine
+            Size: =21
+            Tooltip: =
+            Visible: =b_PopupAddNotes
+            Width: =507
+            X: =68
+            Y: =337
+            ZIndex: =13
+
+        cbb_TRSStaff As combobox:
+            ChevronBackground: =RGBA(33, 86, 117, 1)
+            DefaultSelectedItems: =First(Filter(c_AllEmployee, ID = gal_TRSCheckList.Selected.staff_id))
+            DisplayFields: =["name"]
+            DisplayMode: =btn_TRSOK.DisplayMode
+            Height: =70
+            IsSearchable: =false
+            Items: =c_AllEmployeeCoworkers
+            NoSelectionText: ="PIC"
+            SearchFields: =["name"]
+            SearchItems: =[]
+            SelectMultiple: =false
+            Size: =21
+            Visible: =b_PopupAddNotes
+            Width: =507
+            X: =68
+            Y: =236
+            ZIndex: =14
 
     btn_TRSHiddenInput As button:
         Height: =70
@@ -470,126 +621,7 @@ scr_TaskReportScreen As screen:
         Width: =280
         X: =24
         Y: =695
-        ZIndex: =15
-
-    grp_TRSAddNotes As group:
-        Height: =5
-        Width: =5
-        X: =40
-        Y: =40
-        ZIndex: =15
-
-        shp_TRSBackground1 As rectangle:
-            DisabledFill: =shp_TRSBackground1.Fill
-            Fill: =    RGBA(0,0,0,.6)
-            FocusedBorderColor: =shp_TRSBackground1.BorderColor
-            Height: =1136
-            HoverFill: =shp_TRSBackground1.Fill
-            PressedFill: =shp_TRSBackground1.Fill
-            Visible: =b_PopupAddNotes
-            Width: =640
-            ZIndex: =7
-
-        shp_TRSBackground2 As rectangle:
-            DisabledFill: =shp_TRSBackground2.Fill
-            Fill: =Color.White
-            FocusedBorderColor: =shp_TRSBackground2.BorderColor
-            Height: =744
-            HoverFill: =shp_TRSBackground2.Fill
-            PressedFill: =shp_TRSBackground2.Fill
-            Visible: =b_PopupAddNotes
-            Width: =551
-            X: =46
-            Y: =129
-            ZIndex: =8
-
-        lbl_TRSAddNotesHeader As label:
-            FocusedBorderColor: =lbl_TRSAddNotesHeader.BorderColor
-            FontWeight: =FontWeight.Semibold
-            Height: =66
-            HoverBorderColor: =lbl_TRSAddNotesHeader.BorderColor
-            HoverColor: =lbl_TRSAddNotesHeader.Color
-            HoverFill: =lbl_TRSAddNotesHeader.Fill
-            PaddingTop: =10
-            PressedBorderColor: =lbl_TRSAddNotesHeader.BorderColor
-            PressedColor: =lbl_TRSAddNotesHeader.Color
-            PressedFill: =lbl_TRSAddNotesHeader.Fill
-            Size: =21
-            Text: ="Tambahkan Catatan"
-            Visible: =b_PopupAddNotes
-            Width: =369
-            X: =68
-            Y: =138
-            ZIndex: =9
-
-        ico_TRSAddNotesCancel As icon.Cancel:
-            Color: =RGBA(0, 0, 0, 1)
-            Height: =39
-            Icon: =Icon.Cancel
-            OnSelect: =Set(b_PopupAddNotes, false)
-            Visible: =b_PopupAddNotes
-            Width: =36
-            X: =548
-            Y: =134
-            ZIndex: =10
-
-        btn_TRSSaveNotes As button:
-            DisplayMode: |-
-                =If(
-                    gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
-                    DisplayMode.Disabled,
-                    DisplayMode.Edit
-                )
-            Fill: =RGBA(33, 86, 117, 1)
-            Height: =48
-            OnSelect: |-
-                =Patch(tbl_assignment_details, First(Filter(tbl_assignment_details, ID = gal_TRSCheckList.Selected.ID)), { notes : txt_TRSNotes.Text, staff_id: cbb_TRSStaff.Selected.ID });
-                Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail, ID = gal_TRSCheckList.Selected.ID)), { notes : txt_TRSNotes.Text, staff_id: cbb_TRSStaff.Selected.ID });
-                Patch(c_AssignmentDetailAmenities, First(Filter(c_AssignmentDetailAmenities, ID = gal_TRSCheckList.Selected.ID)), { notes : txt_TRSNotes.Text, staff_id: cbb_TRSStaff.Selected.ID });
-                Set(b_PopupAddNotes, false);
-            RadiusBottomLeft: =0
-            RadiusBottomRight: =0
-            RadiusTopLeft: =0
-            RadiusTopRight: =0
-            Size: =24
-            Text: ="Simpan"
-            Visible: =b_PopupAddNotes
-            Width: =158
-            X: =398
-            Y: =788
-            ZIndex: =11
-
-        txt_TRSNotes As text:
-            Default: =gal_TRSCheckList.Selected.notes
-            DisplayMode: =btn_TRSOK.DisplayMode
-            Height: =404
-            Mode: =TextMode.MultiLine
-            Size: =21
-            Tooltip: =
-            Visible: =b_PopupAddNotes
-            Width: =507
-            X: =68
-            Y: =337
-            ZIndex: =12
-
-        cbb_TRSStaff As combobox:
-            ChevronBackground: =RGBA(33, 86, 117, 1)
-            DefaultSelectedItems: =First(Filter(c_AllEmployee, ID = gal_TRSCheckList.Selected.staff_id))
-            DisplayFields: =["name"]
-            DisplayMode: =btn_TRSOK.DisplayMode
-            Height: =70
-            IsSearchable: =false
-            Items: =c_AllEmployeeCoworkers
-            NoSelectionText: ="PIC"
-            SearchFields: =["name"]
-            SearchItems: =[]
-            SelectMultiple: =false
-            Size: =21
-            Visible: =b_PopupAddNotes
-            Width: =507
-            X: =68
-            Y: =236
-            ZIndex: =13
+        ZIndex: =16
 
     lbl_TRSDate As label:
         Height: =70
@@ -600,7 +632,7 @@ scr_TaskReportScreen As screen:
         Width: =450
         X: =103
         Y: =278
-        ZIndex: =16
+        ZIndex: =17
 
     lbl_TRSPhotoGallery As label:
         Height: =73
@@ -611,7 +643,7 @@ scr_TaskReportScreen As screen:
         Width: =438
         X: =65
         Y: =550
-        ZIndex: =20
+        ZIndex: =21
 
     "'[HIDDEN-TBD]grp_TRSUnusedControl' As group":
         Height: =5
@@ -629,7 +661,7 @@ scr_TaskReportScreen As screen:
             Width: =476
             X: =100
             Y: =562
-            ZIndex: =17
+            ZIndex: =18
 
         "'[HIDDEN-TBD]img_TRSPhotoAfter' As image":
             BorderColor: =RGBA(128, 128, 128, 1)
@@ -658,7 +690,7 @@ scr_TaskReportScreen As screen:
             Width: =469
             X: =106
             Y: =623
-            ZIndex: =18
+            ZIndex: =19
 
         "'[HIDDEN-TBD]med_TRSPhotoAfter' As addMedia":
             BorderColor: =RGBA(128, 128, 128, 1)
@@ -684,7 +716,7 @@ scr_TaskReportScreen As screen:
             Width: =460
             X: =106
             Y: =623
-            ZIndex: =19
+            ZIndex: =20
 
     grp_TRSAddPhotos As group:
         Height: =5
@@ -749,11 +781,12 @@ scr_TaskReportScreen As screen:
 
         btn_TRSSavePhotos As button:
             DisplayMode: |-
-                =If(
+                =/*If(
                     gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
                     DisplayMode.Disabled,
                     DisplayMode.Edit
-                )
+                )*/
+                DisplayMode.Edit
             Fill: =RGBA(33, 86, 117, 1)
             Height: =48
             OnSelect: |-

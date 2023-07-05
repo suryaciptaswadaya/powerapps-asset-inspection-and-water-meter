@@ -32,7 +32,6 @@
       "Editor#Claims": "Modified By Claims",
       "ID": "ID",
       "insert_date": "insert_date",
-      "insert_user_id": "insert_user_id",
       "Modified": "Modified",
       "OData__ColorTag": "Color Tag",
       "photo_id": "photo_id",
