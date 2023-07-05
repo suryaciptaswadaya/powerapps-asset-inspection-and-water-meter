@@ -197,12 +197,16 @@ scr_TaskScreen As screen:
     "'[HIDDEN]btn_TSInitializeTaskData' As button":
         Height: =70
         OnSelect: |-
-            =If(b_IsApproverByFlow,
-                ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).ID && department_id = gal_TSTaskList.Selected.department_id));
+            =Set(n_TmpHeaderID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).ID);
+            Set(n_TmpDepartmentID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_id);
+            
+            If(b_IsApproverByFlow,
+                ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = n_TmpHeaderID && department_id = n_TmpDepartmentID));
             ,
                 ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = gal_TSTaskList.Selected.ID && department_id = gal_TSTaskList.Selected.department_id));
             );
             
+            Notify(CountRows(c_TmpAssignmentDetail));
             ClearCollect(c_AssignmentDetail, 
                 AddColumns(c_TmpAssignmentDetail, 
                     "amenity_name", First(Filter(c_AllSublocationAmenities, ID = c_TmpAssignmentDetail[@amenity_id])).amenity_name

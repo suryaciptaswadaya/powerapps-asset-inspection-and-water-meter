@@ -71,7 +71,6 @@ scr_LocationSelectorScreen As screen:
                 Set(n_CurrentSublocationRowNumber, gal_LSSSublocationList.Selected.RowNumber);
                 Set(n_CurrentSublocationID, ThisItem.ID);
                 
-                Notify(gal_LSSSublocationList.Selected.ID);
                 ClearCollect(c_TmpAssignmentDetailAmenities, Filter(c_AssignmentDetail, sublocation_id = gal_LSSSublocationList.Selected.ID));
                 //Generate Row Number
                 ClearCollect(
