@@ -91,7 +91,7 @@ scr_TaskReportScreen As screen:
         Height: =50
         Size: =18
         Text: ="Komentar Approval"
-        Visible: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || gal_TSTaskList.Selected.status_code = Text(n_OnProgress) || b_showComment = true,true,false)
+        Visible: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || b_showComment = true,true,false)
         Width: =591
         X: =23
         Y: =800
@@ -154,7 +154,7 @@ scr_TaskReportScreen As screen:
             //btn_TRSNextSublocation.DisplayMode.Edit;
             
         Size: =18
-        Visible: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || gal_TSTaskList.Selected.status_code = Text(n_OnProgress) || b_showComment = true,true,false)
+        Visible: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || b_showComment = true,true,false)
         Width: =580
         X: =30
         Y: =853
