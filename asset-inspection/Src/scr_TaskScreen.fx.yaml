@@ -206,7 +206,6 @@ scr_TaskScreen As screen:
                 ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = gal_TSTaskList.Selected.ID && department_id = gal_TSTaskList.Selected.department_id));
             );
             
-            Notify(CountRows(c_TmpAssignmentDetail));
             ClearCollect(c_AssignmentDetail, 
                 AddColumns(c_TmpAssignmentDetail, 
                     "amenity_name", First(Filter(c_AllSublocationAmenities, ID = c_TmpAssignmentDetail[@amenity_id])).amenity_name
