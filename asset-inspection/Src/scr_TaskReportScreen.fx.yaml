@@ -8,12 +8,21 @@ scr_TaskReportScreen As screen:
         ).comment);
 
     ComboBox3 As combobox:
+        DefaultSelectedItems: |-
+            =Filter(c_AllEmployeeCoworkers,ID = First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )
+                ).pic_id)
         DisplayFields: =["name"]
+        DisplayMode: =If(First(c_ActiveUserData).is_approver = 1, DisplayMode.View,DisplayMode.Edit)
         Height: =50
         InputTextPlaceholder: ="PIC"
         Items: =c_AllEmployeeCoworkers
         SearchFields: =["name"]
         SearchItems: =Search(c_AllEmployeeCoworkers,ComboBox3.SearchText,"name")
+        SelectMultiple: =false
         Size: =21
         Width: =600
         X: =21
@@ -275,6 +284,22 @@ scr_TaskReportScreen As screen:
                     
                 );
                 ,
+            If(!IsBlank(ComboBox3.Selected),
+                Patch(tbl_assignment_sublocation_comment, 
+                First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )
+                ),
+                { 
+                    pic_id:ComboBox3.Selected.ID
+                }
+                );
+                Refresh(tbl_assignment_sublocation_comment);
+            
+                Reset(ComboBox3);
+            );
                 Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
                 Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
             
@@ -369,6 +394,7 @@ scr_TaskReportScreen As screen:
                 );
                 ,
             
+            If(!IsBlank(ComboBox3.Selected),
                 Patch(tbl_assignment_sublocation_comment, 
                 First(
                     Filter(
@@ -381,7 +407,7 @@ scr_TaskReportScreen As screen:
                 }
                 );
                 Refresh(tbl_assignment_sublocation_comment);
-            
+            );
                 Reset(ComboBox3);
             
                 Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
