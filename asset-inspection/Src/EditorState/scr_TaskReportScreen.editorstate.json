@@ -19,7 +19,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "[HIDDEN-TBD]grp_TRSUnusedControl",
-      "ParentIndex": 37,
+      "ParentIndex": 36,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -179,7 +179,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "[HIDDEN-TBD]img_TRSPhotoAfter",
-      "ParentIndex": 26,
+      "ParentIndex": 24,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -425,7 +425,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "[HIDDEN-TBD]lbl_TRSAfterPhotos",
-      "ParentIndex": 24,
+      "ParentIndex": 23,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -757,7 +757,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "[HIDDEN-TBD]med_TRSPhotoAfter",
-      "ParentIndex": 27,
+      "ParentIndex": 25,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -999,7 +999,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_TRSHiddenInput",
-      "ParentIndex": 28,
+      "ParentIndex": 26,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1668,7 +1668,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_TRSNextSublocation",
-      "ParentIndex": 34,
+      "ParentIndex": 33,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2337,7 +2337,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_TRSPreviousSublocation",
-      "ParentIndex": 32,
+      "ParentIndex": 31,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2657,7 +2657,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_TRSPreviousSublocation_1",
-      "ParentIndex": 33,
+      "ParentIndex": 32,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2991,7 +2991,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_TRSSaveNotes",
-      "ParentIndex": 29,
+      "ParentIndex": 27,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3332,7 +3332,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_TRSSavePhotos",
-      "ParentIndex": 22,
+      "ParentIndex": 20,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3913,7 +3913,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cbb_TRSStaff",
-      "ParentIndex": 16,
+      "ParentIndex": 15,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4338,7 +4338,7 @@
       },
       "MetaDataIDKey": "",
       "Name": "cmp_TRSAppBar_top_3",
-      "ParentIndex": 1,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4547,14 +4547,7 @@
           "IsLockable": false,
           "NameMapSourceSchema": "?"
         },
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "If(First(c_ActiveUserData).is_approver = 1, DisplayMode.View,DisplayMode.Edit)",
-          "InvariantPropertyName": "DisplayMode",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "DisplayMode",
         "ZIndex",
         "BorderThickness",
         "FocusedBorderThickness",
@@ -4580,7 +4573,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ComboBox3",
-      "ParentIndex": 10,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4896,7 +4889,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "gal_TRSCheckList",
-      "ParentIndex": 15,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5101,7 +5094,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "gal_TRSPhotoGallery",
-      "ParentIndex": 25,
+      "ParentIndex": 28,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5328,7 +5321,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "grp_TRSAddNotes",
-      "ParentIndex": 35,
+      "ParentIndex": 34,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5379,7 +5372,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "grp_TRSAddPhotos",
-      "ParentIndex": 36,
+      "ParentIndex": 35,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5430,7 +5423,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "grp_TRSShowPhotos",
-      "ParentIndex": 38,
+      "ParentIndex": 37,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5550,7 +5543,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ico_TRSAddNotesCancel",
-      "ParentIndex": 12,
+      "ParentIndex": 11,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -6383,7 +6376,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "ico_TRSShowHistoryPhotoCancel",
-      "ParentIndex": 8,
+      "ParentIndex": 12,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -6636,7 +6629,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_TRSPhoto",
-      "ParentIndex": 17,
+      "ParentIndex": 16,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -7135,7 +7128,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_TRSShowHistoryPhoto",
-      "ParentIndex": 19,
+      "ParentIndex": 22,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -7352,7 +7345,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Label2",
-      "ParentIndex": 4,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8088,7 +8081,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_TRSAddPhotosHeader",
-      "ParentIndex": 9,
+      "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8936,7 +8929,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_TRSDate",
-      "ParentIndex": 20,
+      "ParentIndex": 18,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9232,7 +9225,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_TRSPhotoGallery",
-      "ParentIndex": 23,
+      "ParentIndex": 21,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10018,7 +10011,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_TSRComment",
-      "ParentIndex": 30,
+      "ParentIndex": 29,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10343,7 +10336,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "med_TRSPhoto",
-      "ParentIndex": 18,
+      "ParentIndex": 17,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10799,7 +10792,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "shp_TRSBackground1",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -11089,7 +11082,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "shp_TRSBackground1_2",
-      "ParentIndex": 3,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -11241,7 +11234,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "shp_TRSBackground2",
-      "ParentIndex": 11,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -11393,7 +11386,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "shp_TRSBackground2_1",
-      "ParentIndex": 5,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -11545,7 +11538,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "shp_TRSBackground2_2",
-      "ParentIndex": 6,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -11762,7 +11755,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txi_TRSComment",
-      "ParentIndex": 31,
+      "ParentIndex": 30,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -12070,7 +12063,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_TRSNotes",
-      "ParentIndex": 21,
+      "ParentIndex": 19,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

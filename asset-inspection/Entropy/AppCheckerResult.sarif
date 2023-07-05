@@ -4794,18 +4794,6 @@
               "message": {
                 "text": "Error occurred running rule app-InefficientDelayLoading."
               }
-            },
-            {
-              "associatedRule": {
-                "id": "app-InefficientDelayLoading",
-                "index": 12
-              },
-              "descriptor": {
-                "id": "app-InefficientDelayLoading"
-              },
-              "message": {
-                "text": "Error occurred running rule app-InefficientDelayLoading."
-              }
             }
           ]
         }
@@ -5436,6 +5424,126 @@
                 "member": "OnSelect",
                 "module": "scr_TaskScreen",
                 "type": "scr_TaskScreen.btn_TSConfirmWork"
+              }
+            }
+          ],
+          "message": {
+            "arguments": [
+              "Filter"
+            ],
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-SuggestRemoteExecutionHint",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect",
+                  "relativeAddress": 0
+                },
+                "region": {
+                  "charLength": 77,
+                  "charOffset": 118,
+                  "snippet": {
+                    "text": "First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber))"
+                  }
+                }
+              },
+              "properties": {
+                "member": "OnSelect",
+                "module": "scr_TaskScreen",
+                "type": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'"
+              }
+            }
+          ],
+          "message": {
+            "arguments": [
+              "First"
+            ],
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-SuggestRemoteExecutionHint",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect",
+                  "relativeAddress": 0
+                },
+                "region": {
+                  "charLength": 1,
+                  "charOffset": 116,
+                  "snippet": {
+                    "text": "="
+                  }
+                }
+              },
+              "properties": {
+                "member": "OnSelect",
+                "module": "scr_TaskScreen",
+                "type": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'"
+              }
+            }
+          ],
+          "message": {
+            "arguments": [
+              "Filter"
+            ],
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-SuggestRemoteExecutionHint",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect",
+                  "relativeAddress": 0
+                },
+                "region": {
+                  "charLength": 2,
+                  "charOffset": 199,
+                  "snippet": {
+                    "text": "&&"
+                  }
+                }
+              },
+              "properties": {
+                "member": "OnSelect",
+                "module": "scr_TaskScreen",
+                "type": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'"
               }
             }
           ],
