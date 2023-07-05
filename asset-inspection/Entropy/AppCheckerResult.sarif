@@ -5444,126 +5444,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect",
-                  "relativeAddress": 0
-                },
-                "region": {
-                  "charLength": 77,
-                  "charOffset": 118,
-                  "snippet": {
-                    "text": "First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber))"
-                  }
-                }
-              },
-              "properties": {
-                "member": "OnSelect",
-                "module": "scr_TaskScreen",
-                "type": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'"
-              }
-            }
-          ],
-          "message": {
-            "arguments": [
-              "First"
-            ],
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 0
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect",
-                  "relativeAddress": 0
-                },
-                "region": {
-                  "charLength": 1,
-                  "charOffset": 116,
-                  "snippet": {
-                    "text": "="
-                  }
-                }
-              },
-              "properties": {
-                "member": "OnSelect",
-                "module": "scr_TaskScreen",
-                "type": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'"
-              }
-            }
-          ],
-          "message": {
-            "arguments": [
-              "Filter"
-            ],
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 0
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'.OnSelect",
-                  "relativeAddress": 0
-                },
-                "region": {
-                  "charLength": 2,
-                  "charOffset": 199,
-                  "snippet": {
-                    "text": "&&"
-                  }
-                }
-              },
-              "properties": {
-                "member": "OnSelect",
-                "module": "scr_TaskScreen",
-                "type": "scr_TaskScreen.'[HIDDEN]btn_TSInitializeTaskData'"
-              }
-            }
-          ],
-          "message": {
-            "arguments": [
-              "Filter"
-            ],
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "app-SuggestRemoteExecutionHint",
-          "ruleIndex": 0
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "scr_TaskScreenCreate.btn_TSC_Save.onSelect"
                 }
               ],
@@ -8734,6 +8614,186 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddPhotoCancel.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddPhotoCancel.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "scr_TaskReportScreen",
+                "type": "scr_TaskReportScreen.ico_TRSAddPhotoCancel"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 5
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddPhotoCancel.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddPhotoCancel.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "scr_TaskReportScreen",
+                "type": "scr_TaskReportScreen.ico_TRSAddPhotoCancel"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "scr_TaskReportScreen",
+                "type": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 5
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "scr_TaskReportScreen",
+                "type": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddNotesCancel.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddNotesCancel.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "scr_TaskReportScreen",
+                "type": "scr_TaskReportScreen.ico_TRSAddNotesCancel"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 5
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddNotesCancel.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddNotesCancel.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "scr_TaskReportScreen",
+                "type": "scr_TaskReportScreen.ico_TRSAddNotesCancel"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSCheckList.AccessibleLabel"
                 }
               ],
@@ -8914,186 +8974,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddPhotoCancel.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddPhotoCancel.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "scr_TaskReportScreen",
-                "type": "scr_TaskReportScreen.ico_TRSAddPhotoCancel"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 5
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddPhotoCancel.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddPhotoCancel.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "scr_TaskReportScreen",
-                "type": "scr_TaskReportScreen.ico_TRSAddPhotoCancel"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddNotesCancel.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddNotesCancel.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "scr_TaskReportScreen",
-                "type": "scr_TaskReportScreen.ico_TRSAddNotesCancel"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 5
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddNotesCancel.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSAddNotesCancel.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "scr_TaskReportScreen",
-                "type": "scr_TaskReportScreen.ico_TRSAddNotesCancel"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "scr_TaskReportScreen",
-                "type": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 5
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "scr_TaskReportScreen",
-                "type": "scr_TaskReportScreen.ico_TRSShowHistoryPhotoCancel"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "scr_TaskReportScreen.cbb_TRSStaff.AccessibleLabel"
                 }
               ],
@@ -9184,36 +9064,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "scr_TaskReportScreen",
-                "type": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 5
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "scr_TaskReportScreen.gal_TRSPhotoGallery.AccessibleLabel"
                 }
               ],
@@ -9268,6 +9118,36 @@
           },
           "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
           "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "scr_TaskReportScreen",
+                "type": "scr_TaskReportScreen.'[HIDDEN-TBD]med_TRSPhotoAfter'"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 5
         },
         {
           "locations": [
