@@ -189,7 +189,7 @@
         "Name": "lbl_titleInputFrame",
         "Parent": "cmp_MD_GenericInputFrame",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 89,
+        "PublishOrderIndex": 243,
         "Rules": [
           {
             "Category": "Data",
@@ -708,7 +708,7 @@
         "Name": "txt_GenericBG",
         "Parent": "cmp_MD_GenericInputFrame",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 90,
+        "PublishOrderIndex": 244,
         "Rules": [
           {
             "Category": "Data",
@@ -1173,7 +1173,7 @@
         "Name": "lbl_errorInputFrame",
         "Parent": "cmp_MD_GenericInputFrame",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 91,
+        "PublishOrderIndex": 245,
         "Rules": [
           {
             "Category": "Data",
@@ -1617,7 +1617,7 @@
         "Name": "lbl_helperInputFrame",
         "Parent": "cmp_MD_GenericInputFrame",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 92,
+        "PublishOrderIndex": 246,
         "Rules": [
           {
             "Category": "Data",
@@ -2020,7 +2020,7 @@
         "Name": "html_textHeightInputFrame",
         "Parent": "cmp_MD_GenericInputFrame",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 93,
+        "PublishOrderIndex": 247,
         "Rules": [
           {
             "Category": "Data",
@@ -2266,7 +2266,7 @@
         "Name": "tgl_errorInputFrame",
         "Parent": "cmp_MD_GenericInputFrame",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 94,
+        "PublishOrderIndex": 248,
         "Rules": [
           {
             "Category": "Data",
