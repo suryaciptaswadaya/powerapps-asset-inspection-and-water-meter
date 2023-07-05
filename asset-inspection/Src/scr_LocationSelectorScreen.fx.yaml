@@ -116,6 +116,8 @@ scr_LocationSelectorScreen As screen:
                     )
                 ).comment);
                 
+                Notify(gal_TSTaskList.Selected.ID);
+                
                 If(!IsBlank(s_ApproverComment),Set(b_showComment,true),Set(b_showComment,false));
                 
                 Navigate(scr_TaskReportScreen);
