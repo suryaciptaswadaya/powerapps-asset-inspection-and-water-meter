@@ -55,7 +55,7 @@ scr_LocationSelectorScreen As screen:
             PaddingLeft: =0
             PaddingRight: =0
             PaddingTop: =0
-            Text: =ThisItem.sublocation_name //& " - " & ThisItem.RowNumber
+            Text: =ThisItem.sublocation_name //& " - " & ThisItem.ID & " - " & n_TmpHeaderID
             Width: =269
             Y: =186
             ZIndex: =3
@@ -807,6 +807,7 @@ scr_LocationSelectorScreen As screen:
         Height: =50
         Size: =18
         Text: =First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_name
+        Visible: =b_IsApproverByFlow
         Width: =200
         X: =219
         Y: =81
