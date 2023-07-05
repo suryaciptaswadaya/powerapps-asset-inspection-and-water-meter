@@ -17,13 +17,27 @@ scr_TaskReportScreen As screen:
         ZIndex: =1
 
     ComboBox3 As combobox:
-        DefaultSelectedItems: |-
-            =Filter(c_AllEmployeeCoworkers,ID = First(
+        DefaultSelectedItems: |+
+            =
+            If(First(c_ActiveUserData).is_approver = 1,     
+                
+                Filter(c_AllEmployee,ID = First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = n_TmpHeaderID
+                    )
+                ).pic_id)
+            ,
+                
+            
+                Filter(c_AllEmployeeCoworkers,ID = First(
                     Filter(
                         tbl_assignment_sublocation_comment,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
                     )
                 ).pic_id)
+            )
+            
         DisplayFields: =["name"]
         DisplayMode: |-
             =If(First(c_ActiveUserData).is_approver = 1, 
@@ -35,9 +49,21 @@ scr_TaskReportScreen As screen:
             )
         Height: =50
         InputTextPlaceholder: ="PIC"
-        Items: =c_AllEmployeeCoworkers
+        Items: |-
+            =//c_AllEmployeeCoworkers
+            
+            If(First(c_ActiveUserData).is_approver = 1, 
+                c_AllEmployee,
+                c_AllEmployeeCoworkers
+            )
         SearchFields: =["name"]
-        SearchItems: =Search(c_AllEmployeeCoworkers,ComboBox3.SearchText,"name")
+        SearchItems: |-
+            =Search(//c_AllEmployeeCoworkers
+            
+            If(First(c_ActiveUserData).is_approver = 1, 
+                c_AllEmployee,
+                c_AllEmployeeCoworkers
+            ),ComboBox3.SearchText,"name")
         SelectMultiple: =false
         Size: =21
         Width: =595
@@ -65,7 +91,7 @@ scr_TaskReportScreen As screen:
         Height: =50
         Size: =18
         Text: ="Komentar Approval"
-        Visible: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || b_showComment = true,true,false)
+        Visible: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || gal_TSTaskList.Selected.status_code = Text(n_OnProgress) || b_showComment = true,true,false)
         Width: =591
         X: =23
         Y: =800
@@ -128,7 +154,7 @@ scr_TaskReportScreen As screen:
             //btn_TRSNextSublocation.DisplayMode.Edit;
             
         Size: =18
-        Visible: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || b_showComment = true,true,false)
+        Visible: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || gal_TSTaskList.Selected.status_code = Text(n_OnProgress) || b_showComment = true,true,false)
         Width: =580
         X: =30
         Y: =853
@@ -137,7 +163,7 @@ scr_TaskReportScreen As screen:
     "gal_TRSCheckList As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
         BorderColor: =RGBA(202, 202, 202, 1)
         DelayItemLoading: =true
-        Height: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || b_showComment = true,620,800)
+        Height: =If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale) || gal_TSTaskList.Selected.status_code = Text(n_OnProgress) || b_showComment = true,620,800)
         Items: =c_AssignmentDetailAmenities
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
@@ -276,13 +302,13 @@ scr_TaskReportScreen As screen:
         Fill: =RGBA(33, 86, 117, 1)
         Height: =50
         OnSelect: |+
-            =
+            =If(First(c_ActiveUserData).is_approver = 1, Set(n_GalTaskList,n_TmpHeaderID), Set(n_GalTaskList,gal_TSTaskList.Selected.ID));
             If(First(c_ActiveUserData).is_approver = 1, 
                 Patch(tbl_assignment_sublocation_comment, 
                 First(
                     Filter(
                         tbl_assignment_sublocation_comment,
-                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList
                     )
                 ),
                 { comment: txi_TRSComment.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }
@@ -291,17 +317,17 @@ scr_TaskReportScreen As screen:
             
                 Reset(txi_TRSComment);
             
-                If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment),
+                If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment),
             
                     Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
                     Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
-                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment);
                     //Set(b_showComment,true);
                     //Notify(s_ApproverComment&"jika tidak blank");
                 ,
                     Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
                     Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
-                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment);
                     //Notify(s_ApproverComment&"jika blank");
                     //Set(s_ApproverComment, "");
                     ""
@@ -313,7 +339,7 @@ scr_TaskReportScreen As screen:
                 First(
                     Filter(
                         tbl_assignment_sublocation_comment,
-                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList
                     )
                 ),
                 { 
@@ -330,7 +356,7 @@ scr_TaskReportScreen As screen:
                 Set(s_ApproverComment, First(
                     Filter(
                         tbl_assignment_sublocation_comment,
-                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList
                     )).comment);
             
                 If(!IsBlank(s_ApproverComment),
@@ -381,13 +407,13 @@ scr_TaskReportScreen As screen:
         Fill: =RGBA(33, 86, 117, 1)
         Height: =50
         OnSelect: |+
-            =
+            =If(First(c_ActiveUserData).is_approver = 1, Set(n_GalTaskList,n_TmpHeaderID), Set(n_GalTaskList,gal_TSTaskList.Selected.ID));
             If(First(c_ActiveUserData).is_approver = 1, 
                 Patch(tbl_assignment_sublocation_comment, 
                 First(
                     Filter(
                         tbl_assignment_sublocation_comment,
-                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id =n_GalTaskList
                     )
                 ),
                 { 
@@ -400,17 +426,17 @@ scr_TaskReportScreen As screen:
             
                 Reset(txi_TRSComment);
             
-                If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment),
+                If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id =n_GalTaskList)).comment),
             
                     Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
                     Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
-                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id =n_GalTaskList)).comment);
                     //Set(b_showComment,true);
                     //Notify(s_ApproverComment&"jika tidak blank");
                 ,
                     Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
                     Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
-                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment);
                     //Notify(s_ApproverComment&"jika blank");
                     
                    // Set(s_ApproverComment, "");
@@ -423,7 +449,7 @@ scr_TaskReportScreen As screen:
                 First(
                     Filter(
                         tbl_assignment_sublocation_comment,
-                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList
                     )
                 ),
                 { 
@@ -439,7 +465,7 @@ scr_TaskReportScreen As screen:
                 Set(s_ApproverComment, First(
                     Filter(
                         tbl_assignment_sublocation_comment,
-                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList
                     )).comment
                 );
             
@@ -843,7 +869,15 @@ scr_TaskReportScreen As screen:
                     DisplayMode.Disabled,
                     DisplayMode.Edit
                 )*/
-                DisplayMode.Edit
+                //DisplayMode.Edit
+                
+                If(First(c_ActiveUserData).is_approver = 1, 
+                    DisplayMode.Edit,
+                    If(IsBlank(gal_TSTaskList.Selected.end_time_task),
+                        DisplayMode.Edit,
+                        DisplayMode.View
+                    )
+                )
             Fill: =RGBA(33, 86, 117, 1)
             Height: =48
             OnSelect: |-
@@ -972,7 +1006,14 @@ scr_TaskReportScreen As screen:
                     ,
                     "Change Picture"
                 )
-            DisplayMode: =btn_TRSOK.DisplayMode
+            DisplayMode: |-
+                =If(First(c_ActiveUserData).is_approver = 1, 
+                    DisplayMode.Edit,
+                    If(IsBlank(gal_TSTaskList.Selected.end_time_task),
+                        DisplayMode.Edit,
+                        DisplayMode.View
+                    )
+                )
             Height: =260
             OnChange: =Set(b_ChangePhotoBefore, true);
             Size: =25

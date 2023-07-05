@@ -109,12 +109,23 @@ scr_LocationSelectorScreen As screen:
                 );
                 Clear(c_TmpAssignmentDetailAmenities);
                 
+                If(First(c_ActiveUserData).is_approver = 1,
+                Set(s_ApproverComment, First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = n_TmpHeaderID
+                    )
+                ).comment)
+                ,
                 Set(s_ApproverComment, First(
                     Filter(
                         tbl_assignment_sublocation_comment,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
                     )
                 ).comment);
+                );
+                
+                //Notify(n_CurrentSublocationID & " " & n_TmpHeaderID );
                 
                 If(!IsBlank(s_ApproverComment),Set(b_showComment,true),Set(b_showComment,false));
                 
@@ -516,6 +527,7 @@ scr_LocationSelectorScreen As screen:
                 If(b_SelectedRecheckStatus = true,
                 Clear(c_AllNextProcessEmployee);
                 Clear(c_NextFlowProcess);
+                //ini masih cuma bisa balik ke flow pertama
                 Collect(c_NextFlowProcess,Filter(c_AllFlowProcess,sequence_number > gal_TSTaskList.Selected.sequence_number));
                 
                 ForAll(c_NextFlowProcess,
@@ -527,8 +539,8 @@ scr_LocationSelectorScreen As screen:
                             status_code: ComboBox2.Selected.status_code,
                             status_name: ComboBox2.Selected.status_name,
                             status_color: ComboBox2.Selected.hex_color,
-                            end_time_task: Blank(),
-                            is_ready_to_start:0
+                            end_time_task: Blank()
+                            //is_ready_to_start:0
                         }
                     );
                 
@@ -539,7 +551,7 @@ scr_LocationSelectorScreen As screen:
                             ),
                         {
                             status_code: ComboBox2.Selected.status_code,
-                            is_ready_to_start:0,
+                            //is_ready_to_start:0,
                             end_time_task: Blank(),
                             status_sequence_number:ComboBox2.Selected.status_sequence_number
                         }
@@ -568,11 +580,13 @@ scr_LocationSelectorScreen As screen:
                         Filter(
                             tbl_assignment_headers,
                             ID = gal_TSTaskList.Selected.ID
+                            
                         )
                     ),
                     {
                         status_code: ComboBox2.Selected.status_code,
-                        status_sequence_number:ComboBox2.Selected.status_sequence_number
+                        status_sequence_number:ComboBox2.Selected.status_sequence_number,
+                        end_time_task: Blank()
                     }
                 );
                 Patch(
@@ -581,7 +595,8 @@ scr_LocationSelectorScreen As screen:
                     {
                         status_code: ComboBox2.Selected.status_code,
                         status_name: ComboBox2.Selected.status_name,
-                        status_color: ComboBox2.Selected.hex_color
+                        status_color: ComboBox2.Selected.hex_color,
+                        end_time_task: Blank()
                     }
                 );
                 
@@ -795,7 +810,7 @@ scr_LocationSelectorScreen As screen:
         Width: =200
         X: =219
         Y: =81
-        ZIndex: =29
+        ZIndex: =28
 
     grp_LSSHeaderApproval As group:
         Height: =5
@@ -868,7 +883,7 @@ scr_LocationSelectorScreen As screen:
             Width: =180
             X: =39
             Y: =81
-            ZIndex: =27
+            ZIndex: =1
 
         btn_LSSNextTask As button:
             Fill: =RGBA(33, 86, 117, 1)
@@ -936,5 +951,5 @@ scr_LocationSelectorScreen As screen:
             Width: =180
             X: =419
             Y: =81
-            ZIndex: =28
+            ZIndex: =27
 
