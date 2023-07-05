@@ -77,11 +77,12 @@ scr_LocationSelectorScreen As screen:
             Icon: =Icon.Error
             OnSelect: =Select(Parent)
             Visible: |-
-                =If(b_IsApproverByFlow,
+                =/*If(b_IsApproverByFlow,
                     !IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = ThisItem.ID && assignment_header_id = n_TmpHeaderID)).comment)
                 ,
                     !IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = ThisItem.ID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment)
-                )
+                )*/
+                false
             X: =190
             Y: =18
             ZIndex: =5
@@ -135,6 +136,20 @@ scr_LocationSelectorScreen As screen:
             Text: =""
             Width: =269.5
             ZIndex: =6
+
+        Image1 As image:
+            Height: =64
+            Image: =warning
+            OnSelect: =Select(Parent)
+            Visible: |-
+                =If(b_IsApproverByFlow,
+                    !IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = ThisItem.ID && assignment_header_id = n_TmpHeaderID)).comment)
+                ,
+                    !IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = ThisItem.ID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment)
+                )
+            Width: =62.5
+            X: =207
+            ZIndex: =7
 
     cmp_LSAppBar_top As cmp_MD_AppBar_top:
         onSelectIcon1: =Back();
