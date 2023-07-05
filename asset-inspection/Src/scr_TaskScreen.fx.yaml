@@ -197,7 +197,12 @@ scr_TaskScreen As screen:
     "'[HIDDEN]btn_TSInitializeTaskData' As button":
         Height: =70
         OnSelect: |-
-            =ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = gal_TSTaskList.Selected.ID && department_id = gal_TSTaskList.Selected.department_id));
+            =If(b_IsApproverByFlow,
+                ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).ID && department_id = gal_TSTaskList.Selected.department_id));
+            ,
+                ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = gal_TSTaskList.Selected.ID && department_id = gal_TSTaskList.Selected.department_id));
+            );
+            
             ClearCollect(c_AssignmentDetail, 
                 AddColumns(c_TmpAssignmentDetail, 
                     "amenity_name", First(Filter(c_AllSublocationAmenities, ID = c_TmpAssignmentDetail[@amenity_id])).amenity_name
@@ -483,20 +488,41 @@ scr_TaskScreen As screen:
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         OnSelect: |-
-            =Set(b_TSShowTaskList,true);
+            =/* kode lama. dikomen dulu
+            Set(b_TSShowTaskList,true);
             Set(b_TSShowGroupedTaskList,false);
             Set(n_TSTaskDateWidth,450);
+            */
             
-            If(b_IsApproverByFlow = true,
-                    ClearCollect(c_CheckingTaskFlow, 
-                        Filter(c_Task,assignment_code = ThisItem.assignment_code && status_code = Text(n_WaitingGMApprovalStatus))
-                    );
-                    If(CountRows(c_AllFlowProcess) = CountRows(c_CheckingTaskFlow),
-                        Set(b_ShowRecheckApproveButton,true),
-                        Set(b_ShowRecheckApproveButton,false)
-                    );
-                ,
-                    Set(b_ShowRecheckApproveButton,false);
+            If(b_IsApproverByFlow,
+            
+                ClearCollect(c_TmpCheckingTaskFlow, Filter(c_Task, assignment_code = ThisItem.assignment_code && status_code = Text(n_WaitingGMApprovalStatus)));
+                //Generate Row Number
+                ClearCollect(
+                    c_CheckingTaskFlow,
+                    ForAll(
+                        Sequence(CountRows(c_TmpCheckingTaskFlow)),
+                        Patch(
+                            Last(FirstN(c_TmpCheckingTaskFlow, Value)),
+                            { RowNumber : Value }
+                        )
+                    )
+                );
+                Clear(c_TmpCheckingTaskFlow);
+                Set(n_CurrentApprovalTaskRowNumber, 1);
+            
+                /*
+                If(CountRows(c_AllFlowProcess) = CountRows(c_CheckingTaskFlow),
+                    Set(b_ShowRecheckApproveButton,true),
+                    Set(b_ShowRecheckApproveButton,false)
+                );
+                */
+                
+                Set(b_ShowRecheckApproveButton, true);
+                Select('[HIDDEN]btn_TSInitializeTaskData');
+                Navigate(scr_LocationSelectorScreen);
+            ,
+                Set(b_ShowRecheckApproveButton, false);
             );
         ShowScrollbar: =false
         TemplatePadding: =0

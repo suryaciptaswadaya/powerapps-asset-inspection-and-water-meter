@@ -16,7 +16,7 @@ scr_LocationSelectorScreen As screen:
     "gal_LSSSublocationList As gallery.'BrowseLayout_Vertical_TwoTextOneImageTwoColumnOverlayVariant_ver4.0'":
         DelayItemLoading: =true
         DisplayMode: =dm_LSTask
-        Height: =928
+        Height: =If(b_IsApproverByFlow, 868, 928)
         Items: =c_SubLocation
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
@@ -27,7 +27,7 @@ scr_LocationSelectorScreen As screen:
         Width: =599
         WrapCount: =2
         X: =20
-        Y: =82
+        Y: =If(b_IsApproverByFlow, 142, 82)
         ZIndex: =2
 
         img_LSSPreview As image:
@@ -752,4 +752,185 @@ scr_LocationSelectorScreen As screen:
         X: =106
         Y: =589
         ZIndex: =26
+
+    btn_LSSPreviousTask As button:
+        Fill: =RGBA(33, 86, 117, 1)
+        Height: =50
+        OnSelect: |+
+            =
+            If(First(c_ActiveUserData).is_approver = 1, 
+                Patch(tbl_assignment_sublocation_comment, 
+                First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )
+                ),
+                { comment: txi_TRSComment.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }
+                );
+                Refresh(tbl_assignment_sublocation_comment);
+            
+                Reset(txi_TRSComment);
+            
+                If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment),
+            
+                    Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
+                    Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    //Set(b_showComment,true);
+                    //Notify(s_ApproverComment&"jika tidak blank");
+                ,
+                    Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
+                    Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    //Notify(s_ApproverComment&"jika blank");
+                    //Set(s_ApproverComment, "");
+                    ""
+                    
+                );
+                ,
+                Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
+                Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            
+                Set(s_ApproverComment, First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )).comment);
+            
+                If(!IsBlank(s_ApproverComment),
+                    Set(b_showComment,true),
+                    Set(b_showComment,false)
+                );
+            );
+                
+            //Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
+            //Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            //Notify(First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            /*Reset(txi_TRSComment);
+            
+            If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment),
+                Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+            ,
+                Set(s_ApproverComment, "");
+            );*/
+            
+            ClearCollect(c_TmpAssignmentDetailAmenities, Filter(c_AssignmentDetail, sublocation_id = First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID));
+            //Generate Row Number
+            ClearCollect(
+                c_AssignmentDetailAmenities,
+                ForAll(
+                    Sequence(CountRows(c_TmpAssignmentDetailAmenities)),
+                    Patch(
+                        Last(FirstN(c_TmpAssignmentDetailAmenities, Value)),
+                        { RowNumber : Value }
+                    )
+                )
+            );
+            Clear(c_TmpAssignmentDetailAmenities);
+            Set(s_SelectedSublocation, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).sublocation_name);
+            
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="<< Prev"
+        Visible: =!(n_CurrentApprovalTaskRowNumber = 1 || CountRows(c_CheckingTaskFlow) = 0)
+        Width: =180
+        X: =39
+        Y: =81
+        ZIndex: =27
+
+    btn_LSSNextTask As button:
+        Fill: =RGBA(33, 86, 117, 1)
+        Height: =50
+        OnSelect: |+
+            =
+            If(First(c_ActiveUserData).is_approver = 1, 
+                Patch(tbl_assignment_sublocation_comment, 
+                First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )
+                ),
+                { comment: txi_TRSComment.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }
+                );
+                Refresh(tbl_assignment_sublocation_comment);
+            
+                Reset(txi_TRSComment);
+            
+                If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment),
+            
+                    Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
+                    Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    //Set(b_showComment,true);
+                    //Notify(s_ApproverComment&"jika tidak blank");
+                ,
+                    Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
+                    Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+                    //Notify(s_ApproverComment&"jika blank");
+                    
+                   // Set(s_ApproverComment, "");
+                    
+                );
+                ,
+                Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
+                Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            
+                Set(s_ApproverComment, First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
+                    )).comment
+                );
+            
+                If(!IsBlank(s_ApproverComment),
+                    Set(b_showComment,true),
+                    Set(b_showComment,false)
+                );
+                
+            
+            );
+                
+            //Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
+            //Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            //Notify(First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
+            /*Reset(txi_TRSComment);
+            
+            If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment),
+                Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment);
+            ,
+                Set(s_ApproverComment, "");
+            );*/
+            
+            ClearCollect(c_TmpAssignmentDetailAmenities, Filter(c_AssignmentDetail, sublocation_id = First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID));
+            //Generate Row Number
+            ClearCollect(
+                c_AssignmentDetailAmenities,
+                ForAll(
+                    Sequence(CountRows(c_TmpAssignmentDetailAmenities)),
+                    Patch(
+                        Last(FirstN(c_TmpAssignmentDetailAmenities, Value)),
+                        { RowNumber : Value }
+                    )
+                )
+            );
+            Clear(c_TmpAssignmentDetailAmenities);
+            Set(s_SelectedSublocation, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).sublocation_name);
+            
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="Next >>"
+        Visible: =!(n_CurrentApprovalTaskRowNumber = CountRows(c_CheckingTaskFlow)) && CountRows(c_CheckingTaskFlow) > 0
+        Width: =180
+        X: =419
+        Y: =81
+        ZIndex: =28
 
