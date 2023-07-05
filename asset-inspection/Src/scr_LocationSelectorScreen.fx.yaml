@@ -144,7 +144,7 @@ scr_LocationSelectorScreen As screen:
         Size: =24
         Text: ="Simpan Laporan"
         Visible: |-
-            =If(
+            =/*If(
                 gal_TSTaskList.Selected.status_code <> Text(n_WaitingGMApprovalStatus) && gal_TSTaskList.Selected.status_code <> Text(n_ReadyForSale) && gal_TSTaskList.Selected.assigned_pic1_id = First(c_ActiveUserData).ID,
                 true,
                 If(
@@ -152,7 +152,7 @@ scr_LocationSelectorScreen As screen:
                     false,
                     false
                 )
-            )
+            )*/
             /*If(
                 First(c_ActiveUserData).is_approver = 1,
                 false,
@@ -161,6 +161,11 @@ scr_LocationSelectorScreen As screen:
                     true
                 )
             )*/
+            If(
+                First(c_ActiveUserData).is_approver = 1,
+                false,
+                If(IsBlank(gal_TSTaskList.Selected.end_time_task),true,false)
+            )
         Width: =560
         X: =39
         Y: =1035
@@ -497,7 +502,7 @@ scr_LocationSelectorScreen As screen:
                             status_code: ComboBox2.Selected.status_code,
                             status_name: ComboBox2.Selected.status_name,
                             status_color: ComboBox2.Selected.hex_color,
-                
+                            end_time_task: Blank(),
                             is_ready_to_start:0
                         }
                     );
@@ -510,6 +515,7 @@ scr_LocationSelectorScreen As screen:
                         {
                             status_code: ComboBox2.Selected.status_code,
                             is_ready_to_start:0,
+                            end_time_task: Blank(),
                             status_sequence_number:ComboBox2.Selected.status_sequence_number
                         }
                     );
