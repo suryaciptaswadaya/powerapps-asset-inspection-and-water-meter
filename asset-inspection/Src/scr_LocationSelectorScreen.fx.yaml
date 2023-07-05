@@ -527,8 +527,8 @@ scr_LocationSelectorScreen As screen:
                             status_code: ComboBox2.Selected.status_code,
                             status_name: ComboBox2.Selected.status_name,
                             status_color: ComboBox2.Selected.hex_color,
-                            end_time_task: Blank(),
-                            is_ready_to_start:0
+                            end_time_task: Blank()
+                            //is_ready_to_start:0
                         }
                     );
                 
@@ -539,7 +539,7 @@ scr_LocationSelectorScreen As screen:
                             ),
                         {
                             status_code: ComboBox2.Selected.status_code,
-                            is_ready_to_start:0,
+                            //is_ready_to_start:0,
                             end_time_task: Blank(),
                             status_sequence_number:ComboBox2.Selected.status_sequence_number
                         }
@@ -794,7 +794,7 @@ scr_LocationSelectorScreen As screen:
         Width: =200
         X: =219
         Y: =81
-        ZIndex: =29
+        ZIndex: =28
 
     grp_LSSHeaderApproval As group:
         Height: =5
@@ -867,7 +867,7 @@ scr_LocationSelectorScreen As screen:
             Width: =180
             X: =39
             Y: =81
-            ZIndex: =27
+            ZIndex: =1
 
         btn_LSSNextTask As button:
             Fill: =RGBA(33, 86, 117, 1)
@@ -935,5 +935,5 @@ scr_LocationSelectorScreen As screen:
             Width: =180
             X: =419
             Y: =81
-            ZIndex: =28
+            ZIndex: =27
 

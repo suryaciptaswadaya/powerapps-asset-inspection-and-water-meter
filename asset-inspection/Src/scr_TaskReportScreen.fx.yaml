@@ -17,13 +17,27 @@ scr_TaskReportScreen As screen:
         ZIndex: =1
 
     ComboBox3 As combobox:
-        DefaultSelectedItems: |-
-            =Filter(c_AllEmployeeCoworkers,ID = First(
+        DefaultSelectedItems: |+
+            =
+            If(First(c_ActiveUserData).is_approver = 1,     
+                
+                Filter(c_AllEmployee,ID = First(
+                    Filter(
+                        tbl_assignment_sublocation_comment,
+                        sublocation_id = n_CurrentSublocationID && assignment_header_id = n_TmpHeaderID
+                    )
+                ).pic_id)
+            ,
+                
+            
+                Filter(c_AllEmployeeCoworkers,ID = First(
                     Filter(
                         tbl_assignment_sublocation_comment,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
                     )
                 ).pic_id)
+            )
+            
         DisplayFields: =["name"]
         DisplayMode: |-
             =If(First(c_ActiveUserData).is_approver = 1, 
@@ -35,9 +49,21 @@ scr_TaskReportScreen As screen:
             )
         Height: =50
         InputTextPlaceholder: ="PIC"
-        Items: =c_AllEmployeeCoworkers
+        Items: |-
+            =//c_AllEmployeeCoworkers
+            
+            If(First(c_ActiveUserData).is_approver = 1, 
+                c_AllEmployee,
+                c_AllEmployeeCoworkers
+            )
         SearchFields: =["name"]
-        SearchItems: =Search(c_AllEmployeeCoworkers,ComboBox3.SearchText,"name")
+        SearchItems: |-
+            =Search(//c_AllEmployeeCoworkers
+            
+            If(First(c_ActiveUserData).is_approver = 1, 
+                c_AllEmployee,
+                c_AllEmployeeCoworkers
+            ),ComboBox3.SearchText,"name")
         SelectMultiple: =false
         Size: =21
         Width: =595
@@ -843,7 +869,15 @@ scr_TaskReportScreen As screen:
                     DisplayMode.Disabled,
                     DisplayMode.Edit
                 )*/
-                DisplayMode.Edit
+                //DisplayMode.Edit
+                
+                If(First(c_ActiveUserData).is_approver = 1, 
+                    DisplayMode.Edit,
+                    If(IsBlank(gal_TSTaskList.Selected.end_time_task),
+                        DisplayMode.Edit,
+                        DisplayMode.View
+                    )
+                )
             Fill: =RGBA(33, 86, 117, 1)
             Height: =48
             OnSelect: |-
@@ -972,7 +1006,14 @@ scr_TaskReportScreen As screen:
                     ,
                     "Change Picture"
                 )
-            DisplayMode: =btn_TRSOK.DisplayMode
+            DisplayMode: |-
+                =If(First(c_ActiveUserData).is_approver = 1, 
+                    DisplayMode.Edit,
+                    If(IsBlank(gal_TSTaskList.Selected.end_time_task),
+                        DisplayMode.Edit,
+                        DisplayMode.View
+                    )
+                )
             Height: =260
             OnChange: =Set(b_ChangePhotoBefore, true);
             Size: =25
