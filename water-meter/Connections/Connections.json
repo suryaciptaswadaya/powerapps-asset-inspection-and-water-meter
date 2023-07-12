@@ -5,12 +5,18 @@
       "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1636/1.0.1636.3297/logicflows/icon.png",
       "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
       "parameterHints": {
+        "e3800f7b-2050-4a3f-9b67-987d6951004a": {
+          "value": "shared_sharepointonline_1"
+        },
         "workflowEntityId": {},
         "workflowName": {
           "value": "4ae5b5a4-1a88-4aae-9087-ccea7c0b11ea"
         }
       },
       "parameterHintsV2": {
+        "shared_sharepointonline_1": {
+          "value": "e3800f7b-2050-4a3f-9b67-987d6951004a"
+        },
         "workflowEntityId": {},
         "workflowName": {
           "value": "4ae5b5a4-1a88-4aae-9087-ccea7c0b11ea"
@@ -36,6 +42,9 @@
     "datasets": {
       "https://suryainternusa.sharepoint.com/sites/DEV-SCSWaterMeter": {
         "dataSources": {
+          "mst_meter": {
+            "tableName": "cc2cca8d-ecb2-4cf0-ad44-f4c772daef20"
+          },
           "tbl_metering_logs": {
             "tableName": "32bfa5a3-83d7-42e2-8eed-e86a1cae0457"
           }
@@ -43,7 +52,8 @@
       }
     },
     "dataSources": [
-      "tbl_metering_logs"
+      "tbl_metering_logs",
+      "mst_meter"
     ],
     "dependencies": {},
     "dependents": [
