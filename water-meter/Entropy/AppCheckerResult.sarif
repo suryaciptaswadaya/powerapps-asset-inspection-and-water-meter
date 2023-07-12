@@ -1018,6 +1018,36 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "mtrScreenInput.ComboBox1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "mtrScreenInput.ComboBox1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "mtrScreenInput",
+                "type": "mtrScreenInput.ComboBox1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "mtrScreenInput.current_mtr.AccessibleLabel"
                 }
               ],
@@ -1108,36 +1138,6 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "mtrScreenInput.ComboBox1.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "mtrScreenInput.ComboBox1.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "mtrScreenInput",
-                "type": "mtrScreenInput.ComboBox1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 3
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
                   "fullyQualifiedName": "App.d_SelectedDate"
                 }
               ],
@@ -1168,17 +1168,17 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.tbl_metering_logs"
+                  "fullyQualifiedName": "App.mst_meter"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "App.tbl_metering_logs",
+                  "fullyQualifiedName": "App.mst_meter",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "tbl_metering_logs",
+                "member": "mst_meter",
                 "module": "App",
                 "type": "App"
               }
@@ -1198,17 +1198,17 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.mst_meter"
+                  "fullyQualifiedName": "App.tbl_metering_logs"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "App.mst_meter",
+                  "fullyQualifiedName": "App.tbl_metering_logs",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "mst_meter",
+                "member": "tbl_metering_logs",
                 "module": "App",
                 "type": "App"
               }

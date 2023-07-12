@@ -170,7 +170,7 @@ mtrScreenInput As screen:
         Height: =70
         Items: =mst_meter
         SearchFields: =["Title"]
-        SearchItems: =[]
+        SearchItems: =Search(mst_meter,ComboBox1.SearchText,"Title")
         SelectMultiple: =false
         Size: =21
         Width: =477
