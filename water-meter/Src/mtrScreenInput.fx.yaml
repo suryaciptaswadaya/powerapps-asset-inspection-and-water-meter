@@ -123,6 +123,11 @@ mtrScreenInput As screen:
                 );
             
                 Notify("Data Metering Berhasil Disimpan");
+                Set(meterIDScan,Blank());
+                current_mtr.Clear;
+                AddMediaButton1.Media = SampleImage;
+                
+                
             
             //Navigate(Home);
         Size: =24
