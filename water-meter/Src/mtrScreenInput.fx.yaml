@@ -12,8 +12,8 @@ mtrScreenInput As screen:
         OnScan: =Set(varScan, BarcodeScanner1.Value)
         Size: =24
         Text: ="Scan"
-        Width: =126
-        X: =489
+        Width: =106
+        X: =509
         Y: =150
         ZIndex: =2
 
@@ -22,6 +22,7 @@ mtrScreenInput As screen:
         Default: =varScan
         Height: =70
         Size: =21
+        Visible: =false
         Width: =446
         X: =15
         Y: =150
@@ -162,4 +163,17 @@ mtrScreenInput As screen:
             X: =29
             Y: =624
             ZIndex: =17
+
+    ComboBox1 As combobox:
+        DisplayFields: =["ComplianceAssetId"]
+        Height: =70
+        Items: =mst_meter
+        SearchFields: =["ComplianceAssetId"]
+        SearchItems: =Search(mst_meter,ComboBox1.SearchText,"ComplianceAssetId")
+        SelectMultiple: =false
+        Size: =21
+        Width: =477
+        X: =20
+        Y: =150
+        ZIndex: =18
 
