@@ -48,11 +48,12 @@ mtrScreenInput As screen:
         Y: =251
         ZIndex: =5
 
-    current_mtr As text:
+    txi_current_mtr As text:
         BorderColor: =RGBA(0, 106, 59, 1)
         Default: =""
         Format: =TextFormat.Number
         Height: =70
+        OnChange: =Set(current_mtr,txi_current_mtr.Text)
         Size: =21
         Width: =600
         X: =15
@@ -91,7 +92,7 @@ mtrScreenInput As screen:
             
             Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData),"",""));
             Set(s_Base64ContentMetering, Mid(BinaryImageDataMetering, Find(",", BinaryImageDataMetering) + 1, Len(BinaryImageDataMetering) - Find(",", BinaryImageDataMetering) - 1));
-            Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(mtr_ID.Text,"-",Value(current_mtr.Text),"-metering.jpg"), s_Base64ContentMetering,Concatenate("/gal_metering/",mtr_ID.Text)));
+            Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(mtr_ID.Text,"-",Value(txi_current_mtr.Text),"-metering.jpg"), s_Base64ContentMetering,Concatenate("/gal_metering/",mtr_ID.Text)));
             Set(s_ImageLinkMetering, v_UploadResult.sharepointfilelink);
             
             /*
@@ -116,15 +117,15 @@ mtrScreenInput As screen:
                 Defaults(tbl_metering_logs),
                     {
                         meter_id:cbb_meterID.Selected.Title,
-                        current_meter: Value(current_mtr.Text),
+                        current_meter: Value(txi_current_mtr.Text),
                         url_image:s_ImageLinkMetering,
                         date_input:date_mtr.SelectedDate
                     }
                 );
             
                 Notify("Data Metering Berhasil Disimpan");
-                Set(meterIDScan,Blank());
-                current_mtr.Clear;
+                Set(meterIDScan,"");
+                txi_current_mtr.Clear;
                 AddMediaButton1.Media = SampleImage;
                 
                 

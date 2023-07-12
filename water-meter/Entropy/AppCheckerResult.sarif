@@ -838,19 +838,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "mtrScreenInput.current_mtr.AccessibleLabel"
+                  "fullyQualifiedName": "mtrScreenInput.txi_current_mtr.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "mtrScreenInput.current_mtr.AccessibleLabel",
+                  "fullyQualifiedName": "mtrScreenInput.txi_current_mtr.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "mtrScreenInput",
-                "type": "mtrScreenInput.current_mtr"
+                "type": "mtrScreenInput.txi_current_mtr"
               }
             }
           ],
@@ -1132,6 +1132,36 @@
           },
           "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
           "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App.current_mtr"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App.current_mtr",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "current_mtr",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 5
         },
         {
           "locations": [
