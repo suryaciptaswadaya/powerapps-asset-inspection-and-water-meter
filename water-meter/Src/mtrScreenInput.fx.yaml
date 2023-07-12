@@ -124,7 +124,7 @@ mtrScreenInput As screen:
             
                 Notify("Data Metering Berhasil Disimpan");
             
-            Navigate(Home);
+            //Navigate(Home);
         Size: =24
         Text: ="Submit"
         Width: =350
