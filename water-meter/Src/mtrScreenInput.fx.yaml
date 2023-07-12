@@ -165,11 +165,11 @@ mtrScreenInput As screen:
             ZIndex: =17
 
     ComboBox1 As combobox:
-        DisplayFields: =["ComplianceAssetId"]
+        DisplayFields: =["Title"]
         Height: =70
         Items: =mst_meter
-        SearchFields: =["ComplianceAssetId"]
-        SearchItems: =Search(mst_meter,ComboBox1.SearchText,"ComplianceAssetId")
+        SearchFields: =["Title"]
+        SearchItems: =Search(mst_meter,ComboBox1.SearchText,"Title")
         SelectMultiple: =false
         Size: =21
         Width: =477
