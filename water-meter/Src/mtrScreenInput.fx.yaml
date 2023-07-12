@@ -115,9 +115,10 @@ mtrScreenInput As screen:
                 tbl_metering_logs,
                 Defaults(tbl_metering_logs),
                     {
-                        meter_id:mtr_ID.Text,
+                        meter_id:cbb_meterID.Selected.Title,
                         current_meter: Value(current_mtr.Text),
-                        url_image:s_ImageLinkMetering
+                        url_image:s_ImageLinkMetering,
+                        date_input:date_mtr.SelectedDate
                     }
                 );
             
@@ -164,13 +165,13 @@ mtrScreenInput As screen:
             Y: =624
             ZIndex: =17
 
-    ComboBox1 As combobox:
+    cbb_meterID As combobox:
         DefaultSelectedItems: =Filter(mst_meter,Title=meterIDScan)
         DisplayFields: =["Title"]
         Height: =70
         Items: =mst_meter
         SearchFields: =["Title"]
-        SearchItems: =Search(mst_meter,ComboBox1.SearchText,"Title")
+        SearchItems: =Search(mst_meter,cbb_meterID.SearchText,"Title")
         SelectMultiple: =false
         Size: =21
         Width: =477
