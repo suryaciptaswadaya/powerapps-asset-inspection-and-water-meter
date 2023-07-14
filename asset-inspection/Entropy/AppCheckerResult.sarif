@@ -5354,7 +5354,7 @@
                 },
                 "region": {
                   "charLength": 21,
-                  "charOffset": 1927,
+                  "charOffset": 2492,
                   "snippet": {
                     "text": "First(c_PreviousTask)"
                   }
@@ -5394,7 +5394,7 @@
                 },
                 "region": {
                   "charLength": 1,
-                  "charOffset": 1925,
+                  "charOffset": 2490,
                   "snippet": {
                     "text": "="
                   }
@@ -5434,7 +5434,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 1908,
+                  "charOffset": 2473,
                   "snippet": {
                     "text": "&&"
                   }
@@ -5474,7 +5474,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 1963,
+                  "charOffset": 2528,
                   "snippet": {
                     "text": "&&"
                   }
