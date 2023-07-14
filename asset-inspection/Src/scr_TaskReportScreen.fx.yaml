@@ -80,6 +80,15 @@ scr_TaskReportScreen As screen:
                         staff_id:ComboBox3.Selected.ID
                     }        
                 );
+            
+                Patch(tbl_assignment_details,
+                    First(Filter(tbl_assignment_details, ID = c_AmenitiesID[@ID]  )),
+                    {
+                        staff_id:ComboBox3.Selected.ID
+                    }        
+                );
+            
+            
             );
         SearchFields: =["name"]
         SearchItems: |-

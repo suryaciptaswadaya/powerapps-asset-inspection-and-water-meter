@@ -35,6 +35,7 @@
       "ID": "ID",
       "is_need_repair": "is_not_ok",
       "is_OK": "is_ok",
+      "is_photo_uploaded": "is_photo_uploaded",
       "location_id": "location_id",
       "location_type_id": "location_type_id",
       "Modified": "Modified",
@@ -45,10 +46,7 @@
       "photo_progress_id": "photo_progress_id",
       "staff_id": "staff_id",
       "sublocation_id": "sublocation_id",
-      "Title": "Title",
-      "url_photo_after": "url_photo_after",
-      "url_photo_before": "url_photo_before",
-      "url_photo_progress": "url_photo_progress"
+      "Title": "Title"
     },
     "DatasetName": "https://suryainternusa.sharepoint.com/sites/DEV-SSITaskAssetMaintenance",
     "EncodeDataset": true,
