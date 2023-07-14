@@ -151,7 +151,7 @@ scr_TaskScreen As screen:
             OnSelect: |-
                 =Select(Parent);
                 If(ThisItem.is_ready_to_start = 1,
-                    If(ThisItem.sequence_number > 1 && ThisItem.status_code = First(Filter(c_AllStatus,status_sequence_number = 1)).status_code && First(c_ActiveUserData).is_approver = 0,
+                    If(ThisItem.sequence_number > 1 && ThisItem.status_code = First(Filter(c_AllStatus,status_sequence_number = 2)).status_code && First(c_ActiveUserData).is_approver = 0,
                         Set(b_ConfirmReady, -1);
                         
                         If(!IsBlank(ThisItem.comment),
@@ -329,7 +329,10 @@ scr_TaskScreen As screen:
                     //Pekerjaan belum siap dilakukan, kirim ke user sebelumnya
                     If(b_ConfirmReady = 0,
                         //Reactivate pekerjaan sebelumnya
-                        ClearCollect(c_PreviousTask, Filter(tbl_assignment_headers, process_id = gal_TSTaskList.Selected.process_id && assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = gal_TSTaskList.Selected.sequence_number - 1));
+                        ClearCollect(c_PreviousTask, 
+                            Filter(tbl_assignment_headers, process_id = gal_TSTaskList.Selected.process_id && assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = gal_TSTaskList.Selected.sequence_number - 1)
+                        );
+                
                         Set(s_Reason, "Data penugasan untuk tugas " & gal_TSTaskList.Selected.assignment_code & " dikembalikan oleh " & First(c_ActiveUserData).name & " dikarenakan " & txt_TSComment.Text);
                 
                         Patch(tbl_assignment_headers, First(c_PreviousTask), 
@@ -337,11 +340,25 @@ scr_TaskScreen As screen:
                             status_code: First(Filter(c_AllStatus,status_sequence_number = 1)).status_code,
                             comment: txt_TSComment.Text,
                             comment_user_id: n_UserID,
-                            comment_date: Now()
+                            comment_date: Now(),
+                            end_time_task:Blank()
+                
                         });
                 
-                        Patch(tbl_assignment_headers, { ID: gal_TSTaskList.Selected.ID }, { is_ready_to_start : 0 });
-                        Patch(c_Task, { ID: gal_TSTaskList.Selected.ID }, { is_ready_to_start : 0 });
+                        Patch(tbl_assignment_headers, { ID: gal_TSTaskList.Selected.ID }, 
+                            {
+                                status_code: First(Filter(c_AllStatus,status_sequence_number = 1)).status_code, 
+                                is_ready_to_start : 0 
+                            }
+                        );
+                        Patch(c_Task, { ID: gal_TSTaskList.Selected.ID }, 
+                            { 
+                                is_ready_to_start : 0 ,
+                                status_code: First(Filter(c_AllStatus,status_sequence_number = 1)).status_code, 
+                                status_name: First(Filter(c_AllStatus,status_sequence_number = 1)).status_name, 
+                                status_color: First(Filter(c_AllStatus,status_sequence_number = 1)).hex_color
+                            }
+                        );
                 
                         //Send Push Notification
                         ClearCollect(c_PreviousProcessUser, Filter(tbl_mst_employees, entity_id = n_EntityID && department_id = First(c_PreviousTask).department_id && IsBlank(spv_id)));
@@ -368,11 +385,6 @@ scr_TaskScreen As screen:
                             log: s_Reason,
                             user_id: n_UserID,
                             log_date: Now()
-                        });
-                
-                        Patch(tbl_assignment_headers, { ID : gal_TSTaskList.Selected.ID}, 
-                        {
-                            status_code: n_WaitingFromOther
                         });
                     );
                 
