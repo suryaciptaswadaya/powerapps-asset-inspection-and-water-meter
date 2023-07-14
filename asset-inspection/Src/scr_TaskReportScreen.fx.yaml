@@ -73,11 +73,10 @@ scr_TaskReportScreen As screen:
             ForAll(Sequence(CountRows(c_AmenitiesID)),
             
                 Patch(c_AssignmentDetail,
-                First(Filter(c_AssignmentDetail, ID = Value)),
-                {
-                    staff_id:ComboBox3.Selected.ID
-                }
-                    
+                    First(Filter(c_AssignmentDetail, ID = Value)),
+                    {
+                        staff_id:ComboBox3.Selected.ID
+                    }        
                 );
             );
         SearchFields: =["name"]
