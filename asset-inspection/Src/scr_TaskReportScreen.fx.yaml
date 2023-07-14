@@ -73,9 +73,9 @@ scr_TaskReportScreen As screen:
             
              
             
-            ForAll(Sequence(CountRows(c_AmenitiesID)),
+            ForAll(c_AmenitiesID,
                 Patch(c_AssignmentDetail,
-                    First(Filter(c_AssignmentDetail, ID = ),
+                    First(Filter(c_AssignmentDetail, ID = c_AmenitiesID[@ID]  )),
                     {
                         staff_id:ComboBox3.Selected.ID
                     }        
