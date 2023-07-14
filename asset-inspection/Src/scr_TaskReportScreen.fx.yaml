@@ -56,8 +56,9 @@ scr_TaskReportScreen As screen:
                 c_AllEmployee,
                 c_AllEmployeeCoworkers
             )
-        OnChange: |-
-            =ForAll(
+        OnChange: |
+            =Clear(c_AmenitiesID);
+            ForAll(
                 Sequence(CountRows(c_AssignmentDetailAmenities)),
                 Patch(
                     c_AssignmentDetailAmenities,
@@ -67,7 +68,18 @@ scr_TaskReportScreen As screen:
                 
                 Collect(c_AmenitiesID, c_AssignmentDetailAmenities[@ID]);
                 
-            )
+            );
+            
+            ForAll(Sequence(CountRows(c_AmenitiesID)),
+            
+                Patch(c_AssignmentDetail,
+                First(Filter(c_AssignmentDetail, ID = Value)),
+                {
+                    staff_id:ComboBox3.Selected.ID
+                }
+                    
+                );
+            );
         SearchFields: =["name"]
         SearchItems: |-
             =Search(//c_AllEmployeeCoworkers
