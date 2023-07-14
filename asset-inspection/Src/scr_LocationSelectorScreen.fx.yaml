@@ -187,7 +187,31 @@ scr_LocationSelectorScreen As screen:
         Fill: =RGBA(33, 86, 117, 1)
         Height: =50
         OnSelect: |
-            =Set(b_LSConfirmationSubmitReport,true);
+            =Set(b_Continue, true);
+            
+            Set(b_LSCMandatoryPIC ,First(Filter(c_AllFlowProcess,sequence_number = gal_TSTaskList.Selected.sequence_number)).is_pic_mandatory);
+            Set(b_LSCMandatoryPhoto ,First(Filter(c_AllFlowProcess,sequence_number = gal_TSTaskList.Selected.sequence_number)).is_photo_mandatory);
+            Clear(c_ReportDataNotComplete);
+            
+            If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0))) > 0,
+                //Notify("Mohon pastikan seluruh data tercatat sebagai 'OK'");
+                Collect(c_ReportDataNotComplete, AddColumns(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0)), "reason", "Data belum tercatat sebagai OK"));
+                Set(b_Continue, false);    
+            );
+            
+            If(b_LSCMandatoryPIC = 1,
+                If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && IsBlank(staff_id))) > 0,
+                    Collect(c_ReportDataNotComplete, AddColumns(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && IsBlank(staff_id)), "reason", "PIC Data belum terpilih"));
+                    //Notify("Mohon pastikan seluruh pekerjaan sudah terpilih PIC nya");
+                    Set(b_Continue, false);    
+                );    
+            );
+            
+            If(b_Continue,
+                Set(b_LSConfirmationSubmitReport,true);
+            ,
+                Set(b_PopupNotComplete, true);
+            );
         RadiusBottomLeft: =0
         RadiusBottomRight: =0
         RadiusTopLeft: =0
@@ -314,24 +338,8 @@ scr_LocationSelectorScreen As screen:
             OnSelect: |-
                 =Set(b_Continue,true);
                 
-                Set(b_LSCMandatoryPIC ,First(Filter(c_AllFlowProcess,sequence_number = gal_TSTaskList.Selected.sequence_number)).is_pic_mandatory);
-                
-                Set(b_LSCMandatoryPhoto ,First(Filter(c_AllFlowProcess,sequence_number = gal_TSTaskList.Selected.sequence_number)).is_photo_mandatory);
-                
                 Set(n_LSCStatusSequenceNumberCurrent,gal_TSTaskList.Selected.status_sequence_number);
                 Set(n_LSCStatusSequenceNumberNext,(gal_TSTaskList.Selected.status_sequence_number + 1));
-                
-                If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0))) > 0,
-                    Notify("Mohon pastikan seluruh data tercatat sebagai 'OK'");
-                    Set(b_Continue, false);    
-                );
-                
-                If(b_LSCMandatoryPIC = 1,
-                    If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && IsBlank(staff_id))) > 0,
-                        Notify("Mohon pastikan seluruh pekerjaan sudah terpilih PIC nya");
-                        Set(b_Continue, false);    
-                    );    
-                );
                 
                 //TO DO Check to new Photo Function
                 /*If(b_LSCMandatoryPhoto = 1,
@@ -816,7 +824,7 @@ scr_LocationSelectorScreen As screen:
         Y: =589
         ZIndex: =26
 
-    lbl_LSSDepartmentName As label:
+    Label As label:
         Align: =Align.Center
         FontWeight: =FontWeight.Bold
         Height: =50
@@ -968,4 +976,124 @@ scr_LocationSelectorScreen As screen:
             X: =419
             Y: =81
             ZIndex: =27
+
+    grp_ReportNotCompleteData As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =35
+
+        Rectangle2_3 As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.5)
+            Height: =1136
+            Visible: =b_PopupNotComplete
+            Width: =640
+            ZIndex: =29
+
+        Rectangle3_3 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =1054
+            Visible: =b_PopupNotComplete
+            Width: =535
+            X: =51
+            Y: =48
+            ZIndex: =30
+
+        Label3_3 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            Size: =21
+            Text: ="Periksa Kembali"
+            Visible: =b_PopupNotComplete
+            Width: =342
+            X: =146
+            Y: =55
+            ZIndex: =31
+
+        Label4_3 As label:
+            Align: =Align.Center
+            Height: =119
+            Size: =21
+            Text: |-
+                ="Mohon periksa kembali kelengkapan data berikut :"
+            Visible: =b_PopupNotComplete
+            Width: =427
+            X: =106
+            Y: =112
+            ZIndex: =32
+
+        Button2_6 As button:
+            Fill: =RGBA(246, 88, 16, 1)
+            Height: =50
+            OnSelect: =Set(b_PopupNotComplete, false);
+            Size: =24
+            Text: ="Kembali"
+            Visible: =b_PopupNotComplete
+            Width: =200
+            X: =220
+            Y: =1010
+            ZIndex: =33
+
+        "gal_LSSDataNotComplete As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderThickness: =1
+            DelayItemLoading: =true
+            Height: =754
+            Items: =c_ReportDataNotComplete
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplatePadding: =0
+            TemplateSize: =104
+            Visible: =b_PopupNotComplete
+            Width: =482
+            X: =77
+            Y: =231
+            ZIndex: =34
+
+            Title2 As label:
+                FontWeight: =FontWeight.Bold
+                Height: =62
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =16
+                Text: |-
+                    ="Inspection Point : " & ThisItem.amenity_name
+                VerticalAlign: =VerticalAlign.Top
+                Width: =449
+                X: =13
+                Y: =6
+                ZIndex: =2
+
+            Subtitle1 As label:
+                FontWeight: |-
+                    =//If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                    FontWeight.Normal
+                Height: =35
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =18
+                Text: =ThisItem.reason
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Title2.Width
+                X: =Title2.X
+                Y: =Title2.Y + Title2.Height
+                ZIndex: =3
+
+            Separator2 As rectangle:
+                BorderColor: =RGBA(0, 0, 0, 1)
+                BorderThickness: =1
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =1
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =Parent.TemplateHeight - Self.Height
+                ZIndex: =5
 

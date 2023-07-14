@@ -259,7 +259,7 @@ scr_TaskReportScreen As screen:
             ZIndex: =3
 
         ico_TRSPhotos As icon.Camera:
-            Color: =RGBA(77, 77, 77, 1)
+            Color: =If(IsBlank(ThisItem.is_photo_uploaded), Color.Red, Color.Green)
             Height: =43
             Icon: =Icon.Camera
             OnSelect: |
@@ -938,6 +938,11 @@ scr_TaskReportScreen As screen:
                     Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
                     Set(s_ImageLinkBefore, v_UploadResultBefore.sharepointfilelink);
                     Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id));
+                
+                    If(IsBlank(gal_TRSCheckList.Selected.is_photo_uploaded),
+                        Patch(tbl_assignment_details, { ID : gal_TRSCheckList.Selected.ID }, { is_photo_uploaded: 1});
+                        Patch(c_AssignmentDetailAmenities, { ID : gal_TRSCheckList.Selected.ID }, { is_photo_uploaded: 1});
+                    );
                 
                     Patch(tbl_assignment_detail_photos, Defaults(tbl_assignment_detail_photos),
                     {
