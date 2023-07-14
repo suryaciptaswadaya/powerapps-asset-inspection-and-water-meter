@@ -58,6 +58,7 @@ scr_TaskReportScreen As screen:
             )
         OnChange: |
             =Clear(c_AmenitiesID);
+            
             ForAll(
                 Sequence(CountRows(c_AssignmentDetailAmenities)),
                 Patch(
@@ -66,8 +67,7 @@ scr_TaskReportScreen As screen:
                     { staff_id:  ComboBox3.Selected.ID }
                 );
                 
-                Collect(c_AmenitiesID, c_AssignmentDetailAmenities[@ID]);
-                
+                Collect(c_AmenitiesID, c_AssignmentDetailAmenities[@ID]);    
             );
             
             ForAll(Sequence(CountRows(c_AmenitiesID)),
