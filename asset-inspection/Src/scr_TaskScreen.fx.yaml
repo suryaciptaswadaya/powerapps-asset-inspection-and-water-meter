@@ -341,14 +341,16 @@ scr_TaskScreen As screen:
                             comment: txt_TSComment.Text,
                             comment_user_id: n_UserID,
                             comment_date: Now(),
-                            end_time_task:Blank()
+                            end_time_task:Blank(),
+                            status_sequence_number:gal_TSTaskList.Selected.status_sequence_number - 1
                 
                         });
                 
                         Patch(tbl_assignment_headers, { ID: gal_TSTaskList.Selected.ID }, 
                             {
                                 status_code: First(Filter(c_AllStatus,status_sequence_number = 1)).status_code, 
-                                is_ready_to_start : 0 
+                                is_ready_to_start : 0 ,
+                                status_sequence_number:gal_TSTaskList.Selected.status_sequence_number - 1
                             }
                         );
                         Patch(c_Task, { ID: gal_TSTaskList.Selected.ID }, 
@@ -356,7 +358,8 @@ scr_TaskScreen As screen:
                                 is_ready_to_start : 0 ,
                                 status_code: First(Filter(c_AllStatus,status_sequence_number = 1)).status_code, 
                                 status_name: First(Filter(c_AllStatus,status_sequence_number = 1)).status_name, 
-                                status_color: First(Filter(c_AllStatus,status_sequence_number = 1)).hex_color
+                                status_color: First(Filter(c_AllStatus,status_sequence_number = 1)).hex_color,
+                                status_sequence_number:gal_TSTaskList.Selected.status_sequence_number - 1
                             }
                         );
                 
