@@ -207,6 +207,15 @@ scr_LocationSelectorScreen As screen:
                 );    
             );
             
+            If(b_LSCMandatoryPhoto = 1,
+                If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && IsBlank(is_photo_uploaded))) > 0,
+                    Collect(c_ReportDataNotComplete, AddColumns(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && IsBlank(is_photo_uploaded)), "reason", "PIC Data belum terpilih"));
+                    //Notify("Mohon pastikan seluruh pekerjaan sudah terpilih PIC nya");
+                    Set(b_Continue, false);    
+                );    
+            );
+            
+            
             If(b_Continue,
                 Set(b_LSConfirmationSubmitReport,true);
             ,
