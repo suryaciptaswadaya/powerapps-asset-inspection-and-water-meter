@@ -19,12 +19,35 @@ scr_TaskScreen As screen:
         );*/
         
 
-    cmp_TSGenericInputFrame As cmp_MD_GenericInputFrame:
-        Height: =882
-        helperText: =""
-        labelText: ="Tugas "&First(c_ActiveUserData).name
-        Width: =640
-        Y: =150
+    Icon3 As icon.Reload:
+        Height: =45
+        Icon: =Icon.Reload
+        OnSelect: |-
+            =If((First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 1) || (First(c_ActiveUserData).is_admin = 0 && First(c_ActiveUserData).is_approver = 1 || (First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 0)),
+                ClearCollect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && (status_code = First(Filter(c_AllStatus,status_sequence_number = 1)).status_code || status_code = Text(n_OnProgress) || status_code = Text(n_WaitingFromOther) || status_code = Text(n_NeedMoreAttention))), "assignment_start_date", SortOrder.Ascending));
+                Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && status_code = Text(n_WaitingGMApprovalStatus)), "assignment_start_date", SortOrder.Ascending));
+                Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && status_code = Text(n_ReadyForSale)), "assignment_start_date", SortOrder.Ascending));
+            ,
+               
+                    ClearCollect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && (status_code = First(Filter(c_AllStatus,status_sequence_number = 1)).status_code || status_code = Text(n_OnProgress) || status_code = Text(n_WaitingFromOther) || status_code = Text(n_NeedMoreAttention))), "assignment_start_date", SortOrder.Ascending));
+                    Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && status_code = Text(n_WaitingGMApprovalStatus)), "assignment_start_date", SortOrder.Ascending));
+                    Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && status_code = Text(n_ReadyForSale)), "assignment_start_date", SortOrder.Ascending));
+                
+            );
+            
+            ClearCollect(c_Task,
+                Filter(AddColumns(c_TmpTask,
+                    "location_name", LookUp(c_AllLocation, ID = location_id, location_name),
+                    "status_name", LookUp(c_AllStatus, status_code = c_TmpTask[@status_code], status_name),
+                    "status_color", LookUp(c_AllStatus, status_code = c_TmpTask[@status_code], hex_color),
+                    "department_name", LookUp(c_AllDepartment, ID = c_TmpTask[@department_id],department_name),
+                    "pic_name",  LookUp(c_AllEmployee, ID = assigned_pic1_id,name)
+                ), is_deleted = 0)
+            );
+        Width: =45
+        X: =558
+        Y: =89
+        ZIndex: =1
 
     dtp_TSTaskDate As datepicker:
         BorderColor: =defaults.borderColor
@@ -54,7 +77,15 @@ scr_TaskScreen As screen:
         Width: =If(First(c_ActiveUserData).is_approver = 1,n_TSTaskDateWidth,500)
         X: =19.5
         Y: =87
-        ZIndex: =1
+        ZIndex: =2
+
+    cmp_TSGenericInputFrame As cmp_MD_GenericInputFrame:
+        Height: =882
+        helperText: =""
+        labelText: ="Tugas "&First(c_ActiveUserData).name
+        Width: =640
+        Y: =150
+        ZIndex: =3
 
     "gal_TSTaskList As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
         DelayItemLoading: =true
@@ -75,7 +106,7 @@ scr_TaskScreen As screen:
         Width: =593
         X: =24
         Y: =185
-        ZIndex: =3
+        ZIndex: =4
 
         rct_TSSeparator As rectangle:
             BorderColor: =RGBA(237, 237, 237, 1)
@@ -185,58 +216,14 @@ scr_TaskScreen As screen:
         svgIcon3: =""
         svgIcon4: =""
         titleText: ="Tugas Saya"
-        ZIndex: =4
+        ZIndex: =5
 
     cmp_TSBottomNavigation As cmp_MD_Bottom_Navigation_2:
         Height: =89
         iconSize: =34
         items: =c_NavigationMenu
         Y: =1046
-        ZIndex: =5
-
-    "'[HIDDEN]btn_TSInitializeTaskData' As button":
-        Height: =70
-        OnSelect: |-
-            =Set(n_TmpHeaderID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).ID);
-            Set(n_TmpDepartmentID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_id);
-            
-            If(b_IsApproverByFlow,
-                ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = n_TmpHeaderID && department_id = n_TmpDepartmentID));
-            ,
-                ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = gal_TSTaskList.Selected.ID && department_id = gal_TSTaskList.Selected.department_id));
-            );
-            
-            ClearCollect(c_AssignmentDetail, 
-                AddColumns(c_TmpAssignmentDetail, 
-                    "amenity_name", First(Filter(c_AllSublocationAmenities, ID = c_TmpAssignmentDetail[@amenity_id])).amenity_name
-                )
-            );
-            Clear(c_TmpAssignmentDetail);
-            
-            ClearCollect(c_TmpSubLocation, Filter(c_AllSublocation, location_type_id = gal_TSTaskList.Selected.location_type_id && department_id = gal_TSTaskList.Selected.department_id)); 
-            
-            //Generate Row Number
-            ClearCollect(
-                c_SubLocation,
-                ForAll(
-                    Sequence(CountRows(c_TmpSubLocation)),
-                    Patch(
-                        Last(FirstN(c_TmpSubLocation, Value)),
-                        { RowNumber : Value }
-                    )
-                )
-            );
-            Set(n_QtySublocation, CountRows(c_SubLocation));
-            Set(n_CurrentSublocationRowNumber, 1);
-            
-            Clear(c_TmpSubLocation);
-        Size: =24
-        Text: ="Initialize"
-        Visible: =false
-        Width: =280
-        X: =24
-        Y: =962
-        ZIndex: =16
+        ZIndex: =6
 
     grp_TSConfirmWork As group:
         Height: =5
@@ -254,7 +241,7 @@ scr_TaskScreen As screen:
             PressedFill: =shp_TSBackground1.Fill
             Visible: =b_PopupConfirmReady
             Width: =640
-            ZIndex: =6
+            ZIndex: =7
 
         shp_TSBackground2 As rectangle:
             DisabledFill: =shp_TSBackground2.Fill
@@ -267,7 +254,7 @@ scr_TaskScreen As screen:
             Width: =551
             X: =44
             Y: =70
-            ZIndex: =7
+            ZIndex: =8
 
         lbl_TSConfirmationLocation As label:
             FocusedBorderColor: =lbl_TSConfirmationLocation.BorderColor
@@ -286,7 +273,7 @@ scr_TaskScreen As screen:
             Width: =369
             X: =66
             Y: =71
-            ZIndex: =8
+            ZIndex: =9
 
         ico_TSConfirmationCancel As icon.Cancel:
             Height: =49
@@ -296,7 +283,7 @@ scr_TaskScreen As screen:
             Width: =44
             X: =523
             Y: =87
-            ZIndex: =9
+            ZIndex: =10
 
         btn_TSConfirmWork As button:
             Fill: =RGBA(33, 86, 117, 1)
@@ -404,7 +391,7 @@ scr_TaskScreen As screen:
             Width: =420
             X: =109
             Y: =869
-            ZIndex: =10
+            ZIndex: =11
 
         txt_TSComment As text:
             Default: =
@@ -416,7 +403,7 @@ scr_TaskScreen As screen:
             Width: =507
             X: =60
             Y: =445
-            ZIndex: =11
+            ZIndex: =12
 
         lbl_TSComment As label:
             FocusedBorderColor: =lbl_TSComment.BorderColor
@@ -436,7 +423,7 @@ scr_TaskScreen As screen:
             Width: =182
             X: =58
             Y: =379
-            ZIndex: =12
+            ZIndex: =13
 
         lbl_TSConfirmation As label:
             FocusedBorderColor: =lbl_TSConfirmation.BorderColor
@@ -455,7 +442,7 @@ scr_TaskScreen As screen:
             Width: =506
             X: =61
             Y: =163
-            ZIndex: =13
+            ZIndex: =14
 
         btn_TSOK As button:
             BorderColor: =Color.Black
@@ -476,7 +463,7 @@ scr_TaskScreen As screen:
             Width: =220
             X: =84
             Y: =284
-            ZIndex: =14
+            ZIndex: =15
 
         btn_TSNotOK As button:
             BorderColor: =Color.Black
@@ -495,7 +482,51 @@ scr_TaskScreen As screen:
             Width: =220
             X: =338
             Y: =284
-            ZIndex: =15
+            ZIndex: =16
+
+    "'[HIDDEN]btn_TSInitializeTaskData' As button":
+        Height: =70
+        OnSelect: |-
+            =Set(n_TmpHeaderID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).ID);
+            Set(n_TmpDepartmentID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_id);
+            
+            If(b_IsApproverByFlow,
+                ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = n_TmpHeaderID && department_id = n_TmpDepartmentID));
+            ,
+                ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = gal_TSTaskList.Selected.ID && department_id = gal_TSTaskList.Selected.department_id));
+            );
+            
+            ClearCollect(c_AssignmentDetail, 
+                AddColumns(c_TmpAssignmentDetail, 
+                    "amenity_name", First(Filter(c_AllSublocationAmenities, ID = c_TmpAssignmentDetail[@amenity_id])).amenity_name
+                )
+            );
+            Clear(c_TmpAssignmentDetail);
+            
+            ClearCollect(c_TmpSubLocation, Filter(c_AllSublocation, location_type_id = gal_TSTaskList.Selected.location_type_id && department_id = gal_TSTaskList.Selected.department_id)); 
+            
+            //Generate Row Number
+            ClearCollect(
+                c_SubLocation,
+                ForAll(
+                    Sequence(CountRows(c_TmpSubLocation)),
+                    Patch(
+                        Last(FirstN(c_TmpSubLocation, Value)),
+                        { RowNumber : Value }
+                    )
+                )
+            );
+            Set(n_QtySublocation, CountRows(c_SubLocation));
+            Set(n_CurrentSublocationRowNumber, 1);
+            
+            Clear(c_TmpSubLocation);
+        Size: =24
+        Text: ="Initialize"
+        Visible: =false
+        Width: =280
+        X: =24
+        Y: =962
+        ZIndex: =17
 
     "gal_TSTaskList_1 As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
         DelayItemLoading: =true
@@ -551,7 +582,7 @@ scr_TaskScreen As screen:
         Width: =593
         X: =22
         Y: =185
-        ZIndex: =17
+        ZIndex: =18
 
         rct_TSSeparator_1 As rectangle:
             BorderColor: =RGBA(237, 237, 237, 1)
@@ -634,35 +665,5 @@ scr_TaskScreen As screen:
         Width: =120
         X: =497
         Y: =87
-        ZIndex: =18
-
-    Icon3 As icon.Reload:
-        Height: =45
-        Icon: =Icon.Reload
-        OnSelect: |-
-            =If((First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 1) || (First(c_ActiveUserData).is_admin = 0 && First(c_ActiveUserData).is_approver = 1 || (First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 0)),
-                ClearCollect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && (status_code = First(Filter(c_AllStatus,status_sequence_number = 1)).status_code || status_code = Text(n_OnProgress) || status_code = Text(n_WaitingFromOther) || status_code = Text(n_NeedMoreAttention))), "assignment_start_date", SortOrder.Ascending));
-                Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && status_code = Text(n_WaitingGMApprovalStatus)), "assignment_start_date", SortOrder.Ascending));
-                Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && status_code = Text(n_ReadyForSale)), "assignment_start_date", SortOrder.Ascending));
-            ,
-               
-                    ClearCollect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && (status_code = First(Filter(c_AllStatus,status_sequence_number = 1)).status_code || status_code = Text(n_OnProgress) || status_code = Text(n_WaitingFromOther) || status_code = Text(n_NeedMoreAttention))), "assignment_start_date", SortOrder.Ascending));
-                    Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && status_code = Text(n_WaitingGMApprovalStatus)), "assignment_start_date", SortOrder.Ascending));
-                    Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && status_code = Text(n_ReadyForSale)), "assignment_start_date", SortOrder.Ascending));
-                
-            );
-            
-            ClearCollect(c_Task,
-                Filter(AddColumns(c_TmpTask,
-                    "location_name", LookUp(c_AllLocation, ID = location_id, location_name),
-                    "status_name", LookUp(c_AllStatus, status_code = c_TmpTask[@status_code], status_name),
-                    "status_color", LookUp(c_AllStatus, status_code = c_TmpTask[@status_code], hex_color),
-                    "department_name", LookUp(c_AllDepartment, ID = c_TmpTask[@department_id],department_name),
-                    "pic_name",  LookUp(c_AllEmployee, ID = assigned_pic1_id,name)
-                ), is_deleted = 0)
-            );
-        Width: =45
-        X: =558
-        Y: =89
         ZIndex: =19
 
