@@ -188,7 +188,7 @@ scr_LocationSelectorScreen As screen:
         Height: =50
         OnSelect: |
             =Set(b_Continue, true);
-            
+            Set(d_LSS_DateNow,Now());
             Set(b_LSCMandatoryPIC ,First(Filter(c_AllFlowProcess,sequence_number = gal_TSTaskList.Selected.sequence_number)).is_pic_mandatory);
             Set(b_LSCMandatoryPhoto ,First(Filter(c_AllFlowProcess,sequence_number = gal_TSTaskList.Selected.sequence_number)).is_photo_mandatory);
             Clear(c_ReportDataNotComplete);
@@ -326,7 +326,7 @@ scr_LocationSelectorScreen As screen:
             Visible: =b_LSConfirmationSubmitReport
             Width: =427
             X: =106
-            Y: =501
+            Y: =408
             ZIndex: =10
 
         Button2 As button:
@@ -995,15 +995,16 @@ scr_LocationSelectorScreen As screen:
             
             With(
                 {
-                    days: RoundDown(DateDiff(gal_TSTaskList.Selected.start_time_task, Now(),TimeUnit.Hours) / 24, 0),
-                    hours: Mod(RoundDown(DateDiff(gal_TSTaskList.Selected.start_time_task, Now(), TimeUnit.Minutes) / 60, 0), 24),
-                    minutes: Mod(DateDiff(gal_TSTaskList.Selected.start_time_task, Now(),TimeUnit.Minutes), 60)
+                    days: RoundDown(DateDiff(gal_TSTaskList.Selected.start_time_task, d_LSS_DateNow,TimeUnit.Hours) / 24, 0),
+                    hours: Mod(RoundDown(DateDiff(gal_TSTaskList.Selected.start_time_task, d_LSS_DateNow, TimeUnit.Minutes) / 60, 0), 24),
+                    minutes: Mod(DateDiff(gal_TSTaskList.Selected.start_time_task, d_LSS_DateNow,TimeUnit.Minutes), 60)
                 },
                 days & " hari, " & hours & " jam " & minutes & " menit"
             )
+        Visible: =b_LSConfirmationSubmitReport
         Width: =298
-        X: =170
-        Y: =443
+        X: =168
+        Y: =557
         ZIndex: =35
 
     grp_ReportNotCompleteData As group:
@@ -1131,8 +1132,9 @@ scr_LocationSelectorScreen As screen:
         Height: =70
         Size: =21
         Text: ="Total Waktu Pengerjaan"
+        Visible: =b_LSConfirmationSubmitReport
         Width: =334
-        X: =152
-        Y: =408
+        X: =150
+        Y: =522
         ZIndex: =36
 
