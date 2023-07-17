@@ -918,7 +918,7 @@ scr_TaskReportScreen As screen:
             Height: =48
             OnSelect: |-
                 =Set(d_TimestampforPhoto,Text(Now(),"[$-en-US]yymmddhhmmss"));
-                
+                Set(n_ChecklistID,gal_TRSCheckList.Selected.ID);
                 //Save Before Photo - not used anymore
                 /*
                 If(b_ChangePhotoBefore,
@@ -942,14 +942,14 @@ scr_TaskReportScreen As screen:
                     Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id));
                 
                     If(IsBlank(gal_TRSCheckList.Selected.is_photo_uploaded),
+                        Patch(tbl_assignment_details, First(Filter(tbl_assignment_details,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
                         Patch(c_AssignmentDetail, { ID : gal_TRSCheckList.Selected.ID }, { is_photo_uploaded: 1});
                         Patch(c_AssignmentDetailAmenities, { ID : gal_TRSCheckList.Selected.ID }, { is_photo_uploaded: 1});
-                        Patch(tbl_assignment_details, First(Filter(tbl_assignment_details,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
                     );
                 
                     Patch(tbl_assignment_detail_photos, Defaults(tbl_assignment_detail_photos),
                     {
-                        assignment_detail_id: gal_TRSCheckList.Selected.ID,
+                        assignment_detail_id: n_ChecklistID,
                         status_code: gal_TSTaskList.Selected.status_code,
                         photo_url: s_ImageLinkBefore,
                         photo_id: n_ImageIDBefore,
