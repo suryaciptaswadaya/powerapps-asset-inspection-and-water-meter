@@ -51,7 +51,7 @@ scr_TaskScreen As screen:
         SelectedDateFill: =defaults.primaryColor
         Size: =18
         WeekColor: =defaults.primaryColor
-        Width: =If(First(c_ActiveUserData).is_approver = 1,n_TSTaskDateWidth,600)
+        Width: =If(First(c_ActiveUserData).is_approver = 1,n_TSTaskDateWidth,500)
         X: =19.5
         Y: =87
         ZIndex: =1
@@ -635,4 +635,34 @@ scr_TaskScreen As screen:
         X: =497
         Y: =87
         ZIndex: =18
+
+    Icon3 As icon.Reload:
+        Height: =45
+        Icon: =Icon.Reload
+        OnSelect: |-
+            =If((First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 1) || (First(c_ActiveUserData).is_admin = 0 && First(c_ActiveUserData).is_approver = 1 || (First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 0)),
+                ClearCollect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && (status_code = First(Filter(c_AllStatus,status_sequence_number = 1)).status_code || status_code = Text(n_OnProgress) || status_code = Text(n_WaitingFromOther) || status_code = Text(n_NeedMoreAttention))), "assignment_start_date", SortOrder.Ascending));
+                Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && status_code = Text(n_WaitingGMApprovalStatus)), "assignment_start_date", SortOrder.Ascending));
+                Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && status_code = Text(n_ReadyForSale)), "assignment_start_date", SortOrder.Ascending));
+            ,
+               
+                    ClearCollect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && (status_code = First(Filter(c_AllStatus,status_sequence_number = 1)).status_code || status_code = Text(n_OnProgress) || status_code = Text(n_WaitingFromOther) || status_code = Text(n_NeedMoreAttention))), "assignment_start_date", SortOrder.Ascending));
+                    Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && status_code = Text(n_WaitingGMApprovalStatus)), "assignment_start_date", SortOrder.Ascending));
+                    Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && department_id = n_DepartmentID && is_deleted = 0 && assigned_pic1_id = n_UserID && status_code = Text(n_ReadyForSale)), "assignment_start_date", SortOrder.Ascending));
+                
+            );
+            
+            ClearCollect(c_Task,
+                Filter(AddColumns(c_TmpTask,
+                    "location_name", LookUp(c_AllLocation, ID = location_id, location_name),
+                    "status_name", LookUp(c_AllStatus, status_code = c_TmpTask[@status_code], status_name),
+                    "status_color", LookUp(c_AllStatus, status_code = c_TmpTask[@status_code], hex_color),
+                    "department_name", LookUp(c_AllDepartment, ID = c_TmpTask[@department_id],department_name),
+                    "pic_name",  LookUp(c_AllEmployee, ID = assigned_pic1_id,name)
+                ), is_deleted = 0)
+            );
+        Width: =45
+        X: =558
+        Y: =89
+        ZIndex: =19
 

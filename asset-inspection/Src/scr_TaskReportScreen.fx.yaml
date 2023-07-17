@@ -942,10 +942,9 @@ scr_TaskReportScreen As screen:
                     Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id));
                 
                     If(IsBlank(gal_TRSCheckList.Selected.is_photo_uploaded),
+                        Patch(c_AssignmentDetail, { ID : gal_TRSCheckList.Selected.ID }, { is_photo_uploaded: 1});
                         Patch(tbl_assignment_details, { ID : gal_TRSCheckList.Selected.ID }, { is_photo_uploaded: 1});
                         Patch(c_AssignmentDetailAmenities, { ID : gal_TRSCheckList.Selected.ID }, { is_photo_uploaded: 1});
-                        Patch(c_AssignmentDetail, { ID : gal_TRSCheckList.Selected.ID }, { is_photo_uploaded: 1});
-                        
                     );
                 
                     Patch(tbl_assignment_detail_photos, Defaults(tbl_assignment_detail_photos),
