@@ -326,7 +326,7 @@ scr_LocationSelectorScreen As screen:
             Visible: =b_LSConfirmationSubmitReport
             Width: =427
             X: =106
-            Y: =454
+            Y: =501
             ZIndex: =10
 
         Button2 As button:
@@ -986,6 +986,26 @@ scr_LocationSelectorScreen As screen:
             Y: =81
             ZIndex: =27
 
+    Label5 As label:
+        Align: =Align.Center
+        Height: =70
+        Size: =21
+        Text: |-
+            =//DateDiff(gal_TSTaskList.Selected.start_time_task,Now(),TimeUnit.Days)
+            
+            With(
+                {
+                    days: RoundDown(DateDiff(gal_TSTaskList.Selected.start_time_task, Now(),TimeUnit.Hours) / 24, 0),
+                    hours: Mod(RoundDown(DateDiff(gal_TSTaskList.Selected.start_time_task, Now(), TimeUnit.Minutes) / 60, 0), 24),
+                    minutes: Mod(DateDiff(gal_TSTaskList.Selected.start_time_task, Now(),TimeUnit.Minutes), 60)
+                },
+                days & " hari, " & hours & " jam " & minutes & " menit"
+            )
+        Width: =298
+        X: =170
+        Y: =443
+        ZIndex: =35
+
     grp_ReportNotCompleteData As group:
         Height: =5
         Width: =5
@@ -1105,4 +1125,14 @@ scr_LocationSelectorScreen As screen:
                 Width: =Parent.TemplateWidth
                 Y: =Parent.TemplateHeight - Self.Height
                 ZIndex: =5
+
+    Label6 As label:
+        Align: =Align.Center
+        Height: =70
+        Size: =21
+        Text: ="Total Waktu Pengerjaan"
+        Width: =334
+        X: =152
+        Y: =408
+        ZIndex: =36
 

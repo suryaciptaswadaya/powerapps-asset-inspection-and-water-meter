@@ -26,7 +26,7 @@
             "Name": "galleryTemplate5_1",
             "Parent": "gal_Nav_1",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 337,
+            "PublishOrderIndex": 339,
             "Rules": [
               {
                 "Category": "Design",
@@ -202,7 +202,7 @@
                 "Name": "img_navIcon_1",
                 "Parent": "con_botNav_1",
                 "PersistMetaDataIDKey": false,
-                "PublishOrderIndex": 339,
+                "PublishOrderIndex": 341,
                 "Rules": [
                   {
                     "Category": "Data",
@@ -593,7 +593,7 @@
                 "Name": "lbl_navTitle_1",
                 "Parent": "con_botNav_1",
                 "PersistMetaDataIDKey": false,
-                "PublishOrderIndex": 340,
+                "PublishOrderIndex": 342,
                 "Rules": [
                   {
                     "Category": "Data",
@@ -909,7 +909,7 @@
             "Name": "con_botNav_1",
             "Parent": "gal_Nav_1",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 338,
+            "PublishOrderIndex": 340,
             "Rules": [
               {
                 "Category": "Design",
@@ -1212,7 +1212,7 @@
             "Name": "btn_navSelect_1",
             "Parent": "gal_Nav_1",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 341,
+            "PublishOrderIndex": 343,
             "Rules": [
               {
                 "Category": "Data",
@@ -1549,7 +1549,7 @@
         "Name": "gal_Nav_1",
         "Parent": "cmp_MD_Bottom_Navigation_2",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 336,
+        "PublishOrderIndex": 338,
         "Rules": [
           {
             "Category": "Data",
