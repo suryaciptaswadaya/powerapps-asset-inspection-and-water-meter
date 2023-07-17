@@ -142,10 +142,23 @@ scr_LocationSelectorScreen As screen:
             Image: =warning
             OnSelect: =Select(Parent)
             Visible: |-
-                =If(b_IsApproverByFlow,
+                =/*If(b_IsApproverByFlow,
                     !IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = ThisItem.ID && assignment_header_id = n_TmpHeaderID)).comment)
                 ,
                     !IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = ThisItem.ID && assignment_header_id = gal_TSTaskList.Selected.ID)).comment)
+                )*/
+                /*If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0))) > 0,
+                    //Notify("Mohon pastikan seluruh data tercatat sebagai 'OK'");
+                    Collect(c_ReportDataNotComplete, AddColumns(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0)), "reason", "Data belum tercatat sebagai OK"));
+                    Set(b_Continue, false);    
+                );*/
+                
+                If(b_IsApproverByFlow,
+                    If(
+                        CountRows(Filter(c_AssignmentDetail, assignment_header_id = n_TmpHeaderID && (IsBlank(is_ok) || is_ok = 0) && sublocation_id = ThisItem.ID)) > 0,true,false)
+                        ,
+                    If(
+                        CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0) && sublocation_id = ThisItem.ID)) > 0,true,false)
                 )
             Width: =62.5
             X: =207
@@ -1075,7 +1088,7 @@ scr_LocationSelectorScreen As screen:
             Layout: =Layout.Vertical
             LoadingSpinner: =LoadingSpinner.Data
             TemplatePadding: =0
-            TemplateSize: =104
+            TemplateSize: =114
             Visible: =b_PopupNotComplete
             Width: =482
             X: =77
@@ -1084,7 +1097,7 @@ scr_LocationSelectorScreen As screen:
 
             Title2 As label:
                 FontWeight: =FontWeight.Bold
-                Height: =62
+                Height: =75
                 OnSelect: =Select(Parent)
                 PaddingBottom: =0
                 PaddingLeft: =0
@@ -1114,7 +1127,7 @@ scr_LocationSelectorScreen As screen:
                 VerticalAlign: =VerticalAlign.Top
                 Width: =Title2.Width
                 X: =Title2.X
-                Y: =Title2.Y + Title2.Height
+                Y: =78
                 ZIndex: =3
 
             Separator2 As rectangle:

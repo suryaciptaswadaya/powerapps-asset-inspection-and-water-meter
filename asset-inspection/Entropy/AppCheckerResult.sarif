@@ -9460,17 +9460,17 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.b_ShowRecheckApproveButton"
+                  "fullyQualifiedName": "App.s_EntityName"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "App.b_ShowRecheckApproveButton",
+                  "fullyQualifiedName": "App.s_EntityName",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "b_ShowRecheckApproveButton",
+                "member": "s_EntityName",
                 "module": "App",
                 "type": "App"
               }
@@ -9490,17 +9490,17 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.s_EntityName"
+                  "fullyQualifiedName": "App.b_ShowRecheckApproveButton"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "App.s_EntityName",
+                  "fullyQualifiedName": "App.b_ShowRecheckApproveButton",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "s_EntityName",
+                "member": "b_ShowRecheckApproveButton",
                 "module": "App",
                 "type": "App"
               }
