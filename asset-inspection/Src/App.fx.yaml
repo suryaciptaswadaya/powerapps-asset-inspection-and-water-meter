@@ -39,9 +39,9 @@ App As appinfo:
         //Buat Testing SPV HK ADMIN & Approveer
         //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "nurman.triaji@suryacipta.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         //Buat Testing GM
-        //ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees,employee_id.Email = "alvin.susanto@suryacipta.com"), "department_name", LookUp( tbl_mst_departments,  ID = department_id, department_name ) ));
+        ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees,employee_id.Email = "alvin.susanto@suryacipta.com"), "department_name", LookUp( tbl_mst_departments,  ID = department_id, department_name ) ));
         //Buat Testing SPV HK Murni with Assign data
-        ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "fredy@suryainternusa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
+        //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "fredy@suryainternusa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = User().Email), "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         
         
@@ -98,7 +98,7 @@ App As appinfo:
             )
         );*/
         
-        If((First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 1) || (First(c_ActiveUserData).is_admin = 0 && First(c_ActiveUserData).is_approver = 1 || (First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 0)),
+        If((First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 1) || (First(c_ActiveUserData).is_admin = 0 && First(c_ActiveUserData).is_approver = 1 || (First(c_ActiveUserData).is_admin = 1 && First(c_ActiveUserData).is_approver = 0)) || First(c_ActiveUserData).is_viewer = 1,
             ClearCollect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && (status_code = First(Filter(c_AllStatus,status_sequence_number = 1)).status_code || status_code = Text(n_OnProgress) || status_code = Text(n_WaitingFromOther) || status_code = Text(n_NeedMoreAttention))), "assignment_start_date", SortOrder.Ascending));
             Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && status_code = Text(n_WaitingGMApprovalStatus)), "assignment_start_date", SortOrder.Ascending));
             Collect(c_TmpTask, SortByColumns(Filter(tbl_assignment_headers, entity_id = n_EntityID && is_deleted = 0 && status_code = Text(n_ReadyForSale)), "assignment_start_date", SortOrder.Ascending));
@@ -144,6 +144,9 @@ App As appinfo:
                 false
             )
         );
+        
+        //Set Boolean for viewer
+        Set(b_IsViewerUser, If(First(c_ActiveUserData).is_viewer = 1, true, false));
         
         Set(b_TSShowTaskList,false);
         Set(b_TSShowGroupedTaskList,true);
