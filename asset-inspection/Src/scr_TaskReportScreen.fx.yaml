@@ -52,7 +52,7 @@ scr_TaskReportScreen As screen:
         Items: |-
             =//c_AllEmployeeCoworkers
             
-            If(First(c_ActiveUserData).is_approver = 1, 
+            If(First(c_ActiveUserData).is_approver = 1 || b_IsViewerUser, 
                 c_AllEmployee,
                 c_AllEmployeeCoworkers
             )
@@ -94,7 +94,7 @@ scr_TaskReportScreen As screen:
         SearchItems: |-
             =Search(//c_AllEmployeeCoworkers
             
-            If(First(c_ActiveUserData).is_approver = 1, 
+            If(First(c_ActiveUserData).is_approver = 1 || b_IsViewerUser, 
                 c_AllEmployee,
                 c_AllEmployeeCoworkers
             ),ComboBox3.SearchText,"name")
@@ -314,7 +314,7 @@ scr_TaskReportScreen As screen:
                     )
                 )*/
                 
-                DisplayMode.Edit
+                If(!b_IsViewerUser, DisplayMode.Edit, DisplayMode.Disabled)
             Fill: =If(ThisItem.is_ok = 1, Color.LightSkyBlue, Color.Transparent)
             FontWeight: =FontWeight.Normal
             Height: =50
@@ -639,7 +639,7 @@ scr_TaskReportScreen As screen:
             RadiusTopRight: =0
             Size: =24
             Text: ="Simpan"
-            Visible: =b_PopupAddNotes
+            Visible: =b_PopupAddNotes && !b_IsViewerUser
             Width: =158
             X: =398
             Y: =788

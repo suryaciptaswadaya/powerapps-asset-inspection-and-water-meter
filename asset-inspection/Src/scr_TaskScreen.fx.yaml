@@ -92,7 +92,7 @@ scr_TaskScreen As screen:
         Height: =808
         Items: |-
             =//Filter(c_Task,assigned_pic1_id = n_UserID)
-            If(b_IsApproverByFlow = true,
+            If(b_IsApproverByFlow = true || b_IsViewerUser,
                 Filter(c_Task,assignment_code = gal_TSTaskList_1.Selected.assignment_code ),    
                 Filter(c_Task,start_date = dtp_TSTaskDate.SelectedDate && department_id = n_DepartmentID)
             )
@@ -102,7 +102,7 @@ scr_TaskScreen As screen:
         TemplatePadding: =0
         TemplateSize: =100
         Visible: |
-            =If(First(c_ActiveUserData).is_approver = 1,b_TSShowTaskList,true)
+            =If(First(c_ActiveUserData).is_approver = 1 || b_IsViewerUser, b_TSShowTaskList, true)
         Width: =593
         X: =24
         Y: =185
@@ -490,7 +490,7 @@ scr_TaskScreen As screen:
             =Set(n_TmpHeaderID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).ID);
             Set(n_TmpDepartmentID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_id);
             
-            If(b_IsApproverByFlow,
+            If(b_IsApproverByFlow || b_IsViewerUser,
                 ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = n_TmpHeaderID && department_id = n_TmpDepartmentID));
             ,
                 ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = gal_TSTaskList.Selected.ID && department_id = gal_TSTaskList.Selected.department_id));
@@ -516,6 +516,7 @@ scr_TaskScreen As screen:
                     )
                 )
             );
+            
             Set(n_QtySublocation, CountRows(c_SubLocation));
             Set(n_CurrentSublocationRowNumber, 1);
             
@@ -543,7 +544,7 @@ scr_TaskScreen As screen:
             Set(n_TSTaskDateWidth,450);
             */
             
-            If(b_IsApproverByFlow,
+            If(b_IsApproverByFlow || b_IsViewerUser,
             
                 ClearCollect(c_TmpCheckingTaskFlow, Filter(c_Task, assignment_code = ThisItem.assignment_code && status_code = Text(n_WaitingGMApprovalStatus)));
                 //Generate Row Number
