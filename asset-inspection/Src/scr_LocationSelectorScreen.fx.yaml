@@ -290,7 +290,7 @@ scr_LocationSelectorScreen As screen:
         Visible: |-
             =//If(gal_TSTaskList.Selected.status_code <> Text(n_WaitingGMApprovalStatus),false,If(First(c_ActiveUserData).is_approver = 1,true,false))
             //b_ShowRecheckApproveButton
-            !btn_LSSNextTask.Visible && b_IsApproverByFlow
+            !btn_LSSNextTask.Visible && b_IsApproverByFlow && !b_IsViewerUser
         Width: =250
         X: =349
         Y: =1052

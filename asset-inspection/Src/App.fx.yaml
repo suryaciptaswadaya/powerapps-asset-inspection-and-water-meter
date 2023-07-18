@@ -286,7 +286,7 @@ App As appinfo:
                     )
                 ),
                 If(
-                    First(c_ActiveUserData).is_admin = 0 && First(c_ActiveUserData).is_approver = 1,
+                    (First(c_ActiveUserData).is_admin = 0 && First(c_ActiveUserData).is_approver = 1) || b_IsViewerUser,
                     ClearCollect(
                         c_NavigationMenu,
                         Table(
