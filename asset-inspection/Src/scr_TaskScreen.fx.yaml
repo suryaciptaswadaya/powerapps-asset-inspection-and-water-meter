@@ -578,7 +578,7 @@ scr_TaskScreen As screen:
         TemplateSize: =100
         Visible: |-
             =//!b_IsApproverByFlow
-            If(First(c_ActiveUserData).is_approver = 1,b_TSShowGroupedTaskList,false)
+            If(First(c_ActiveUserData).is_approver = 1 || b_IsViewerUser, b_TSShowGroupedTaskList, false)
         Width: =593
         X: =22
         Y: =185
