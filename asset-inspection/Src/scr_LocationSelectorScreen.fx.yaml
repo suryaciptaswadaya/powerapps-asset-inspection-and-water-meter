@@ -239,7 +239,9 @@ scr_LocationSelectorScreen As screen:
         RadiusTopLeft: =0
         RadiusTopRight: =0
         Size: =24
-        Text: ="Simpan Laporan"
+        Text: |-
+            =//"Simpan Laporan"
+            First(Filter(c_AllStatus,status_sequence_number = gal_TSTaskList.Selected.status_sequence_number + 1)).status_name
         Visible: |-
             =/*If(
                 gal_TSTaskList.Selected.status_code <> Text(n_WaitingGMApprovalStatus) && gal_TSTaskList.Selected.status_code <> Text(n_ReadyForSale) && gal_TSTaskList.Selected.assigned_pic1_id = First(c_ActiveUserData).ID,

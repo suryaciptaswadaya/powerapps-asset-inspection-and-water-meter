@@ -253,6 +253,7 @@ scr_TaskReportScreen As screen:
             RadiusTopRight: =0
             Size: =18
             Text: ="Need Repair"
+            Visible: =If(First(c_ActiveUserData).department_id = s_HouseKeepingDepartment, false,true)
             Width: =240
             X: =330
             Y: =70
@@ -329,7 +330,7 @@ scr_TaskReportScreen As screen:
             RadiusTopRight: =0
             Size: =18
             Text: ="Ok"
-            Width: =240
+            Width: =If(First(c_ActiveUserData).department_id = s_HouseKeepingDepartment, 540,240)
             X: =40
             Y: =70
             ZIndex: =6

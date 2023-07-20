@@ -1558,7 +1558,7 @@
       },
       "MetaDataIDKey": "",
       "Name": "cmp_RSBottomNavigation",
-      "ParentIndex": 9,
+      "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2045,32 +2045,11 @@
         "InputFill",
         "InvertedColor",
         "HeadingFont",
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
-          "InvariantPropertyName": "HeadingSize",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "HeadingSize",
         "HeadingFontWeight",
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "RGBA(56, 96, 178, 1)",
-          "InvariantPropertyName": "HeadingFill",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "HeadingFill",
         "HeadingColor",
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
-          "InvariantPropertyName": "Size",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "Size",
         {
           "AFDDataSourceName": "",
           "AutoRuleBindingEnabled": false,
@@ -2962,7 +2941,7 @@
         {
           "AFDDataSourceName": "",
           "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
+          "AutoRuleBindingString": "\"end_date\"",
           "InvariantPropertyName": "FieldDisplayName",
           "IsLockable": false,
           "NameMapSourceSchema": "?"
@@ -2994,7 +2973,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "end_date_Column1",
-      "ParentIndex": 2,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -3586,7 +3565,7 @@
         {
           "AFDDataSourceName": "",
           "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
+          "AutoRuleBindingString": "\"pic_name_2\"",
           "InvariantPropertyName": "FieldDisplayName",
           "IsLockable": false,
           "NameMapSourceSchema": "?"
@@ -4190,7 +4169,7 @@
         {
           "AFDDataSourceName": "",
           "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "",
+          "AutoRuleBindingString": "\"start_date\"",
           "InvariantPropertyName": "FieldDisplayName",
           "IsLockable": false,
           "NameMapSourceSchema": "?"
@@ -4222,7 +4201,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "start_date_Column1",
-      "ParentIndex": 1,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
