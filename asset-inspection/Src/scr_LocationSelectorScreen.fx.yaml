@@ -576,7 +576,9 @@ scr_LocationSelectorScreen As screen:
                     Set(n_BackToSequenceNumber,ComboBox2.Selected.status_sequence_number);
                     Set(n_LSSAssignmentCode, gal_TSTaskList.Selected.assignment_code);
                 
+                    Clear(c_AllNextProcessEmployee);
                     Clear(c_TaskNextProcess);
+                    //Collect(c_TaskNextProcess,Filter(c_Task,assignment_code = n_LSSAssignmentCode,sequence_number > n_BackToSequenceNumber));    
                     Collect(c_TaskNextProcess,Filter(c_Task,assignment_code = n_LSSAssignmentCode,sequence_number > n_BackToSequenceNumber));
                 
                     ForAll(c_TaskNextProcess,
@@ -588,7 +590,8 @@ scr_LocationSelectorScreen As screen:
                                 status_name: ComboBox2.Selected.status_name,
                                 status_color: ComboBox2.Selected.hex_color,
                                 end_time_task: Blank(),
-                                is_ready_to_start:0
+                                is_ready_to_start:0,
+                                status_sequence_number:ComboBox2.Selected.status_sequence_number
                             }
                         );
                 
@@ -609,54 +612,18 @@ scr_LocationSelectorScreen As screen:
                         
                     );
                 
-                    
-                    Clear(c_AllNextProcessEmployee);
-                    Clear(c_NextFlowProcess);
-                    //ini masih cuma bisa balik ke flow pertama
-                    Collect(c_NextFlowProcess,Filter(c_AllFlowProcess,sequence_number > gal_TSTaskList.Selected.sequence_number));
-                
-                    ForAll(c_NextFlowProcess,
-                //Notify(First(Filter(c_Task,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])).ID);
-                        Patch(c_Task, First(
-                                Filter(c_Task,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])
-                            ),
-                            {
-                                status_code: ComboBox2.Selected.status_code,
-                                status_name: ComboBox2.Selected.status_name,
-                                status_color: ComboBox2.Selected.hex_color,
-                                end_time_task: Blank()
-                                //is_ready_to_start:0
-                            }
-                        );
-                
-                        Patch(
-                            tbl_assignment_headers,
-                            First(
-                                Filter(tbl_assignment_headers,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])
-                                ),
-                            {
-                                status_code: ComboBox2.Selected.status_code,
-                                //is_ready_to_start:0,
-                                end_time_task: Blank(),
-                                status_sequence_number:ComboBox2.Selected.status_sequence_number
-                            }
-                        );
-                
-                        Collect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = c_NextFlowProcess[@department_id] && IsBlank(spv_id)));
-                        
-                    );
                 
                     ForAll(c_AllNextProcessEmployee,
                         Patch(tbl_notification_list, Defaults(tbl_notification_list), 
                         {
                             employee_id : c_AllNextProcessEmployee[@ID],
-                            notification_preview : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
-                            notification_content : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
+                            notification_preview : "Pekerjaan dengan kode : " & n_LSSAssignmentCode & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
+                            notification_content : "Pekerjaan dengan kode : " & n_LSSAssignmentCode & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
                             notification_date : Now(),
                             is_read : 0
                         });
                 
-                        '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Mohon Kerjakan Penugasan " & gal_TSTaskList.Selected.assignment_code);
+                        '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Pekerjaan dengan kode : " & n_LSSAssignmentCode & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut");
                     );
                 
                     Patch(
@@ -664,25 +631,34 @@ scr_LocationSelectorScreen As screen:
                         First(
                             Filter(
                                 tbl_assignment_headers,
-                                ID = gal_TSTaskList.Selected.ID
+                                assignment_code = n_LSSAssignmentCode,sequence_number = n_BackToSequenceNumber
                                 
                             )
                         ),
                         {
                             status_code: ComboBox2.Selected.status_code,
-                            status_sequence_number:ComboBox2.Selected.status_sequence_number,
-                            end_time_task: Blank()
+                                is_ready_to_start:1,
+                                end_time_task: Blank(),
+                                status_sequence_number:ComboBox2.Selected.status_sequence_number
                         }
                     );
                 
                     Patch(
                         c_Task,
-                        {ID: gal_TSTaskList.Selected.ID},
+                        First(
+                            Filter(
+                                c_Task,
+                                assignment_code = n_LSSAssignmentCode,sequence_number = n_BackToSequenceNumber
+                                
+                            )
+                        ),
                         {
                             status_code: ComboBox2.Selected.status_code,
-                            status_name: ComboBox2.Selected.status_name,
-                            status_color: ComboBox2.Selected.hex_color,
-                            end_time_task: Blank()
+                                status_name: ComboBox2.Selected.status_name,
+                                status_color: ComboBox2.Selected.hex_color,
+                                end_time_task: Blank(),
+                                is_ready_to_start:1,
+                                status_sequence_number:ComboBox2.Selected.status_sequence_number
                         }
                     );
                 
