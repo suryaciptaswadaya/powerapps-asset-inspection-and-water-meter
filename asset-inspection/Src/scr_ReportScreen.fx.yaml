@@ -386,43 +386,52 @@ scr_ReportScreen As screen:
         Fill: =defaults.primaryColor
         Height: =52
         OnSelect: |-
-            =Clear(c_DataExport);
-            ForAll(c_GroupedDataReport As aCol,
-                Collect(c_DataExport,
-                {
-                    Lokasi : aCol.location_name,
-                    Start : aCol.start_date, 
-                    Finish : aCol.end_date, 
-                    PIC_Eng : aCol.pic_name,
-                    PIC_HK : aCol.pic_name_2, 
-                    Status_Eng : aCol.status_name,
-                    Status_HK : aCol.status_name_2
-                })
+            =Set(b_Continue, true);
+            
+            If(CountRows(Filter(c_GroupedDataReport, start_date >= dtp_TSTaskDate_2.SelectedDate, start_date <= dtp_TSTaskDate_1.SelectedDate,location_name = ComboBox1.Selected.location_name)) = 0,
+                Set(b_Continue, false);
+                Notify("Mohon lengkapi data terlebih dahulu");
             );
             
-            Set(
-                varExportFile,
-                    "Lokasi" & "," & 
-                    "Start" & "," & 
-                    "Finish" & "," & 
-                    "PIC Engineering" & "," & 
-                    "PIC Housekeeping" & "," & 
-                    "Status Engineering" & "," & 
-                    "Status Housekeeping" & "," &  
-                Concat(
-                    c_DataExport,
-                    Lokasi & "," & 
-                    Start & "," & 
-                    Finish & "," & 
-                    PIC_Eng & "," & 
-                    PIC_HK & "," & 
-                    Status_Eng & "," & 
-                    Status_HK & Char(10)
-                )
-            );
+            If(b_Continue,
+                Clear(c_DataExport);
+                ForAll(Filter(c_GroupedDataReport, start_date >= dtp_TSTaskDate_2.SelectedDate, start_date <= dtp_TSTaskDate_1.SelectedDate,location_name = ComboBox1.Selected.location_name) As aCol,
+                    Collect(c_DataExport,
+                    {
+                        Lokasi : aCol.location_name,
+                        Start : aCol.start_date, 
+                        Finish : aCol.end_date, 
+                        PIC_Eng : aCol.pic_name,
+                        PIC_HK : aCol.pic_name_2, 
+                        Status_Eng : aCol.status_name,
+                        Status_HK : aCol.status_name_2
+                    })
+                );
             
-            Set(varFileLink,ExportDataCSV.Run(JSON(c_DataExport, JSONFormat.IncludeBinaryData & JSONFormat.IgnoreUnsupportedTypes)).filelink);
-            Notify("File saved to your One Drive. Please check your 'DataExport' folder on your One Drive");
+                Set(
+                    varExportFile,
+                        "Lokasi" & "," & 
+                        "Start" & "," & 
+                        "Finish" & "," & 
+                        "PIC Engineering" & "," & 
+                        "PIC Housekeeping" & "," & 
+                        "Status Engineering" & "," & 
+                        "Status Housekeeping" & "," &  
+                    Concat(
+                        c_DataExport,
+                        Lokasi & "," & 
+                        Start & "," & 
+                        Finish & "," & 
+                        PIC_Eng & "," & 
+                        PIC_HK & "," & 
+                        Status_Eng & "," & 
+                        Status_HK & Char(10)
+                    )
+                );
+            
+                Set(varFileLink,'ExportDataCSV-AssetInspection'.Run(JSON(c_DataExport, JSONFormat.IncludeBinaryData & JSONFormat.IgnoreUnsupportedTypes)).filelink);
+                Notify("File saved to your One Drive. Please check your 'DataExport' folder on your One Drive");
+            );
         Size: =20
         Text: ="Export"
         Width: =230
