@@ -871,7 +871,7 @@ scr_LocationSelectorScreen As screen:
                      '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllProcessEmployee[@email], "Preventive Maintence Lokasi " & gal_TSTaskList.Selected.location_name & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name);
                 );
                 
-                
+                Navigate(scr_TaskScreen);
                 
                 //ClearCollect(c_AllProcessEmployee, Filter(c_AllEmployee, department_id = c_AllFlowProcess[@department_id] && IsBlank(spv_id)));
                 /*Patch(tbl_assignment_headers, First(
