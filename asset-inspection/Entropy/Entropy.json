@@ -465,7 +465,7 @@
   },
   "FunctionParamsInvariantScripts": {},
   "FunctionParamsInvariantScriptsOnInstances": {},
-  "HeaderLastSavedDateTimeUTC": "07/20/2023 06:44:58",
+  "HeaderLastSavedDateTimeUTC": "07/20/2023 07:11:37",
   "IsLegacyComponentAllowGlobalScopeCase": false,
   "LocalConnectionIDReferences": {
     "6d44453f-40c7-47d4-bb1d-c41a5ac432f0": "\"/providers/microsoft.powerapps/apis/shared_powerappsnotificationv2/connections/shared-powerappsnoti-9c1c28e7-f2ec-484f-b801-e6ff0500551f\"",
@@ -568,6 +568,7 @@
     "c_TaskByAssignmentCode": 28,
     "c_TaskEngineering": 62,
     "c_TaskHouseKeeping": 63,
+    "c_TaskNextProcess": 76,
     "c_TempDetailsEmployees": 64,
     "c_TmpAssignmentDetail": 65,
     "c_TmpAssignmentDetailAmenities": 66,

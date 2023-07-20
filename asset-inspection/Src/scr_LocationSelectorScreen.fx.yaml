@@ -573,6 +573,43 @@ scr_LocationSelectorScreen As screen:
                 );
                 
                 If(b_SelectedRecheckStatus = true,
+                    Set(n_BackToSequenceNumber,ComboBox2.Selected.status_sequence_number);
+                    Set(n_LSSAssignmentCode, gal_TSTaskList.Selected.assignment_code);
+                
+                    Clear(c_TaskNextProcess);
+                    Collect(c_TaskNextProcess,Filter(c_Task,assignment_code = n_LSSAssignmentCode,sequence_number > n_BackToSequenceNumber));
+                
+                    ForAll(c_TaskNextProcess,
+                        Patch(c_Task, First(
+                                Filter(c_Task,assignment_code = n_LSSAssignmentCode && sequence_number = c_TaskNextProcess[@sequence_number])
+                            ),
+                            {
+                                status_code: ComboBox2.Selected.status_code,
+                                status_name: ComboBox2.Selected.status_name,
+                                status_color: ComboBox2.Selected.hex_color,
+                                end_time_task: Blank(),
+                                is_ready_to_start:0
+                            }
+                        );
+                
+                        Patch(
+                            tbl_assignment_headers,
+                            First(
+                                Filter(tbl_assignment_headers,assignment_code = n_LSSAssignmentCode && sequence_number = c_TaskNextProcess[@sequence_number])
+                                ),
+                            {
+                                status_code: ComboBox2.Selected.status_code,
+                                is_ready_to_start:0,
+                                end_time_task: Blank(),
+                                status_sequence_number:ComboBox2.Selected.status_sequence_number
+                            }
+                        );
+                
+                        Collect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = c_TaskNextProcess[@department_id] && IsBlank(spv_id)));
+                        
+                    );
+                
+                    
                     Clear(c_AllNextProcessEmployee);
                     Clear(c_NextFlowProcess);
                     //ini masih cuma bisa balik ke flow pertama
@@ -637,7 +674,7 @@ scr_LocationSelectorScreen As screen:
                             end_time_task: Blank()
                         }
                     );
-                    
+                
                     Patch(
                         c_Task,
                         {ID: gal_TSTaskList.Selected.ID},
