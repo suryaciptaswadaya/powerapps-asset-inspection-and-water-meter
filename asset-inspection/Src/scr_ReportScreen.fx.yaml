@@ -261,8 +261,9 @@ scr_ReportScreen As screen:
         BorderStyle: =BorderStyle.Solid
         DisplayMode: =DisplayMode.Edit
         Fill: =RGBA(0, 0, 0, 0)
-        HeadingSize: =21
-        Height: =724
+        HeadingFill: =defaults.primaryColor
+        HeadingSize: =18
+        Height: =648
         Items: |-
             =Filter(
                 c_GroupedDataReport,
@@ -270,7 +271,7 @@ scr_ReportScreen As screen:
                 start_date <= dtp_TSTaskDate_1.SelectedDate,
                 location_name = ComboBox1.Selected.location_name
             )
-        Size: =21
+        Size: =16
         Width: =576
         X: =29
         Y: =275
@@ -286,7 +287,7 @@ scr_ReportScreen As screen:
             LayoutHeight: =Parent.Height
             Order: =1
             Text: =ThisItem.location_name
-            Width: =256
+            Width: =135
             X: =-11
             Y: =0
             ZIndex: =9
@@ -294,14 +295,14 @@ scr_ReportScreen As screen:
         end_date_Column1 As dataTableColumn.textualColumn:
             AutoWidth: =false
             DisplayMode: =DisplayMode.Edit
-            FieldDisplayName: ="Tanggal Selesai"
+            FieldDisplayName: ="Selesai"
             FieldName: ="end_date"
             FieldVariantName: ="textualColumn"
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
             Order: =3
             Text: =Text(ThisItem.end_date,"dd-mmm-yyyy")
-            Width: =253
+            Width: =135
             X: =0
             Y: =0
             ZIndex: =10
@@ -309,14 +310,14 @@ scr_ReportScreen As screen:
         start_date_Column1 As dataTableColumn.textualColumn:
             AutoWidth: =false
             DisplayMode: =DisplayMode.Edit
-            FieldDisplayName: ="Tanggal Mulai"
+            FieldDisplayName: ="Mulai"
             FieldName: ="start_date"
             FieldVariantName: ="textualColumn"
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
             Order: =2
             Text: =Text(ThisItem.start_date,"dd-mmm-yyyy")
-            Width: =241
+            Width: =146
             X: =0
             Y: =0
             ZIndex: =11
@@ -331,7 +332,7 @@ scr_ReportScreen As screen:
             LayoutHeight: =Parent.Height
             Order: =4
             Text: =ThisItem.pic_name
-            Width: =341
+            Width: =186
             X: =0
             Y: =0
             ZIndex: =12
@@ -339,14 +340,14 @@ scr_ReportScreen As screen:
         pic_name_2_Column1 As dataTableColumn.textualColumn:
             AutoWidth: =false
             DisplayMode: =DisplayMode.Edit
-            FieldDisplayName: ="House Keeping"
+            FieldDisplayName: ="Housekeeping"
             FieldName: ="pic_name_2"
             FieldVariantName: ="textualColumn"
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
             Order: =5
             Text: =ThisItem.pic_name_2
-            Width: =346
+            Width: =208
             X: =0
             Y: =0
             ZIndex: =13
@@ -361,7 +362,7 @@ scr_ReportScreen As screen:
             LayoutHeight: =Parent.Height
             Order: =6
             Text: =ThisItem.status_name
-            Width: =340
+            Width: =234
             X: =0
             Y: =0
             ZIndex: =14
@@ -369,15 +370,63 @@ scr_ReportScreen As screen:
         status_name_2_Column1 As dataTableColumn.textualColumn:
             AutoWidth: =false
             DisplayMode: =DisplayMode.Edit
-            FieldDisplayName: ="Status House Keeping"
+            FieldDisplayName: ="Status Housekeeping"
             FieldName: ="status_name_2"
             FieldVariantName: ="textualColumn"
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
             Order: =7
             Text: =ThisItem.status_name_2
-            Width: =350
+            Width: =260
             X: =0
             Y: =0
             ZIndex: =15
+
+    btn_RSExportData As button:
+        Fill: =defaults.primaryColor
+        Height: =52
+        OnSelect: |-
+            =Clear(c_DataExport);
+            ForAll(c_GroupedDataReport As aCol,
+                Collect(c_DataExport,
+                {
+                    Lokasi : aCol.location_name,
+                    Start : aCol.start_date, 
+                    Finish : aCol.end_date, 
+                    PIC_Eng : aCol.pic_name,
+                    PIC_HK : aCol.pic_name_2, 
+                    Status_Eng : aCol.status_name,
+                    Status_HK : aCol.status_name_2
+                })
+            );
+            
+            Set(
+                varExportFile,
+                    "Lokasi" & "," & 
+                    "Start" & "," & 
+                    "Finish" & "," & 
+                    "PIC Engineering" & "," & 
+                    "PIC Housekeeping" & "," & 
+                    "Status Engineering" & "," & 
+                    "Status Housekeeping" & "," &  
+                Concat(
+                    c_DataExport,
+                    Lokasi & "," & 
+                    Start & "," & 
+                    Finish & "," & 
+                    PIC_Eng & "," & 
+                    PIC_HK & "," & 
+                    Status_Eng & "," & 
+                    Status_HK & Char(10)
+                )
+            );
+            
+            Set(varFileLink,ExportDataCSV.Run(JSON(c_DataExport, JSONFormat.IncludeBinaryData & JSONFormat.IgnoreUnsupportedTypes)).filelink);
+            Notify("File saved to your One Drive. Please check your 'DataExport' folder on your One Drive");
+        Size: =20
+        Text: ="Export"
+        Width: =230
+        X: =364
+        Y: =945
+        ZIndex: =10
 

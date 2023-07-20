@@ -82,7 +82,7 @@
             "Name": "rec_bannerBG",
             "Parent": "con_Banner",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 367,
+            "PublishOrderIndex": 368,
             "Rules": [
               {
                 "Category": "Design",
@@ -286,7 +286,7 @@
             "Name": "html_bannerBoxshadow",
             "Parent": "con_Banner",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 368,
+            "PublishOrderIndex": 369,
             "Rules": [
               {
                 "Category": "Data",
@@ -513,7 +513,7 @@
             "Name": "cir_iconBG",
             "Parent": "con_Banner",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 369,
+            "PublishOrderIndex": 370,
             "Rules": [
               {
                 "Category": "Design",
@@ -736,7 +736,7 @@
             "Name": "lbl_bannerText",
             "Parent": "con_Banner",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 370,
+            "PublishOrderIndex": 371,
             "Rules": [
               {
                 "Category": "Data",
@@ -1155,7 +1155,7 @@
             "Name": "img_bannerIcon",
             "Parent": "con_Banner",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 371,
+            "PublishOrderIndex": 372,
             "Rules": [
               {
                 "Category": "Data",
@@ -1605,7 +1605,7 @@
                 "Name": "btn_action1",
                 "Parent": "con_BannerButtons",
                 "PersistMetaDataIDKey": false,
-                "PublishOrderIndex": 373,
+                "PublishOrderIndex": 374,
                 "Rules": [
                   {
                     "Category": "Data",
@@ -2126,7 +2126,7 @@
                 "Name": "btn_action2",
                 "Parent": "con_BannerButtons",
                 "PersistMetaDataIDKey": false,
-                "PublishOrderIndex": 374,
+                "PublishOrderIndex": 375,
                 "Rules": [
                   {
                     "Category": "Data",
@@ -2494,7 +2494,7 @@
             "Name": "con_BannerButtons",
             "Parent": "con_Banner",
             "PersistMetaDataIDKey": false,
-            "PublishOrderIndex": 372,
+            "PublishOrderIndex": 373,
             "Rules": [
               {
                 "Category": "Design",
@@ -2729,7 +2729,7 @@
         "Name": "con_Banner",
         "Parent": "cmp_MD_Banner",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 366,
+        "PublishOrderIndex": 367,
         "Rules": [
           {
             "Category": "Design",
@@ -2959,7 +2959,7 @@
         "Name": "tim_bannerTransition",
         "Parent": "cmp_MD_Banner",
         "PersistMetaDataIDKey": false,
-        "PublishOrderIndex": 375,
+        "PublishOrderIndex": 376,
         "Rules": [
           {
             "Category": "Data",

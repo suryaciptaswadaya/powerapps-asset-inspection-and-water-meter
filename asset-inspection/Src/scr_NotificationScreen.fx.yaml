@@ -154,6 +154,7 @@ scr_NotificationScreen As screen:
         ZIndex: =6
 
     btn_NSOK As button:
+        Fill: =defaults.primaryColor
         Height: =60
         OnSelect: =Set(b_NSDetailNotification,false);
         Size: =24
