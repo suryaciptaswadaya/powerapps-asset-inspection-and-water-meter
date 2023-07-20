@@ -574,7 +574,7 @@ scr_LocationSelectorScreen As screen:
                 
                 If(b_SelectedRecheckStatus = true,
                     Set(n_BackToSequenceNumber,ComboBox2.Selected.status_sequence_number);
-                    Set(n_LSSAssignmentCode, gal_TSTaskList.Selected.assignment_code);
+                    Set(n_LSSAssignmentCode, gal_TSTaskList_1.Selected.assignment_code);
                 
                     Clear(c_AllNextProcessEmployee);
                     Clear(c_TaskNextProcess);  
@@ -818,8 +818,13 @@ scr_LocationSelectorScreen As screen:
                 =//Clear(c_AllNextProcessEmployee);
                 Set(n_LSCStatusSequenceNumberCurrent,gal_TSTaskList.Selected.status_sequence_number);
                 Set(n_LSCStatusSequenceNumberNext,(gal_TSTaskList.Selected.status_sequence_number + 1));
+                Set(n_LSSAssignmentCode, gal_TSTaskList_1.Selected.assignment_code);
                 
-                ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = gal_TSTaskList.Selected.department_id && IsBlank(spv_id)));
+                Clear(c_AllTaskEmployee);
+                Collect(c_AllTaskEmployee);
+                
+                
+                //ClearCollect(c_AllProcessEmployee, Filter(c_AllEmployee, department_id = c_AllFlowProcess[@department_id] && IsBlank(spv_id)));
                 Patch(tbl_assignment_headers, First(
                         Filter(
                             tbl_assignment_headers,
