@@ -56,7 +56,7 @@ scr_TaskReportScreen As screen:
                 c_AllEmployee,
                 c_AllEmployeeCoworkers
             )
-        OnChange: |
+        OnSelect: |
             =ClearCollect(c_AmenitiesID, c_AssignmentDetailAmenities[@ID]);
             
             ForAll(
