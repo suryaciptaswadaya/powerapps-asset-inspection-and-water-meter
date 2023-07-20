@@ -320,12 +320,14 @@ scr_TaskScreenCreate As screen:
             If(IsBlank(cbb_TSC_PICDepartment.Selected),
                 Set(b_TSC_Snackbar, !b_TSC_Snackbar);
                 Set(s_TSC_TextSnackBar, "Pastikan Semua PIC Sudah Terpilih");
+                Notify("Pastikan Semua PIC Sudah Terpilih",NotificationType.Error);
                 Set(b_Continue, false);
             );
             
             If(Or(IsBlank(dtp_TSC_StartTask.SelectedDate), IsBlank(dtp_TSC_EndTask.SelectedDate)),
                 Set(b_TSC_Snackbar, !b_TSC_Snackbar);
                 Set(s_TSC_TextSnackBar, "Tanggal Tidak Boleh Kosong");
+                Notify("Tanggal Tidak Boleh Kosong",NotificationType.Error);    
                 Set(b_Continue, false);
             );
             
@@ -333,17 +335,22 @@ scr_TaskScreenCreate As screen:
                 Set(b_TSC_Snackbar, !b_TSC_Snackbar);
                 Set(s_TSC_TextSnackBar, "Tanggal Penugasan Tidak Boleh Back Date");
                 Set(b_Continue, false);
+                Notify("Tanggal Penugasan Tidak Boleh Back Date",NotificationType.Error);    
+                
             );
             
             If(dtp_TSC_StartTask.SelectedDate >  dtp_TSC_EndTask.SelectedDate,
                 Set(b_TSC_Snackbar, !b_TSC_Snackbar);
                 Set(s_TSC_TextSnackBar, "Periksa kembali tanggal mulai dan tanggal selesainya");
+                Notify("Periksa kembali tanggal mulai dan tanggal selesainya",NotificationType.Error);   
                 Set(b_Continue, false);
             );
             
             If(CountRows(c_TSC_TempLocation) = 0,
                 Set(b_TSC_Snackbar, !b_TSC_Snackbar);
                 Set(s_TSC_TextSnackBar, "Pilih Lokasi Penugasan");
+                Notify("Pilih Lokasi Penugasan",NotificationType.Error);   
+                
                 Set(b_Continue, false);
             );
             

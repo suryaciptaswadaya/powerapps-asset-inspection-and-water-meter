@@ -573,80 +573,81 @@ scr_LocationSelectorScreen As screen:
                 );
                 
                 If(b_SelectedRecheckStatus = true,
-                Clear(c_AllNextProcessEmployee);
-                Clear(c_NextFlowProcess);
-                //ini masih cuma bisa balik ke flow pertama
-                Collect(c_NextFlowProcess,Filter(c_AllFlowProcess,sequence_number > gal_TSTaskList.Selected.sequence_number));
+                    Clear(c_AllNextProcessEmployee);
+                    Clear(c_NextFlowProcess);
+                    //ini masih cuma bisa balik ke flow pertama
+                    Collect(c_NextFlowProcess,Filter(c_AllFlowProcess,sequence_number > gal_TSTaskList.Selected.sequence_number));
                 
-                ForAll(c_NextFlowProcess,
+                    ForAll(c_NextFlowProcess,
                 //Notify(First(Filter(c_Task,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])).ID);
-                    Patch(c_Task, First(
-                            Filter(c_Task,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])
-                        ),
+                        Patch(c_Task, First(
+                                Filter(c_Task,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])
+                            ),
+                            {
+                                status_code: ComboBox2.Selected.status_code,
+                                status_name: ComboBox2.Selected.status_name,
+                                status_color: ComboBox2.Selected.hex_color,
+                                end_time_task: Blank()
+                                //is_ready_to_start:0
+                            }
+                        );
+                
+                        Patch(
+                            tbl_assignment_headers,
+                            First(
+                                Filter(tbl_assignment_headers,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])
+                                ),
+                            {
+                                status_code: ComboBox2.Selected.status_code,
+                                //is_ready_to_start:0,
+                                end_time_task: Blank(),
+                                status_sequence_number:ComboBox2.Selected.status_sequence_number
+                            }
+                        );
+                
+                        Collect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = c_NextFlowProcess[@department_id] && IsBlank(spv_id)));
+                        
+                    );
+                
+                    ForAll(c_AllNextProcessEmployee,
+                        Patch(tbl_notification_list, Defaults(tbl_notification_list), 
                         {
-                            status_code: ComboBox2.Selected.status_code,
-                            status_name: ComboBox2.Selected.status_name,
-                            status_color: ComboBox2.Selected.hex_color,
-                            end_time_task: Blank()
-                            //is_ready_to_start:0
-                        }
+                            employee_id : c_AllNextProcessEmployee[@ID],
+                            notification_preview : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
+                            notification_content : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
+                            notification_date : Now(),
+                            is_read : 0
+                        });
+                
+                        '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Mohon Kerjakan Penugasan " & gal_TSTaskList.Selected.assignment_code);
                     );
                 
                     Patch(
                         tbl_assignment_headers,
                         First(
-                            Filter(tbl_assignment_headers,assignment_code = gal_TSTaskList.Selected.assignment_code && sequence_number = c_NextFlowProcess[@sequence_number])
-                            ),
+                            Filter(
+                                tbl_assignment_headers,
+                                ID = gal_TSTaskList.Selected.ID
+                                
+                            )
+                        ),
                         {
                             status_code: ComboBox2.Selected.status_code,
-                            //is_ready_to_start:0,
-                            end_time_task: Blank(),
-                            status_sequence_number:ComboBox2.Selected.status_sequence_number
+                            status_sequence_number:ComboBox2.Selected.status_sequence_number,
+                            end_time_task: Blank()
                         }
                     );
-                
-                    Collect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = c_NextFlowProcess[@department_id] && IsBlank(spv_id)));
-                        
-                );
-                
-                ForAll(c_AllNextProcessEmployee,
-                            Patch(tbl_notification_list, Defaults(tbl_notification_list), 
-                            {
-                                employee_id : c_AllNextProcessEmployee[@ID],
-                                notification_preview : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
-                                notification_content : "Pekerjaan dengan kode : " & gal_TSTaskList.Selected.assignment_code & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
-                                notification_date : Now(),
-                                is_read : 0
-                            });
-                
-                            '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Mohon Kerjakan Penugasan " & gal_TSTaskList.Selected.assignment_code);
-                        );
-                
-                Patch(
-                    tbl_assignment_headers,
-                    First(
-                        Filter(
-                            tbl_assignment_headers,
-                            ID = gal_TSTaskList.Selected.ID
-                            
-                        )
-                    ),
-                    {
-                        status_code: ComboBox2.Selected.status_code,
-                        status_sequence_number:ComboBox2.Selected.status_sequence_number,
-                        end_time_task: Blank()
-                    }
-                );
-                Patch(
-                    c_Task,
-                    {ID: gal_TSTaskList.Selected.ID},
-                    {
-                        status_code: ComboBox2.Selected.status_code,
-                        status_name: ComboBox2.Selected.status_name,
-                        status_color: ComboBox2.Selected.hex_color,
-                        end_time_task: Blank()
-                    }
-                );
+                    
+                    Patch(
+                        c_Task,
+                        {ID: gal_TSTaskList.Selected.ID},
+                        {
+                            status_code: ComboBox2.Selected.status_code,
+                            status_name: ComboBox2.Selected.status_name,
+                            status_color: ComboBox2.Selected.hex_color,
+                            end_time_task: Blank()
+                        }
+                    );
                 
                 /*ForAll(
                     c_AssignmentDetail,
