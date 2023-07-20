@@ -546,7 +546,7 @@ scr_TaskScreen As screen:
             
             If(b_IsApproverByFlow || b_IsViewerUser,
             
-                ClearCollect(c_TmpCheckingTaskFlow, Filter(c_Task, assignment_code = ThisItem.assignment_code && status_code = Text(n_WaitingGMApprovalStatus)));
+                ClearCollect(c_TmpCheckingTaskFlow, Filter(c_Task, assignment_code = ThisItem.assignment_code && status_code = Text(n_WaitingGMApprovalStatus) || status_code = Text(n_ReadyForSale)));
                 //Generate Row Number
                 ClearCollect(
                     c_CheckingTaskFlow,//kumpulan task
