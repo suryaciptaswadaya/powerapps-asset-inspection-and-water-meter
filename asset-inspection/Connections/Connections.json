@@ -1,21 +1,4 @@
 {
-  "163b7f2c-b540-42ce-8e92-d264119b0256": {
-    "connectionRef": {
-      "apiTier": "Standard",
-      "displayName": "OneDrive for Business",
-      "iconUri": "https://connectoricons-prod.azureedge.net/u/shgogna/globalperconnector-train1/1.0.1639.3310/onedriveforbusiness/icon.png",
-      "id": "/providers/microsoft.powerapps/apis/shared_onedriveforbusiness",
-      "parameterHints": {},
-      "parameterHintsV2": {}
-    },
-    "datasets": {},
-    "dataSources": [],
-    "dependencies": {},
-    "dependents": [
-      "ebde8202-208c-42c7-ac98-9eb9ef1acb60"
-    ],
-    "id": "163b7f2c-b540-42ce-8e92-d264119b0256"
-  },
   "6d44453f-40c7-47d4-bb1d-c41a5ac432f0": {
     "connectionRef": {
       "apiTier": "Standard",
@@ -120,41 +103,6 @@
     },
     "dependents": [],
     "id": "cccc9c19-c2a4-4130-aeb0-47dfd29257b2"
-  },
-  "ebde8202-208c-42c7-ac98-9eb9ef1acb60": {
-    "connectionRef": {
-      "apiTier": "Standard",
-      "displayName": "Logic flows",
-      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1636/1.0.1636.3297/logicflows/icon.png",
-      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
-      "parameterHints": {
-        "163b7f2c-b540-42ce-8e92-d264119b0256": {
-          "value": "shared_onedriveforbusiness"
-        },
-        "workflowEntityId": {},
-        "workflowName": {
-          "value": "30097dd9-729f-47d4-ae5c-92648671f12e"
-        }
-      },
-      "parameterHintsV2": {
-        "shared_onedriveforbusiness": {
-          "value": "163b7f2c-b540-42ce-8e92-d264119b0256"
-        },
-        "workflowEntityId": {},
-        "workflowName": {
-          "value": "30097dd9-729f-47d4-ae5c-92648671f12e"
-        }
-      }
-    },
-    "datasets": {},
-    "dataSources": [
-      "[DEV]-ExporttoCSVAssetPreventiveMaintenance"
-    ],
-    "dependencies": {
-      "shared_onedriveforbusiness": "163b7f2c-b540-42ce-8e92-d264119b0256"
-    },
-    "dependents": [],
-    "id": "ebde8202-208c-42c7-ac98-9eb9ef1acb60"
   },
   "faa4b6b0-d8bf-4d0f-8bc2-dc835ef0b975": {
     "connectionRef": {
