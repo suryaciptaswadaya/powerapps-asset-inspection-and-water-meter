@@ -820,12 +820,61 @@ scr_LocationSelectorScreen As screen:
                 Set(n_LSCStatusSequenceNumberNext,(gal_TSTaskList.Selected.status_sequence_number + 1));
                 Set(n_LSSAssignmentCode, gal_TSTaskList_1.Selected.assignment_code);
                 
-                Clear(c_AllTaskEmployee);
-                Collect(c_AllTaskEmployee);
+                Clear(c_LSSAllTaskComplete);
+                ForAll(Sequence(gal_TSTaskList_1.Selected.counted_task_for_gm),
+                    Collect(c_LSSAllTaskComplete,First(Filter(c_Task,assignment_code = n_LSSAssignmentCode,sequence_number = Value)));
+                );
+                
+                ForAll(c_LSSAllTaskComplete,
+                
+                    Patch(tbl_assignment_headers, First(
+                            Filter(
+                                tbl_assignment_headers,
+                                ID = c_LSSAllTaskComplete[@ID]
+                            )
+                        ),
+                        {
+                            status_code: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
+                            approver_id: First(c_ActiveUserData).ID,
+                            approve_date:Now()
+                        }
+                    );
+                
+                    Patch(c_Task, { ID : c_LSSAllTaskComplete[@ID]}, 
+                    {
+                        status_code: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_code,
+                        status_name: First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).status_name,
+                        status_color:First(Filter(c_AllStatus,status_sequence_number = n_LSCStatusSequenceNumberNext)).hex_color,
+                        approver_id: First(c_ActiveUserData).ID,
+                        approve_date:Now()
+                    });
+                
+                    Patch(tbl_notification_list, Defaults(tbl_notification_list), 
+                        {
+                            employee_id : c_LSSAllTaskComplete[@assigned_pic1_id],
+                            notification_preview : "Preventive Maintence Lokasi " & gal_TSTaskList_1.Selected.assignment_code & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name,
+                            notification_content : "Preventive Maintence Lokasi " & gal_TSTaskList_1.Selected.assignment_code & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name,
+                            notification_date : Now(),
+                            is_read : 0
+                        }
+                    );
+                
+                    Collect(c_AllProcessEmployee, Filter(c_AllEmployee, department_id = c_LSSAllTaskComplete[@department_id] && IsBlank(spv_id)));
+                    
+                
+                    
+                
+                    
+                );
+                
+                ForAll(c_AllProcessEmployee,
+                     '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllProcessEmployee[@email], "Preventive Maintence Lokasi " & gal_TSTaskList.Selected.location_name & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name);
+                );
+                
                 
                 
                 //ClearCollect(c_AllProcessEmployee, Filter(c_AllEmployee, department_id = c_AllFlowProcess[@department_id] && IsBlank(spv_id)));
-                Patch(tbl_assignment_headers, First(
+                /*Patch(tbl_assignment_headers, First(
                         Filter(
                             tbl_assignment_headers,
                             ID = gal_TSTaskList.Selected.ID
@@ -860,7 +909,7 @@ scr_LocationSelectorScreen As screen:
                         '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Preventive Maintence Lokasi " & gal_TSTaskList.Selected.location_name & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name);
                         );
                 
-                Navigate(scr_TaskScreen);
+                Navigate(scr_TaskScreen);*/
             Size: =24
             Text: ="Ya"
             Visible: =b_LSConfirmationApproveReport
