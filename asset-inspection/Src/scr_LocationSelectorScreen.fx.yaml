@@ -577,8 +577,7 @@ scr_LocationSelectorScreen As screen:
                     Set(n_LSSAssignmentCode, gal_TSTaskList.Selected.assignment_code);
                 
                     Clear(c_AllNextProcessEmployee);
-                    Clear(c_TaskNextProcess);
-                    //Collect(c_TaskNextProcess,Filter(c_Task,assignment_code = n_LSSAssignmentCode,sequence_number > n_BackToSequenceNumber));    
+                    Clear(c_TaskNextProcess);  
                     Collect(c_TaskNextProcess,Filter(c_Task,assignment_code = n_LSSAssignmentCode,sequence_number > n_BackToSequenceNumber));
                 
                     ForAll(c_TaskNextProcess,
@@ -631,8 +630,7 @@ scr_LocationSelectorScreen As screen:
                         First(
                             Filter(
                                 tbl_assignment_headers,
-                                assignment_code = n_LSSAssignmentCode,sequence_number = n_BackToSequenceNumber
-                                
+                                assignment_code = n_LSSAssignmentCode,sequence_number = n_BackToSequenceNumber                
                             )
                         ),
                         {
@@ -648,8 +646,7 @@ scr_LocationSelectorScreen As screen:
                         First(
                             Filter(
                                 c_Task,
-                                assignment_code = n_LSSAssignmentCode,sequence_number = n_BackToSequenceNumber
-                                
+                                assignment_code = n_LSSAssignmentCode,sequence_number = n_BackToSequenceNumber                
                             )
                         ),
                         {
@@ -661,6 +658,27 @@ scr_LocationSelectorScreen As screen:
                                 status_sequence_number:ComboBox2.Selected.status_sequence_number
                         }
                     );
+                
+                    Set(n_LSSTaskPicId,First(
+                            Filter(
+                                c_Task,
+                                assignment_code = n_LSSAssignmentCode,sequence_number = n_BackToSequenceNumber                
+                            )
+                            ).assigned_pic1_id
+                    );
+                
+                    Patch(tbl_notification_list, Defaults(tbl_notification_list), 
+                        {
+                            employee_id : n_LSSTaskPicId,
+                            notification_preview : "Pekerjaan dengan kode : " & n_LSSAssignmentCode & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
+                            notification_content : "Pekerjaan dengan kode : " & n_LSSAssignmentCode & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut",
+                            notification_date : Now(),
+                            is_read : 0
+                        });
+                
+                        '[DEV]AssetMaintenance-SendPushNotification'.Run(First(Filter(c_AllEmployee,ID = n_LSSTaskPicId)).email, "Pekerjaan dengan kode : " & n_LSSAssignmentCode & " telah direview oleh " & First(c_ActiveUserData).name & ". Mohon melakukan pengecekan ulang untuk penugasan tersebut");
+                
+                    Patch(c_TaskByAssignmentCode,{assignment_code:n_LSSAssignmentCode},{counted_task_for_gm:0});
                 
                 /*ForAll(
                     c_AssignmentDetail,
