@@ -899,7 +899,7 @@ scr_TaskReportScreen As screen:
             Y: =112
             ZIndex: =26
 
-        btn_TRSSavePhotos As button:
+        "'[HIDDEN]btn_TRSSavePhotos' As button":
             DisplayMode: |-
                 =/*If(
                     gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
@@ -986,7 +986,7 @@ scr_TaskReportScreen As screen:
             RadiusTopRight: =0
             Size: =18
             Text: ="Simpan"
-            Visible: =b_PopupAddPhotos
+            Visible: =false
             Width: =158
             X: =398
             Y: =524
@@ -1011,7 +1011,7 @@ scr_TaskReportScreen As screen:
                 =If(b_ChangePhotoBefore,
                         med_TRSPhoto.Media
                     ,
-                        SampleImage
+                        med_TRSPhoto.Media
                     )
                 
                 /*
@@ -1058,11 +1058,57 @@ scr_TaskReportScreen As screen:
                     )
                 )
             Height: =260
-            OnChange: =Set(b_ChangePhotoBefore, true);
+            OnChange: |
+                =Set(b_ChangePhotoBefore, true);
+                Set(d_TimestampforPhoto,Text(Now(),"[$-en-US]yymmddhhmmss"));
+                Set(n_ChecklistID,gal_TRSCheckList.Selected.ID);
+                
+                //Save Photo
+                If(b_ChangePhotoBefore,
+                    Set(BinaryImageDataBefore, Substitute(JSON(img_TRSPhoto.Image, JSONFormat.IncludeBinaryData),"",""));
+                    Set(s_Base64ContentBefore, Mid(BinaryImageDataBefore, Find(",", BinaryImageDataBefore) + 1, Len(BinaryImageDataBefore) - Find(",", BinaryImageDataBefore) - 1));
+                    Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
+                    Set(s_ImageLinkBefore, v_UploadResultBefore.sharepointfilelink);
+                    Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id));
+                
+                    If(IsBlank(gal_TRSCheckList.Selected.is_photo_uploaded),
+                        Patch(tbl_assignment_details, First(Filter(tbl_assignment_details,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
+                        Patch(c_AssignmentDetail, { ID : gal_TRSCheckList.Selected.ID }, { is_photo_uploaded: 1});
+                        Patch(c_AssignmentDetailAmenities, { ID : gal_TRSCheckList.Selected.ID }, { is_photo_uploaded: 1});
+                    );
+                
+                    Patch(tbl_assignment_detail_photos, Defaults(tbl_assignment_detail_photos),
+                    {
+                        assignment_detail_id: n_ChecklistID,
+                        status_code: gal_TSTaskList.Selected.status_code,
+                        photo_url: s_ImageLinkBefore,
+                        photo_id: n_ImageIDBefore,
+                        insert_date: Now(),
+                        insert_user_id: n_UserID
+                    });
+                
+                    Patch(c_ShowGalleryInspectionPoint, Defaults(c_ShowGalleryInspectionPoint),
+                    {
+                        assignment_detail_id: gal_TRSCheckList.Selected.ID,
+                        status_code: gal_TSTaskList.Selected.status_code,
+                        status_name: gal_TSTaskList.Selected.status_name,
+                        photo_url: s_ImageLinkBefore,
+                        photo_id: n_ImageIDBefore,
+                        insert_date: Now(),
+                        insert_user_id: n_UserID
+                    });
+                
+                    Set(b_ChangePhotoBefore, false);
+                    //Reset(med_TRSPhoto);
+                );
             Size: =25
             Text: |-
                 =If(!b_ChangePhotoBefore,
-                    "Tap or click to add a picture","Change Picture"
+                    //"Tap or click to add a picture"
+                    "Tambah Foto"
+                ,
+                    //"Change Picture"
+                    "Tambah Foto"
                 )
                     
             Visible: =b_PopupAddPhotos
@@ -1074,7 +1120,7 @@ scr_TaskReportScreen As screen:
         "gal_TRSPhotoGallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0'":
             BorderThickness: =1
             DelayItemLoading: =true
-            Height: =368
+            Height: =454
             Items: =c_ShowGalleryInspectionPoint
             Layout: =Layout.Vertical
             LoadingSpinner: =LoadingSpinner.Data
@@ -1083,7 +1129,7 @@ scr_TaskReportScreen As screen:
             Visible: =b_PopupAddPhotos
             Width: =501
             X: =65
-            Y: =610
+            Y: =524
             ZIndex: =31
 
             img_TRSPreviewHistoryPhoto As image:
