@@ -44,6 +44,7 @@
       "ID": "ID",
       "is_deleted": "is_deleted",
       "is_ready_to_start": "is_ready_to_start",
+      "is_return": "is_return",
       "location_id": "location_id",
       "location_type_id": "location_type_id",
       "Modified": "Modified",
