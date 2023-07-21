@@ -474,20 +474,38 @@ scr_LocationSelectorScreen As screen:
                             }
                         );
                         Set(n_NextDepartmentID, First(c_NextAssignmentHeader).department_id);
-                        //TO DO : Sent Notification to Next Process Division
+                        //Sent Notification to Next Process Division
+                        //Apabila kosong, kirim ke level GM
                         ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = n_NextDepartmentID && IsBlank(spv_id)));
-                        ForAll(c_AllNextProcessEmployee,
-                            Patch(tbl_notification_list, Defaults(tbl_notification_list), 
-                            {
-                                employee_id : c_AllNextProcessEmployee[@ID],
-                                notification_preview : "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name ,
-                                notification_content : "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name,
-                                notification_date : Now(),
-                                is_read : 0
-                            });
+                        If(IsEmpty(c_AllNextProcessEmployee),
+                            ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, entity_id = n_EntityID && is_approver = 1));
+                            ForAll(c_AllNextProcessEmployee,
+                                Patch(tbl_notification_list, Defaults(tbl_notification_list), 
+                                {
+                                    employee_id : c_AllNextProcessEmployee[@ID],
+                                    notification_preview : "Tugas Baru - Verifikasi Pada Lokasi " & gal_TSTaskList.Selected.location_name ,
+                                    notification_content : "Tugas Baru - Verifikasi Pada Lokasi " & gal_TSTaskList.Selected.location_name,
+                                    notification_date : Now(),
+                                    is_read : 0
+                                });
                 
-                            '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name);
+                                '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Tugas Baru - Verifikasi Pada Lokasi " & gal_TSTaskList.Selected.location_name);
+                            );
+                        ,
+                            ForAll(c_AllNextProcessEmployee,
+                                Patch(tbl_notification_list, Defaults(tbl_notification_list), 
+                                {
+                                    employee_id : c_AllNextProcessEmployee[@ID],
+                                    notification_preview : "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name ,
+                                    notification_content : "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name,
+                                    notification_date : Now(),
+                                    is_read : 0
+                                });
+                
+                                '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name);
+                            );
                         );
+                        
                     );
                 
                 	Set(b_LSConfirmationSubmitReport,false);
@@ -715,7 +733,7 @@ scr_LocationSelectorScreen As screen:
             Y: =705
             ZIndex: =18
 
-    btn_LSSSubmitReport_1 As button:
+    btn_LSSStartTime As button:
         Fill: =RGBA(141, 198, 63, 1)
         Height: =75
         OnSelect: |-
