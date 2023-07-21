@@ -153,13 +153,13 @@ scr_LocationSelectorScreen As screen:
                     Set(b_Continue, false);    
                 );*/
                 
-                If(b_IsApproverByFlow,
+                /*If(b_IsApproverByFlow,
                     If(
                         CountRows(Filter(c_AssignmentDetail, assignment_header_id = n_TmpHeaderID && (IsBlank(is_ok) || is_ok = 0) && sublocation_id = ThisItem.ID)) > 0,true,false)
                         ,
                     If(
                         CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0) && sublocation_id = ThisItem.ID)) > 0,true,false)
-                )
+                )*/
             Width: =62.5
             X: =207
             ZIndex: =7
