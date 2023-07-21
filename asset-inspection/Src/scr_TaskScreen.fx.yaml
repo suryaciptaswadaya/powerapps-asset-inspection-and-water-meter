@@ -187,8 +187,13 @@ scr_TaskScreen As screen:
                         
                         If(!IsBlank(ThisItem.comment),
                             Select('[HIDDEN]btn_TSInitializeTaskData');
-                            Navigate(scr_LocationSelectorScreen);
+                            If(gal_TSTaskList.Selected.is_return = 1,
+                                Set(b_IsShowWarningIcon, true);
                             ,
+                                Set(b_IsShowWarningIcon, false);
+                            );  
+                            Navigate(scr_LocationSelectorScreen);
+                        ,
                             Set(b_PopupConfirmReady, true);
                         )
                     ,
@@ -196,8 +201,8 @@ scr_TaskScreen As screen:
                         Navigate(scr_LocationSelectorScreen);
                     );
                 , 
-                    Notify("Kamu Belum bisa mengerjakan pekerjaan ini")
-                )
+                    Notify("Kamu Belum bisa mengerjakan pekerjaan ini");
+                );
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0

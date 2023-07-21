@@ -2,7 +2,7 @@ scr_TaskReportScreen As screen:
     OnVisible: |-
         =Set(s_TRSComment,First(
             Filter(
-                tbl_assignment_sublocation_comment,
+                tbl_assignment_sublocation_data,
                 sublocation_id = n_CurrentSublocationRowNumber && assignment_header_id = gal_TSTaskList.Selected.ID
             )
         ).comment);
@@ -23,7 +23,7 @@ scr_TaskReportScreen As screen:
                 
                 Filter(c_AllEmployee,ID = First(
                     Filter(
-                        tbl_assignment_sublocation_comment,
+                        tbl_assignment_sublocation_data,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = n_TmpHeaderID
                     )
                 ).pic_id)
@@ -32,7 +32,7 @@ scr_TaskReportScreen As screen:
             
                 Filter(c_AllEmployeeCoworkers,ID = First(
                     Filter(
-                        tbl_assignment_sublocation_comment,
+                        tbl_assignment_sublocation_data,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
                     )
                 ).pic_id)
@@ -341,30 +341,30 @@ scr_TaskReportScreen As screen:
         OnSelect: |+
             =If(First(c_ActiveUserData).is_approver = 1, Set(n_GalTaskList,n_TmpHeaderID), Set(n_GalTaskList,gal_TSTaskList.Selected.ID));
             If(First(c_ActiveUserData).is_approver = 1, 
-                Patch(tbl_assignment_sublocation_comment, 
+                Patch(tbl_assignment_sublocation_data, 
                 First(
                     Filter(
-                        tbl_assignment_sublocation_comment,
+                        tbl_assignment_sublocation_data,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList
                     )
                 ),
                 { comment: txi_TRSComment.Text, comment_date:Now(),user_id:First(c_ActiveUserData).ID }
                 );
-                Refresh(tbl_assignment_sublocation_comment);
+                Refresh(tbl_assignment_sublocation_data);
             
                 Reset(txi_TRSComment);
             
-                If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment),
+                If(!IsBlank(First(Filter(tbl_assignment_sublocation_data, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment),
             
                     Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
                     Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
-                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_data, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment);
                     //Set(b_showComment,true);
                     //Notify(s_ApproverComment&"jika tidak blank");
                 ,
                     Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber - 1); 
                     Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
-                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_data, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment);
                     //Notify(s_ApproverComment&"jika blank");
                     //Set(s_ApproverComment, "");
                     ""
@@ -372,10 +372,10 @@ scr_TaskReportScreen As screen:
                 );
                 ,
             If(!IsBlank(ComboBox3.Selected),
-                Patch(tbl_assignment_sublocation_comment, 
+                Patch(tbl_assignment_sublocation_data, 
                 First(
                     Filter(
-                        tbl_assignment_sublocation_comment,
+                        tbl_assignment_sublocation_data,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList
                     )
                 ),
@@ -383,7 +383,7 @@ scr_TaskReportScreen As screen:
                     pic_id:ComboBox3.Selected.ID
                 }
                 );
-                Refresh(tbl_assignment_sublocation_comment);
+                Refresh(tbl_assignment_sublocation_data);
             
                 Reset(ComboBox3);
             );
@@ -392,7 +392,7 @@ scr_TaskReportScreen As screen:
             
                 Set(s_ApproverComment, First(
                     Filter(
-                        tbl_assignment_sublocation_comment,
+                        tbl_assignment_sublocation_data,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList
                     )).comment);
             
@@ -446,10 +446,10 @@ scr_TaskReportScreen As screen:
         OnSelect: |+
             =If(First(c_ActiveUserData).is_approver = 1, Set(n_GalTaskList,n_TmpHeaderID), Set(n_GalTaskList,gal_TSTaskList.Selected.ID));
             If(First(c_ActiveUserData).is_approver = 1, 
-                Patch(tbl_assignment_sublocation_comment, 
+                Patch(tbl_assignment_sublocation_data, 
                 First(
                     Filter(
-                        tbl_assignment_sublocation_comment,
+                        tbl_assignment_sublocation_data,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id =n_GalTaskList
                     )
                 ),
@@ -459,21 +459,21 @@ scr_TaskReportScreen As screen:
                     user_id:First(c_ActiveUserData).ID 
                 }
                 );
-                Refresh(tbl_assignment_sublocation_comment);
+                Refresh(tbl_assignment_sublocation_data);
             
                 Reset(txi_TRSComment);
             
-                If(!IsBlank(First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id =n_GalTaskList)).comment),
+                If(!IsBlank(First(Filter(tbl_assignment_sublocation_data, sublocation_id = n_CurrentSublocationID && assignment_header_id =n_GalTaskList)).comment),
             
                     Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
                     Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
-                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id =n_GalTaskList)).comment);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_data, sublocation_id = n_CurrentSublocationID && assignment_header_id =n_GalTaskList)).comment);
                     //Set(b_showComment,true);
                     //Notify(s_ApproverComment&"jika tidak blank");
                 ,
                     Set(n_CurrentSublocationRowNumber, n_CurrentSublocationRowNumber + 1); 
                     Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
-                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_comment, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment);
+                    Set(s_ApproverComment, First(Filter(tbl_assignment_sublocation_data, sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList)).comment);
                     //Notify(s_ApproverComment&"jika blank");
                     
                    // Set(s_ApproverComment, "");
@@ -482,10 +482,10 @@ scr_TaskReportScreen As screen:
                 ,
             
             If(!IsBlank(ComboBox3.Selected),
-                Patch(tbl_assignment_sublocation_comment, 
+                Patch(tbl_assignment_sublocation_data, 
                 First(
                     Filter(
-                        tbl_assignment_sublocation_comment,
+                        tbl_assignment_sublocation_data,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList
                     )
                 ),
@@ -493,7 +493,7 @@ scr_TaskReportScreen As screen:
                     pic_id:ComboBox3.Selected.ID
                 }
                 );
-                Refresh(tbl_assignment_sublocation_comment);
+                Refresh(tbl_assignment_sublocation_data);
             );
                 Reset(ComboBox3);
             
@@ -501,7 +501,7 @@ scr_TaskReportScreen As screen:
                 Set(n_CurrentSublocationID, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).ID);
                 Set(s_ApproverComment, First(
                     Filter(
-                        tbl_assignment_sublocation_comment,
+                        tbl_assignment_sublocation_data,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = n_GalTaskList
                     )).comment
                 );

@@ -114,14 +114,14 @@ scr_LocationSelectorScreen As screen:
                 If(First(c_ActiveUserData).is_approver = 1,
                 Set(s_ApproverComment, First(
                     Filter(
-                        tbl_assignment_sublocation_comment,
+                        tbl_assignment_sublocation_data,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = n_TmpHeaderID
                     )
                 ).comment)
                 ,
                 Set(s_ApproverComment, First(
                     Filter(
-                        tbl_assignment_sublocation_comment,
+                        tbl_assignment_sublocation_data,
                         sublocation_id = n_CurrentSublocationID && assignment_header_id = gal_TSTaskList.Selected.ID
                     )
                 ).comment);
@@ -153,13 +153,17 @@ scr_LocationSelectorScreen As screen:
                     Set(b_Continue, false);    
                 );*/
                 
-                /*If(b_IsApproverByFlow,
-                    If(
-                        CountRows(Filter(c_AssignmentDetail, assignment_header_id = n_TmpHeaderID && (IsBlank(is_ok) || is_ok = 0) && sublocation_id = ThisItem.ID)) > 0,true,false)
-                        ,
-                    If(
-                        CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0) && sublocation_id = ThisItem.ID)) > 0,true,false)
-                )*/
+                If(b_IsShowWarningIcon,
+                    If(b_IsApproverByFlow,
+                        If(
+                            CountRows(Filter(c_AssignmentDetail, assignment_header_id = n_TmpHeaderID && (IsBlank(is_ok) || is_ok = 0) && sublocation_id = ThisItem.ID)) > 0,true,false)
+                            ,
+                        If(
+                            CountRows(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0) && sublocation_id = ThisItem.ID)) > 0,true,false)
+                    )
+                ,
+                    false
+                )
             Width: =62.5
             X: =207
             ZIndex: =7
@@ -231,8 +235,10 @@ scr_LocationSelectorScreen As screen:
             
             If(b_Continue,
                 Set(b_LSConfirmationSubmitReport,true);
+                Set(b_IsShowWarningIcon, false);
             ,
                 Set(b_PopupNotComplete, true);
+                Set(b_IsShowWarningIcon, true);
             );
         RadiusBottomLeft: =0
         RadiusBottomRight: =0

@@ -509,8 +509,8 @@ scr_TaskScreenCreate As screen:
                             location_type_id = c_NewInsertedTask[@location_type_id]
                         ),
                         Patch(
-                            tbl_assignment_sublocation_comment,
-                            Defaults(tbl_assignment_sublocation_comment),
+                            tbl_assignment_sublocation_data,
+                            Defaults(tbl_assignment_sublocation_data),
                             {
                                 assignment_header_id: c_NewInsertedTask[@ID],
                                 sublocation_id: ID

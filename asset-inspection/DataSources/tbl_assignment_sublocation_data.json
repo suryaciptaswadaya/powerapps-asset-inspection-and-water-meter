@@ -44,7 +44,7 @@
     "EncodeDataset": true,
     "IsSampleData": false,
     "IsWritable": true,
-    "Name": "tbl_assignment_sublocation_comment",
+    "Name": "tbl_assignment_sublocation_data",
     "Type": "ConnectedDataSourceInfo"
   }
 ]
