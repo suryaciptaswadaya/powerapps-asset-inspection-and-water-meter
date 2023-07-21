@@ -193,7 +193,7 @@ scr_LocationSelectorScreen As screen:
             ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21'/></svg>"
         svgIcon3: =""
         svgIcon4: =""
-        titleText: =gal_TSTaskList.Selected.location_name &" "&gal_TSTaskList.Selected.ID
+        titleText: =gal_TSTaskList.Selected.location_name //&" "&gal_TSTaskList.Selected.ID
         tooltipIcon1: ="Kembali"
         tooltipIcon2: ="Notifikasi"
         tooltipIcon3: =""
@@ -343,7 +343,7 @@ scr_LocationSelectorScreen As screen:
             Align: =Align.Center
             Height: =119
             Size: =21
-            Text: ="Pekerjaan ini akan terkunci dan tidak dapat diubah. apakah anda setuju?"
+            Text: ="Pekerjaan akan disimpan, anda tidak akan dapat melakukan perubahan kembali."
             Visible: =b_LSConfirmationSubmitReport
             Width: =427
             X: =106
@@ -479,40 +479,43 @@ scr_LocationSelectorScreen As screen:
                                 is_ready_to_start: 1
                             }
                         );
-                        Set(n_NextDepartmentID, First(c_NextAssignmentHeader).department_id);
-                        //Sent Notification to Next Process Division
-                        //Apabila kosong, kirim ke level GM
-                        ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = n_NextDepartmentID && IsBlank(spv_id)));
-                        If(IsEmpty(c_AllNextProcessEmployee),
-                            ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, entity_id = n_EntityID && is_approver = 1));
-                            ForAll(c_AllNextProcessEmployee,
-                                Patch(tbl_notification_list, Defaults(tbl_notification_list), 
-                                {
-                                    employee_id : c_AllNextProcessEmployee[@ID],
-                                    notification_preview : "Tugas Baru - Verifikasi Pada Lokasi " & gal_TSTaskList.Selected.location_name ,
-                                    notification_content : "Tugas Baru - Verifikasi Pada Lokasi " & gal_TSTaskList.Selected.location_name,
-                                    notification_date : Now(),
-                                    is_read : 0
-                                });
-                
-                                '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Tugas Baru - Verifikasi Pada Lokasi " & gal_TSTaskList.Selected.location_name);
-                            );
-                        ,
-                            ForAll(c_AllNextProcessEmployee,
-                                Patch(tbl_notification_list, Defaults(tbl_notification_list), 
-                                {
-                                    employee_id : c_AllNextProcessEmployee[@ID],
-                                    notification_preview : "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name ,
-                                    notification_content : "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name,
-                                    notification_date : Now(),
-                                    is_read : 0
-                                });
-                
-                                '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name);
-                            );
-                        );
-                        
                     );
+                    
+                    Set(n_NextDepartmentID, First(c_NextAssignmentHeader).department_id);
+                    //Sent Notification to Next Process Division
+                    //Apabila kosong, kirim ke level GM
+                    ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, department_id = n_NextDepartmentID && IsBlank(spv_id)));
+                
+                    If(IsEmpty(c_AllNextProcessEmployee),
+                        ClearCollect(c_AllNextProcessEmployee, Filter(c_AllEmployee, entity_id = n_EntityID && is_approver = 1));
+                        ForAll(c_AllNextProcessEmployee,
+                            Patch(tbl_notification_list, Defaults(tbl_notification_list), 
+                            {
+                                employee_id : c_AllNextProcessEmployee[@ID],
+                                notification_preview : "Tugas Baru - Verifikasi Pada Lokasi " & gal_TSTaskList.Selected.location_name ,
+                                notification_content : "Tugas Baru - Verifikasi Pada Lokasi " & gal_TSTaskList.Selected.location_name,
+                                notification_date : Now(),
+                                is_read : 0
+                            });
+                
+                            '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Tugas Baru - Verifikasi Pada Lokasi " & gal_TSTaskList.Selected.location_name);
+                        );
+                    ,
+                        ForAll(c_AllNextProcessEmployee,
+                            Patch(tbl_notification_list, Defaults(tbl_notification_list), 
+                            {
+                                employee_id : c_AllNextProcessEmployee[@ID],
+                                notification_preview : "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name ,
+                                notification_content : "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name,
+                                notification_date : Now(),
+                                is_read : 0
+                            });
+                
+                            '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllNextProcessEmployee[@email], "Tugas Baru - General Cleaning Pada Lokasi " & gal_TSTaskList.Selected.location_name);
+                        );
+                    );
+                        
+                    
                 
                 	Set(b_LSConfirmationSubmitReport,false);
                     Notify("Data berhasil disubmit.");
