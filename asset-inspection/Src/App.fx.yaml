@@ -154,6 +154,7 @@ App As appinfo:
         Set(b_TSShowGroupedTaskList,true);
         Set(n_TSTaskDateWidth,500);
         Set(b_ShowRecheckApproveButton,false);
+        Set(b_IsShowWarningIcon, false);
         
         ClearCollect(c_TaskByAssignmentCode,
             AddColumns(
