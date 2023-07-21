@@ -1011,7 +1011,7 @@ scr_TaskReportScreen As screen:
                 =If(b_ChangePhotoBefore,
                         med_TRSPhoto.Media
                     ,
-                        med_TRSPhoto.Media
+                        SampleImage
                     )
                 
                 /*
@@ -1044,10 +1044,10 @@ scr_TaskReportScreen As screen:
             ChangePictureText: |-
                 =If(IsBlankOrError(gal_TRSCheckList.Selected.photo_before_id), 
                     If(!b_ChangePhotoBefore,
-                        "Tap or click to add a picture","Change Picture"
+                        "Tambah Foto","Tambah Foto"
                     )
                     ,
-                    "Change Picture"
+                    "Tambah Foto"
                 )
             DisplayMode: |-
                 =If(First(c_ActiveUserData).is_approver = 1, 
