@@ -149,7 +149,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "[HIDDEN]btn_TRSSavePhotos",
-      "ParentIndex": 23,
+      "ParentIndex": 22,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -766,7 +766,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "[HIDDEN-TBD]lbl_TRSAfterPhotos",
-      "ParentIndex": 25,
+      "ParentIndex": 24,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5126,7 +5126,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "gal_TRSPhotoGallery",
-      "ParentIndex": 22,
+      "ParentIndex": 25,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -9257,7 +9257,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_TRSPhotoGallery",
-      "ParentIndex": 24,
+      "ParentIndex": 23,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

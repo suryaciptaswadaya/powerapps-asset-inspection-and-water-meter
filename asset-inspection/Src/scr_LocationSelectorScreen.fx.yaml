@@ -614,6 +614,7 @@ scr_LocationSelectorScreen As screen:
                                 status_color: ComboBox2.Selected.hex_color,
                                 end_time_task: Blank(),
                                 is_ready_to_start:0,
+                                is_return:1,
                                 status_sequence_number:ComboBox2.Selected.status_sequence_number
                             }
                         );
@@ -627,6 +628,7 @@ scr_LocationSelectorScreen As screen:
                                 status_code: ComboBox2.Selected.status_code,
                                 is_ready_to_start:0,
                                 end_time_task: Blank(),
+                                is_return:1,
                                 status_sequence_number:ComboBox2.Selected.status_sequence_number
                             }
                         );
@@ -660,6 +662,7 @@ scr_LocationSelectorScreen As screen:
                         {
                             status_code: ComboBox2.Selected.status_code,
                                 is_ready_to_start:1,
+                                is_return:1,
                                 end_time_task: Blank(),
                                 status_sequence_number:ComboBox2.Selected.status_sequence_number
                         }
@@ -679,6 +682,7 @@ scr_LocationSelectorScreen As screen:
                                 status_color: ComboBox2.Selected.hex_color,
                                 end_time_task: Blank(),
                                 is_ready_to_start:1,
+                                is_return:1,
                                 status_sequence_number:ComboBox2.Selected.status_sequence_number
                         }
                     );

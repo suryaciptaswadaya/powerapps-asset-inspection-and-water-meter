@@ -185,7 +185,7 @@
           "tbl_assignment_headers": {
             "tableName": "67e6deda-40c2-4f94-8fec-a8cadea21ead"
           },
-          "tbl_assignment_sublocation_data": {
+          "tbl_assignment_sublocation_comment": {
             "tableName": "1e3663da-b579-450a-b77a-cdcc61f4c7a4"
           },
           "tbl_mst_departments": {
@@ -251,11 +251,11 @@
       "tbl_mst_flow_process",
       "tbl_mst_process",
       "tbl_notification_list",
+      "tbl_assignment_sublocation_comment",
       "tbl_transaction_log",
       "[backup]tbl_mst_sublocation_amenities",
       "[backup]tbl_mst_sublocations",
-      "tbl_assignment_detail_photos",
-      "tbl_assignment_sublocation_data"
+      "tbl_assignment_detail_photos"
     ],
     "dependencies": {},
     "dependents": [
