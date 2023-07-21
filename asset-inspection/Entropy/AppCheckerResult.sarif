@@ -5054,7 +5054,7 @@
                 },
                 "region": {
                   "charLength": 53,
-                  "charOffset": 6849,
+                  "charOffset": 6853,
                   "snippet": {
                     "text": "First(Filter(c_AllStatus,status_sequence_number = 1))"
                   }
@@ -5094,7 +5094,7 @@
                 },
                 "region": {
                   "charLength": 1,
-                  "charOffset": 6847,
+                  "charOffset": 6851,
                   "snippet": {
                     "text": "="
                   }
@@ -5134,7 +5134,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 6915,
+                  "charOffset": 6919,
                   "snippet": {
                     "text": "||"
                   }
@@ -5174,7 +5174,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 6951,
+                  "charOffset": 6955,
                   "snippet": {
                     "text": "||"
                   }
@@ -5214,7 +5214,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 6993,
+                  "charOffset": 6997,
                   "snippet": {
                     "text": "||"
                   }
@@ -5254,7 +5254,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 6831,
+                  "charOffset": 6835,
                   "snippet": {
                     "text": "&&"
                   }
@@ -5294,7 +5294,7 @@
                 },
                 "region": {
                   "charLength": 53,
-                  "charOffset": 8644,
+                  "charOffset": 8648,
                   "snippet": {
                     "text": "First(Filter(c_AllStatus,status_sequence_number = 1))"
                   }
@@ -5334,7 +5334,7 @@
                 },
                 "region": {
                   "charLength": 1,
-                  "charOffset": 8642,
+                  "charOffset": 8646,
                   "snippet": {
                     "text": "="
                   }
@@ -5374,7 +5374,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 8710,
+                  "charOffset": 8714,
                   "snippet": {
                     "text": "||"
                   }
@@ -5414,7 +5414,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 8746,
+                  "charOffset": 8750,
                   "snippet": {
                     "text": "||"
                   }
@@ -5454,7 +5454,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 8788,
+                  "charOffset": 8792,
                   "snippet": {
                     "text": "||"
                   }
@@ -5494,7 +5494,7 @@
                 },
                 "region": {
                   "charLength": 2,
-                  "charOffset": 8626,
+                  "charOffset": 8630,
                   "snippet": {
                     "text": "&&"
                   }
@@ -10504,17 +10504,17 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.tbl_assignment_sublocation_comment"
+                  "fullyQualifiedName": "App.tbl_assignment_sublocation_data"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "App.tbl_assignment_sublocation_comment",
+                  "fullyQualifiedName": "App.tbl_assignment_sublocation_data",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "tbl_assignment_sublocation_comment",
+                "member": "tbl_assignment_sublocation_data",
                 "module": "App",
                 "type": "App"
               }
