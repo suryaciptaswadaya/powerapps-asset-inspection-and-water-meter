@@ -298,7 +298,7 @@ scr_LocationSelectorScreen As screen:
         Visible: |-
             =//If(gal_TSTaskList.Selected.status_code <> Text(n_WaitingGMApprovalStatus),false,If(First(c_ActiveUserData).is_approver = 1,true,false))
             //b_ShowRecheckApproveButton
-            !btn_LSSNextTask.Visible && b_IsApproverByFlow && !b_IsViewerUser
+            !btn_LSSNextTask.Visible && If(b_IsApproverByFlow && (gal_TSTaskList_1.Selected.counted_task_complete  <> gal_TSTaskList_1.Selected.counted_all_flow_for_gm),true,false) && !b_IsViewerUser
         Width: =250
         X: =349
         Y: =1052
@@ -933,6 +933,7 @@ scr_LocationSelectorScreen As screen:
                 ForAll(c_AllProcessEmployee,
                      '[DEV]AssetMaintenance-SendPushNotification'.Run(c_AllProcessEmployee[@email], "Preventive Maintence Lokasi " & gal_TSTaskList.Selected.location_name & " telah selesai direview dan disetujui oleh " & First(c_ActiveUserData).name);
                 );
+                
                 
                 Navigate(scr_TaskScreen);
                 

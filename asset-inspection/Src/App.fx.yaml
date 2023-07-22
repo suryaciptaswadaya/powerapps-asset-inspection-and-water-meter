@@ -35,7 +35,7 @@ App As appinfo:
         //Buat Testing STAFF Engineering
         //ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees, employee_id.Email = "ahmad.mubarok@suryacipta.com"), "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         //Buat Testing SPV Engineering Murni
-        ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "eryan.fauzan@suryacipta.com"),     "department_name",LookUp(tbl_mst_departments, ID = department_id,  department_name)));
+        //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "eryan.fauzan@suryacipta.com"),     "department_name",LookUp(tbl_mst_departments, ID = department_id,  department_name)));
         //Buat Testing SPV HK ADMIN & Approveer
         //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "nurman.triaji@suryacipta.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         //Buat Testing Viewer
@@ -43,7 +43,7 @@ App As appinfo:
         //Buat Testing HK
         //ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees,employee_id.Email = "william.timotius@suryainternusa.com"), "department_name", LookUp( tbl_mst_departments,  ID = department_id, department_name ) ));
         //Buat Testing SPV HK Murni with Assign data
-        //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "fredy@suryainternusa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
+        ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "fredy@suryainternusa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = User().Email), "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         
         
@@ -167,6 +167,9 @@ App As appinfo:
                 ,
                 "counted_all_flow_for_gm",
                 CountRows(c_AllFlowProcess)
+                ,
+                "counted_task_complete",
+                CountRows(Filter(task_assignment_code,status_code = Text(n_ReadyForSale)))
             )
         );
         
