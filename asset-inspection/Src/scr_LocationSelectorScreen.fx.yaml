@@ -476,7 +476,8 @@ scr_LocationSelectorScreen As screen:
                                 sequence_number: n_NextSequenceNumber
                             }, 
                             {                 
-                                is_ready_to_start: 1
+                                is_ready_to_start: 1,
+                                comment:Blank()
                             }
                         );
                     );

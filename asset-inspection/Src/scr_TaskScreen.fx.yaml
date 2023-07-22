@@ -315,6 +315,13 @@ scr_TaskScreen As screen:
                     //Pekerjaan Siap dilakukan
                     If(b_ConfirmReady = 1,
                         Select('[HIDDEN]btn_TSInitializeTaskData');
+                        
+                        If(gal_TSTaskList.Selected.is_return = 1,
+                            Set(b_IsShowWarningIcon, true);
+                        ,
+                            Set(b_IsShowWarningIcon, false);
+                        );  
+                        Navigate(scr_LocationSelectorScreen);
                 
                         Patch(tbl_assignment_headers, { ID: gal_TSTaskList.Selected.ID }, { comment : "sudah siap dikerjakan" });
                         Patch(c_Task, { ID: gal_TSTaskList.Selected.ID }, { comment : "sudah siap dikerjakan" });
