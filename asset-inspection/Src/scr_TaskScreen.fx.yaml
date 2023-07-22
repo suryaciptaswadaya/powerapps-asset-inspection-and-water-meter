@@ -183,7 +183,7 @@ scr_TaskScreen As screen:
                 =Select(Parent);
                 If(ThisItem.is_ready_to_start = 1,
                     If(ThisItem.sequence_number > 1 && ThisItem.status_code = First(Filter(c_AllStatus,status_sequence_number = 2)).status_code && First(c_ActiveUserData).is_approver = 0,
-                        Set(b_ConfirmReady, -1);
+                       Set(b_ConfirmReady, -1);
                         
                         If(!IsBlank(ThisItem.comment),
                             Select('[HIDDEN]btn_TSInitializeTaskData');
@@ -198,6 +198,11 @@ scr_TaskScreen As screen:
                         )
                     ,
                         Select('[HIDDEN]btn_TSInitializeTaskData');
+                        If(gal_TSTaskList.Selected.is_return = 1,
+                            Set(b_IsShowWarningIcon, true);
+                        ,
+                            Set(b_IsShowWarningIcon, false);
+                        );  
                         Navigate(scr_LocationSelectorScreen);
                     );
                 , 
