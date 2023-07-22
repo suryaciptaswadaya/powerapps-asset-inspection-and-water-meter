@@ -315,7 +315,17 @@ scr_TaskReportScreen As screen:
                     )
                 )*/
                 
-                If(!b_IsViewerUser, DisplayMode.Edit, DisplayMode.Disabled)
+                If(First(c_ActiveUserData).is_approver = 1, 
+                    DisplayMode.Edit,
+                    If(First(c_ActiveUserData).is_viewer = 1,
+                    DisplayMode.View,    
+                        If(IsBlank(gal_TSTaskList.Selected.end_time_task),
+                            DisplayMode.Edit,
+                            DisplayMode.View
+                        )
+                ))
+                
+                //If(!b_IsViewerUser, DisplayMode.Edit, DisplayMode.Disabled)
             Fill: =If(ThisItem.is_ok = 1, Color.LightSkyBlue, Color.Transparent)
             FontWeight: =FontWeight.Normal
             Height: =50
