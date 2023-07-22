@@ -607,6 +607,33 @@ scr_LocationSelectorScreen As screen:
                     Clear(c_AllNextProcessEmployee);
                     Clear(c_TaskNextProcess);  
                     Collect(c_TaskNextProcess,Filter(c_Task,assignment_code = n_LSSAssignmentCode,sequence_number > n_BackToSequenceNumber));
+                    Collect(c_TaskPreviousProcess,Filter(c_Task,assignment_code = n_LSSAssignmentCode,sequence_number < n_BackToSequenceNumber));
+                    
+                    ForAll(c_TaskPreviousProcess,
+                        Patch(c_Task, First(
+                                Filter(c_Task,assignment_code = n_LSSAssignmentCode && sequence_number = c_TaskPreviousProcess[@sequence_number])
+                            ),
+                            {
+                                status_code: ComboBox2.Selected.status_code,
+                                status_name: ComboBox2.Selected.status_name,
+                                status_color: ComboBox2.Selected.hex_color,
+                                is_return:1,
+                                status_sequence_number:ComboBox2.Selected.status_sequence_number
+                            }
+                        );
+                
+                        Patch(
+                            tbl_assignment_headers,
+                            First(
+                                Filter(tbl_assignment_headers,assignment_code = n_LSSAssignmentCode && sequence_number = c_TaskPreviousProcess[@sequence_number])
+                                ),
+                            {
+                                status_code: ComboBox2.Selected.status_code,
+                                is_return:1,
+                                status_sequence_number:ComboBox2.Selected.status_sequence_number
+                            }
+                        );        
+                    );
                 
                     ForAll(c_TaskNextProcess,
                         Patch(c_Task, First(
