@@ -203,7 +203,7 @@ scr_TaskReportScreen As screen:
         LoadingSpinner: =LoadingSpinner.Data
         ShowScrollbar: =false
         TemplatePadding: =0
-        TemplateSize: =151
+        TemplateSize: =153
         Width: =595
         X: =21
         Y: =188
@@ -211,7 +211,7 @@ scr_TaskReportScreen As screen:
 
         lbl_TRSAmenitiesName As label:
             FontWeight: =FontWeight.Normal
-            Height: =Self.Size * 1.8
+            Height: =56
             OnSelect: =Select(Parent)
             PaddingBottom: =0
             PaddingLeft: =0
@@ -255,8 +255,8 @@ scr_TaskReportScreen As screen:
             Text: ="Need Repair"
             Visible: =If(First(c_ActiveUserData).department_id = s_HouseKeepingDepartment, false,true)
             Width: =240
-            X: =330
-            Y: =70
+            X: =316
+            Y: =91
             ZIndex: =3
 
         ico_TRSPhotos As icon.Camera:
@@ -341,8 +341,8 @@ scr_TaskReportScreen As screen:
             Size: =18
             Text: ="Ok"
             Width: =If(First(c_ActiveUserData).department_id = s_HouseKeepingDepartment, 540,240)
-            X: =40
-            Y: =70
+            X: =41
+            Y: =91
             ZIndex: =6
 
     btn_TRSPreviousSublocation As button:
