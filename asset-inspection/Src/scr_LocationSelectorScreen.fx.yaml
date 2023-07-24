@@ -16,7 +16,7 @@ scr_LocationSelectorScreen As screen:
     "gal_LSSSublocationList As gallery.'BrowseLayout_Vertical_TwoTextOneImageTwoColumnOverlayVariant_ver4.0'":
         DelayItemLoading: =true
         DisplayMode: =dm_LSTask
-        Height: =If(b_IsApproverByFlow, 868, 928)
+        Height: =If(b_IsApproverByFlow || b_IsViewerUser, 868, 928)
         Items: =c_SubLocation
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
@@ -1184,7 +1184,7 @@ scr_LocationSelectorScreen As screen:
                 Set(n_TmpHeaderID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).ID);
                 Set(n_TmpDepartmentID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_id);
                 
-                If(b_IsApproverByFlow,
+                If(b_IsApproverByFlow || b_IsViewerUser,
                     ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = n_TmpHeaderID && department_id = n_TmpDepartmentID));
                 ,
                     ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = gal_TSTaskList.Selected.ID && department_id = gal_TSTaskList.Selected.department_id));
@@ -1251,7 +1251,7 @@ scr_LocationSelectorScreen As screen:
                 Set(n_TmpHeaderID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).ID);
                 Set(n_TmpDepartmentID, First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_id);
                 
-                If(b_IsApproverByFlow,
+                If(b_IsApproverByFlow || b_IsViewerUser,
                     ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = n_TmpHeaderID && department_id = n_TmpDepartmentID));
                 ,
                     ClearCollect(c_TmpAssignmentDetail, Filter(tbl_assignment_details, assignment_header_id = gal_TSTaskList.Selected.ID && department_id = gal_TSTaskList.Selected.department_id));

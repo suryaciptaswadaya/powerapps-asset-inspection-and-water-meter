@@ -265,11 +265,17 @@ scr_ReportScreen As screen:
         HeadingSize: =18
         Height: =648
         Items: |-
-            =Filter(
-                c_GroupedDataReport,
-                start_date >= dtp_TSTaskDate_2.SelectedDate,
-                start_date <= dtp_TSTaskDate_1.SelectedDate,
-                location_name = ComboBox1.Selected.location_name
+            =If(IsBlank(ComboBox1.Selected.location_name),
+                Filter(
+                    c_GroupedDataReport,
+                    start_date >= dtp_TSTaskDate_2.SelectedDate,
+                    start_date <= dtp_TSTaskDate_1.SelectedDate)
+            ,
+                Filter(
+                    c_GroupedDataReport,
+                    start_date >= dtp_TSTaskDate_2.SelectedDate,
+                    start_date <= dtp_TSTaskDate_1.SelectedDate,
+                    location_name = ComboBox1.Selected.location_name)
             )
         Size: =16
         Width: =576
