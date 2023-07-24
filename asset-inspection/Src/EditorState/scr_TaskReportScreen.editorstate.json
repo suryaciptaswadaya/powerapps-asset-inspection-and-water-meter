@@ -4553,14 +4553,7 @@
           "IsLockable": false,
           "NameMapSourceSchema": "?"
         },
-        {
-          "AFDDataSourceName": "",
-          "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "If(First(c_ActiveUserData).is_approver = 1, \r\n    DisplayMode.View,\r\n    If(IsBlank(gal_TSTaskList.Selected.end_time_task),\r\n        DisplayMode.Edit,\r\n        DisplayMode.View\r\n    )\r\n)",
-          "InvariantPropertyName": "DisplayMode",
-          "IsLockable": false,
-          "NameMapSourceSchema": "?"
-        },
+        "DisplayMode",
         "ZIndex",
         "BorderThickness",
         "FocusedBorderThickness",
