@@ -26,14 +26,14 @@ scr_HomeScreen As screen:
     lbl_HSTitle As label:
         Align: =Align.Center
         Color: =RGBA(255, 255, 255, 1)
-        Height: =102
+        Height: =109
         Size: =30
         Text: |-
             ="Task Asset Maintenance
             BATIQA Hotels"
         Width: =575
         X: =32
-        Y: =546
+        Y: =538
         ZIndex: =4
 
     cmp_TSAppBar_top_1 As cmp_MD_AppBar_top:

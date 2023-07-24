@@ -19,7 +19,7 @@ scr_TaskReportScreen As screen:
     ComboBox3 As combobox:
         DefaultSelectedItems: |+
             =
-            If(First(c_ActiveUserData).is_approver = 1,     
+            If(First(c_ActiveUserData).is_approver = 1 || b_IsViewerUser,     
                 
                 Filter(c_AllEmployee,ID = First(
                     Filter(
@@ -40,7 +40,7 @@ scr_TaskReportScreen As screen:
             
         DisplayFields: =["name"]
         DisplayMode: |-
-            =If(First(c_ActiveUserData).is_approver = 1, 
+            =If(First(c_ActiveUserData).is_approver = 1 || b_IsViewerUser, 
                 DisplayMode.View,
                 If(IsBlank(gal_TSTaskList.Selected.end_time_task),
                     DisplayMode.Edit,
@@ -316,14 +316,17 @@ scr_TaskReportScreen As screen:
                 )*/
                 
                 If(First(c_ActiveUserData).is_approver = 1, 
-                    DisplayMode.Edit,
+                    DisplayMode.Edit
+                ,
                     If(First(c_ActiveUserData).is_viewer = 1,
-                    DisplayMode.View,    
+                        DisplayMode.View
+                    ,    
                         If(IsBlank(gal_TSTaskList.Selected.end_time_task),
                             DisplayMode.Edit,
                             DisplayMode.View
                         )
-                ))
+                    )
+                )
                 
                 //If(!b_IsViewerUser, DisplayMode.Edit, DisplayMode.Disabled)
             Fill: =If(ThisItem.is_ok = 1, Color.LightSkyBlue, Color.Transparent)
