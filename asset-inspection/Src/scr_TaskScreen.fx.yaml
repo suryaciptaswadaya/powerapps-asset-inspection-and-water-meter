@@ -44,6 +44,8 @@ scr_TaskScreen As screen:
                     "pic_name",  LookUp(c_AllEmployee, ID = assigned_pic1_id,name)
                 ), is_deleted = 0)
             );
+            
+            ClearCollect(c_AllNotification, Filter(tbl_notification_list, employee_id = n_UserID));
         Width: =45
         X: =558
         Y: =89
