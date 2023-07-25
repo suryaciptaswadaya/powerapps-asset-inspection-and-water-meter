@@ -5,6 +5,7 @@ scr_LocationSelectorScreen As screen:
         Set(b_LSConfirmationApproveReport,false);
         Set(b_LSStartTask,If(IsBlank(gal_TSTaskList.Selected.start_time_task),true,false));
         Set(dm_LSTask,If(IsBlank(gal_TSTaskList.Selected.start_time_task),DisplayMode.Disabled,DisplayMode.Edit));
+        Set(b_LSNeedRepair,false);
         
         /*If(gal_TSTaskList.Selected.status_code = Text(n_WaitingGMApprovalStatus)|| gal_TSTaskList.Selected.status_code = Text(n_NeedMoreAttention) || gal_TSTaskList.Selected.status_code = Text(n_ReadyForSale),
             ClearCollect(c_TaskComment,Filter(tbl_assignment_sublocation_comment, assignment_header_id = gal_TSTaskList.Selected.ID))
@@ -290,31 +291,41 @@ scr_LocationSelectorScreen As screen:
         ZIndex: =5
 
     btn_LSApprove As button:
+        DisplayMode: |-
+            =//If(b_LSNeedRepair = true,DisplayMode.Disabled,DisplayMode.Edit)
+            DisplayMode.Edit
         Fill: =RGBA(141, 198, 63, 1)
         Height: =50
         OnSelect: |+
-            =Set(b_LSConfirmationApproveReport,true);
-            /*Set(b_Continue, true);
+            =Set(b_Continue, true);
             
-            If(CountRows(Filter(c_AssignmentDetailAmenities, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0))) > 0,
-                //Notify("Mohon pastikan seluruh data tercatat sebagai 'OK'");
-                Collect(c_ReportDataNotComplete, AddColumns(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0)), "reason", "Data belum tercatat sebagai OK"));
-                Set(b_Continue, false);    
+            If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = n_TmpHeaderID && (IsBlank(is_ok) || is_ok = 0))) > 0,    
+                Set(b_LSNeedRepair, true);  ,
+                Set(b_LSNeedRepair, false);  
             );
             
-            If(CountRows(Filter(c_AssignmentDetailAmenities, assignment_header_id = n_TmpHeaderID && (IsBlank(is_ok) || is_ok = 0))) > 0,
-                //Notify("Mohon pastikan seluruh data tercatat sebagai 'OK'");
-                Collect(c_ReportDataNotComplete, AddColumns(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0)), "reason", "Data belum tercatat sebagai OK"));
-                Set(b_Continue, false);    
+            If(b_LSNeedRepair = true,
+                Set(b_LSNeedRepair, true);
+                Set(b_Continue, false);
+                ,
+                If(CountRows(Filter(c_AssignmentDetailAmenities, assignment_header_id = n_TmpHeaderID && (IsBlank(is_ok) || is_ok = 0))) > 0,    
+                    Set(b_LSNeedRepair, true);
+                    Set(b_Continue, false);
+                    ,
+                    Set(b_LSNeedRepair, false) 
+                )
             );
+            
+            
+            
             
             If(b_Continue,
                 Set(b_LSConfirmationApproveReport,true);
                 Set(b_IsShowWarningIcon, false);
             ,
-                Set(b_PopupNotComplete, true);
+                Notify("Silahkan cek pekerjaan yang belum OK");
                 Set(b_IsShowWarningIcon, true);
-            );*/
+            );
             
             
             
@@ -1253,7 +1264,12 @@ scr_LocationSelectorScreen As screen:
             Fill: =RGBA(33, 86, 117, 1)
             Height: =50
             OnSelect: |
-                =
+                =If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = n_TmpHeaderID && (IsBlank(is_ok) || is_ok = 0))) > 0,    
+                    Set(b_LSNeedRepair, true);  ,
+                    Set(b_LSNeedRepair, false);  
+                );
+                
+                
                 Set(n_CurrentApprovalTaskRowNumber, n_CurrentApprovalTaskRowNumber + 1); 
                 
                 ClearCollect(c_TmpSubLocation, Filter(c_AllSublocation, location_type_id = First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).location_type_id && department_id = First(Filter(c_CheckingTaskFlow, RowNumber = n_CurrentApprovalTaskRowNumber)).department_id)); 
