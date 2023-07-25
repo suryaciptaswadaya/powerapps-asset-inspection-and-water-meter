@@ -9076,19 +9076,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "scr_LocationSelectorScreen.ComboBox2.AccessibleLabel"
+                  "fullyQualifiedName": "scr_LocationSelectorScreen.cbb_LSSStatusRecheck.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "scr_LocationSelectorScreen.ComboBox2.AccessibleLabel",
+                  "fullyQualifiedName": "scr_LocationSelectorScreen.cbb_LSSStatusRecheck.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
                 "module": "scr_LocationSelectorScreen",
-                "type": "scr_LocationSelectorScreen.ComboBox2"
+                "type": "scr_LocationSelectorScreen.cbb_LSSStatusRecheck"
               }
             }
           ],
