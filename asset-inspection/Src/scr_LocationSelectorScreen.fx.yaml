@@ -96,6 +96,7 @@ scr_LocationSelectorScreen As screen:
                 Set(s_SelectedSublocation, gal_LSSSublocationList.Selected.sublocation_name);
                 Set(n_CurrentSublocationRowNumber, gal_LSSSublocationList.Selected.RowNumber);
                 Set(n_CurrentSublocationID, ThisItem.ID);
+                Set(n_CurrentSublocationDepartmentID, ThisItem.department_id);
                 
                 ClearCollect(c_TmpAssignmentDetailAmenities, Filter(c_AssignmentDetail, sublocation_id = gal_LSSSublocationList.Selected.ID));
                 //Generate Row Number
@@ -291,10 +292,35 @@ scr_LocationSelectorScreen As screen:
     btn_LSApprove As button:
         Fill: =RGBA(141, 198, 63, 1)
         Height: =50
-        OnSelect: |
+        OnSelect: |+
             =Set(b_LSConfirmationApproveReport,true);
+            /*Set(b_Continue, true);
+            
+            If(CountRows(Filter(c_AssignmentDetailAmenities, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0))) > 0,
+                //Notify("Mohon pastikan seluruh data tercatat sebagai 'OK'");
+                Collect(c_ReportDataNotComplete, AddColumns(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0)), "reason", "Data belum tercatat sebagai OK"));
+                Set(b_Continue, false);    
+            );
+            
+            If(CountRows(Filter(c_AssignmentDetailAmenities, assignment_header_id = n_TmpHeaderID && (IsBlank(is_ok) || is_ok = 0))) > 0,
+                //Notify("Mohon pastikan seluruh data tercatat sebagai 'OK'");
+                Collect(c_ReportDataNotComplete, AddColumns(Filter(c_AssignmentDetail, assignment_header_id = gal_TSTaskList.Selected.ID && (IsBlank(is_ok) || is_ok = 0)), "reason", "Data belum tercatat sebagai OK"));
+                Set(b_Continue, false);    
+            );
+            
+            If(b_Continue,
+                Set(b_LSConfirmationApproveReport,true);
+                Set(b_IsShowWarningIcon, false);
+            ,
+                Set(b_PopupNotComplete, true);
+                Set(b_IsShowWarningIcon, true);
+            );*/
+            
+            
+            
+            
         Size: =20
-        Text: ="Setuju"
+        Text: ="Ready to Sell"
         Visible: |-
             =//If(gal_TSTaskList.Selected.status_code <> Text(n_WaitingGMApprovalStatus),false,If(First(c_ActiveUserData).is_approver = 1,true,false))
             //b_ShowRecheckApproveButton
@@ -1226,7 +1252,7 @@ scr_LocationSelectorScreen As screen:
         btn_LSSNextTask As button:
             Fill: =RGBA(33, 86, 117, 1)
             Height: =50
-            OnSelect: |+
+            OnSelect: |
                 =
                 Set(n_CurrentApprovalTaskRowNumber, n_CurrentApprovalTaskRowNumber + 1); 
                 
@@ -1277,8 +1303,8 @@ scr_LocationSelectorScreen As screen:
                     )
                 );
                 Clear(c_TmpAssignmentDetailAmenities);
-                Set(s_SelectedSublocation, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).sublocation_name);
                 
+                Set(s_SelectedSublocation, First(Filter(c_SubLocation, RowNumber = n_CurrentSublocationRowNumber)).sublocation_name);
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
