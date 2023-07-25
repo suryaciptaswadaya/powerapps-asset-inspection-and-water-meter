@@ -45,6 +45,7 @@ scr_ReportScreen As screen:
         InputTextPlaceholder: ="Cari Lokasi"
         IsSearchable: =false
         Items: =c_AllLocation
+        NoSelectionText: ="Filter Kamar"
         SearchFields: =["location_name"]
         SearchItems: =[]
         SelectMultiple: =false

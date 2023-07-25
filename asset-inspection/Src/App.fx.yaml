@@ -39,11 +39,11 @@ App As appinfo:
         //Buat Testing SPV HK ADMIN & Approveer
         //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "nurman.triaji@suryacipta.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         //Buat Testing Viewer
-        ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees,employee_id.Email = "alvin.susanto@suryacipta.com"), "department_name", LookUp( tbl_mst_departments,  ID = department_id, department_name ) ));
+        //ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees,employee_id.Email = "alvin.susanto@suryacipta.com"), "department_name", LookUp( tbl_mst_departments,  ID = department_id, department_name ) ));
         //Buat Testing HK
         //ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees,employee_id.Email = "william.timotius@suryainternusa.com"), "department_name", LookUp( tbl_mst_departments,  ID = department_id, department_name ) ));
         //Buat Testing SPV HK Murni with Assign data
-        //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "fredy@suryainternusa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
+        ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "fredy@suryainternusa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = User().Email), "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         
         
@@ -160,7 +160,7 @@ App As appinfo:
             AddColumns(
                 GroupBy(
                     c_Task,
-                    "assignment_code","start_date","location_name","task_assignment_code"
+                    "assignment_code","start_date","location_name","status_name","status_color","task_assignment_code"
                 ),
                 "counted_task_for_gm",
                 CountRows(Filter(task_assignment_code,status_code = Text(n_WaitingGMApprovalStatus) || status_code = Text(n_ReadyForSale)))

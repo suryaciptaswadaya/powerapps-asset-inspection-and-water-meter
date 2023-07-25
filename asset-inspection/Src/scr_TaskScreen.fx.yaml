@@ -668,6 +668,17 @@ scr_TaskScreen As screen:
             X: =11
             ZIndex: =5
 
+        Button4 As button:
+            Fill: =ColorValue(ThisItem.status_color)
+            Height: =34
+            OnSelect: =Select(Parent)
+            Size: =11
+            Text: =ThisItem.status_name
+            Width: =166
+            X: =397
+            Y: =28
+            ZIndex: =6
+
     Button3 As button:
         Fill: =ColorValue(defaults.primaryColorHex)
         Height: =50
