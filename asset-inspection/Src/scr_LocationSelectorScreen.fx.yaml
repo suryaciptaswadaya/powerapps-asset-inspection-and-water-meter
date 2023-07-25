@@ -911,7 +911,7 @@ scr_LocationSelectorScreen As screen:
             Y: =641
             ZIndex: =23
 
-        Button2_4 As button:
+        btn_LSSConfirmationApprove As button:
             Fill: =RGBA(152, 208, 70, 1)
             Height: =50
             OnSelect: |-
@@ -965,6 +965,23 @@ scr_LocationSelectorScreen As screen:
                     
                 
                     
+                );
+                
+                ClearCollect(c_TaskByAssignmentCode,
+                    AddColumns(
+                        GroupBy(
+                            c_Task,
+                            "assignment_code","start_date","location_name","status_name","status_color","task_assignment_code"
+                        ),
+                        "counted_task_for_gm",
+                        CountRows(Filter(task_assignment_code,status_code = Text(n_WaitingGMApprovalStatus) || status_code = Text(n_ReadyForSale)))
+                        ,
+                        "counted_all_flow_for_gm",
+                        CountRows(c_AllFlowProcess)
+                        ,
+                        "counted_task_complete",
+                        CountRows(Filter(task_assignment_code,status_code = Text(n_ReadyForSale)))
+                    )
                 );
                 
                 ForAll(c_AllProcessEmployee,
