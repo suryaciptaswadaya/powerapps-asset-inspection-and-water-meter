@@ -12,7 +12,8 @@ scr_ReportScreen As screen:
                 "start_time_task_2",LookUp(c_TaskHouseKeeping, assignment_code = c_TaskEngineering[@assignment_code], start_time_task),
                 "end_time_task_2",LookUp(c_TaskHouseKeeping, assignment_code = c_TaskEngineering[@assignment_code], end_time_task)
                 
-        ));
+            )
+        );
         
         Reset(dtp_TSTaskDate_1);
         Reset(dtp_TSTaskDate_2);
@@ -320,22 +321,22 @@ scr_ReportScreen As screen:
             
                 Set(
                     varExportFile,
-                        "Lokasi" & "," & 
-                        "Mulai" & "," & 
-                        "Selesai" & "," & 
-                        "PIC Engineering" & "," & 
-                        "PIC Housekeeping" & "," & 
-                        "Status" & "," & 
-                        "Execution Time" & "," &  
+                        "1_Lokasi" & "," & 
+                        "2_Mulai" & "," & 
+                        "3_Selesai" & "," & 
+                        "4_Execution Time" & "," & 
+                        "5_PIC Engineering" & "," & 
+                        "6_PIC Housekeeping" & "," & 
+                        "7_Status" & "," & 
                     Concat(
                         c_DataExport,
                         Location & "," & 
                         Start & "," & 
                         Finish & "," & 
+                        Execution_Time& "," & 
                         PIC_Eng & "," & 
                         PIC_HK & "," & 
-                        Status & "," & 
-                        Execution_Time & Char(10)
+                        Status & Char(10)
                     )
                 );
                 ,
@@ -364,22 +365,22 @@ scr_ReportScreen As screen:
             
                 Set(
                     varExportFile,
-                        "Lokasi" & "," & 
-                        "Mulai" & "," & 
-                        "Selesai" & "," & 
-                        "PIC Engineering" & "," & 
-                        "PIC Housekeeping" & "," & 
-                        "Status" & "," & 
-                        "Execution Time" & "," &  
+                        "1_Lokasi" & "," & 
+                        "2_Mulai" & "," & 
+                        "3_Selesai" & "," & 
+                        "4_Execution Time" & "," & 
+                        "5_PIC Engineering" & "," & 
+                        "6_PIC Housekeeping" & "," & 
+                        "7_Status" & "," & 
                     Concat(
                         c_DataExport,
                         Location & "," & 
                         Start & "," & 
                         Finish & "," & 
+                        Execution_Time& "," & 
                         PIC_Eng & "," & 
                         PIC_HK & "," & 
-                        Status & "," & 
-                        Execution_Time & Char(10)
+                        Status & Char(10)
                     )
                 );
                 
