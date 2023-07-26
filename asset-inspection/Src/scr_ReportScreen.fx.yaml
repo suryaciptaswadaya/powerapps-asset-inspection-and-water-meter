@@ -205,7 +205,7 @@ scr_ReportScreen As screen:
             LayoutHeight: =Parent.Height
             Order: =2
             Text: |-
-                =Text(ThisItem.start_time_task,"dd-mmm-yyyy hh:mm")
+                =If(IsBlank(ThisItem.start_time_task),"-", Text(ThisItem.start_time_task,"dd-mmm-yyyy hh:mm"))
             Width: =216
             X: =0
             Y: =0
