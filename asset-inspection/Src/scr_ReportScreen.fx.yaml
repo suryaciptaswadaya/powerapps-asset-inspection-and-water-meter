@@ -46,10 +46,10 @@ scr_ReportScreen As screen:
         ChevronBackground: =RGBA(12, 36, 47, 1)
         DisplayFields: =["location_name"]
         Height: =50
-        InputTextPlaceholder: ="Cari Lokasi"
+        InputTextPlaceholder: ="Lokasi"
         IsSearchable: =false
         Items: =c_AllLocation
-        NoSelectionText: ="Filter Kamar"
+        NoSelectionText: ="Lokasi"
         SearchFields: =["location_name"]
         SearchItems: =[]
         SelectMultiple: =false
