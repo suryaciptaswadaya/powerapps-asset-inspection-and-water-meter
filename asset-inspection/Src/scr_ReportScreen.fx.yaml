@@ -146,12 +146,14 @@ scr_ReportScreen As screen:
         Items: |-
             =If(IsBlank(ComboBox1.Selected.location_name),
                 Filter(
-                    Sort(c_GroupedDataReport,start_time_task/*gila ini masa harus pake field awalnya sbelumnya time_task_pic1 jadi start_time_task*/,SortOrder.Descending),
+                    ///*gila ini masa harus pake field awalnya sbelumnya time_task_pic1 jadi start_time_task*/
+                    SortByColumns(c_GroupedDataReport,"time_task_pic1",SortOrder.Descending,"location_name",SortOrder.Ascending),
                     start_date >= dtp_TSTaskDate_2.SelectedDate,
                     start_date <= dtp_TSTaskDate_1.SelectedDate)
             ,
                 Filter(
-                   Sort(c_GroupedDataReport,start_time_task/*gila ini masa harus pake field awalnya sbelumnya time_task_pic1 jadi start_time_task*/,SortOrder.Descending),
+                /*gila ini masa harus pake field awalnya sbelumnya time_task_pic1 jadi start_time_task*/
+                   SortByColumns(c_GroupedDataReport,"time_task_pic1",SortOrder.Descending,"location_name",SortOrder.Ascending),
                     start_date >= dtp_TSTaskDate_2.SelectedDate,
                     start_date <= dtp_TSTaskDate_1.SelectedDate,
                     location_name = ComboBox1.Selected.location_name)
