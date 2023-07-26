@@ -788,6 +788,7 @@ scr_TaskScreenCreate As screen:
             Items: |-
                 =
                 Filter(c_AllEmployee, IsBlank(spv_id), department_id = ThisItem.department_id)
+            NoSelectionText: ="Pilih PIC " &ThisItem.department_name
             OnChange: |-
                 =
                 Patch(
