@@ -9886,17 +9886,17 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.varExportFile"
+                  "fullyQualifiedName": "App.varFileLink"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "App.varExportFile",
+                  "fullyQualifiedName": "App.varFileLink",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "varExportFile",
+                "member": "varFileLink",
                 "module": "App",
                 "type": "App"
               }
@@ -9916,17 +9916,17 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.varFileLink"
+                  "fullyQualifiedName": "App.varExportFile"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "App.varFileLink",
+                  "fullyQualifiedName": "App.varExportFile",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "varFileLink",
+                "member": "varExportFile",
                 "module": "App",
                 "type": "App"
               }
