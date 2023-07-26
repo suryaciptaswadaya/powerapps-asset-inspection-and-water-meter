@@ -156,7 +156,7 @@ scr_ReportScreen As screen:
                     location_name = ComboBox1.Selected.location_name)
             )
         Size: =16
-        Width: =576
+        Width: =578
         X: =29
         Y: =275
         ZIndex: =9
@@ -250,6 +250,32 @@ scr_ReportScreen As screen:
             X: =0
             Y: =0
             ZIndex: =15
+
+        execution_time_Column1 As dataTableColumn.textualColumn:
+            AutoWidth: =false
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="Execution Time"
+            FieldName: ="approve_date"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            IsHyperlink: =false
+            LayoutHeight: =Parent.Height
+            Order: =8
+            Text: |-
+                =If(IsBlank(ThisItem.end_time_task_2), "Belum Selesai",
+                
+                With(
+                    {
+                        days: RoundDown(DateDiff(ThisItem.start_time_task, ThisItem.end_time_task_2,TimeUnit.Hours) / 24, 0),
+                        hours: Mod(RoundDown(DateDiff(ThisItem.start_time_task, ThisItem.end_time_task_2, TimeUnit.Minutes) / 60, 0), 24),
+                        minutes: Mod(DateDiff(ThisItem.start_time_task, ThisItem.end_time_task_2,TimeUnit.Minutes), 60)
+                    },
+                    days & " hari, " & hours & " jam " & minutes & " menit"
+                ))
+            Width: =346
+            X: =0
+            Y: =0
+            ZIndex: =16
 
     btn_RSExportData As button:
         Fill: =defaults.primaryColor
