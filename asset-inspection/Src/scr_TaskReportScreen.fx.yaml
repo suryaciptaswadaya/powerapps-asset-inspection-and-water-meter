@@ -417,10 +417,7 @@ scr_TaskReportScreen As screen:
                 If(First(c_ActiveUserData).is_approver = 1, 
                     //DisplayMode.Edit
                 
-                    If(IsBlank(gal_TSTaskList.Selected.end_time_task),
-                            DisplayMode.Edit,
-                            DisplayMode.View
-                        )
+                    If(gal_TSTaskList_1.Selected.counted_task_complete  <> gal_TSTaskList_1.Selected.counted_all_flow_for_gm,DisplayMode.Edit,DisplayMode.View)
                 ,
                     If(First(c_ActiveUserData).is_viewer = 1,
                         DisplayMode.View
