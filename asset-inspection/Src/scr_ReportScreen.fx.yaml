@@ -185,7 +185,8 @@ scr_ReportScreen As screen:
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
             Order: =3
-            Text: =If(IsBlank(ThisItem.end_time_task_2),"-",Text(ThisItem.end_time_task_2,"dd-mmm-yyyy"))
+            Text: |-
+                =If(IsBlank(ThisItem.end_time_task_2),"-",Text(ThisItem.end_time_task_2,"dd-mmm-yyyy hh:mm"))
             Width: =215
             X: =0
             Y: =0
@@ -200,8 +201,9 @@ scr_ReportScreen As screen:
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
             Order: =2
-            Text: =Text(ThisItem.start_time_task,"dd-mmm-yyyy")
-            Width: =172
+            Text: |-
+                =Text(ThisItem.start_time_task,"dd-mmm-yyyy hh:mm")
+            Width: =216
             X: =0
             Y: =0
             ZIndex: =11
@@ -246,7 +248,7 @@ scr_ReportScreen As screen:
             LayoutHeight: =Parent.Height
             Order: =7
             Text: =ThisItem.status_name_2
-            Width: =180
+            Width: =254
             X: =0
             Y: =0
             ZIndex: =15
@@ -262,7 +264,8 @@ scr_ReportScreen As screen:
             LayoutHeight: =Parent.Height
             Order: =8
             Text: |-
-                =If(IsBlank(ThisItem.end_time_task_2), "Belum Selesai",
+                =If(IsBlank(ThisItem.end_time_task_2), 
+                "Belum Selesai",
                 
                 With(
                     {
@@ -272,7 +275,7 @@ scr_ReportScreen As screen:
                     },
                     days & " hari, " & hours & " jam " & minutes & " menit"
                 ))
-            Width: =346
+            Width: =294
             X: =0
             Y: =0
             ZIndex: =16
@@ -295,68 +298,88 @@ scr_ReportScreen As screen:
                     
                     Collect(c_DataExport,
                     {
-                        Lokasi : aCol.location_name,
-                        Start : aCol.start_date, 
-                        Finish : aCol.end_date, 
+                        Location : aCol.location_name,
+                        Start : aCol.start_time_task, 
+                        Finish : aCol.end_time_task_2, 
                         PIC_Eng : aCol.pic_name,
                         PIC_HK : aCol.pic_name_2, 
-                        Status_Eng : aCol.status_name,
-                        Status_HK : aCol.status_name_2
+                        Status : aCol.status_name,
+                        //Status_HK : aCol.status_name_2
+                        Execution_Time : If(IsBlank(aCol.end_time_task_2), 
+                                    "Belum Selesai",
+                                    With(
+                                        {
+                                            days: RoundDown(DateDiff(aCol.start_time_task, aCol.end_time_task_2,TimeUnit.Hours) / 24, 0),
+                                            hours: Mod(RoundDown(DateDiff(aCol.start_time_task, aCol.end_time_task_2, TimeUnit.Minutes) / 60, 0), 24),
+                                            minutes: Mod(DateDiff(aCol.start_time_task, aCol.end_time_task_2,TimeUnit.Minutes), 60)
+                                        },
+                                        days & " hari, " & hours & " jam " & minutes & " menit"
+                                ))
                     })
                 );
             
                 Set(
                     varExportFile,
                         "Lokasi" & "," & 
-                        "Start" & "," & 
-                        "Finish" & "," & 
+                        "Mulai" & "," & 
+                        "Selesai" & "," & 
                         "PIC Engineering" & "," & 
                         "PIC Housekeeping" & "," & 
-                        "Status Engineering" & "," & 
-                        "Status Housekeeping" & "," &  
+                        "Status" & "," & 
+                        "Execution Time" & "," &  
                     Concat(
                         c_DataExport,
-                        Lokasi & "," & 
+                        Location & "," & 
                         Start & "," & 
                         Finish & "," & 
                         PIC_Eng & "," & 
                         PIC_HK & "," & 
-                        Status_Eng & "," & 
-                        Status_HK & Char(10)
+                        Status & "," & 
+                        Execution_Time & Char(10)
                     )
                 );
                 ,
                 ForAll(Filter(c_GroupedDataReport, start_date >= dtp_TSTaskDate_2.SelectedDate, start_date <= dtp_TSTaskDate_1.SelectedDate,location_name = ComboBox1.Selected.location_name) As aCol,
                     Collect(c_DataExport,
                     {
-                        Lokasi : aCol.location_name,
-                        Start : aCol.start_date, 
-                        Finish : aCol.end_date, 
+                        Location : aCol.location_name,
+                        Start : aCol.start_time_task, 
+                        Finish : aCol.end_time_task_2, 
                         PIC_Eng : aCol.pic_name,
                         PIC_HK : aCol.pic_name_2, 
-                        Status_Eng : aCol.status_name,
-                        Status_HK : aCol.status_name_2
+                        Status : aCol.status_name,
+                        //Status_HK : aCol.status_name_2
+                        Execution_Time : If(IsBlank(aCol.end_time_task_2), 
+                                    "Belum Selesai",
+                                    With(
+                                        {
+                                            days: RoundDown(DateDiff(aCol.start_time_task, aCol.end_time_task_2,TimeUnit.Hours) / 24, 0),
+                                            hours: Mod(RoundDown(DateDiff(aCol.start_time_task, aCol.end_time_task_2, TimeUnit.Minutes) / 60, 0), 24),
+                                            minutes: Mod(DateDiff(aCol.start_time_task, aCol.end_time_task_2,TimeUnit.Minutes), 60)
+                                        },
+                                        days & " hari, " & hours & " jam " & minutes & " menit"
+                                ))
                     })
                 );
             
                 Set(
                     varExportFile,
                         "Lokasi" & "," & 
-                        "Start" & "," & 
-                        "Finish" & "," & 
+                        "Mulai" & "," & 
+                        "Selesai" & "," & 
                         "PIC Engineering" & "," & 
                         "PIC Housekeeping" & "," & 
-                        "Status Engineering" & "," & 
-                        "Status Housekeeping" & "," &  
+                        "Status" & "," & 
+                        "Execution Time" & "," &  
                     Concat(
                         c_DataExport,
-                        Lokasi & "," & 
+                        Location & "," & 
                         Start & "," & 
                         Finish & "," & 
                         PIC_Eng & "," & 
                         PIC_HK & "," & 
-                        Status_Eng & "," & 
-                        Status_HK & Char(10)
+                        Status & "," & 
+                        Execution_Time & Char(10)
                     )
                 );
                 
