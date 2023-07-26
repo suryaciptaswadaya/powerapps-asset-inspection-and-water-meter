@@ -1282,7 +1282,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_LSSNextTask",
-      "ParentIndex": 9,
+      "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1860,7 +1860,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_LSSPreviousTask",
-      "ParentIndex": 7,
+      "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -5054,7 +5054,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "gal_LSSSublocationList",
-      "ParentIndex": 11,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -6812,7 +6812,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Label3_3",
-      "ParentIndex": 6,
+      "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -7658,7 +7658,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Label4_3",
-      "ParentIndex": 10,
+      "ParentIndex": 11,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -8807,7 +8807,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_LSSDivision",
-      "ParentIndex": 8,
+      "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -10496,7 +10496,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Rectangle3_3",
-      "ParentIndex": 5,
+      "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

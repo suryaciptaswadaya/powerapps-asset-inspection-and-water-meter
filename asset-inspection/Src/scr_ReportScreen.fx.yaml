@@ -137,7 +137,7 @@ scr_ReportScreen As screen:
         Height: =697
         Items: |-
             =Filter(
-                c_GroupedDataReport,
+                Sort(c_GroupedDataReport,start_date,SortOrder.Descending),
                 start_date >= dtp_TSTaskDate_2.SelectedDate,
                 start_date <= dtp_TSTaskDate_1.SelectedDate,
                 location_name = ComboBox1.Selected.location_name
@@ -269,12 +269,12 @@ scr_ReportScreen As screen:
         Items: |-
             =If(IsBlank(ComboBox1.Selected.location_name),
                 Filter(
-                    c_GroupedDataReport,
+                    SortByColumns(c_GroupedDataReport,"time_task_pic1"/*gila ini masa harus pake field awalnya sbelumnya time_task_pic1 jadi start_time_task*/,SortOrder.Descending,"location_name",SortOrder.Descending),
                     start_date >= dtp_TSTaskDate_2.SelectedDate,
                     start_date <= dtp_TSTaskDate_1.SelectedDate)
             ,
                 Filter(
-                    c_GroupedDataReport,
+                   SortByColumns(c_GroupedDataReport,"time_task_pic1"/*gila ini masa harus pake field awalnya sbelumnya time_task_pic1 jadi start_time_task*/,SortOrder.Descending,"location_name",SortOrder.Descending),
                     start_date >= dtp_TSTaskDate_2.SelectedDate,
                     start_date <= dtp_TSTaskDate_1.SelectedDate,
                     location_name = ComboBox1.Selected.location_name)
