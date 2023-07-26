@@ -299,10 +299,10 @@ scr_LocationSelectorScreen As screen:
         OnSelect: |+
             =Set(b_Continue, true);
             
-            If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = n_TmpHeaderID && (IsBlank(is_ok) || is_ok = 0))) > 0,    
+            /*If(CountRows(Filter(c_AssignmentDetail, assignment_header_id = n_TmpHeaderID && (IsBlank(is_ok) || is_ok = 0))) > 0,    
                 Set(b_LSNeedRepair, true);  ,
                 Set(b_LSNeedRepair, false);  
-            );
+            );*/
             
             If(b_LSNeedRepair = true,
                 Set(b_LSNeedRepair, true);
