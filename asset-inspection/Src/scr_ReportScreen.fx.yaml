@@ -299,14 +299,14 @@ scr_ReportScreen As screen:
                     
                     Collect(c_DataExport,
                     {
-                        Location : aCol.location_name,
-                        Start : aCol.start_time_task, 
-                        Finish : aCol.end_time_task_2, 
-                        PIC_Eng : aCol.pic_name,
-                        PIC_HK : aCol.pic_name_2, 
-                        Status : aCol.status_name,
+                        C1_Location : aCol.location_name,
+                        C2_Start : aCol.start_time_task, 
+                        C3_Finish : aCol.end_time_task_2, 
+                        C5_PIC_Eng : aCol.pic_name,
+                        C6_PIC_HK : aCol.pic_name_2, 
+                        C7_Status : aCol.status_name,
                         //Status_HK : aCol.status_name_2
-                        Execution_Time : If(IsBlank(aCol.end_time_task_2), 
+                        C4_Execution_Time : If(IsBlank(aCol.end_time_task_2), 
                                     "Belum Selesai",
                                     With(
                                         {
@@ -330,27 +330,27 @@ scr_ReportScreen As screen:
                         "7_Status" & "," & 
                     Concat(
                         c_DataExport,
-                        Location & "," & 
-                        Start & "," & 
-                        Finish & "," & 
-                        Execution_Time& "," & 
-                        PIC_Eng & "," & 
-                        PIC_HK & "," & 
-                        Status & Char(10)
+                        C1_Location & "," & 
+                        C2_Start & "," & 
+                        C3_Finish & "," & 
+                        C4_Execution_Time& "," & 
+                        C5_PIC_Eng & "," & 
+                        C6_PIC_HK & "," & 
+                        C7_Status & Char(10)
                     )
                 );
                 ,
                 ForAll(Filter(c_GroupedDataReport, start_date >= dtp_TSTaskDate_2.SelectedDate, start_date <= dtp_TSTaskDate_1.SelectedDate,location_name = ComboBox1.Selected.location_name) As aCol,
                     Collect(c_DataExport,
                     {
-                        Location : aCol.location_name,
-                        Start : aCol.start_time_task, 
-                        Finish : aCol.end_time_task_2, 
-                        PIC_Eng : aCol.pic_name,
-                        PIC_HK : aCol.pic_name_2, 
-                        Status : aCol.status_name,
+                        C1_Location : aCol.location_name,
+                        C2_Start : aCol.start_time_task, 
+                        C3_Finish : aCol.end_time_task_2, 
+                        C5_PIC_Eng : aCol.pic_name,
+                        C6_PIC_HK : aCol.pic_name_2, 
+                        C7_Status : aCol.status_name,
                         //Status_HK : aCol.status_name_2
-                        Execution_Time : If(IsBlank(aCol.end_time_task_2), 
+                        C4_Execution_Time : If(IsBlank(aCol.end_time_task_2),
                                     "Belum Selesai",
                                     With(
                                         {
@@ -374,13 +374,13 @@ scr_ReportScreen As screen:
                         "7_Status" & "," & 
                     Concat(
                         c_DataExport,
-                        Location & "," & 
-                        Start & "," & 
-                        Finish & "," & 
-                        Execution_Time& "," & 
-                        PIC_Eng & "," & 
-                        PIC_HK & "," & 
-                        Status & Char(10)
+                        C1_Location & "," & 
+                        C2_Start & "," & 
+                        C3_Finish & "," & 
+                        C4_Execution_Time& "," & 
+                        C5_PIC_Eng & "," & 
+                        C6_PIC_HK & "," & 
+                        C7_Status & Char(10)
                     )
                 );
                 
