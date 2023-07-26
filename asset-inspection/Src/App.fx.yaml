@@ -43,8 +43,8 @@ App As appinfo:
         //Buat Testing HK
         //ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees,employee_id.Email = "william.timotius@suryainternusa.com"), "department_name", LookUp( tbl_mst_departments,  ID = department_id, department_name ) ));
         //Buat Testing SPV HK Murni with Assign data
-        ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "fredy@suryainternusa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
-        //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = User().Email), "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
+        //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "fredy@suryainternusa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
+        ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = User().Email), "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         
         
         
@@ -190,12 +190,12 @@ App As appinfo:
             ClearCollect(
                 c_NavigationMenu,
                 Table(
-                    {
+                   /* {
                         id: 1,
                         title: "Beranda",
                         svgIcon: "<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M12,3L2,12H5V20H19V12H22M9,18H7V12H9M13,18H11V10H13M17,18H15V14H17'/></svg>",
                         screen: scr_HomeScreen
-                    },            
+                    },*/            
                     {
                         id: 2,
                         title: "Penjadwalan",
@@ -250,12 +250,12 @@ App As appinfo:
                 ClearCollect(
                     c_NavigationMenu,
                     Table(
-                        {
+                       /* {
                             id: 1,
                             title: "Beranda",
                             svgIcon: "<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M12,3L2,12H5V20H19V12H22M9,18H7V12H9M13,18H11V10H13M17,18H15V14H17'/></svg>",
                             screen: scr_HomeScreen
-                        },
+                        },*/
                         
                         {
                             id: 2,
@@ -296,12 +296,12 @@ App As appinfo:
                     ClearCollect(
                         c_NavigationMenu,
                         Table(
-                            {
+                          /*  {
                                 id: 1,
                                 title: "Beranda",
                                 svgIcon: "<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M12,3L2,12H5V20H19V12H22M9,18H7V12H9M13,18H11V10H13M17,18H15V14H17'/></svg>",
                                 screen: scr_HomeScreen
-                            },
+                            },*/
                             
                             
                     {
@@ -356,12 +356,12 @@ App As appinfo:
                     ClearCollect(
                         c_NavigationMenu,
                         Table(
-                            {
+                           /* {
                                 id: 1,
                                 title: "Beranda",
                                 svgIcon: "<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M12,3L2,12H5V20H19V12H22M9,18H7V12H9M13,18H11V10H13M17,18H15V14H17'/></svg>",
                                 screen: scr_HomeScreen
-                            },
+                            },*/
                             {
                                 id: 2,
                                 title: "Tugas Saya",
@@ -384,7 +384,7 @@ App As appinfo:
                 )
             )
         );
-    StartScreen: =scr_HomeScreen
+    StartScreen: =scr_TaskScreen
 
     Host As hostControl.DefaultHostControlVariant:
         OnCancel: =false
