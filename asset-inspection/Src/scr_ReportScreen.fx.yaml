@@ -69,6 +69,7 @@ scr_ReportScreen As screen:
         CalendarHeaderFill: =defaults.primaryColor
         Color: =defaults.textColor
         DayColor: =defaults.primaryColor
+        DefaultDate: =Date(Year(Today()),1,1)
         DisabledBorderColor: =defaults.disabledColor
         DisabledColor: =defaults.disabledColor
         DisabledFill: =defaults.elementBackgroundColor
@@ -359,32 +360,17 @@ scr_ReportScreen As screen:
             Y: =0
             ZIndex: =13
 
-        status_name_Column1 As dataTableColumn.textualColumn:
-            AutoWidth: =false
-            DisplayMode: =DisplayMode.Edit
-            FieldDisplayName: ="Status Engineering"
-            FieldName: ="status_name"
-            FieldVariantName: ="textualColumn"
-            Height: =Parent.Height
-            LayoutHeight: =Parent.Height
-            Order: =6
-            Text: =ThisItem.status_name
-            Width: =234
-            X: =0
-            Y: =0
-            ZIndex: =14
-
         status_name_2_Column1 As dataTableColumn.textualColumn:
             AutoWidth: =false
             DisplayMode: =DisplayMode.Edit
-            FieldDisplayName: ="Status Housekeeping"
+            FieldDisplayName: ="Status"
             FieldName: ="status_name_2"
             FieldVariantName: ="textualColumn"
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
             Order: =7
             Text: =ThisItem.status_name_2
-            Width: =260
+            Width: =180
             X: =0
             Y: =0
             ZIndex: =15
@@ -402,6 +388,42 @@ scr_ReportScreen As screen:
             
             If(b_Continue,
                 Clear(c_DataExport);
+                    If(IsBlank(ComboBox1.Selected.location_name),
+                    ForAll(Filter(c_GroupedDataReport, start_date >= dtp_TSTaskDate_2.SelectedDate, start_date <= dtp_TSTaskDate_1.SelectedDate) As aCol,
+                    
+                    Collect(c_DataExport,
+                    {
+                        Lokasi : aCol.location_name,
+                        Start : aCol.start_date, 
+                        Finish : aCol.end_date, 
+                        PIC_Eng : aCol.pic_name,
+                        PIC_HK : aCol.pic_name_2, 
+                        Status_Eng : aCol.status_name,
+                        Status_HK : aCol.status_name_2
+                    })
+                );
+            
+                Set(
+                    varExportFile,
+                        "Lokasi" & "," & 
+                        "Start" & "," & 
+                        "Finish" & "," & 
+                        "PIC Engineering" & "," & 
+                        "PIC Housekeeping" & "," & 
+                        "Status Engineering" & "," & 
+                        "Status Housekeeping" & "," &  
+                    Concat(
+                        c_DataExport,
+                        Lokasi & "," & 
+                        Start & "," & 
+                        Finish & "," & 
+                        PIC_Eng & "," & 
+                        PIC_HK & "," & 
+                        Status_Eng & "," & 
+                        Status_HK & Char(10)
+                    )
+                );
+                ,
                 ForAll(Filter(c_GroupedDataReport, start_date >= dtp_TSTaskDate_2.SelectedDate, start_date <= dtp_TSTaskDate_1.SelectedDate,location_name = ComboBox1.Selected.location_name) As aCol,
                     Collect(c_DataExport,
                     {
@@ -435,7 +457,9 @@ scr_ReportScreen As screen:
                         Status_HK & Char(10)
                     )
                 );
-            
+                
+                
+            );
                 Set(varFileLink,'ExportDataCSV-AssetInspection'.Run(JSON(c_DataExport, JSONFormat.IncludeBinaryData & JSONFormat.IgnoreUnsupportedTypes)).filelink);
                 Notify("File saved to your One Drive. Please check your 'DataExport' folder on your One Drive");
             );

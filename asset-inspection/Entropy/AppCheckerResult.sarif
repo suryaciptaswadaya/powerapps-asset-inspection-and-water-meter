@@ -5034,18 +5034,6 @@
               "message": {
                 "text": "Error occurred running rule app-InefficientDelayLoading."
               }
-            },
-            {
-              "associatedRule": {
-                "id": "app-InefficientDelayLoading",
-                "index": 12
-              },
-              "descriptor": {
-                "id": "app-InefficientDelayLoading"
-              },
-              "message": {
-                "text": "Error occurred running rule app-InefficientDelayLoading."
-              }
             }
           ]
         }
@@ -10066,17 +10054,17 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.varFileLink"
+                  "fullyQualifiedName": "App.varExportFile"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "App.varFileLink",
+                  "fullyQualifiedName": "App.varExportFile",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "varFileLink",
+                "member": "varExportFile",
                 "module": "App",
                 "type": "App"
               }
@@ -10096,17 +10084,17 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "App.varExportFile"
+                  "fullyQualifiedName": "App.varFileLink"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "App.varExportFile",
+                  "fullyQualifiedName": "App.varFileLink",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "varExportFile",
+                "member": "varFileLink",
                 "module": "App",
                 "type": "App"
               }
