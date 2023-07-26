@@ -216,7 +216,7 @@ scr_ReportScreen As screen:
             FieldVariantName: ="textualColumn"
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
-            Order: =4
+            Order: =5
             Text: =ThisItem.pic_name
             Width: =186
             X: =0
@@ -231,7 +231,7 @@ scr_ReportScreen As screen:
             FieldVariantName: ="textualColumn"
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
-            Order: =5
+            Order: =7
             Text: =ThisItem.pic_name_2
             Width: =208
             X: =0
@@ -246,7 +246,7 @@ scr_ReportScreen As screen:
             FieldVariantName: ="textualColumn"
             Height: =Parent.Height
             LayoutHeight: =Parent.Height
-            Order: =7
+            Order: =8
             Text: =ThisItem.status_name_2
             Width: =254
             X: =0
@@ -262,7 +262,7 @@ scr_ReportScreen As screen:
             Height: =Parent.Height
             IsHyperlink: =false
             LayoutHeight: =Parent.Height
-            Order: =8
+            Order: =4
             Text: |-
                 =If(IsBlank(ThisItem.end_time_task_2), 
                 "Belum Selesai",
