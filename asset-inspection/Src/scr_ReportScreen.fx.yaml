@@ -395,7 +395,7 @@ scr_ReportScreen As screen:
         OnSelect: |-
             =Set(b_Continue, true);
             
-            If(CountRows(Filter(c_GroupedDataReport, start_date >= dtp_TSTaskDate_2.SelectedDate, start_date <= dtp_TSTaskDate_1.SelectedDate,location_name = ComboBox1.Selected.location_name)) = 0,
+            If(CountRows(Filter(c_GroupedDataReport, start_date >= dtp_TSTaskDate_2.SelectedDate, start_date <= dtp_TSTaskDate_1.SelectedDate/*,location_name = ComboBox1.Selected.location_name*/)) = 0,
                 Set(b_Continue, false);
                 Notify("Mohon lengkapi data terlebih dahulu");
             );
