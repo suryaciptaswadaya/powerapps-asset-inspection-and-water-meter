@@ -9,7 +9,7 @@ list_mtr_dayli As screen:
         LoadingSpinner: =LoadingSpinner.Data
         TemplatePadding: =0
         TemplateSize: =116
-        Y: =117
+        Y: =100
         ZIndex: =1
 
         Title3 As label:
