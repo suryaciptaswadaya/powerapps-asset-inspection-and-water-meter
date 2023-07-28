@@ -1,0 +1,23 @@
+"Screen1 As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+
+    RectQuickActionBar1 As rectangle:
+        Height: =88
+        Width: =Parent.Width
+        ZIndex: =1
+
+    LblAppName1 As label:
+        Align: =Align.Center
+        Height: =88
+        Size: =27
+        Text: ="Data"
+        Width: =Parent.Width
+        ZIndex: =2
+
+    Gallery1 As gallery.galleryHorizontal:
+        DelayItemLoading: =true
+        Items: =tbl_metering_logs
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplateSize: =635
+        Y: =88
+        ZIndex: =3
+

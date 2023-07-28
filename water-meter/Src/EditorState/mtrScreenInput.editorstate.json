@@ -525,7 +525,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "BarcodeScanner1",
-      "ParentIndex": 4,
+      "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -1087,7 +1087,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cbb_meterID",
-      "ParentIndex": 5,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
