@@ -116,7 +116,7 @@ mtrScreenInput As screen:
                 tbl_metering_logs,
                 Defaults(tbl_metering_logs),
                     {
-                        meter_id:cbb_meterID.Selected.Title,
+                        meter_id:cbb_meterID.Selected.meter_ID,
                         current_meter: Value(txi_current_mtr.Text),
                         url_image:s_ImageLinkMetering,
                         date_input:date_mtr.SelectedDate
@@ -172,7 +172,7 @@ mtrScreenInput As screen:
             ZIndex: =17
 
     cbb_meterID As combobox:
-        DefaultSelectedItems: =Filter(mst_meter,Title=meterIDScan)
+        DefaultSelectedItems: =Filter(mst_meter,meter_ID=meterIDScan)
         DisplayFields: =["Title"]
         Height: =70
         Items: =mst_meter
