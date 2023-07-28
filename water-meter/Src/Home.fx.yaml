@@ -40,8 +40,8 @@ Home As screen:
         OnSelect: |-
             =/*If(IsEmpty(CollitemsToKeep),
                 LoadData(CollitemsToKeep,"SaveToDevice")
-            );
-            Navigate(list_mtr_dayli);*/
+            );*/
+            Navigate(list_mtr_dayli);
         Size: =24
         Text: ="View data"
         Width: =368
