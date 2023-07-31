@@ -12,6 +12,7 @@ App As appinfo:
                 }                    
             )
         );
+        
         Set(defaults,
             {
                 primaryColor: RGBA(12,36,47,1),
