@@ -5,7 +5,7 @@ Home As screen:
         Image: ='scs logo'
         Width: =438
         X: =108
-        Y: =9
+        Y: =77
         ZIndex: =1
 
     start_input As button:
@@ -29,6 +29,7 @@ Home As screen:
             //SaveData(CollitemsToKeep,"SaveToDevice");
         Size: =24
         Text: ="Clear data"
+        Visible: =false
         Width: =368
         X: =143
         Y: =573
@@ -51,7 +52,8 @@ Home As screen:
 
     cmp_MD_Bottom_Navigation_1 As cmp_MD_Bottom_Navigation:
         Height: =101
-        iconSize: =34
+        iconSize: =40
+        items: =c_NavigationMenu
         onSelect: =false
         Y: =1035
         ZIndex: =5

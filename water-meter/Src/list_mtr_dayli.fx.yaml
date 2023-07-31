@@ -1,15 +1,19 @@
 list_mtr_dayli As screen:
 
+    cmp_MD_AppBar_top_1 As cmp_MD_AppBar_top:
+        Height: =106
+        iconSize: =45
+
     "Gallery3 As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
         DelayItemLoading: =true
         DisplayMode: =DisplayMode.View
-        Height: =925
+        Height: =919
         Items: =tbl_metering_logs
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         TemplatePadding: =0
         TemplateSize: =116
-        Y: =100
+        Y: =106
         ZIndex: =1
 
         Title3 As label:
@@ -89,21 +93,6 @@ list_mtr_dayli As screen:
             Width: =4
             ZIndex: =6
 
-    btn_saveDB As button:
-        Fill: =RGBA(0, 106, 59, 1)
-        Height: =70
-        Size: =24
-        Text: ="Sava Data"
-        Width: =280
-        X: =332
-        Y: =1042
-        ZIndex: =2
-
-    Rectangle1_2 As rectangle:
-        Fill: =RGBA(0, 106, 59, 1)
-        Width: =640
-        ZIndex: =4
-
     back_1 As icon.BackArrow:
         BorderColor: =RGBA(255, 255, 255, 1)
         Color: =RGBA(255, 255, 255, 1)
@@ -112,4 +101,12 @@ list_mtr_dayli As screen:
         X: =17
         Y: =21
         ZIndex: =5
+
+    cmp_MD_Bottom_Navigation_2 As cmp_MD_Bottom_Navigation:
+        Height: =101
+        iconSize: =40
+        items: =c_NavigationMenu
+        onSelect: =false
+        Y: =1035
+        ZIndex: =6
 

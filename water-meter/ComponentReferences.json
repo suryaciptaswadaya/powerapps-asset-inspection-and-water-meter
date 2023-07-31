@@ -71,7 +71,7 @@
   },
   {
     "HasLibraryLogicalName": true,
-    "InstanceCount": 0,
+    "InstanceCount": 1,
     "LibraryId": "eafaa033-e6a8-486e-9253-f81a7179740f",
     "LibraryLogicalName": "crfd0_materialdesign_d4b4d",
     "LibraryVersion": "2023-05-08T05:10:50Z",
@@ -121,7 +121,7 @@
   },
   {
     "HasLibraryLogicalName": true,
-    "InstanceCount": 1,
+    "InstanceCount": 2,
     "LibraryId": "eafaa033-e6a8-486e-9253-f81a7179740f",
     "LibraryLogicalName": "crfd0_materialdesign_d4b4d",
     "LibraryVersion": "2023-05-08T05:10:50Z",
