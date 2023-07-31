@@ -1,0 +1,183 @@
+cmp_MD_GenericInputFrame As CanvasComponent:
+    backgroundColorHex: =defaults.backgroundColorHex
+    borderRadius: =Min(defaults.borderRadius, 10)
+    disabledColorHex: =defaults.disabledColorHex
+    displayMode: =DisplayMode.Edit
+    errorColorHex: =defaults.errorColorHex
+    errorText: ="*specify error reason here*"
+    Fill: =Color.Transparent
+    font: =defaults.font
+    fontSizeLabel: =defaults.fontSize-5
+    fontWeightLabel: =FontWeight.Normal
+    Height: =300
+    helperText: ="This is a hint"
+    isError: |-
+        =//Check Error Condition here (e.g. with IsMatch() & Regex)
+        false
+    labelText: ="Fieldname"
+    OnReset: =false
+    outsideMargin: =20
+    primaryColorHex: =defaults.primaryColorHex
+    showErrors: =true
+    Width: =300
+    X: =0
+    Y: =0
+    ZIndex: =2
+
+    txt_GenericBG As text:
+        AccessibleLabel: =lbl_titleInputFrame.Text
+        BorderColor: |-
+            =If(
+                tgl_errorInputFrame.Value,
+                ColorValue(cmp_MD_GenericInputFrame.errorColorHex),
+                If(
+                    !IsBlank(txt_GenericBG.Text),
+                    ColorValue(cmp_MD_GenericInputFrame.primaryColorHex),
+                    ColorValue(cmp_MD_GenericInputFrame.disabledColorHex)
+                )
+            )
+        Default: =
+        DisabledBorderColor: =Self.BorderColor
+        DisabledFill: =Color.Transparent
+        DisplayMode: =DisplayMode.Disabled
+        Fill: =Color.Transparent
+        FocusedBorderColor: =ColorFade(Self.BorderColor, -30%)
+        Font: ="Roboto"
+        Height: =Parent.Height-cmp_MD_GenericInputFrame.outsideMargin*2-10
+        HoverBorderColor: =Self.BorderColor
+        HoverFill: =Self.Fill
+        LineHeight: =1
+        MaxLength: =0
+        Mode: =
+        PaddingLeft: =0
+        PaddingTop: =20
+        RadiusBottomLeft: =cmp_MD_GenericInputFrame.borderRadius
+        RadiusBottomRight: =cmp_MD_GenericInputFrame.borderRadius
+        RadiusTopLeft: =cmp_MD_GenericInputFrame.borderRadius
+        RadiusTopRight: =cmp_MD_GenericInputFrame.borderRadius
+        Size: =false
+        TabIndex: =-1
+        Width: =cmp_MD_GenericInputFrame.Width-2*cmp_MD_GenericInputFrame.outsideMargin
+        X: =cmp_MD_GenericInputFrame.outsideMargin
+        Y: =cmp_MD_GenericInputFrame.outsideMargin
+        ZIndex: =1
+
+    lbl_errorInputFrame As label:
+        AutoHeight: =true
+        Color: =ColorValue(cmp_MD_GenericInputFrame.errorColorHex)
+        Font: =cmp_MD_GenericInputFrame.font
+        FontWeight: =cmp_MD_GenericInputFrame.fontWeightLabel
+        Height: =18
+        PaddingLeft: =16
+        Size: =cmp_MD_GenericInputFrame.fontSizeLabel
+        Text: =cmp_MD_GenericInputFrame.errorText
+        VerticalAlign: =VerticalAlign.Top
+        Visible: =tgl_errorInputFrame.Value
+        Width: =txt_GenericBG.Width
+        X: =txt_GenericBG.X
+        Y: =txt_GenericBG.Y+txt_GenericBG.Height
+        ZIndex: =3
+
+    lbl_helperInputFrame As label:
+        AutoHeight: =true
+        Color: =ColorValue(cmp_MD_GenericInputFrame.disabledColorHex)
+        Font: =cmp_MD_GenericInputFrame.font
+        FontWeight: =cmp_MD_GenericInputFrame.fontWeightLabel
+        Height: =18
+        PaddingLeft: =16
+        Size: =cmp_MD_GenericInputFrame.fontSizeLabel
+        Text: =cmp_MD_GenericInputFrame.helperText
+        VerticalAlign: =VerticalAlign.Top
+        Visible: =!tgl_errorInputFrame.Value
+        Width: =txt_GenericBG.Width
+        X: =txt_GenericBG.X
+        Y: =txt_GenericBG.Y+txt_GenericBG.Height
+        ZIndex: =5
+
+    html_textHeightInputFrame As htmlViewer:
+        AutoHeight: =true
+        Fill: =Color.Transparent
+        Font: =lbl_titleInputFrame.Font
+        HtmlText: |-
+            ="<div
+                style='"&
+                "white-space: nowrap;"& 
+                "transform: rotate(90deg);
+                font-size: 1em;
+                padding: 0px;
+                margin: 0px"&
+            "'>"&
+            
+            cmp_MD_GenericInputFrame.labelText
+            
+            &"</div>"
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Size: =lbl_titleInputFrame.Size
+        Width: =Self.Size
+        Y: =Parent.Height
+        ZIndex: =6
+
+    tgl_errorInputFrame As toggleSwitch:
+        Default: |-
+            =cmp_MD_GenericInputFrame.isError && cmp_MD_GenericInputFrame.showErrors &&cmp_MD_GenericInputFrame.displayMode=DisplayMode.Edit
+            
+            
+            /*If(
+                //no error if no input format specified
+                IsBlank(cmp_MD_Textinput.inputFormat), false,
+            
+                //check for provided formats or type own Regex
+                !IsMatch(
+                        txt_BG.Text,
+                        Switch(
+                            cmp_MD_Textinput.inputFormat,
+                            
+                            "decimal", "^(\d)+(\.)\d+$",
+                            "text", "^[a-zA-Z_-\s]*$",
+                            "number greater than 0", "\d+",
+                            "URL", "(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$",
+                            "Email", "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
+                            "password", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8\16,}$"
+                        )
+                )
+                && cmp_MD_Textinput.showErrors
+            )*/
+        FalseText: ="No Error"
+        Height: =12
+        Size: =10
+        TabIndex: =-1
+        TrueText: ="Error"
+        Width: =90
+        X: =112
+        Y: |
+            =Parent.Height+10
+        ZIndex: =8
+
+    lbl_titleInputFrame As label:
+        AutoHeight: =true
+        Color: |-
+            =If(tgl_errorInputFrame.Value,
+                ColorValue(cmp_MD_GenericInputFrame.errorColorHex),
+                cmp_MD_GenericInputFrame.displayMode=DisplayMode.Disabled, ColorValue(cmp_MD_GenericInputFrame.disabledColorHex),
+                ColorValue(cmp_MD_GenericInputFrame.primaryColorHex)
+            )
+        Fill: =ColorValue(cmp_MD_GenericInputFrame.backgroundColorHex)
+        Font: =cmp_MD_GenericInputFrame.font
+        FontWeight: =cmp_MD_GenericInputFrame.fontWeightLabel
+        Height: =14
+        LineHeight: =1
+        PaddingBottom: =0
+        PaddingLeft: =2
+        PaddingRight: =2
+        PaddingTop: =2
+        Size: =cmp_MD_GenericInputFrame.fontSizeLabel
+        Text: =cmp_MD_GenericInputFrame.labelText
+        VerticalAlign: =VerticalAlign.Bottom
+        Width: =html_textHeightInputFrame.Height+4
+        X: =txt_GenericBG.X+16
+        Y: =txt_GenericBG.Y-Self.Height/2-1
+        ZIndex: =13
+

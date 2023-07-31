@@ -49,3 +49,10 @@ Home As screen:
         Y: =774
         ZIndex: =4
 
+    cmp_MD_Bottom_Navigation_1 As cmp_MD_Bottom_Navigation:
+        Height: =101
+        iconSize: =34
+        onSelect: =false
+        Y: =1035
+        ZIndex: =5
+

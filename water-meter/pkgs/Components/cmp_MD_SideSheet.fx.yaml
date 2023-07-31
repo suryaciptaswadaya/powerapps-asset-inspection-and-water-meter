@@ -1,0 +1,97 @@
+cmp_MD_SideSheet As CanvasComponent:
+    backgroundColorHex: =defaults.backgroundColorHex
+    Fill: =Color.Transparent
+    font: =defaults.font
+    fontSize: =defaults.fontSize
+    fontWeight: ="Semibold"
+    Height: =App.DesignHeight
+    iconSize: =24
+    onClose: =true
+    textColorHex: =defaults.textColorHex
+    title: ="Heading"
+    Width: =320
+    X: =0
+    Y: =0
+    ZIndex: =15
+
+    html_sideSheetShadow As htmlViewer:
+        Height: =Parent.Height
+        HtmlText: |-
+            ="<div style='
+            position:absolute;
+            left:4px;
+            width: 4px; 
+            height: "& Parent.Height-1&"px; 
+            box-shadow: -1px -1px 2px 2px rgba(0,0,0,0.25);
+            border-radius: 0px
+            '>
+            </div>"
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        Width: =4
+        ZIndex: =1
+
+    rec_sideSheetBG As rectangle:
+        DisabledFill: =ColorValue(cmp_MD_SideSheet.backgroundColorHex)
+        DisplayMode: =DisplayMode.Disabled
+        Fill: =ColorValue(cmp_MD_SideSheet.backgroundColorHex)
+        Height: =Parent.Height
+        Width: =Parent.Width-4
+        X: |
+            =4
+        ZIndex: =2
+
+    lbl_heading As label:
+        AutoHeight: =true
+        Color: =ColorValue(cmp_MD_SideSheet.textColorHex)
+        Font: =cmp_MD_SideSheet.font
+        FontWeight: =cmp_MD_SideSheet.fontWeight
+        Height: =70
+        Role: =TextRole.Heading1
+        Size: =cmp_MD_SideSheet.fontSize
+        Text: =cmp_MD_SideSheet.title
+        VerticalAlign: =VerticalAlign.Bottom
+        Width: =Parent.Width-Self.X
+        X: =16
+        Y: =cmp_MD_SideSheet.iconSize+20
+        ZIndex: =3
+
+    con_closeSheet As groupContainer.manualLayoutContainer:
+        Height: =cmp_MD_SideSheet.iconSize
+        Width: =cmp_MD_SideSheet.iconSize
+        X: =Parent.Width-Self.Width-10
+        Y: =10
+        ZIndex: =5
+
+        img_closeSheet As image:
+            BorderColor: =RGBA(166, 166, 166, 1)
+            Height: =cmp_MD_SideSheet.iconSize
+            Image: |-
+                =    "data:image/svg+xml;utf8, " & EncodeUrl(
+                        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+                   <path fill='"&cmp_MD_SideSheet.textColorHex&"' d='M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z' />
+                </svg>"
+                    )
+            OnSelect: =cmp_MD_SideSheet.onClose()
+            Width: =cmp_MD_SideSheet.iconSize
+            ZIndex: =1
+
+        btn_closeSheet As button:
+            Color: =Color.Transparent
+            Fill: =Color.Transparent
+            FocusedBorderColor: =ColorValue(cmp_MD_SideSheet.textColorHex)
+            FocusedBorderThickness: =3
+            Height: =Parent.Height-2
+            HoverColor: =Color.Transparent
+            HoverFill: =Color.Transparent
+            OnSelect: =cmp_MD_SideSheet.onClose()
+            PressedColor: =Color.Transparent
+            Size: =24
+            Text: =""
+            Width: =Parent.Width-2
+            X: =1
+            Y: =1
+            ZIndex: =2
+
