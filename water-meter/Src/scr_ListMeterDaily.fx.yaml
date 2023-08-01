@@ -1,4 +1,5 @@
-list_mtr_dayli As screen:
+scr_ListMeterDaily As screen:
+    OnVisible: =Set(d_LMD_Date, DatePicker1.SelectedDate);
 
     cmp_MD_AppBar_top_1 As cmp_MD_AppBar_top:
         fontSize: =28
@@ -24,7 +25,7 @@ list_mtr_dayli As screen:
         DelayItemLoading: =true
         DisplayMode: =DisplayMode.View
         Height: =840
-        Items: =c_MeteringLogs
+        Items: =Filter(c_MeteringLogs,date_input = d_LMD_Date)
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         ShowScrollbar: =false
@@ -66,7 +67,7 @@ list_mtr_dayli As screen:
             ZIndex: =2
 
         Body1 As label:
-            Height: =42
+            Height: =38
             OnSelect: =Select(Parent)
             PaddingBottom: =0
             PaddingLeft: =0
@@ -74,9 +75,9 @@ list_mtr_dayli As screen:
             PaddingTop: =0
             Text: =ThisItem.meter_id
             VerticalAlign: =VerticalAlign.Top
-            Width: =273
-            X: =367
-            Y: =19
+            Width: =356
+            X: =266
+            Y: =21
             ZIndex: =3
 
         Separator3 As rectangle:
