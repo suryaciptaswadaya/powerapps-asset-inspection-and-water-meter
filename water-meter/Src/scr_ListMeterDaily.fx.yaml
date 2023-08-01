@@ -18,7 +18,7 @@ scr_ListMeterDaily As screen:
         tooltipIcon1: =""
         tooltipIcon2: =""
         tooltipIcon3: =""
-        tooltipIcon4: ="Buat Data Meter"
+        tooltipIcon4: ="Input Data Meter"
 
     "Gallery3 As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
         BorderColor: =RGBA(0, 0, 0, 1)
