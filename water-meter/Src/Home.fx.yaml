@@ -23,10 +23,10 @@ Home As screen:
         ZIndex: =3
 
     cmp_MD_Bottom_Navigation_1 As cmp_MD_Bottom_Navigation:
-        Height: =101
+        Height: =75
         iconSize: =40
         items: =c_NavigationMenu
         onSelect: =false
-        Y: =1035
+        Y: =1061
         ZIndex: =5
 
