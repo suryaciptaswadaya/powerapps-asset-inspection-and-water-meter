@@ -50,6 +50,7 @@ mtrScreenInput As screen:
         ZIndex: =5
 
     txi_current_mtr As text:
+        Align: =Align.Right
         BorderColor: =RGBA(0, 106, 59, 1)
         Default: =""
         Format: =TextFormat.Number
@@ -80,7 +81,7 @@ mtrScreenInput As screen:
     Label4 As label:
         Height: =38
         Size: =21
-        Text: ="Tanggal Meter"
+        Text: ="Tanggal Pencatatan"
         Width: =560
         X: =15
         Y: =315
@@ -169,20 +170,20 @@ mtrScreenInput As screen:
         ZIndex: =15
 
         UploadedImage1 As image:
-            Height: =AddMediaButton1.Height
+            Height: =268
             Image: =If(IsBlank(AddMediaButton1.Media), SampleImage, AddMediaButton1.Media)
             ImagePosition: =ImagePosition.Fill
-            Width: =AddMediaButton1.Width
-            X: =AddMediaButton1.X
+            Width: =598
+            X: =19
             Y: =AddMediaButton1.Y
             ZIndex: =16
 
         AddMediaButton1 As addMedia:
             Height: =268
             Size: =25
-            Width: =575
-            X: =29
-            Y: =624
+            Width: =598
+            X: =19
+            Y: =469
             ZIndex: =17
 
     cbb_meterID As combobox:
@@ -206,12 +207,67 @@ mtrScreenInput As screen:
         onSelectIcon1: =Back();
         onSelectIcon2: =
         onSelectIcon3: =
-        onSelectIcon4: =Navigate(mtrScreenInput);
+        onSelectIcon4: |-
+            =//Collect(CollitemsToKeep,{MtrID:mtr_ID.Text,CurrMtr:current_mtr.Text,Date:date_mtr.SelectedDate});
+            //SaveData(CollitemsToKeep,"SaveToDevice");
+            
+            Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData),"",""));
+            Set(s_Base64ContentMetering, Mid(BinaryImageDataMetering, Find(",", BinaryImageDataMetering) + 1, Len(BinaryImageDataMetering) - Find(",", BinaryImageDataMetering) - 1));
+            Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(mtr_ID.Text,"-",Value(txi_current_mtr.Text),"-metering.jpg"), s_Base64ContentMetering,Concatenate("/gal_metering/",mtr_ID.Text)));
+            Set(s_ImageLinkMetering, v_UploadResult.sharepointfilelink);
+            
+            /*
+            Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData), "",""));
+            Set(s_Base64ContentMetering,
+                Mid(
+                    BinaryImageDataMetering,
+                    Find(",",BinaryImageDataMetering) + 1,
+                    Len(BinaryImageDataMetering) - Find(",",BinaryImageDataMetering) - 1
+                )
+            );
+            Set(s_ImageLinkMetering,
+                '[DEV]-UploadImageWaterMeter'.Run(
+                    Concatenate("/gal_metering/",mtr_ID.Text),
+                    Concatenate(mtr_ID.Text,"-",Value(current_mtr.Text),"-metering.jpg"),
+                    s_Base64ContentMetering        
+                ).sharepointfilelink
+            );
+            */
+            Patch(
+                tbl_metering_logs,
+                Defaults(tbl_metering_logs),
+                {
+                    meter_id:cbb_meterID.Selected.meter_ID,
+                    current_meter: Value(txi_current_mtr.Text),
+                    url_image:s_ImageLinkMetering,
+                    date_input:date_mtr.SelectedDate
+                }
+            );
+            Patch(
+                c_MeteringLogs,
+                Defaults(c_MeteringLogs),
+                {
+                    meter_id:cbb_meterID.Selected.meter_ID,
+                    current_meter: Value(txi_current_mtr.Text),
+                    url_image:s_ImageLinkMetering,
+                    date_input:date_mtr.SelectedDate
+                }
+            );
+            
+                Notify("Data Metering Berhasil Disimpan");
+                //Set(meterIDScan,"");
+                //txi_current_mtr.Clear;
+                //AddMediaButton1.Media = SampleImage;
+                
+                
+            
+            Navigate(scr_ListMeterDaily);
         svgIcon1: |-
             ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z'/></svg>"
         svgIcon2: =""
         svgIcon3: =""
-        svgIcon4: =""
+        svgIcon4: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M17 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V7L17 3M19 19H5V5H16.17L19 7.83V19M12 12C10.34 12 9 13.34 9 15S10.34 18 12 18 15 16.66 15 15 13.66 12 12 12M6 6H15V10H6V6Z'/></svg>"
         titleText: ="Input Data Meter"
         tooltipIcon1: =""
         tooltipIcon2: =""

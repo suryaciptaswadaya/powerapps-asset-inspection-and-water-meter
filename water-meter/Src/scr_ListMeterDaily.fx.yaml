@@ -30,7 +30,7 @@ scr_ListMeterDaily As screen:
         LoadingSpinner: =LoadingSpinner.Data
         ShowScrollbar: =false
         TemplatePadding: =0
-        TemplateSize: =81
+        TemplateSize: =88
         Y: =195
         ZIndex: =1
 
@@ -85,7 +85,7 @@ scr_ListMeterDaily As screen:
             Height: =1
             OnSelect: =Select(Parent)
             Width: =Parent.TemplateWidth
-            Y: =80
+            Y: =83
             ZIndex: =5
 
         Image1 As image:
@@ -133,6 +133,8 @@ scr_ListMeterDaily As screen:
     Icon3 As icon.Reload:
         Height: =50
         Icon: =Icon.Reload
+        OnSelect: |
+            =ClearCollect(c_MeteringLogs, Sort(tbl_metering_logs,Created,SortOrder.Descending));
         Width: =49
         X: =569
         Y: =115
