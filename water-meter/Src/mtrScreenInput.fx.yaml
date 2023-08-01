@@ -1,4 +1,8 @@
 mtrScreenInput As screen:
+    OnVisible: |
+        =Reset(cbb_meterID);
+        Reset(txi_current_mtr);
+        Reset(AddMediaButton1)=true
 
     BarcodeScanner1 As barcodeScanner:
         BarcodeType: =BarcodeType.QRCode
@@ -30,8 +34,7 @@ mtrScreenInput As screen:
     Label2 As label:
         Height: =31
         Size: =21
-        Text: |-
-            ="Meter ID :"
+        Text: ="Meter ID"
         Width: =560
         X: =9
         Y: =106
@@ -40,18 +43,17 @@ mtrScreenInput As screen:
     Label3 As label:
         Height: =70
         Size: =21
-        Text: |-
-            ="Current Meter :"
+        Text: ="Current Meter"
         Width: =560
-        X: =15
-        Y: =251
+        X: =17
+        Y: =220
         ZIndex: =5
 
     txi_current_mtr As text:
         BorderColor: =RGBA(0, 106, 59, 1)
         Default: =""
         Format: =TextFormat.Number
-        Height: =70
+        Height: =50
         OnChange: =Set(current_mtr,txi_current_mtr.Text)
         Size: =21
         Width: =600
@@ -133,8 +135,8 @@ mtrScreenInput As screen:
             );
             
                 Notify("Data Metering Berhasil Disimpan");
-                Set(meterIDScan,"");
-                txi_current_mtr.Clear;
+                //Set(meterIDScan,"");
+                //txi_current_mtr.Clear;
                 //AddMediaButton1.Media = SampleImage;
                 
                 
