@@ -78,8 +78,8 @@ scr_ListMeterDaily As screen:
             Text: =ThisItem.meter_id
             VerticalAlign: =VerticalAlign.Top
             Width: =356
-            X: =266
-            Y: =21
+            X: =267
+            Y: =30
             ZIndex: =3
 
         Separator3 As rectangle:
@@ -95,7 +95,7 @@ scr_ListMeterDaily As screen:
             BorderThickness: =1
             Height: =77
             Image: =ThisItem.url_image
-            OnSelect: =Set(b_LMD_ImageShow,true);
+            OnSelect: =Set(b_LMD_ImageShow,true)
             Width: =94
             X: =16
             Y: =11
