@@ -35,7 +35,7 @@ App As appinfo:
         
         Set(defaults,
             {
-                primaryColor: RGBA(12,36,47,1),
+                primaryColor: RGBA(0,106,59,1),
                 secondaryColor: RGBA(174,142,103,1),
                 disabledColor: Color.Gray,
                 backgroundColor: Color.WhiteSmoke,

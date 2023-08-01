@@ -830,6 +830,14 @@
           "InvariantPropertyName": "OnSelect",
           "IsLockable": false,
           "NameMapSourceSchema": "?"
+        },
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "",
+          "InvariantPropertyName": "Visible",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
         }
       ],
       "HasDynamicProperties": false,
@@ -1021,6 +1029,11 @@
           "RuleProviderType": "Unknown"
         },
         {
+          "Category": "Design",
+          "PropertyName": "Visible",
+          "RuleProviderType": "Unknown"
+        },
+        {
           "Category": "Behavior",
           "PropertyName": "OnSelect",
           "RuleProviderType": "Unknown"
@@ -1071,7 +1084,14 @@
         "ChevronFill",
         "ChevronHoverFill",
         "ChevronDisabledFill",
-        "ChevronBackground",
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "",
+          "InvariantPropertyName": "ChevronBackground",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
         "ChevronHoverBackground",
         "ChevronDisabledBackground",
         "SelectionFill",

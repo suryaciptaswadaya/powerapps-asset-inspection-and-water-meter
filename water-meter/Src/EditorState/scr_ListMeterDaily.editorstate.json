@@ -979,7 +979,14 @@
         "EndYear",
         "StartOfWeek",
         "IconFill",
-        "IconBackground",
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "RGBA(56, 96, 178, 1)",
+          "InvariantPropertyName": "IconBackground",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
         "SelectedDateFill",
         "HoverDateFill",
         "CurrentDateFill",

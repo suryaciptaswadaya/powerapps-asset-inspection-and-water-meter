@@ -148,6 +148,7 @@ mtrScreenInput As screen:
             Navigate(Home);
         Size: =24
         Text: ="Submit"
+        Visible: =false
         Width: =350
         X: =139
         Y: =986
@@ -187,6 +188,7 @@ mtrScreenInput As screen:
             ZIndex: =17
 
     cbb_meterID As combobox:
+        ChevronBackground: =RGBA(0, 106, 5, 1)
         DefaultSelectedItems: =Filter(mst_meter,meter_ID=meterIDScan)
         DisplayFields: =["Title"]
         Height: =50

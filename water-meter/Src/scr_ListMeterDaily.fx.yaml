@@ -118,6 +118,7 @@ scr_ListMeterDaily As screen:
     DatePicker1 As datepicker:
         Format: ="dd-mmm-yyyy"
         Height: =50
+        IconBackground: =RGBA(0, 106, 59, 1)
         Size: =24
         Width: =526
         X: =17
