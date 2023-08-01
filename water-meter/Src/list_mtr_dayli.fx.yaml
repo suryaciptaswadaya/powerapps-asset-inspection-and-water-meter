@@ -39,16 +39,16 @@ list_mtr_dayli As screen:
             PaddingLeft: =0
             PaddingRight: =0
             PaddingTop: =0
-            Text: =ThisItem.date_input
+            Text: |-
+                ="Date Input: "&ThisItem.date_input
             VerticalAlign: =VerticalAlign.Top
             Width: =Parent.TemplateWidth - 86
-            X: =16
-            Y: =(Parent.TemplateHeight - (Self.Size*1.8 + Subtitle3.Size*1.8 + 2 + Body1.Size*1.8)) / 2
+            X: =86
             ZIndex: =1
 
         Subtitle3 As label:
             FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
-            Height: =Self.Size * 1.8
+            Height: =43
             OnSelect: =Select(Parent)
             PaddingBottom: =0
             PaddingLeft: =0
@@ -57,14 +57,14 @@ list_mtr_dayli As screen:
             Text: |-
                 ="Meter Saat ini : "&ThisItem.current_meter
             VerticalAlign: =VerticalAlign.Top
-            Width: =Title3.Width
-            X: =Title3.X
-            Y: =Title3.Y + Title3.Height
+            Width: =478
+            X: =161
+            Y: =12
             ZIndex: =2
 
         Body1 As label:
             FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
-            Height: =Self.Size * 1.8
+            Height: =28
             OnSelect: =Select(Parent)
             PaddingBottom: =0
             PaddingLeft: =0
@@ -73,8 +73,8 @@ list_mtr_dayli As screen:
             Text: |-
                 ="Water Meter : " & ThisItem.meter_id
             VerticalAlign: =VerticalAlign.Top
-            Width: =Title3.Width
-            X: =Title3.X
+            Width: =409
+            X: =161
             Y: =Subtitle3.Y + Subtitle3.Height
             ZIndex: =3
 
@@ -95,19 +95,21 @@ list_mtr_dayli As screen:
             ZIndex: =4
 
         Separator3 As rectangle:
-            Fill: =RGBA(255, 255, 255, 1)
-            Height: =8
+            Fill: =RGBA(56, 96, 178, 1)
+            Height: =1
             OnSelect: =Select(Parent)
             Width: =Parent.TemplateWidth
-            Y: =Parent.TemplateHeight - Self.Height
+            Y: =108
             ZIndex: =5
 
-        Rectangle4 As rectangle:
-            Height: =Parent.TemplateHeight - Separator3.Height
+        Image1 As image:
+            Height: =80
+            Image: =ThisItem.url_image
             OnSelect: =Select(Parent)
-            Visible: =ThisItem.IsSelected
-            Width: =4
-            ZIndex: =6
+            Width: =80
+            X: =22
+            Y: =17
+            ZIndex: =7
 
     back_1 As icon.BackArrow:
         BorderColor: =RGBA(255, 255, 255, 1)
@@ -127,10 +129,10 @@ list_mtr_dayli As screen:
         ZIndex: =6
 
     DatePicker1 As datepicker:
-        Height: =70
+        Height: =72
         Size: =24
-        Width: =601
-        X: =17
-        Y: =97
+        Width: =580
+        X: =30
+        Y: =98
         ZIndex: =8
 
