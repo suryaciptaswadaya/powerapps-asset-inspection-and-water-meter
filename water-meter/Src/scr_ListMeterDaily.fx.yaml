@@ -168,44 +168,7 @@ scr_ListMeterDaily As screen:
         Y: =177
         ZIndex: =12
 
-    Rectangle2 As rectangle:
-        Fill: =RGBA(0, 0, 0, 0.59)
-        Height: =1136
-        Width: =640
-        ZIndex: =13
-
-    Rectangle3 As rectangle:
-        Fill: =RGBA(255, 255, 255, 1)
-        Height: =776
-        Width: =509
-        X: =64
-        Y: =135
-        ZIndex: =14
-
-    Gallery2 As gallery.galleryVertical:
-        DelayItemLoading: =true
-        Height: =567
-        Items: =c_Users
-        Layout: =Layout.Vertical
-        LoadingSpinner: =LoadingSpinner.Data
-        TemplateSize: =95
-        Width: =509
-        X: =65
-        Y: =258
-        ZIndex: =15
-
-        Button4 As button:
-            Fill: =RGBA(56, 106, 59, 1)
-            Height: =70
-            OnSelect: =Select(Parent)
-            Size: =24
-            Text: =ThisItem.name
-            Width: =479
-            X: =9
-            Y: =9
-            ZIndex: =1
-
-    Group1 As group:
+    grp_PopupImage As group:
         Height: =5
         Width: =5
         X: =40
@@ -250,14 +213,60 @@ scr_ListMeterDaily As screen:
             Y: =221
             ZIndex: =11
 
-    Label8 As label:
-        Align: =Align.Center
-        FontWeight: =FontWeight.Bold
-        Height: =70
-        Size: =30
-        Text: ="Pilih User Login"
-        Width: =336
-        X: =152
-        Y: =164
-        ZIndex: =16
+    grp_UserLogin As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =17
+
+        Rectangle2 As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.59)
+            Height: =1136
+            Width: =640
+            ZIndex: =13
+
+        Rectangle3 As rectangle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =776
+            Width: =509
+            X: =64
+            Y: =135
+            ZIndex: =14
+
+        Gallery2 As gallery.galleryVertical:
+            DelayItemLoading: =true
+            Height: =567
+            Items: =c_Users
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            TemplateSize: =95
+            Width: =509
+            X: =65
+            Y: =258
+            ZIndex: =15
+
+            Button4 As button:
+                Fill: =RGBA(56, 106, 59, 1)
+                Height: =70
+                OnSelect: |
+                    =ClearCollect(c_ActiveUserData,Filter(c_Users,ID = Gallery2.Selected.ID));
+                    ClearCollect(c_MeteringLogs, Filter(Sort(tbl_metering_logs,Created,SortOrder.Descending),user_id = First(c_ActiveUserData).ID);
+                Size: =24
+                Text: =ThisItem.name
+                Width: =479
+                X: =9
+                Y: =9
+                ZIndex: =1
+
+        Label8 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =70
+            Size: =30
+            Text: ="Pilih User Login"
+            Width: =336
+            X: =152
+            Y: =164
+            ZIndex: =16
 
