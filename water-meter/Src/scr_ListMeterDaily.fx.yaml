@@ -25,14 +25,14 @@ scr_ListMeterDaily As screen:
     "Gallery3 As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
         BorderColor: =RGBA(0, 0, 0, 1)
         DelayItemLoading: =true
-        Height: =866
+        Height: =842
         Items: =Filter(c_MeteringLogs,date_input = d_LMD_Date)
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         ShowScrollbar: =false
         TemplatePadding: =0
         TemplateSize: =98
-        Y: =197
+        Y: =221
         ZIndex: =1
 
         Title3 As label:
@@ -100,6 +100,17 @@ scr_ListMeterDaily As screen:
             Y: =11
             ZIndex: =5
 
+        Button2 As button:
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =98
+            HoverFill: =//ColorFade(RGBA(56, 96, 178, 1), -20%)
+            OnSelect: =Set(b_LMD_ImageShow,true)
+            Size: =24
+            Text: =""
+            Width: =510
+            X: =130
+            ZIndex: =6
+
     back_1 As icon.BackArrow:
         BorderColor: =RGBA(255, 255, 255, 1)
         Color: =RGBA(255, 255, 255, 1)
@@ -121,17 +132,18 @@ scr_ListMeterDaily As screen:
         Format: ="dd-mmm-yyyy"
         Height: =50
         IconBackground: =RGBA(0, 106, 59, 1)
+        OnChange: =Set(d_LMD_Date,DatePicker1.SelectedDate)
         Size: =24
         Width: =526
         X: =17
-        Y: =115
+        Y: =114
         ZIndex: =8
 
     Rectangle4 As rectangle:
         Fill: =RGBA(219, 219, 219, 1)
         Height: =1
         Width: =640
-        Y: =194
+        Y: =220
         ZIndex: =9
 
     Icon3 As icon.Reload:
@@ -141,9 +153,18 @@ scr_ListMeterDaily As screen:
         OnSelect: |
             =ClearCollect(c_MeteringLogs, Sort(tbl_metering_logs,Created,SortOrder.Descending));
         Width: =49
-        X: =569
-        Y: =115
+        X: =574
+        Y: =114
         ZIndex: =10
+
+    Label5 As label:
+        Height: =30
+        Size: =15
+        Text: ="Total Data " & CountRows(Filter(c_MeteringLogs,date_input = d_LMD_Date))
+        Width: =202
+        X: =17
+        Y: =177
+        ZIndex: =15
 
     Group1 As group:
         Height: =5
@@ -165,8 +186,8 @@ scr_ListMeterDaily As screen:
             Height: =616
             Visible: =b_LMD_ImageShow
             Width: =509
-            X: =60
-            Y: =245
+            X: =65
+            Y: =194
             ZIndex: =12
 
         Button1 As button:
@@ -177,15 +198,16 @@ scr_ListMeterDaily As screen:
             Text: ="OK"
             Visible: =b_LMD_ImageShow
             Width: =448
-            X: =90
-            Y: =780
+            X: =95
+            Y: =729
             ZIndex: =13
 
         Image2 As image:
             Height: =480
+            Image: =Gallery3.Selected.url_image
             Visible: =b_LMD_ImageShow
             Width: =468
-            X: =81
-            Y: =272
+            X: =86
+            Y: =221
             ZIndex: =14
 
