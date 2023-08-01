@@ -32,21 +32,21 @@ mtrScreenInput As screen:
         ZIndex: =3
 
     Label2 As label:
-        Height: =31
+        Height: =30
         Size: =21
-        Text: ="Meter ID"
+        Text: ="ID Meter"
         Width: =560
-        X: =9
-        Y: =106
+        X: =15
+        Y: =102
         ZIndex: =4
 
     Label3 As label:
-        Height: =70
+        Height: =30
         Size: =21
-        Text: ="Current Meter"
+        Text: ="Meter Saat Ini"
         Width: =560
-        X: =17
-        Y: =220
+        X: =15
+        Y: =212
         ZIndex: =5
 
     txi_current_mtr As text:
@@ -55,32 +55,35 @@ mtrScreenInput As screen:
         Format: =TextFormat.Number
         Height: =50
         OnChange: =Set(current_mtr,txi_current_mtr.Text)
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
         Size: =21
-        Width: =600
-        X: =15
-        Y: =321
+        Width: =598
+        X: =19
+        Y: =253
         ZIndex: =6
 
     date_mtr As datepicker:
         BorderColor: =RGBA(0, 106, 59, 1)
-        Height: =70
+        Height: =50
         IconBackground: |-
             =RGBA(0, 106, 59
             , 1)
         Size: =24
         Width: =600
-        X: =17
-        Y: =487
+        X: =20
+        Y: =358
         ZIndex: =7
 
     Label4 As label:
-        Height: =70
+        Height: =38
         Size: =21
-        Text: |-
-            ="Date :"
+        Text: ="Tanggal Meter"
         Width: =560
         X: =15
-        Y: =404
+        Y: =315
         ZIndex: =8
 
     btn_submit As button:
