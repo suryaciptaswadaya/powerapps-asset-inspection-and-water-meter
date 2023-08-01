@@ -124,7 +124,8 @@ mtrScreenInput As screen:
                     meter_id:cbb_meterID.Selected.meter_ID,
                     current_meter: Value(txi_current_mtr.Text),
                     url_image:s_ImageLinkMetering,
-                    date_input:date_mtr.SelectedDate
+                    date_input:date_mtr.SelectedDate,
+                    user_id:First(c_ActiveUserData).ID
                 }
             );
             Patch(
@@ -134,7 +135,8 @@ mtrScreenInput As screen:
                     meter_id:cbb_meterID.Selected.meter_ID,
                     current_meter: Value(txi_current_mtr.Text),
                     url_image:s_ImageLinkMetering,
-                    date_input:date_mtr.SelectedDate
+                    date_input:date_mtr.SelectedDate,
+                    user_id:First(c_ActiveUserData).ID
                 }
             );
             
@@ -145,7 +147,7 @@ mtrScreenInput As screen:
                 
                 
             
-            Navigate(Home);
+            Navigate(scr_ListMeterDaily);
         Size: =24
         Text: ="SIMPAN"
         Width: =600
