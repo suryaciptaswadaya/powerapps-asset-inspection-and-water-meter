@@ -1,11 +1,11 @@
 Home As screen:
 
     Logo As image:
-        Height: =241
+        Height: =171
         Image: ='scs logo'
         Width: =438
-        X: =108
-        Y: =157
+        X: =98
+        Y: =311
         ZIndex: =1
 
     clear_coll As button:
@@ -29,4 +29,15 @@ Home As screen:
         onSelect: =false
         Y: =1061
         ZIndex: =5
+
+    Label6 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        Size: =21
+        Text: ="Water Meter Apps"
+        Width: =444
+        X: =98
+        Y: =482
+        ZIndex: =6
 
