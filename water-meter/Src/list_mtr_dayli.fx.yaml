@@ -22,13 +22,13 @@ list_mtr_dayli As screen:
     "Gallery3 As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
         DelayItemLoading: =true
         DisplayMode: =DisplayMode.View
-        Height: =919
+        Height: =815
         Items: =tbl_metering_logs
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         TemplatePadding: =0
         TemplateSize: =116
-        Y: =106
+        Y: =210
         ZIndex: =1
 
         Title3 As label:
@@ -125,4 +125,12 @@ list_mtr_dayli As screen:
         onSelect: =false
         Y: =1035
         ZIndex: =6
+
+    DatePicker1 As datepicker:
+        Height: =70
+        Size: =24
+        Width: =601
+        X: =17
+        Y: =97
+        ZIndex: =8
 
