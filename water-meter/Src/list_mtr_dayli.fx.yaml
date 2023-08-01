@@ -29,89 +29,72 @@ list_mtr_dayli As screen:
         LoadingSpinner: =LoadingSpinner.Data
         ShowScrollbar: =false
         TemplatePadding: =0
-        TemplateSize: =116
+        TemplateSize: =81
         Y: =195
         ZIndex: =1
 
         Title3 As label:
             FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
-            Height: =Self.Size * 1.8
+            Height: =29
             OnSelect: =Select(Parent)
             PaddingBottom: =0
             PaddingLeft: =0
             PaddingRight: =0
             PaddingTop: =0
-            Text: |-
-                ="Date Input: "&ThisItem.date_input
+            Text: =Text(ThisItem.date_input,"dd-mmm-yyyy")
             VerticalAlign: =VerticalAlign.Top
-            Width: =Parent.TemplateWidth - 86
-            X: =86
+            Width: =237
+            X: =130
+            Y: =11
             ZIndex: =1
 
         Subtitle3 As label:
-            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
-            Height: =43
+            FontWeight: =FontWeight.Semibold
+            Height: =33
             OnSelect: =Select(Parent)
             PaddingBottom: =0
             PaddingLeft: =0
             PaddingRight: =0
             PaddingTop: =0
+            Size: =20
             Text: |-
-                ="Meter Saat ini : "&ThisItem.current_meter
+                =Text(ThisItem.current_meter,"[$-en-US]###,###,###")
             VerticalAlign: =VerticalAlign.Top
-            Width: =478
-            X: =161
-            Y: =12
+            Width: =373
+            X: =130
+            Y: =40
             ZIndex: =2
 
         Body1 As label:
-            FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
             Height: =42
             OnSelect: =Select(Parent)
             PaddingBottom: =0
             PaddingLeft: =0
             PaddingRight: =0
             PaddingTop: =0
-            Text: |-
-                ="Water Meter : " & ThisItem.meter_id
+            Text: =ThisItem.meter_id
             VerticalAlign: =VerticalAlign.Top
-            Width: =409
-            X: =161
-            Y: =Subtitle3.Y + Subtitle3.Height
+            Width: =273
+            X: =367
+            Y: =19
             ZIndex: =3
-
-        NextArrow3 As icon.ChevronRight:
-            AccessibleLabel: =Self.Tooltip
-            Color: =RGBA(166, 166, 166, 1)
-            Height: =50
-            Icon: =Icon.ChevronRight
-            OnSelect: =Select(Parent)
-            PaddingBottom: =16
-            PaddingLeft: =16
-            PaddingRight: =16
-            PaddingTop: =16
-            Tooltip: ="View item details"
-            Width: =50
-            X: =Parent.TemplateWidth - Self.Width - 12
-            Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
-            ZIndex: =4
 
         Separator3 As rectangle:
             Fill: =RGBA(56, 96, 178, 1)
             Height: =1
             OnSelect: =Select(Parent)
             Width: =Parent.TemplateWidth
-            Y: =108
+            Y: =80
             ZIndex: =5
 
         Image1 As image:
             BorderThickness: =1
-            Height: =85
+            Height: =66
             Image: =ThisItem.url_image
             OnSelect: =Select(Parent)
-            Width: =88
-            X: =19
-            Y: =15
+            Width: =89
+            X: =21
+            Y: =7
             ZIndex: =7
 
     back_1 As icon.BackArrow:
@@ -132,6 +115,7 @@ list_mtr_dayli As screen:
         ZIndex: =6
 
     DatePicker1 As datepicker:
+        Format: ="dd-mmm-yyyy"
         Height: =50
         Size: =24
         Width: =526
