@@ -26,7 +26,7 @@ DateScreenInput As screen:
         Height: =70
         OnSelect: |
             =Set(d_SelectedDate, dtp_dateInput.SelectedDate);
-            Navigate(mtrScreenInput)
+            Navigate(scr_MeterInput)
         Size: =24
         Text: ="Lanjut"
         Width: =280

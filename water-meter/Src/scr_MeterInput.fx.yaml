@@ -1,7 +1,7 @@
-mtrScreenInput As screen:
+scr_MeterInput As screen:
     OnVisible: |
-        =Reset(cbb_meterID);
-        Reset(txi_current_mtr);
+        =Reset(cbb_MI_MeterID);
+        Reset(txi_MI_CurrentMeter);
         Reset(AddMediaButton1)=true
 
     BarcodeScanner1 As barcodeScanner:
@@ -49,13 +49,13 @@ mtrScreenInput As screen:
         Y: =212
         ZIndex: =5
 
-    txi_current_mtr As text:
+    txi_MI_CurrentMeter As text:
         Align: =Align.Right
         BorderColor: =RGBA(0, 106, 59, 1)
         Default: =""
         Format: =TextFormat.Number
         Height: =50
-        OnChange: =Set(current_mtr,txi_current_mtr.Text)
+        OnChange: =Set(current_mtr,txi_MI_CurrentMeter.Text)
         RadiusBottomLeft: =0
         RadiusBottomRight: =0
         RadiusTopLeft: =0
@@ -95,50 +95,52 @@ mtrScreenInput As screen:
             =//Collect(CollitemsToKeep,{MtrID:mtr_ID.Text,CurrMtr:current_mtr.Text,Date:date_mtr.SelectedDate});
             //SaveData(CollitemsToKeep,"SaveToDevice");
             
-            Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData),"",""));
-            Set(s_Base64ContentMetering, Mid(BinaryImageDataMetering, Find(",", BinaryImageDataMetering) + 1, Len(BinaryImageDataMetering) - Find(",", BinaryImageDataMetering) - 1));
-            Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(mtr_ID.Text,"-",Value(txi_current_mtr.Text),"-metering.jpg"), s_Base64ContentMetering,Concatenate("/gal_metering/",mtr_ID.Text)));
-            Set(s_ImageLinkMetering, v_UploadResult.sharepointfilelink);
+            Set(b_Continue, true);
             
-            /*
-            Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData), "",""));
-            Set(s_Base64ContentMetering,
-                Mid(
-                    BinaryImageDataMetering,
-                    Find(",",BinaryImageDataMetering) + 1,
-                    Len(BinaryImageDataMetering) - Find(",",BinaryImageDataMetering) - 1
-                )
+            If(IsBlank(cbb_MI_MeterID.Selected),
+                Notify("Kamu Belum Memilih / Scan Meter ID",NotificationType.Error);
+                Set(b_Continue, false);
             );
-            Set(s_ImageLinkMetering,
-                '[DEV]-UploadImageWaterMeter'.Run(
-                    Concatenate("/gal_metering/",mtr_ID.Text),
-                    Concatenate(mtr_ID.Text,"-",Value(current_mtr.Text),"-metering.jpg"),
-                    s_Base64ContentMetering        
-                ).sharepointfilelink
+            
+            If(IsBlank(txi_MI_CurrentMeter.Text),
+                Notify("Kamu Belum Mengisi Meternya",NotificationType.Error);
+                Set(b_Continue, false);
             );
-            */
-            Patch(
-                tbl_metering_logs,
-                Defaults(tbl_metering_logs),
-                {
-                    meter_id:cbb_meterID.Selected.meter_ID,
-                    current_meter: Value(txi_current_mtr.Text),
-                    url_image:s_ImageLinkMetering,
-                    date_input:date_mtr.SelectedDate,
-                    user_id:First(c_ActiveUserData).ID
-                }
+            
+            If(IsBlank(AddMediaButton1),
+                Notify("Kamu Belum Melampirkan Foto",NotificationType.Error);
+                Set(b_Continue, false);
             );
-            Patch(
-                c_MeteringLogs,
-                Defaults(c_MeteringLogs),
-                {
-                    meter_id:cbb_meterID.Selected.meter_ID,
-                    current_meter: Value(txi_current_mtr.Text),
-                    url_image:s_ImageLinkMetering,
-                    date_input:date_mtr.SelectedDate,
-                    user_id:First(c_ActiveUserData).ID
-                }
-            );
+            
+            If(b_Continue,
+            
+                Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData),"",""));
+                Set(s_Base64ContentMetering, Mid(BinaryImageDataMetering, Find(",", BinaryImageDataMetering) + 1, Len(BinaryImageDataMetering) - Find(",", BinaryImageDataMetering) - 1));
+                Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(mtr_ID.Text,"-",Value(txi_MI_CurrentMeter.Text),"-metering.jpg"), s_Base64ContentMetering,Concatenate("/gal_metering/",mtr_ID.Text)));
+                Set(s_ImageLinkMetering, v_UploadResult.sharepointfilelink);
+            
+                Patch(
+                    tbl_metering_logs,
+                    Defaults(tbl_metering_logs),
+                    {
+                        meter_id:cbb_MI_MeterID.Selected.meter_ID,
+                        current_meter: Value(txi_MI_CurrentMeter.Text),
+                        url_image:s_ImageLinkMetering,
+                        date_input:date_mtr.SelectedDate,
+                        user_id:First(c_ActiveUserData).ID
+                    }
+                );
+                Patch(
+                    c_MeteringLogs,
+                    Defaults(c_MeteringLogs),
+                    {
+                        meter_id:cbb_MI_MeterID.Selected.meter_ID,
+                        current_meter: Value(txi_MI_CurrentMeter.Text),
+                        url_image:s_ImageLinkMetering,
+                        date_input:date_mtr.SelectedDate,
+                        user_id:First(c_ActiveUserData).ID
+                    }
+                );
             
                 Notify("Data Metering Berhasil Disimpan");
                 //Set(meterIDScan,"");
@@ -147,7 +149,8 @@ mtrScreenInput As screen:
                 
                 
             
-            Navigate(scr_ListMeterDaily);
+                Navigate(scr_ListMeterDaily,ScreenTransition.Fade);
+            );
         Size: =24
         Text: ="SIMPAN"
         Width: =600
@@ -188,14 +191,14 @@ mtrScreenInput As screen:
             Y: =469
             ZIndex: =17
 
-    cbb_meterID As combobox:
+    cbb_MI_MeterID As combobox:
         ChevronBackground: =RGBA(0, 106, 5, 1)
         DefaultSelectedItems: =Filter(mst_meter,meter_ID=meterIDScan)
         DisplayFields: =["Title"]
         Height: =50
         Items: =c_MeterMaster
         SearchFields: =["Title"]
-        SearchItems: =Search(c_MeterMaster,cbb_meterID.SearchText,"Title")
+        SearchItems: =Search(c_MeterMaster,cbb_MI_MeterID.SearchText,"Title")
         SelectMultiple: =false
         Size: =21
         Width: =402
@@ -216,7 +219,7 @@ mtrScreenInput As screen:
             
             Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData),"",""));
             Set(s_Base64ContentMetering, Mid(BinaryImageDataMetering, Find(",", BinaryImageDataMetering) + 1, Len(BinaryImageDataMetering) - Find(",", BinaryImageDataMetering) - 1));
-            Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(mtr_ID.Text,"-",Value(txi_current_mtr.Text),"-metering.jpg"), s_Base64ContentMetering,Concatenate("/gal_metering/",mtr_ID.Text)));
+            Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(mtr_ID.Text,"-",Value(txi_MI_CurrentMeter.Text),"-metering.jpg"), s_Base64ContentMetering,Concatenate("/gal_metering/",mtr_ID.Text)));
             Set(s_ImageLinkMetering, v_UploadResult.sharepointfilelink);
             
             /*
@@ -240,8 +243,8 @@ mtrScreenInput As screen:
                 tbl_metering_logs,
                 Defaults(tbl_metering_logs),
                 {
-                    meter_id:cbb_meterID.Selected.meter_ID,
-                    current_meter: Value(txi_current_mtr.Text),
+                    meter_id:cbb_MI_MeterID.Selected.meter_ID,
+                    current_meter: Value(txi_MI_CurrentMeter.Text),
                     url_image:s_ImageLinkMetering,
                     date_input:date_mtr.SelectedDate
                 }
@@ -250,8 +253,8 @@ mtrScreenInput As screen:
                 c_MeteringLogs,
                 Defaults(c_MeteringLogs),
                 {
-                    meter_id:cbb_meterID.Selected.meter_ID,
-                    current_meter: Value(txi_current_mtr.Text),
+                    meter_id:cbb_MI_MeterID.Selected.meter_ID,
+                    current_meter: Value(txi_MI_CurrentMeter.Text),
                     url_image:s_ImageLinkMetering,
                     date_input:date_mtr.SelectedDate
                 }

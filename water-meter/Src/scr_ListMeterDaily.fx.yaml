@@ -126,7 +126,7 @@ scr_ListMeterDaily As screen:
         onSelectIcon1: =
         onSelectIcon2: =
         onSelectIcon3: =
-        onSelectIcon4: =Navigate(mtrScreenInput);
+        onSelectIcon4: =Navigate(scr_MeterInput,ScreenTransition.Cover);
         svgIcon1: =""
         svgIcon2: =""
         svgIcon3: =""

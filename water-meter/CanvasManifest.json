@@ -131,7 +131,7 @@
   "ScreenOrder": [
     "Home",
     "DateScreenInput",
-    "mtrScreenInput",
+    "scr_MeterInput",
     "scr_ListMeterDaily"
   ]
 }
