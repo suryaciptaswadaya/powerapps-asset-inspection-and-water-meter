@@ -47,13 +47,17 @@
           },
           "tbl_metering_logs": {
             "tableName": "32bfa5a3-83d7-42e2-8eed-e86a1cae0457"
+          },
+          "tbl_users": {
+            "tableName": "7cf6288e-4bde-46df-a2ee-a50577bbae45"
           }
         }
       }
     },
     "dataSources": [
       "tbl_metering_logs",
-      "mst_meter"
+      "mst_meter",
+      "tbl_users"
     ],
     "dependencies": {},
     "dependents": [

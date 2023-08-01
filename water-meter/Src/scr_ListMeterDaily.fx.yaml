@@ -3,26 +3,7 @@ scr_ListMeterDaily As screen:
         =Set(d_LMD_Date, DatePicker1.SelectedDate);
         Set(b_LMD_ImageShow, false);
 
-    cmp_MD_AppBar_top_1 As cmp_MD_AppBar_top:
-        fontSize: =28
-        Height: =85
-        iconSize: =72
-        onSelectIcon1: =
-        onSelectIcon2: =
-        onSelectIcon3: =
-        onSelectIcon4: =Navigate(mtrScreenInput);
-        svgIcon1: =""
-        svgIcon2: =""
-        svgIcon3: =""
-        svgIcon4: |-
-            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M16,8H14V11H11V13H14V16H16V13H19V11H16M2,12C2,9.21 3.64,6.8 6,5.68V3.5C2.5,4.76 0,8.09 0,12C0,15.91 2.5,19.24 6,20.5V18.32C3.64,17.2 2,14.79 2,12M15,3C10.04,3 6,7.04 6,12C6,16.96 10.04,21 15,21C19.96,21 24,16.96 24,12C24,7.04 19.96,3 15,3M15,19C11.14,19 8,15.86 8,12C8,8.14 11.14,5 15,5C18.86,5 22,8.14 22,12C22,15.86 18.86,19 15,19Z'/></svg>"
-        titleText: ="Data Meter"
-        tooltipIcon1: =""
-        tooltipIcon2: =""
-        tooltipIcon3: =""
-        tooltipIcon4: ="Input Data Meter"
-
-    "Gallery3 As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
+    "gal_LMD_MeterLogs As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
         BorderColor: =RGBA(0, 0, 0, 1)
         DelayItemLoading: =true
         Height: =842
@@ -118,15 +99,36 @@ scr_ListMeterDaily As screen:
         OnSelect: =Navigate(Home);
         X: =17
         Y: =21
-        ZIndex: =5
+        ZIndex: =2
 
     cmp_MD_Bottom_Navigation_2 As cmp_MD_Bottom_Navigation:
         Height: =75
         iconSize: =40
         items: =c_NavigationMenu
         onSelect: =false
+        Visible: =false
         Y: =1063
-        ZIndex: =6
+        ZIndex: =3
+
+    cmp_MD_AppBar_top_1 As cmp_MD_AppBar_top:
+        fontSize: =28
+        Height: =85
+        iconSize: =72
+        onSelectIcon1: =
+        onSelectIcon2: =
+        onSelectIcon3: =
+        onSelectIcon4: =Navigate(mtrScreenInput);
+        svgIcon1: =""
+        svgIcon2: =""
+        svgIcon3: =""
+        svgIcon4: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M16,8H14V11H11V13H14V16H16V13H19V11H16M2,12C2,9.21 3.64,6.8 6,5.68V3.5C2.5,4.76 0,8.09 0,12C0,15.91 2.5,19.24 6,20.5V18.32C3.64,17.2 2,14.79 2,12M15,3C10.04,3 6,7.04 6,12C6,16.96 10.04,21 15,21C19.96,21 24,16.96 24,12C24,7.04 19.96,3 15,3M15,19C11.14,19 8,15.86 8,12C8,8.14 11.14,5 15,5C18.86,5 22,8.14 22,12C22,15.86 18.86,19 15,19Z'/></svg>"
+        titleText: ="Data Meter"
+        tooltipIcon1: =""
+        tooltipIcon2: =""
+        tooltipIcon3: =""
+        tooltipIcon4: ="Input Data Meter"
+        ZIndex: =4
 
     DatePicker1 As datepicker:
         Format: ="dd-mmm-yyyy"
@@ -137,14 +139,14 @@ scr_ListMeterDaily As screen:
         Width: =526
         X: =17
         Y: =114
-        ZIndex: =8
+        ZIndex: =5
 
     Rectangle4 As rectangle:
         Fill: =RGBA(219, 219, 219, 1)
         Height: =1
         Width: =640
         Y: =220
-        ZIndex: =9
+        ZIndex: =6
 
     Icon3 As icon.Reload:
         Color: =RGBA(0, 106, 59, 1)
@@ -155,7 +157,7 @@ scr_ListMeterDaily As screen:
         Width: =49
         X: =574
         Y: =114
-        ZIndex: =10
+        ZIndex: =7
 
     Label5 As label:
         Height: =30
@@ -164,7 +166,44 @@ scr_ListMeterDaily As screen:
         Width: =202
         X: =17
         Y: =177
+        ZIndex: =12
+
+    Rectangle2 As rectangle:
+        Fill: =RGBA(0, 0, 0, 0.59)
+        Height: =1136
+        Width: =640
+        ZIndex: =13
+
+    Rectangle3 As rectangle:
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =776
+        Width: =509
+        X: =64
+        Y: =135
+        ZIndex: =14
+
+    Gallery2 As gallery.galleryVertical:
+        DelayItemLoading: =true
+        Height: =567
+        Items: =c_Users
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplateSize: =95
+        Width: =509
+        X: =65
+        Y: =258
         ZIndex: =15
+
+        Button4 As button:
+            Fill: =RGBA(56, 106, 59, 1)
+            Height: =70
+            OnSelect: =Select(Parent)
+            Size: =24
+            Text: =ThisItem.name
+            Width: =479
+            X: =9
+            Y: =9
+            ZIndex: =1
 
     Group1 As group:
         Height: =5
@@ -179,7 +218,7 @@ scr_ListMeterDaily As screen:
             Height: =1136
             Visible: =b_LMD_ImageShow
             Width: =640
-            ZIndex: =11
+            ZIndex: =8
 
         Rectangle6 As rectangle:
             Fill: =RGBA(255, 255, 255, 1)
@@ -188,7 +227,7 @@ scr_ListMeterDaily As screen:
             Width: =509
             X: =65
             Y: =194
-            ZIndex: =12
+            ZIndex: =9
 
         Button1 As button:
             Fill: =RGBA(0, 106, 59, 1)
@@ -200,14 +239,25 @@ scr_ListMeterDaily As screen:
             Width: =448
             X: =95
             Y: =729
-            ZIndex: =13
+            ZIndex: =10
 
         Image2 As image:
             Height: =480
-            Image: =Gallery3.Selected.url_image
+            Image: =gal_LMD_MeterLogs.Selected.url_image
             Visible: =b_LMD_ImageShow
             Width: =468
             X: =86
             Y: =221
-            ZIndex: =14
+            ZIndex: =11
+
+    Label8 As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        Size: =30
+        Text: ="Pilih User Login"
+        Width: =336
+        X: =152
+        Y: =164
+        ZIndex: =16
 

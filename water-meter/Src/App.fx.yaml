@@ -4,6 +4,7 @@ App As appinfo:
         =ClearCollect(c_MeteringLogs, Sort(tbl_metering_logs,Created,SortOrder.Descending));
         ClearCollect(c_MeterMaster, mst_meter);
         
+        ClearCollect(c_Users,Sort(tbl_users,name,SortOrder.Ascending));
         
         ClearCollect(
             c_NavigationMenu,
@@ -63,6 +64,7 @@ App As appinfo:
                 elementBackgroundColorHex: Match(JSON(defaults.elementBackgroundColor, JSONFormat.IgnoreUnsupportedTypes), "#[a-fA-F0-9]{6}").FullMatch
             })
         );
+    StartScreen: =scr_ListMeterDaily
 
     Host As hostControl.DefaultHostControlVariant:
         OnCancel: =false
