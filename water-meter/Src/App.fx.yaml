@@ -1,7 +1,9 @@
 App As appinfo:
     BackEnabled: =false
     OnStart: |-
-        =ClearCollect(
+        =ClearCollect(c_MeteringLogs, Sort(tbl_metering_logs,Created,SortOrder.Descending));
+        
+        ClearCollect(
             c_NavigationMenu,
             Table(                   
                 {
