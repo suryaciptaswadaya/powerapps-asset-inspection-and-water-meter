@@ -1,11 +1,11 @@
 Home As screen:
 
     Logo As image:
-        Height: =373
+        Height: =241
         Image: ='scs logo'
         Width: =438
         X: =108
-        Y: =77
+        Y: =157
         ZIndex: =1
 
     clear_coll As button:
@@ -21,21 +21,6 @@ Home As screen:
         X: =143
         Y: =573
         ZIndex: =3
-
-    view_call As button:
-        Fill: =RGBA(0, 106, 59, 1)
-        Height: =128
-        OnSelect: |-
-            =/*If(IsEmpty(CollitemsToKeep),
-                LoadData(CollitemsToKeep,"SaveToDevice")
-            );*/
-            Navigate(list_mtr_dayli);
-        Size: =24
-        Text: ="View data"
-        Width: =368
-        X: =143
-        Y: =774
-        ZIndex: =4
 
     cmp_MD_Bottom_Navigation_1 As cmp_MD_Bottom_Navigation:
         Height: =101

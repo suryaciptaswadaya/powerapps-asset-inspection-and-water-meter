@@ -1,10 +1,5 @@
 mtrScreenInput As screen:
 
-    Rectangle1_1 As rectangle:
-        Fill: =RGBA(0, 106, 59, 1)
-        Width: =640
-        ZIndex: =1
-
     BarcodeScanner1 As barcodeScanner:
         BarcodeType: =BarcodeType.QRCode
         Fill: =RGBA(0, 106, 59, 1)
@@ -184,4 +179,25 @@ mtrScreenInput As screen:
         X: =20
         Y: =150
         ZIndex: =18
+
+    cmp_MD_AppBar_top_2 As cmp_MD_AppBar_top:
+        fontSize: =28
+        Height: =85
+        iconSize: =65
+        onSelectIcon1: =Back();
+        onSelectIcon2: =
+        onSelectIcon3: =
+        onSelectIcon4: =Navigate(mtrScreenInput);
+        svgIcon1: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z'/></svg>"
+        svgIcon2: =""
+        svgIcon3: =""
+        svgIcon4: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M16,8H14V11H11V13H14V16H16V13H19V11H16M2,12C2,9.21 3.64,6.8 6,5.68V3.5C2.5,4.76 0,8.09 0,12C0,15.91 2.5,19.24 6,20.5V18.32C3.64,17.2 2,14.79 2,12M15,3C10.04,3 6,7.04 6,12C6,16.96 10.04,21 15,21C19.96,21 24,16.96 24,12C24,7.04 19.96,3 15,3M15,19C11.14,19 8,15.86 8,12C8,8.14 11.14,5 15,5C18.86,5 22,8.14 22,12C22,15.86 18.86,19 15,19Z'/></svg>"
+        titleText: ="Buat Data Meter"
+        tooltipIcon1: =""
+        tooltipIcon2: =""
+        tooltipIcon3: =""
+        tooltipIcon4: ="Buat Data Meter"
+        ZIndex: =19
 
