@@ -4,6 +4,7 @@ App As appinfo:
         =
         ClearCollect(c_MeterMaster, mst_meter);
         ClearCollect(c_Users,Sort(tbl_users,name,SortOrder.Ascending));
+        Set(b_UserLogin,true);
         
         ClearCollect(
             c_NavigationMenu,

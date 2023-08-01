@@ -3,7 +3,7 @@
     "ApiId": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
     "CdpRevision": {
       "BaseUrl": "/",
-      "LastChangedTimeString": "2023-06-13T16:06:17.0520000Z",
+      "LastChangedTimeString": "2023-07-27T20:10:07.4660000Z",
       "RevisionNumber": 1
     },
     "ConnectedDataSourceInfoNameMapping": {
@@ -36,7 +36,8 @@
       "Modified": "Modified",
       "OData__ColorTag": "Color Tag",
       "Title": "Title",
-      "url_photo": "url_image"
+      "url_photo": "url_image",
+      "user_id": "user_id"
     },
     "DatasetName": "https://suryainternusa.sharepoint.com/sites/DEV-SCSWaterMeter",
     "EncodeDataset": true,
