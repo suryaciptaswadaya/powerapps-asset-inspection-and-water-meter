@@ -28,13 +28,13 @@ mtrScreenInput As screen:
         ZIndex: =3
 
     Label2 As label:
-        Height: =41
+        Height: =31
         Size: =21
         Text: |-
             ="Meter ID :"
         Width: =560
-        X: =17
-        Y: =95
+        X: =9
+        Y: =106
         ZIndex: =4
 
     Label3 As label:
@@ -184,9 +184,9 @@ mtrScreenInput As screen:
         DefaultSelectedItems: =Filter(mst_meter,meter_ID=meterIDScan)
         DisplayFields: =["Title"]
         Height: =50
-        Items: =mst_meter
+        Items: =c_MeterMaster
         SearchFields: =["Title"]
-        SearchItems: =Search(mst_meter,cbb_meterID.SearchText,"Title")
+        SearchItems: =Search(c_MeterMaster,cbb_meterID.SearchText,"Title")
         SelectMultiple: =false
         Size: =21
         Width: =402
@@ -207,7 +207,7 @@ mtrScreenInput As screen:
         svgIcon2: =""
         svgIcon3: =""
         svgIcon4: =""
-        titleText: ="Buat Data Meter"
+        titleText: ="Input Data Meter"
         tooltipIcon1: =""
         tooltipIcon2: =""
         tooltipIcon3: =""

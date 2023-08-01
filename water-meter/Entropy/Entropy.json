@@ -217,7 +217,7 @@
   },
   "FunctionParamsInvariantScripts": {},
   "FunctionParamsInvariantScriptsOnInstances": {},
-  "HeaderLastSavedDateTimeUTC": "08/01/2023 03:48:23",
+  "HeaderLastSavedDateTimeUTC": "08/01/2023 03:49:47",
   "IsLegacyComponentAllowGlobalScopeCase": false,
   "LocalConnectionIDReferences": {
     "a3e0174b-307e-4660-8ce6-c028043770c8": "\"/providers/microsoft.powerapps/apis/shared_logicflows/connections/c2ca6bd584dc42b2b6c671fffb817a0f\"",
@@ -269,6 +269,7 @@
   "OrderDataSource": {
     "[DEV]UploadImage-WaterMeter": 0,
     "c_MeteringLogs": 6,
+    "c_MeterMaster": 7,
     "c_NavigationMenu": 5,
     "ComboBoxSample": 1,
     "CustomGallerySample": 2,
