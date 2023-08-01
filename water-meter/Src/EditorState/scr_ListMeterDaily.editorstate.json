@@ -1781,7 +1781,7 @@
         {
           "AFDDataSourceName": "",
           "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "Today()",
+          "AutoRuleBindingString": "",
           "InvariantPropertyName": "DefaultDate",
           "IsLockable": false,
           "NameMapSourceSchema": "?"
@@ -3320,7 +3320,7 @@
         {
           "AFDDataSourceName": "",
           "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "\"Text\"",
+          "AutoRuleBindingString": "",
           "InvariantPropertyName": "Text",
           "IsLockable": false,
           "NameMapSourceSchema": "?"

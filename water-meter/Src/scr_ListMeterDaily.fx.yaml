@@ -1,12 +1,12 @@
 scr_ListMeterDaily As screen:
     OnVisible: |-
-        =Set(d_LMD_Date, Now());
+        =
         Set(b_LMD_ImageShow, false);
 
     Label5 As label:
         Height: =30
         Size: =15
-        Text: ="Total Data " & CountRows(Filter(c_MeteringLogs,date_input = d_LMD_Date))
+        Text: ="Total Data " & CountRows(Filter(c_MeteringLogs,date_input = d_DateNow))
         Width: =202
         X: =17
         Y: =177
@@ -16,7 +16,7 @@ scr_ListMeterDaily As screen:
         BorderColor: =RGBA(0, 0, 0, 1)
         DelayItemLoading: =true
         Height: =842
-        Items: =Filter(c_MeteringLogs,date_input = d_LMD_Date)
+        Items: =Filter(c_MeteringLogs,date_input = d_DateNow)
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         ShowScrollbar: =false
@@ -140,11 +140,11 @@ scr_ListMeterDaily As screen:
         ZIndex: =5
 
     DatePicker1 As datepicker:
-        DefaultDate: =d_LMD_Date
+        DefaultDate: =d_DateNow
         Format: ="dd-mmm-yyyy"
         Height: =50
         IconBackground: =RGBA(0, 106, 59, 1)
-        OnChange: =Set(d_LMD_Date,DatePicker1.SelectedDate)
+        OnChange: =Set(d_DateNow,DatePicker1.SelectedDate)
         Size: =24
         Width: =526
         X: =17

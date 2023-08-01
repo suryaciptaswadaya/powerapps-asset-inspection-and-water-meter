@@ -1699,13 +1699,20 @@
         {
           "AFDDataSourceName": "",
           "AutoRuleBindingEnabled": false,
-          "AutoRuleBindingString": "Today()",
+          "AutoRuleBindingString": "",
           "InvariantPropertyName": "DefaultDate",
           "IsLockable": false,
           "NameMapSourceSchema": "?"
         },
         "DateTimeZone",
-        "Format",
+        {
+          "AFDDataSourceName": "",
+          "AutoRuleBindingEnabled": false,
+          "AutoRuleBindingString": "DateTimeFormat.ShortDate",
+          "InvariantPropertyName": "Format",
+          "IsLockable": false,
+          "NameMapSourceSchema": "?"
+        },
         "InputTextPlaceholder",
         "StartYear",
         "EndYear",
