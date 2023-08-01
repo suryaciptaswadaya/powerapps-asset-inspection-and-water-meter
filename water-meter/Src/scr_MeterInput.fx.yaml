@@ -68,10 +68,12 @@ scr_MeterInput As screen:
 
     date_mtr As datepicker:
         BorderColor: =RGBA(0, 106, 59, 1)
+        DefaultDate: =d_LMD_Date
         Height: =50
         IconBackground: |-
             =RGBA(0, 106, 59
             , 1)
+        OnChange: =Set(d_LMD_Date,DatePicker1.SelectedDate)
         Size: =24
         Width: =600
         X: =20

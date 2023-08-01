@@ -1,6 +1,6 @@
 scr_ListMeterDaily As screen:
     OnVisible: |-
-        =Set(d_LMD_Date, DatePicker1.SelectedDate);
+        =Set(d_LMD_Date, Now());
         Set(b_LMD_ImageShow, false);
 
     Label5 As label:
@@ -140,6 +140,7 @@ scr_ListMeterDaily As screen:
         ZIndex: =5
 
     DatePicker1 As datepicker:
+        DefaultDate: =d_LMD_Date
         Format: ="dd-mmm-yyyy"
         Height: =50
         IconBackground: =RGBA(0, 106, 59, 1)
