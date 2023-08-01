@@ -1622,7 +1622,7 @@
         {
           "Category": "Design",
           "PropertyName": "Height",
-          "RuleProviderType": "System"
+          "RuleProviderType": "Unknown"
         },
         {
           "Category": "Design",
@@ -1632,17 +1632,17 @@
         {
           "Category": "Design",
           "PropertyName": "X",
-          "RuleProviderType": "System"
+          "RuleProviderType": "Unknown"
         },
         {
           "Category": "Design",
           "PropertyName": "Y",
-          "RuleProviderType": "System"
+          "RuleProviderType": "Unknown"
         },
         {
           "Category": "Design",
           "PropertyName": "ZIndex",
-          "RuleProviderType": "System"
+          "RuleProviderType": "Unknown"
         },
         {
           "Category": "Behavior",
@@ -2005,7 +2005,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_icon1",
-      "ParentIndex": 0,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2244,7 +2244,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_icon2",
-      "ParentIndex": 2,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2483,7 +2483,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_icon3",
-      "ParentIndex": 3,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2722,7 +2722,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_icon4",
-      "ParentIndex": 4,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4321,7 +4321,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_title",
-      "ParentIndex": 1,
+      "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

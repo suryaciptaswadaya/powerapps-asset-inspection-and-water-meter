@@ -1,8 +1,23 @@
 list_mtr_dayli As screen:
 
     cmp_MD_AppBar_top_1 As cmp_MD_AppBar_top:
-        Height: =106
-        iconSize: =45
+        fontSize: =28
+        Height: =85
+        iconSize: =72
+        onSelectIcon1: =
+        onSelectIcon2: =
+        onSelectIcon3: =
+        onSelectIcon4: =Navigate(mtrScreenInput);
+        svgIcon1: =""
+        svgIcon2: =""
+        svgIcon3: =""
+        svgIcon4: |-
+            ="<svg xmlns='http://www.w3.org/2000/svg' height='24' width='24'><path d='M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z'/></svg>"
+        titleText: ="Data Meter"
+        tooltipIcon1: =""
+        tooltipIcon2: =""
+        tooltipIcon3: =""
+        tooltipIcon4: ="Buat Data Meter"
 
     "Gallery3 As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
         DelayItemLoading: =true

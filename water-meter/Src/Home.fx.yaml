@@ -8,19 +8,6 @@ Home As screen:
         Y: =77
         ZIndex: =1
 
-    start_input As button:
-        Fill: =RGBA(0, 106, 59, 1)
-        Height: =131
-        OnSelect: |-
-            =
-            Navigate(mtrScreenInput);
-        Size: =24
-        Text: ="Start"
-        Width: =368
-        X: =143
-        Y: =369
-        ZIndex: =2
-
     clear_coll As button:
         Fill: =RGBA(0, 106, 59, 1)
         Height: =128
