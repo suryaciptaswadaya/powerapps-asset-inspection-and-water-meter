@@ -3,13 +3,17 @@ mtrScreenInput As screen:
     BarcodeScanner1 As barcodeScanner:
         BarcodeType: =BarcodeType.QRCode
         Fill: =RGBA(0, 106, 59, 1)
-        Height: =70
+        Height: =50
         OnScan: =Set(meterIDScan, BarcodeScanner1.Value)
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
         Size: =24
         Text: ="Scan"
-        Width: =106
-        X: =509
-        Y: =150
+        Width: =181
+        X: =436
+        Y: =145
         ZIndex: =2
 
     mtr_ID As text:
@@ -24,13 +28,13 @@ mtrScreenInput As screen:
         ZIndex: =3
 
     Label2 As label:
-        Height: =70
+        Height: =41
         Size: =21
         Text: |-
             ="Meter ID :"
         Width: =560
-        X: =15
-        Y: =100
+        X: =17
+        Y: =95
         ZIndex: =4
 
     Label3 As label:
@@ -110,18 +114,28 @@ mtrScreenInput As screen:
             Patch(
                 tbl_metering_logs,
                 Defaults(tbl_metering_logs),
-                    {
-                        meter_id:cbb_meterID.Selected.meter_ID,
-                        current_meter: Value(txi_current_mtr.Text),
-                        url_image:s_ImageLinkMetering,
-                        date_input:date_mtr.SelectedDate
-                    }
-                );
+                {
+                    meter_id:cbb_meterID.Selected.meter_ID,
+                    current_meter: Value(txi_current_mtr.Text),
+                    url_image:s_ImageLinkMetering,
+                    date_input:date_mtr.SelectedDate
+                }
+            );
+            Patch(
+                c_MeteringLogs,
+                Defaults(c_MeteringLogs),
+                {
+                    meter_id:cbb_meterID.Selected.meter_ID,
+                    current_meter: Value(txi_current_mtr.Text),
+                    url_image:s_ImageLinkMetering,
+                    date_input:date_mtr.SelectedDate
+                }
+            );
             
                 Notify("Data Metering Berhasil Disimpan");
                 Set(meterIDScan,"");
                 txi_current_mtr.Clear;
-                AddMediaButton1.Media = SampleImage;
+                //AddMediaButton1.Media = SampleImage;
                 
                 
             
@@ -169,15 +183,15 @@ mtrScreenInput As screen:
     cbb_meterID As combobox:
         DefaultSelectedItems: =Filter(mst_meter,meter_ID=meterIDScan)
         DisplayFields: =["Title"]
-        Height: =70
+        Height: =50
         Items: =mst_meter
         SearchFields: =["Title"]
         SearchItems: =Search(mst_meter,cbb_meterID.SearchText,"Title")
         SelectMultiple: =false
         Size: =21
-        Width: =477
+        Width: =402
         X: =20
-        Y: =150
+        Y: =145
         ZIndex: =18
 
     cmp_MD_AppBar_top_2 As cmp_MD_AppBar_top:
