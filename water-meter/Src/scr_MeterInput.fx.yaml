@@ -126,6 +126,7 @@ scr_MeterInput As screen:
                 Set(s_Base64ContentMetering, Mid(BinaryImageDataMetering, Find(",", BinaryImageDataMetering) + 1, Len(BinaryImageDataMetering) - Find(",", BinaryImageDataMetering) - 1));
                 Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(cbb_MI_MeterID.Selected.meter_ID,"-",Text(Now(), "ddmmyyyy"),"-", Value(txi_MI_CurrentMeter.Text), ".jpg"), s_Base64ContentMetering,Concatenate("/gal_metering/",cbb_MI_MeterID.Selected.meter_ID)));
                 Set(s_ImageLinkMetering, v_UploadResult.sharepointfilelink);
+                Set(s_ImageId, v_UploadResult.img_id);
             
                 Patch(
                     tbl_metering_logs,
@@ -135,7 +136,8 @@ scr_MeterInput As screen:
                         current_meter: Value(txi_MI_CurrentMeter.Text),
                         url_image:s_ImageLinkMetering,
                         date_input:date_mtr.SelectedDate,
-                        user_id:First(c_ActiveUserData).ID
+                        user_id:First(c_ActiveUserData).ID,
+                        image_id: Value(s_ImageId)
                     }
                 );
                 Patch(
@@ -146,7 +148,8 @@ scr_MeterInput As screen:
                         current_meter: Value(txi_MI_CurrentMeter.Text),
                         url_image:s_ImageLinkMetering,
                         date_input:date_mtr.SelectedDate,
-                        user_id:First(c_ActiveUserData).ID
+                        user_id:First(c_ActiveUserData).ID,
+                        image_id: Value(s_ImageId)
                     }
                 );
             

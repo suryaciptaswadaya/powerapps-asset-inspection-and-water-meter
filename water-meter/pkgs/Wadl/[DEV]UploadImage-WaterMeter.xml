@@ -11,8 +11,10 @@
         <property name="Createfile_FolderPath" type="string" />
       </object>
       <string name="ResponseActionOutput_sharepointfilelink_def" />
+      <string name="ResponseActionOutput_img_id_def" />
       <object name="ResponseActionOutput">
         <property name="sharepointfilelink" type="string" />
+        <property name="img_id" type="string" />
       </object>
       <object name="Run_responses_default_def" />
     </jsonTypes>

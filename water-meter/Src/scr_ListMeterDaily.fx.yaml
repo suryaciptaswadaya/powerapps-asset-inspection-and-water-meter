@@ -89,7 +89,7 @@ scr_ListMeterDaily As screen:
             BorderColor: =RGBA(219, 219, 219, 1)
             BorderThickness: =1
             Height: =77
-            Image: =ThisItem.url_image
+            Image: =LookUp(gal_metering_files, ID = ThisItem.image_id).Thumbnail.Small
             OnSelect: =Set(b_LMD_ImageShow,true)
             Width: =94
             X: =16

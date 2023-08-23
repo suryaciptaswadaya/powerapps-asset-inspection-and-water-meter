@@ -4606,6 +4606,36 @@
             {
               "logicalLocations": [
                 {
+                  "fullyQualifiedName": "App.gal_metering_files"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App.gal_metering_files",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "gal_metering_files",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-NotOfflineConnectors",
+          "ruleIndex": 7
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
                   "fullyQualifiedName": "App.[DEV]UploadImage-WaterMeter"
                 }
               ],
