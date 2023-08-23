@@ -101,17 +101,17 @@ scr_MeterInput As screen:
             Set(b_Continue, true);
             
             If(IsBlank(cbb_MI_MeterID.Selected),
-                Notify("Kamu Belum Memilih / Scan Meter ID",NotificationType.Error);
+                Notify("Kamu Belum Memilih / Scan Meter ID");
                 Set(b_Continue, false);
             );
             
             If(IsBlank(txi_MI_CurrentMeter.Text),
-                Notify("Kamu Belum Mengisi Meternya",NotificationType.Error);
+                Notify("Kamu Belum Mengisi Meternya");
                 Set(b_Continue, false);
             );
             
             If(IsBlank(AddMediaButton1),
-                Notify("Kamu Belum Melampirkan Foto",NotificationType.Error);
+                Notify("Kamu Belum Melampirkan Foto");
                 Set(b_Continue, false);
             );
             
