@@ -1,8 +1,7 @@
 App As appinfo:
     BackEnabled: =false
     OnStart: |-
-        =
-        ClearCollect(c_MeterMaster, mst_meter);
+        =ClearCollect(c_MeterMaster, mst_meter);
         ClearCollect(c_Users,Sort(tbl_users,name,SortOrder.Ascending));
         Set(b_UserLogin,true);
         Set(d_DateNow, Now());
@@ -66,6 +65,7 @@ App As appinfo:
             })
         );
     StartScreen: =scr_ListMeterDaily
+    Theme: =PowerAppsTheme
 
     Host As hostControl.DefaultHostControlVariant:
         OnCancel: =false

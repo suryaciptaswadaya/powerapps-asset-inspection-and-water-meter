@@ -4,16 +4,18 @@ scr_ListMeterDaily As screen:
         Set(b_LMD_ImageShow, false);
 
     Label5 As label:
-        Height: =30
-        Size: =15
-        Text: ="Total Data " & CountRows(Filter(c_MeteringLogs,date_input = d_DateNow))
-        Width: =202
+        Height: =32
+        Size: =20
+        Text: |-
+            ="Total Meter Diproses : " & CountRows(Filter(c_MeteringLogs,date_input = d_DateNow))
+        Width: =537
         X: =17
-        Y: =177
+        Y: =164
         ZIndex: =1
 
     "gal_LMD_MeterLogs As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
         BorderColor: =RGBA(0, 0, 0, 1)
+        BorderThickness: =1
         DelayItemLoading: =true
         Height: =842
         Items: =Filter(c_MeteringLogs,date_input = d_DateNow)
@@ -22,22 +24,25 @@ scr_ListMeterDaily As screen:
         ShowScrollbar: =false
         TemplatePadding: =0
         TemplateSize: =98
-        Y: =221
+        Width: =606
+        X: =17
+        Y: =208
         ZIndex: =2
 
         Title3 As label:
             FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
-            Height: =29
+            Height: =32
             OnSelect: =Select(Parent)
             PaddingBottom: =0
             PaddingLeft: =0
             PaddingRight: =0
             PaddingTop: =0
+            Size: =20
             Text: =Text(ThisItem.date_input,"dd-mmm-yyyy")
             VerticalAlign: =VerticalAlign.Top
-            Width: =237
-            X: =130
-            Y: =11
+            Width: =162
+            X: =429
+            Y: =56
             ZIndex: =1
 
         Subtitle3 As label:
@@ -50,25 +55,26 @@ scr_ListMeterDaily As screen:
             PaddingTop: =0
             Size: =20
             Text: |-
-                =Text(ThisItem.current_meter,"[$-en-US]###,###,###")
+                ="Meter : " & Text(ThisItem.current_meter,"[$-en-US]###,###,###")
             VerticalAlign: =VerticalAlign.Top
             Width: =373
             X: =130
-            Y: =40
+            Y: =53
             ZIndex: =2
 
         Body1 As label:
-            Height: =38
+            Height: =34
             OnSelect: =Select(Parent)
             PaddingBottom: =0
             PaddingLeft: =0
             PaddingRight: =0
             PaddingTop: =0
+            Size: =22
             Text: =ThisItem.meter_id
             VerticalAlign: =VerticalAlign.Top
-            Width: =356
-            X: =267
-            Y: =30
+            Width: =461
+            X: =130
+            Y: =13
             ZIndex: =3
 
         Separator3 As rectangle:
@@ -148,7 +154,7 @@ scr_ListMeterDaily As screen:
         Size: =24
         Width: =526
         X: =17
-        Y: =114
+        Y: =99
         ZIndex: =6
 
     Rectangle4 As rectangle:
@@ -166,7 +172,7 @@ scr_ListMeterDaily As screen:
             =ClearCollect(c_MeteringLogs, Filter(Sort(tbl_metering_logs,Created,SortOrder.Descending),user_id = First(c_ActiveUserData).ID));
         Width: =49
         X: =574
-        Y: =114
+        Y: =99
         ZIndex: =8
 
     grp_PopupImage As group:
