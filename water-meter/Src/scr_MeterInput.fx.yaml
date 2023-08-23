@@ -124,7 +124,7 @@ scr_MeterInput As screen:
             
                 Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData),"",""));
                 Set(s_Base64ContentMetering, Mid(BinaryImageDataMetering, Find(",", BinaryImageDataMetering) + 1, Len(BinaryImageDataMetering) - Find(",", BinaryImageDataMetering) - 1));
-                Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(cbb_MI_MeterID.Selected.meter_ID,"-",Text(Now(), "ddmmyyyy"),"-", Value(txi_MI_CurrentMeter.Text)), s_Base64ContentMetering,Concatenate("/gal_metering/",cbb_MI_MeterID.Selected.meter_ID)));
+                Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(cbb_MI_MeterID.Selected.meter_ID,"-",Text(Now(), "ddmmyyyy"),"-", Value(txi_MI_CurrentMeter.Text), ".jpg"), s_Base64ContentMetering,Concatenate("/gal_metering/",cbb_MI_MeterID.Selected.meter_ID)));
                 Set(s_ImageLinkMetering, v_UploadResult.sharepointfilelink);
             
                 Patch(
