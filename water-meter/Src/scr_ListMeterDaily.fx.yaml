@@ -213,7 +213,9 @@ scr_ListMeterDaily As screen:
 
         Image2 As image:
             Height: =480
-            Image: =gal_LMD_MeterLogs.Selected.url_image
+            Image: |-
+                =LookUp(gal_metering_files, ID = gal_LMD_MeterLogs.Selected.image_id).Thumbnail.Large
+                //gal_LMD_MeterLogs.Selected.url_image
             Visible: =b_LMD_ImageShow
             Width: =468
             X: =86
