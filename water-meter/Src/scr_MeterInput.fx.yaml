@@ -115,11 +115,16 @@ scr_MeterInput As screen:
                 Set(b_Continue, false);
             );
             
+            If(CountRows(Filter(c_MeteringLogs, meter_id = cbb_MI_MeterID.Selected.meter_ID && date_input = date_mtr.SelectedDate)) > 0,
+                Notify("Data meter " & cbb_MI_MeterID.Selected.meter_ID & " sudah terinput", NotificationType.Error);
+                Set(b_Continue, false);
+            );
+            
             If(b_Continue,
             
                 Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData),"",""));
                 Set(s_Base64ContentMetering, Mid(BinaryImageDataMetering, Find(",", BinaryImageDataMetering) + 1, Len(BinaryImageDataMetering) - Find(",", BinaryImageDataMetering) - 1));
-                Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(cbb_MI_MeterID.Selected.Title,"-",Text(Now(), "ddmmyyyy"),"-", Value(txi_MI_CurrentMeter.Text)), s_Base64ContentMetering,Concatenate("/gal_metering/",cbb_MI_MeterID.Selected.Title)));
+                Set(v_UploadResult, '[DEV]UploadImage-WaterMeter'.Run(Concatenate(cbb_MI_MeterID.Selected.meter_ID,"-",Text(Now(), "ddmmyyyy"),"-", Value(txi_MI_CurrentMeter.Text)), s_Base64ContentMetering,Concatenate("/gal_metering/",cbb_MI_MeterID.Selected.meter_ID)));
                 Set(s_ImageLinkMetering, v_UploadResult.sharepointfilelink);
             
                 Patch(
@@ -149,8 +154,6 @@ scr_MeterInput As screen:
                 //Set(meterIDScan,"");
                 //txi_current_mtr.Clear;
                 //AddMediaButton1.Media = SampleImage;
-                
-                
             
                 Navigate(scr_ListMeterDaily,ScreenTransition.Fade);
             );
