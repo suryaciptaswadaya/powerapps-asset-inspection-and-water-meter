@@ -25,6 +25,7 @@
       "{VersionNumber}": "Version number",
       "Author": "Created By",
       "Author#Claims": "Created By Claims",
+      "avg_per_day_since_last_reading": "avg_per_day_since_last_reading",
       "ComplianceAssetId": "Compliance Asset Id",
       "Created": "Created",
       "current_meter": "current_meter",

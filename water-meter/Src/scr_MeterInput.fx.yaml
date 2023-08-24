@@ -68,7 +68,7 @@ scr_MeterInput As screen:
 
     date_mtr As datepicker:
         BorderColor: =RGBA(0, 106, 59, 1)
-        DefaultDate: =d_DateNow
+        DisplayMode: =DisplayMode.Disabled
         Format: ="dd-mmm-yyyy"
         Height: =50
         IconBackground: |-
@@ -120,6 +120,15 @@ scr_MeterInput As screen:
                 Set(b_Continue, false);
             );
             
+            //Cek Pembacaan sebelumnya
+            ClearCollect(c_LastReading, FirstN(SortByColumns(Filter(tbl_metering_logs, meter_id = cbb_MI_MeterID.Selected.meter_ID && date_input < date_mtr.SelectedDate), "date_input", SortOrder.Descending), 1));
+            
+            If(IsEmpty(c_LastReading),
+                Set(n_avg_usage_per_day, Value(txi_MI_CurrentMeter.Text));
+            ,
+                Set(n_avg_usage_per_day, (Value(txi_MI_CurrentMeter.Text) - First(c_LastReading).current_meter) / DateDiff(date_mtr.SelectedDate, First(c_LastReading).date_input, TimeUnit.Days));
+            );
+            
             If(b_Continue,
             
                 Set(BinaryImageDataMetering, Substitute(JSON(UploadedImage1.Image, JSONFormat.IncludeBinaryData),"",""));
@@ -137,7 +146,8 @@ scr_MeterInput As screen:
                         url_image:s_ImageLinkMetering,
                         date_input:date_mtr.SelectedDate,
                         user_id:First(c_ActiveUserData).ID,
-                        image_id: Value(s_ImageId)
+                        image_id: Value(s_ImageId),
+                        avg_per_day_since_last_reading: n_avg_usage_per_day
                     }
                 );
                 Patch(
