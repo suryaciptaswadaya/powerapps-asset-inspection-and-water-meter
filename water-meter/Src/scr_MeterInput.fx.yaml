@@ -116,7 +116,7 @@ scr_MeterInput As screen:
             );
             
             If(CountRows(Filter(c_MeteringLogs, meter_id = cbb_MI_MeterID.Selected.meter_ID && date_input = date_mtr.SelectedDate)) > 0,
-                Notify("Data meter " & cbb_MI_MeterID.Selected.meter_ID & " sudah terinput", NotificationType.Error);
+                Notify("Data meter " & cbb_MI_MeterID.Selected.meter_ID & " hari ini sudah diambil");
                 Set(b_Continue, false);
             );
             
