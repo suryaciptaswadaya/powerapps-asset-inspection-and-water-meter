@@ -126,7 +126,7 @@ scr_MeterInput As screen:
             If(IsEmpty(c_LastReading),
                 Set(n_avg_usage_per_day, Value(txi_MI_CurrentMeter.Text));
             ,
-                Set(n_avg_usage_per_day, (Value(txi_MI_CurrentMeter.Text) - First(c_LastReading).current_meter) / DateDiff(date_mtr.SelectedDate, First(c_LastReading).date_input, TimeUnit.Days));
+                Set(n_avg_usage_per_day, (Value(txi_MI_CurrentMeter.Text) - First(c_LastReading).current_meter) / DateDiff( First(c_LastReading).date_input, date_mtr.SelectedDate, TimeUnit.Days));
             );
             
             If(b_Continue,
