@@ -99,6 +99,7 @@ scr_MeterInput As screen:
             //SaveData(CollitemsToKeep,"SaveToDevice");
             
             Set(b_Continue, true);
+            Set(n_AdditionalData, 0);
             
             If(IsBlank(cbb_MI_MeterID.Selected),
                 Notify("Kamu Belum Memilih / Scan Meter ID");
@@ -126,7 +127,8 @@ scr_MeterInput As screen:
             If(IsEmpty(c_LastReading),
                 Set(n_avg_usage_per_day, Value(txi_MI_CurrentMeter.Text));
             ,
-                Set(n_avg_usage_per_day, (Value(txi_MI_CurrentMeter.Text) - First(c_LastReading).current_meter) / DateDiff( First(c_LastReading).date_input, date_mtr.SelectedDate, TimeUnit.Days));
+                Set(n_avg_usage_per_day, (Value(txi_MI_CurrentMeter.Text) - First(c_LastReading).current_meter) / DateDiff(First(c_LastReading).date_input, date_mtr.SelectedDate, TimeUnit.Days));
+                Set(n_AdditionalData, DateDiff(First(c_LastReading).date_input, date_mtr.SelectedDate, TimeUnit.Days) - 1);
             );
             
             If(b_Continue,
@@ -147,7 +149,8 @@ scr_MeterInput As screen:
                         date_input:date_mtr.SelectedDate,
                         user_id:First(c_ActiveUserData).ID,
                         image_id: Value(s_ImageId),
-                        avg_per_day_since_last_reading: n_avg_usage_per_day
+                        avg_per_day_since_last_reading: n_avg_usage_per_day,
+                        is_input_by_user: 1
                     }
                 );
                 Patch(
@@ -159,8 +162,27 @@ scr_MeterInput As screen:
                         url_image:s_ImageLinkMetering,
                         date_input:date_mtr.SelectedDate,
                         user_id:First(c_ActiveUserData).ID,
-                        image_id: Value(s_ImageId)
+                        image_id: Value(s_ImageId),
+                        avg_per_day_since_last_reading: n_avg_usage_per_day,
+                        is_input_by_user: 1
                     }
+                );
+            
+                //Tambah data otomatis by sistem, flag is_input_by_user = 0
+                If(n_AdditionalData > 0,
+                    ForAll(Sequence(n_AdditionalData), 
+                         Patch(
+                            tbl_metering_logs,
+                            Defaults(tbl_metering_logs),
+                            {
+                                meter_id:cbb_MI_MeterID.Selected.meter_ID,
+                                current_meter: Value(txi_MI_CurrentMeter.Text) - (Value * n_avg_usage_per_day),
+                                date_input: DateAdd(date_mtr.SelectedDate, Value * -1),
+                                avg_per_day_since_last_reading: n_avg_usage_per_day,
+                                is_input_by_user: 0
+                            }
+                        );
+                    )
                 );
             
                 Notify("Data Metering Berhasil Disimpan");
@@ -181,7 +203,7 @@ scr_MeterInput As screen:
         BorderColor: =RGBA(255, 255, 255, 1)
         Color: =RGBA(255, 255, 255, 1)
         Icon: =Icon.BackArrow
-        OnSelect: =Navigate(Home);
+        OnSelect: =Navigate(scr_HomeScreen);
         X: =17
         Y: =18
         ZIndex: =14
@@ -216,6 +238,7 @@ scr_MeterInput As screen:
         DisplayFields: =["Title"]
         Height: =50
         Items: =c_MeterMaster
+        OnChange: =Reset(txi_MI_CurrentMeter)
         SearchFields: =["Title"]
         SearchItems: =Search(c_MeterMaster,cbb_MI_MeterID.SearchText,"Title")
         SelectMultiple: =false

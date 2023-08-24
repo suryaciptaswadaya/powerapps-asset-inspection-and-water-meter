@@ -34,6 +34,7 @@
       "Editor#Claims": "Modified By Claims",
       "ID": "ID",
       "image_id": "image_id",
+      "is_input_by_user": "is_input_by_user",
       "meter_id": "meter_id",
       "Modified": "Modified",
       "OData__ColorTag": "Color Tag",

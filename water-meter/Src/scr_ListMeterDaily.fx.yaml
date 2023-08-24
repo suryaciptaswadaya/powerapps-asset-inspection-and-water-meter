@@ -111,7 +111,7 @@ scr_ListMeterDaily As screen:
         BorderColor: =RGBA(255, 255, 255, 1)
         Color: =RGBA(255, 255, 255, 1)
         Icon: =Icon.BackArrow
-        OnSelect: =Navigate(Home);
+        OnSelect: =Navigate(scr_HomeScreen);
         X: =17
         Y: =21
         ZIndex: =3

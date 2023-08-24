@@ -129,8 +129,7 @@
     "UserLocale": "en-US"
   },
   "ScreenOrder": [
-    "Home",
-    "DateScreenInput",
+    "scr_HomeScreen",
     "scr_MeterInput",
     "scr_ListMeterDaily"
   ]
