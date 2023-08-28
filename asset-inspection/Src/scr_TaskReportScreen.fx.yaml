@@ -59,7 +59,7 @@ scr_TaskReportScreen As screen:
         RadiusTopRight: =0
         Size: =20
         Text: ="Pilih"
-        Visible: =!(n_CurrentSublocationRowNumber = n_QtySublocation) && n_QtySublocation > 0
+        Visible: =!(First(c_ActiveUserData).is_approver = 1 || b_IsViewerUser)
         Width: =130
         X: =487
         Y: =129
