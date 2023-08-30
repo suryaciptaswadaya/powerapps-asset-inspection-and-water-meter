@@ -46,6 +46,7 @@ scr_TaskScreen As screen:
             );
             
             ClearCollect(c_AllNotification, Filter(tbl_notification_list, employee_id = n_UserID));
+            Reset(dtp_TSTaskDate); 
         Width: =45
         X: =558
         Y: =89
@@ -57,6 +58,7 @@ scr_TaskScreen As screen:
         CalendarHeaderFill: =defaults.primaryColor
         Color: =defaults.textColor
         DayColor: =defaults.primaryColor
+        DefaultDate: =
         DisabledBorderColor: =defaults.disabledColor
         DisabledColor: =defaults.disabledColor
         DisabledFill: =defaults.elementBackgroundColor
@@ -68,6 +70,9 @@ scr_TaskScreen As screen:
         HoverDateFill: =ColorValue(defaults.primaryColorTransparentHex)
         IconBackground: =Self.Fill
         IconFill: =defaults.primaryColor
+        InputTextPlaceholder: |-
+            =//If(IsBlank(Self.SelectedDate), Text(Date(2001,12,31), Self.Format, Self.Language))
+            "Filter Tanggal"
         MonthColor: =defaults.primaryColor
         OnChange: =Set(d_TSV_Date, dtp_TSTaskDate.SelectedDate)
         OnSelect: =Set(d_TSV_Date, dtp_TSTaskDate.SelectedDate)
@@ -95,8 +100,13 @@ scr_TaskScreen As screen:
         Items: |-
             =//Filter(c_Task,assigned_pic1_id = n_UserID)
             If(b_IsApproverByFlow = true || b_IsViewerUser,
-                Filter(c_Task,assignment_code = gal_TSTaskList_1.Selected.assignment_code ),    
-                Filter(c_Task,start_date = dtp_TSTaskDate.SelectedDate && department_id = n_DepartmentID)
+                Filter(c_Task,assignment_code = gal_TSTaskList_1.Selected.assignment_code )
+                ,   
+                If( IsBlank(dtp_TSTaskDate.SelectedDate),
+                    Filter(c_Task,department_id = n_DepartmentID)
+                    ,
+                    Filter(c_Task,start_date = dtp_TSTaskDate.SelectedDate && department_id = n_DepartmentID)
+                )
             )
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
@@ -552,8 +562,11 @@ scr_TaskScreen As screen:
         DelayItemLoading: =true
         Height: =808
         Items: |-
-            =Filter(c_TaskByAssignmentCode,start_date = dtp_TSTaskDate.SelectedDate,counted_task_for_gm = counted_all_flow_for_gm)
-            //c_TaskByAssignmentCode
+            =If(IsBlank(dtp_TSTaskDate.SelectedDate),
+                Filter(c_TaskByAssignmentCode,counted_task_for_gm = counted_all_flow_for_gm)
+                ,
+                Filter(c_TaskByAssignmentCode,start_date = dtp_TSTaskDate.SelectedDate,counted_task_for_gm = counted_all_flow_for_gm)
+            )
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         OnSelect: |-

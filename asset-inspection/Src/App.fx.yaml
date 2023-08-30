@@ -35,7 +35,7 @@ App As appinfo:
         //Buat Testing STAFF Engineering
         //ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees, employee_id.Email = "ahmad.mubarok@suryacipta.com"), "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         //Buat Testing SPV Engineering Murni
-        ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "eryan.fauzan@suryacipta.com"),     "department_name",LookUp(tbl_mst_departments, ID = department_id,  department_name)));
+        //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "eryan.fauzan@suryacipta.com"),     "department_name",LookUp(tbl_mst_departments, ID = department_id,  department_name)));
         //Buat Testing SPV HK ADMIN & Approveer
         //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "nurman.triaji@suryacipta.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         //Buat Testing Viewer
@@ -52,7 +52,7 @@ App As appinfo:
         //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "eng.karawang@batiqa.com"),     "department_name",LookUp(tbl_mst_departments, ID = department_id,  department_name)));
         //Buat Testing SPV HK Murni with Assign data
         //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "hk.karawang@batiqa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
-        //ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees,employee_id.Email = "gm.karawang@batiqa.com"), "department_name", LookUp( tbl_mst_departments,  ID = department_id, department_name ) ));
+        ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees,employee_id.Email = "gm.karawang@batiqa.com"), "department_name", LookUp( tbl_mst_departments,  ID = department_id, department_name ) ));
         
         //Get User Information Data
         Set(n_UserID, First(c_ActiveUserData).ID);
