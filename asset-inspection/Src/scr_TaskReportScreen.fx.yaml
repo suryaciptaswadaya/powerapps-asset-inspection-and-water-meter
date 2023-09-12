@@ -385,7 +385,7 @@ scr_TaskReportScreen As screen:
             ZIndex: =3
 
         ico_TRSPhotos As icon.Camera:
-            Color: =If(IsBlank(ThisItem.is_photo_uploaded), Color.Red, Color.Green)
+            Color: =If(ThisItem.is_photo_uploaded <> 1, Color.Red, Color.Green)
             Height: =43
             Icon: =Icon.Camera
             OnSelect: |
