@@ -1330,16 +1330,12 @@ scr_TaskReportScreen As screen:
                         Set(BinaryImageDataBefore, Substitute(JSON(img_TRSPhoto.Image, JSONFormat.IncludeBinaryData),"",""));
                         Set(s_Base64ContentBefore, Mid(BinaryImageDataBefore, Find(",", BinaryImageDataBefore) + 1, Len(BinaryImageDataBefore) - Find(",", BinaryImageDataBefore) - 1));
                         IfError(
-                                //If(IsError(Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))))),
-                                    //Set(b_checkProgressUploadPhoto,false);
-                                    //Set(b_PopupAddPhotos,false);
-                                    //Set(b_ChangePhotoBefore, false);
-                                    //Set(b_PopupAddPhotosClose,false);
-                                    //Notify("Terjadi kesalahan pada upload foto silahkan coba lagi 1",NotificationType.Error);
-                                //);
-                                Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID)))), Notify("Error Execution Upload Photo please try again");
-                                Set(s_ImageLinkBefore, v_UploadResultBefore.sharepointfilelink);
-                                Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id));
+                                
+                                IfError(
+                                Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID)))), Notify("Error Execution Upload Photo please try again"),
+                                Set(s_ImageLinkBefore, v_UploadResultBefore.sharepointfilelink),Notify("Error Execution Upload Photo please try again"),
+                                Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id)),Notify("Error Execution Upload Photo please try again")
+                                )
                             ,
                                 Set(b_checkProgressUploadPhoto,false);
                                 Set(b_PopupAddPhotos,false);
@@ -1349,13 +1345,8 @@ scr_TaskReportScreen As screen:
                         );
                 
                         If(b_checkProgressUploadPhoto,
-                                If(gal_TRSCheckList.Selected.is_photo_uploaded <> 1,
-                                    Notify("berubah ijo");
-                                    Patch(tbl_assignment_details, First(Filter(tbl_assignment_details,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
-                                    Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
-                                    Patch(c_AssignmentDetailAmenities,First(Filter(c_AssignmentDetailAmenities,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
-                                );
-                
+                                
+                IfError(
                                 Patch(tbl_assignment_detail_photos, Defaults(tbl_assignment_detail_photos),
                                 {
                                     assignment_detail_id: n_ChecklistID,
@@ -1364,7 +1355,7 @@ scr_TaskReportScreen As screen:
                                     photo_id: n_ImageIDBefore,
                                     insert_date: Now(),
                                     insert_user_id: n_UserID
-                                });
+                                }),Notify("Error Execution Upload Photo please try again"),
                 
                                 Patch(c_ShowGalleryInspectionPoint, Defaults(c_ShowGalleryInspectionPoint),
                                 {
@@ -1375,7 +1366,17 @@ scr_TaskReportScreen As screen:
                                     photo_id: n_ImageIDBefore,
                                     insert_date: Now(),
                                     insert_user_id: n_UserID
-                                });
+                                }),Notify("Error Execution Upload Photo please try again")
+                );
+                
+                                If(gal_TRSCheckList.Selected.is_photo_uploaded <> 1,
+                                    Notify("berubah ijo");
+                                    IfError(
+                                    Patch(tbl_assignment_details, First(Filter(tbl_assignment_details,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1}),Notify("Error Execution Upload Photo please try again"),
+                                    Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1}),Notify("Error Execution Upload Photo please try again"),
+                                    Patch(c_AssignmentDetailAmenities,First(Filter(c_AssignmentDetailAmenities,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1})
+                                    )
+                                );
                 
                                 Set(b_PopupAddPhotosClose,true);
                                 Set(b_ChangePhotoBefore, false);
