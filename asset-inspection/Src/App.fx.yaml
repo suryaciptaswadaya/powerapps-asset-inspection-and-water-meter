@@ -44,14 +44,14 @@ App As appinfo:
         //ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees,employee_id.Email = "william.timotius@suryainternusa.com"), "department_name", LookUp( tbl_mst_departments,  ID = department_id, department_name ) ));
         //Buat Testing SPV HK Murni with Assign data
         //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "fredy@suryainternusa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
-        //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = User().Email), "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
+        ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = User().Email), "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         
         
         
         //Buat Testing SPV Engineering Murni
         //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "eng.karawang@batiqa.com"),     "department_name",LookUp(tbl_mst_departments, ID = department_id,  department_name)));
         //Buat Testing SPV HK Murni with Assign data
-        ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "hk.karawang@batiqa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
+        //ClearCollect(c_ActiveUserData,AddColumns(Filter(tbl_mst_employees,employee_id.Email = "hk.karawang@batiqa.com"),     "department_name", LookUp(tbl_mst_departments, ID = department_id, department_name)));
         //ClearCollect(c_ActiveUserData, AddColumns(Filter(tbl_mst_employees,employee_id.Email = "gm.karawang@batiqa.com"), "department_name", LookUp( tbl_mst_departments,  ID = department_id, department_name ) ));
         
         //Get User Information Data
