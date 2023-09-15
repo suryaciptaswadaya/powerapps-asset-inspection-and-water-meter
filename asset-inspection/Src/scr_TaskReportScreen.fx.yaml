@@ -1319,11 +1319,7 @@ scr_TaskReportScreen As screen:
                 
                 //Save Photo
                 IfError(
-                    Notify("Terjadi kesalahan pada upload foto silahkan coba lagi",NotificationType.Error);
-                    Set(b_PopupAddPhotos,false);
-                    Set(b_ChangePhotoBefore, false);
-                    Set(b_PopupAddPhotosClose,false);
-                    ,
+                  
                     If(b_ChangePhotoBefore,
                 
                         Set(b_PopupAddPhotosClose,false);
@@ -1365,6 +1361,13 @@ scr_TaskReportScreen As screen:
                         Set(b_ChangePhotoBefore, false);
                         //Reset(med_TRSPhoto);
                     );
+                
+                    ,
+                
+                    Notify("Terjadi kesalahan pada upload foto silahkan coba lagi",NotificationType.Error);
+                    Set(b_PopupAddPhotos,false);
+                    Set(b_ChangePhotoBefore, false);
+                    Set(b_PopupAddPhotosClose,false);
                 )
             Size: =25
             Text: |-
