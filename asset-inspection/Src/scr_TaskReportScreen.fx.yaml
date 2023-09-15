@@ -1123,6 +1123,7 @@ scr_TaskReportScreen As screen:
             HoverBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
             HoverColor: =lbl_TRSAddPhotosHeader.Color
             HoverFill: =lbl_TRSAddPhotosHeader.Fill
+            OnSelect: =Set(b_PopupAddPhotos, false)
             PaddingTop: =10
             PressedBorderColor: =lbl_TRSAddPhotosHeader.BorderColor
             PressedColor: =lbl_TRSAddPhotosHeader.Color
@@ -1312,43 +1313,49 @@ scr_TaskReportScreen As screen:
                 Set(n_ChecklistID,gal_TRSCheckList.Selected.ID);
                 
                 //Save Photo
-                If(b_ChangePhotoBefore,
-                    Set(BinaryImageDataBefore, Substitute(JSON(img_TRSPhoto.Image, JSONFormat.IncludeBinaryData),"",""));
-                    Set(s_Base64ContentBefore, Mid(BinaryImageDataBefore, Find(",", BinaryImageDataBefore) + 1, Len(BinaryImageDataBefore) - Find(",", BinaryImageDataBefore) - 1));
-                    Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
-                    Set(s_ImageLinkBefore, v_UploadResultBefore.sharepointfilelink);
-                    Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id));
-                
-                    If(gal_TRSCheckList.Selected.is_photo_uploaded <> 1,
-                        Patch(tbl_assignment_details, First(Filter(tbl_assignment_details,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
-                        Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
-                        Patch(c_AssignmentDetailAmenities,First(Filter(c_AssignmentDetailAmenities,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
-                    );
-                
-                    Patch(tbl_assignment_detail_photos, Defaults(tbl_assignment_detail_photos),
-                    {
-                        assignment_detail_id: n_ChecklistID,
-                        status_code: gal_TSTaskList.Selected.status_code,
-                        photo_url: s_ImageLinkBefore,
-                        photo_id: n_ImageIDBefore,
-                        insert_date: Now(),
-                        insert_user_id: n_UserID
-                    });
-                
-                    Patch(c_ShowGalleryInspectionPoint, Defaults(c_ShowGalleryInspectionPoint),
-                    {
-                        assignment_detail_id: gal_TRSCheckList.Selected.ID,
-                        status_code: gal_TSTaskList.Selected.status_code,
-                        status_name: gal_TSTaskList.Selected.status_name,
-                        photo_url: s_ImageLinkBefore,
-                        photo_id: n_ImageIDBefore,
-                        insert_date: Now(),
-                        insert_user_id: n_UserID
-                    });
-                
+                IfError(
+                    Notify("Terjadi kesalahan pada upload foto silahkan coba lagi",NotificationType.Error);
+                    Set(b_PopupAddPhotos,false);
                     Set(b_ChangePhotoBefore, false);
-                    //Reset(med_TRSPhoto);
-                );
+                    ,
+                    If(b_ChangePhotoBefore,
+                        Set(BinaryImageDataBefore, Substitute(JSON(img_TRSPhoto.Image, JSONFormat.IncludeBinaryData),"",""));
+                        Set(s_Base64ContentBefore, Mid(BinaryImageDataBefore, Find(",", BinaryImageDataBefore) + 1, Len(BinaryImageDataBefore) - Find(",", BinaryImageDataBefore) - 1));
+                        Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
+                        Set(s_ImageLinkBefore, v_UploadResultBefore.sharepointfilelink);
+                        Set(n_ImageIDBefore, Value(v_UploadResultBefore.img_id));
+                
+                        If(gal_TRSCheckList.Selected.is_photo_uploaded <> 1,
+                            Patch(tbl_assignment_details, First(Filter(tbl_assignment_details,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
+                            Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
+                            Patch(c_AssignmentDetailAmenities,First(Filter(c_AssignmentDetailAmenities,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1});
+                        );
+                
+                        Patch(tbl_assignment_detail_photos, Defaults(tbl_assignment_detail_photos),
+                        {
+                            assignment_detail_id: n_ChecklistID,
+                            status_code: gal_TSTaskList.Selected.status_code,
+                            photo_url: s_ImageLinkBefore,
+                            photo_id: n_ImageIDBefore,
+                            insert_date: Now(),
+                            insert_user_id: n_UserID
+                        });
+                
+                        Patch(c_ShowGalleryInspectionPoint, Defaults(c_ShowGalleryInspectionPoint),
+                        {
+                            assignment_detail_id: gal_TRSCheckList.Selected.ID,
+                            status_code: gal_TSTaskList.Selected.status_code,
+                            status_name: gal_TSTaskList.Selected.status_name,
+                            photo_url: s_ImageLinkBefore,
+                            photo_id: n_ImageIDBefore,
+                            insert_date: Now(),
+                            insert_user_id: n_UserID
+                        });
+                
+                        Set(b_ChangePhotoBefore, false);
+                        //Reset(med_TRSPhoto);
+                    );
+                )
             Size: =25
             Text: |-
                 =If(!b_ChangePhotoBefore,
