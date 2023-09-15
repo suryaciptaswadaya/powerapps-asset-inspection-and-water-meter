@@ -388,7 +388,7 @@ scr_TaskReportScreen As screen:
             Color: =If(ThisItem.is_photo_uploaded <> 1, Color.Red, Color.Green)
             Height: =43
             Icon: =Icon.Camera
-            OnSelect: |
+            OnSelect: |-
                 =Select(Parent);
                 Set(b_ChangePhotoBefore, false);
                 Set(b_ChangePhotoAfter, false);
@@ -398,6 +398,7 @@ scr_TaskReportScreen As screen:
                 Clear(c_TmpShowGalleryInspectionPoint);
                 
                 Set(b_PopupAddPhotos, true);
+                Set(b_PopupAddPhotosClose, true);
             Width: =42
             X: =495
             Y: =8
@@ -1140,8 +1141,12 @@ scr_TaskReportScreen As screen:
             Color: =RGBA(0, 0, 0, 1)
             Height: =39
             Icon: =Icon.Cancel
-            OnSelect: =Set(b_PopupAddPhotos, false)
-            Visible: =b_PopupAddPhotos
+            OnSelect: |-
+                =Set(b_PopupAddPhotos, false);
+                Set(b_PopupAddPhotosClose,false);
+            Visible: |
+                =//b_PopupAddPhotos
+                b_PopupAddPhotosClose
             Width: =36
             X: =546
             Y: =112
@@ -1317,8 +1322,12 @@ scr_TaskReportScreen As screen:
                     Notify("Terjadi kesalahan pada upload foto silahkan coba lagi",NotificationType.Error);
                     Set(b_PopupAddPhotos,false);
                     Set(b_ChangePhotoBefore, false);
+                    Set(b_PopupAddPhotosClose,false);
                     ,
                     If(b_ChangePhotoBefore,
+                
+                        Set(b_PopupAddPhotosClose,false);
+                
                         Set(BinaryImageDataBefore, Substitute(JSON(img_TRSPhoto.Image, JSONFormat.IncludeBinaryData),"",""));
                         Set(s_Base64ContentBefore, Mid(BinaryImageDataBefore, Find(",", BinaryImageDataBefore) + 1, Len(BinaryImageDataBefore) - Find(",", BinaryImageDataBefore) - 1));
                         Set(v_UploadResultBefore, '[DEV]UploadImage-TaskAssetMaintenance'.Run(Concatenate(Text(gal_TRSCheckList.Selected.ID),d_TimestampforPhoto, ".jpg"), s_Base64ContentBefore, Concatenate("/gal_progress_photos/", Text(gal_TRSCheckList.Selected.ID))));
@@ -1352,6 +1361,7 @@ scr_TaskReportScreen As screen:
                             insert_user_id: n_UserID
                         });
                 
+                        Set(b_PopupAddPhotosClose,true);
                         Set(b_ChangePhotoBefore, false);
                         //Reset(med_TRSPhoto);
                     );
