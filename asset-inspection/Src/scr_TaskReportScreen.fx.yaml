@@ -1342,6 +1342,17 @@ scr_TaskReportScreen As screen:
                                 Set(b_ChangePhotoBefore, false);
                                 Set(b_PopupAddPhotosClose,false);
                                 Notify("Terjadi kesalahan pada upload foto silahkan coba lagi 1",NotificationType.Error);
+                            ,
+                            If(gal_TRSCheckList.Selected.is_photo_uploaded <> 1,
+                                    //Notify("berubah ijo");
+                                    IfError(
+                                    Patch(tbl_assignment_details, First(Filter(tbl_assignment_details,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1}),Notify("Error Execution Upload Photo please try again"),
+                                    Patch(c_AssignmentDetail, First(Filter(c_AssignmentDetail,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1}),Notify("Error Execution Upload Photo please try again"),
+                                    Patch(c_AssignmentDetailAmenities,First(Filter(c_AssignmentDetailAmenities,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1})
+                                    )
+                                );
+                            ,
+                                Notify("Gagal jadi ijo");
                         );
                 
                         If(b_checkProgressUploadPhoto,
@@ -1369,6 +1380,7 @@ scr_TaskReportScreen As screen:
                                 }),Notify("Error Execution Upload Photo please try again")
                 );
                 
+                /*
                                 If(gal_TRSCheckList.Selected.is_photo_uploaded <> 1,
                                     Notify("berubah ijo");
                                     IfError(
@@ -1377,6 +1389,7 @@ scr_TaskReportScreen As screen:
                                     Patch(c_AssignmentDetailAmenities,First(Filter(c_AssignmentDetailAmenities,ID = gal_TRSCheckList.Selected.ID)), { is_photo_uploaded: 1})
                                     )
                                 );
+                                */
                 
                                 Set(b_PopupAddPhotosClose,true);
                                 Set(b_ChangePhotoBefore, false);
