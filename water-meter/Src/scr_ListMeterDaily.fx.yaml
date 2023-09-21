@@ -266,26 +266,20 @@ scr_ListMeterDaily As screen:
             Fill: =RGBA(0, 106, 59, 1)
             Height: =80
             OnSelect: |-
-                =/*
-                If(Value(txt_LMDChangeData.Text) <> gal_LMD_MeterLogs.Selected.current_meter,
-                    Patch(c_MeteringLogs, { ID : gal_LMD_MeterLogs.Selected.ID }, { current_meter: Value(txt_LMDChangeData.Text)});
-                    Patch(tbl_metering_logs, First(Filter(tbl_metering_logs, ID = gal_LMD_MeterLogs.Selected.ID)), { current_meter: 1});
-                );
-                */
-                
-                Patch(tbl_metering_logs, First(Filter(tbl_metering_logs, ID = gal_LMD_MeterLogs.Selected.ID)), { current_meter: Value(txt_LMDChangeData.Text)});
+                =If(Value(txt_LMDChangeData.Text) <> gal_LMD_MeterLogs.Selected.current_meter,
+                    Patch(tbl_metering_logs, First(Filter(tbl_metering_logs, meter_id = gal_LMD_MeterLogs.Selected.meter_id && date_input = DatePicker1.SelectedDate)), { current_meter: Value(txt_LMDChangeData.Text)});
                 Patch(c_MeteringLogs, { ID : gal_LMD_MeterLogs.Selected.ID }, { current_meter: Value(txt_LMDChangeData.Text)});
+                );
                 
-                
-                Notify(Value(txt_LMDChangeData.Text));
-                //Notify(gal_LMD_MeterLogs.Selected.ID);
-                //Set(b_LMD_ImageShow, false);
+                //Notify(Value(txt_LMDChangeData.Text));
+                //Notify(Text(gal_LMD_MeterLogs.Selected.ID));
+                Set(b_LMD_ImageShow, false);
             Size: =24
             Text: ="OK"
             Visible: =b_LMD_ImageShow
             Width: =448
-            X: =103
-            Y: =951
+            X: =106
+            Y: =911
             ZIndex: =11
 
         Image2 As image:
@@ -296,7 +290,7 @@ scr_ListMeterDaily As screen:
             Visible: =b_LMD_ImageShow
             Width: =468
             X: =86
-            Y: =221
+            Y: =170
             ZIndex: =12
 
         Label1 As label:
@@ -319,7 +313,7 @@ scr_ListMeterDaily As screen:
             Visible: =b_LMD_ImageShow
             Width: =537
             X: =103
-            Y: =736
+            Y: =685
             ZIndex: =18
 
         txt_LMDChangeData As text:
@@ -331,6 +325,6 @@ scr_ListMeterDaily As screen:
             Visible: =b_LMD_ImageShow
             Width: =448
             X: =106
-            Y: =806
+            Y: =755
             ZIndex: =19
 
