@@ -225,6 +225,7 @@ scr_MeterInput As screen:
             ZIndex: =16
 
         AddMediaButton1 As addMedia:
+            ChangePictureText: =""
             Height: =268
             Size: =25
             Width: =598
