@@ -266,12 +266,20 @@ scr_ListMeterDaily As screen:
             Fill: =RGBA(0, 106, 59, 1)
             Height: =80
             OnSelect: |-
-                =If(txt_LMDChangeData.Text <> gal_LMD_MeterLogs.Selected.current_meter,
+                =/*
+                If(Value(txt_LMDChangeData.Text) <> gal_LMD_MeterLogs.Selected.current_meter,
                     Patch(c_MeteringLogs, { ID : gal_LMD_MeterLogs.Selected.ID }, { current_meter: Value(txt_LMDChangeData.Text)});
-                    Patch(tbl_metering_logs, { ID : gal_LMD_MeterLogs.Selected.ID }, { current_meter: Value(txt_LMDChangeData.Text)});
+                    Patch(tbl_metering_logs, First(Filter(tbl_metering_logs, ID = gal_LMD_MeterLogs.Selected.ID)), { current_meter: 1});
                 );
+                */
                 
-                Set(b_LMD_ImageShow, false);
+                Patch(tbl_metering_logs, First(Filter(tbl_metering_logs, ID = gal_LMD_MeterLogs.Selected.ID)), { current_meter: Value(txt_LMDChangeData.Text)});
+                Patch(c_MeteringLogs, { ID : gal_LMD_MeterLogs.Selected.ID }, { current_meter: Value(txt_LMDChangeData.Text)});
+                
+                
+                Notify(Value(txt_LMDChangeData.Text));
+                //Notify(gal_LMD_MeterLogs.Selected.ID);
+                //Set(b_LMD_ImageShow, false);
             Size: =24
             Text: ="OK"
             Visible: =b_LMD_ImageShow
@@ -317,6 +325,7 @@ scr_ListMeterDaily As screen:
         txt_LMDChangeData As text:
             Align: =Align.Right
             Default: =gal_LMD_MeterLogs.Selected.current_meter
+            Format: =TextFormat.Number
             Height: =70
             Size: =21
             Visible: =b_LMD_ImageShow
