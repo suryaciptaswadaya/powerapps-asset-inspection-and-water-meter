@@ -238,7 +238,6 @@ scr_MeterInput As screen:
         DefaultSelectedItems: =Filter(mst_meter,Title=meterIDScan)
         DisplayFields: =["tenant_name_code"]
         Height: =50
-        IsSearchable: =false
         Items: |-
             =Search(
                 AddColumns(c_MeterMaster,
@@ -248,7 +247,13 @@ scr_MeterInput As screen:
                 )
         OnChange: =Reset(txi_MI_CurrentMeter)
         SearchFields: =["tenant_name_code"]
-        SearchItems: =[]
+        SearchItems: |-
+            =Search(Search(
+                AddColumns(c_MeterMaster,
+                    "tenant_name_code",Title &" - "& tenant_name
+                ),
+                    cbb_MI_MeterID.SearchText,"Title","tenant_name"
+                ),cbb_MI_MeterID.SearchText,"tenant_name_code")
         SelectMultiple: =false
         Size: =21
         Width: =402
