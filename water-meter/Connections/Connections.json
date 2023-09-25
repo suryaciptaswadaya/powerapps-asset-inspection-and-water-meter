@@ -14,6 +14,9 @@
           "mst_meter": {
             "tableName": "cc2cca8d-ecb2-4cf0-ad44-f4c772daef20"
           },
+          "mst_tenant": {
+            "tableName": "eee4e1df-43f8-4ef0-832d-8e2c55189ceb"
+          },
           "tbl_metering_logs": {
             "tableName": "32bfa5a3-83d7-42e2-8eed-e86a1cae0457"
           },
@@ -27,7 +30,8 @@
       "tbl_metering_logs",
       "mst_meter",
       "tbl_users",
-      "gal_metering_files"
+      "gal_metering_files",
+      "mst_tenant"
     ],
     "dependencies": {},
     "dependents": [

@@ -1,7 +1,13 @@
 App As appinfo:
     BackEnabled: =false
     OnStart: |-
-        =ClearCollect(c_MeterMaster, mst_meter);
+        =ClearCollect(c_MstTenant,mst_tenant);
+        
+        ClearCollect(c_MeterMaster, 
+           AddColumns(mst_meter,
+            "tenant_name",LookUp(c_MstTenant,Title = mst_meter[@tenant_ID],tenant_name)
+           );
+        );
         ClearCollect(c_Users,Sort(tbl_users,name,SortOrder.Ascending));
         Set(b_UserLogin,true);
         Set(d_DateNow, Now());

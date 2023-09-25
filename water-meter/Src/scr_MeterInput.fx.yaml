@@ -235,13 +235,20 @@ scr_MeterInput As screen:
 
     cbb_MI_MeterID As combobox:
         ChevronBackground: =RGBA(0, 106, 5, 1)
-        DefaultSelectedItems: =Filter(mst_meter,meter_ID=meterIDScan)
-        DisplayFields: =["Title"]
+        DefaultSelectedItems: =Filter(mst_meter,Title=meterIDScan)
+        DisplayFields: =["tenant_name_code"]
         Height: =50
-        Items: =c_MeterMaster
+        IsSearchable: =false
+        Items: |-
+            =Search(
+                AddColumns(c_MeterMaster,
+                    "tenant_name_code",Title &" - "& tenant_name
+                ),
+                    cbb_MI_MeterID.SearchText,"Title","tenant_name"
+                )
         OnChange: =Reset(txi_MI_CurrentMeter)
-        SearchFields: =["Title"]
-        SearchItems: =Search(c_MeterMaster,cbb_MI_MeterID.SearchText,"Title")
+        SearchFields: =["tenant_name_code"]
+        SearchItems: =[]
         SelectMultiple: =false
         Size: =21
         Width: =402
