@@ -14,19 +14,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Button.btn_buttonBackground.TabIndex"
+                  "fullyQualifiedName": "cmp_MD_Slider.btn_sliderLabel.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Button.btn_buttonBackground.TabIndex",
+                  "fullyQualifiedName": "cmp_MD_Slider.btn_sliderLabel.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "cmp_MD_Button",
-                "type": "cmp_MD_Button.btn_buttonBackground"
+                "module": "cmp_MD_Slider",
+                "type": "cmp_MD_Slider.btn_sliderLabel"
               }
             }
           ],
@@ -44,19 +44,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Checkbox.img_checkbox.AccessibleLabel"
+                  "fullyQualifiedName": "cmp_MD_Slider.txt_sliderText.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Checkbox.img_checkbox.AccessibleLabel",
+                  "fullyQualifiedName": "cmp_MD_Slider.txt_sliderText.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "cmp_MD_Checkbox",
-                "type": "cmp_MD_Checkbox.img_checkbox"
+                "module": "cmp_MD_Slider",
+                "type": "cmp_MD_Slider.txt_sliderText"
               }
             }
           ],
@@ -74,19 +74,79 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Checkbox.img_checkbox.TabIndex"
+                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Checkbox.img_checkbox.TabIndex",
+                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "cmp_MD_Slider",
+                "type": "cmp_MD_Slider.sld_slider"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.ShowValue"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.ShowValue",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "ShowValue",
+                "module": "cmp_MD_Slider",
+                "type": "cmp_MD_Slider.sld_slider"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Low"
+          },
+          "ruleId": "acc-StateIndicationTextNeeded",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "cmp_MD_Checkbox",
-                "type": "cmp_MD_Checkbox.img_checkbox"
+                "module": "cmp_MD_Slider",
+                "type": "cmp_MD_Slider.sld_slider"
               }
             }
           ],
@@ -104,229 +164,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timHours.AccessibleLabel"
+                  "fullyQualifiedName": "cmp_MD_Slider.btn_sliderLine.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timHours.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "cmp_MD_Timepicker",
-                "type": "cmp_MD_Timepicker.con_timeSelect.txt_timHours"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 1
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timHours.FocusedBorderThickness"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timHours.FocusedBorderThickness",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "FocusedBorderThickness",
-                "module": "cmp_MD_Timepicker",
-                "type": "cmp_MD_Timepicker.con_timeSelect.txt_timHours"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-FocusBorderShouldBeVisible",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "cmp_MD_Timepicker",
-                "type": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 1
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes.FocusedBorderThickness"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes.FocusedBorderThickness",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "FocusedBorderThickness",
-                "module": "cmp_MD_Timepicker",
-                "type": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-FocusBorderShouldBeVisible",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "cmp_MD_Timepicker",
-                "type": "cmp_MD_Timepicker.gal_clock"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 1
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.TabIndex",
+                  "fullyQualifiedName": "cmp_MD_Slider.btn_sliderLine.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "cmp_MD_Timepicker",
-                "type": "cmp_MD_Timepicker.gal_clock"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 0
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.btn_time.FocusedBorderThickness"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.btn_time.FocusedBorderThickness",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "FocusedBorderThickness",
-                "module": "cmp_MD_Timepicker",
-                "type": "cmp_MD_Timepicker.gal_clock.btn_time"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-FocusBorderShouldBeVisible",
-          "ruleIndex": 2
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.btn_time.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.btn_time.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "cmp_MD_Timepicker",
-                "type": "cmp_MD_Timepicker.gal_clock.btn_time"
+                "module": "cmp_MD_Slider",
+                "type": "cmp_MD_Slider.btn_sliderLine"
               }
             }
           ],
@@ -367,7 +217,7 @@
             "level": "Medium"
           },
           "ruleId": "acc-FocusBorderShouldBeVisible",
-          "ruleIndex": 2
+          "ruleIndex": 3
         },
         {
           "locations": [
@@ -397,67 +247,7 @@
             "level": "Low"
           },
           "ruleId": "acc-TabOrderShouldBeChecked",
-          "ruleIndex": 3
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_ContrastChecker.Icon2_1.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_ContrastChecker.Icon2_1.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "cmp_MD_ContrastChecker",
-                "type": "cmp_MD_ContrastChecker.Icon2_1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 1
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_ContrastChecker.Icon2_1.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_ContrastChecker.Icon2_1.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "cmp_MD_ContrastChecker",
-                "type": "cmp_MD_ContrastChecker.Icon2_1"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 0
+          "ruleIndex": 4
         },
         {
           "locations": [
@@ -674,19 +464,49 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader.FocusedBorderThickness"
+                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timHours.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader.FocusedBorderThickness",
+                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timHours.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "cmp_MD_Timepicker",
+                "type": "cmp_MD_Timepicker.con_timeSelect.txt_timHours"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timHours.FocusedBorderThickness"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timHours.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "FocusedBorderThickness",
-                "module": "cmp_MD_Dialog",
-                "type": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader"
+                "module": "cmp_MD_Timepicker",
+                "type": "cmp_MD_Timepicker.con_timeSelect.txt_timHours"
               }
             }
           ],
@@ -697,56 +517,26 @@
             "level": "Medium"
           },
           "ruleId": "acc-FocusBorderShouldBeVisible",
-          "ruleIndex": 2
+          "ruleIndex": 3
         },
         {
           "locations": [
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader.TabIndex"
+                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "cmp_MD_Dialog",
-                "type": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 0
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_Dialog.tgl_DialogFocus.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_Dialog.tgl_DialogFocus.AccessibleLabel",
+                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "cmp_MD_Dialog",
-                "type": "cmp_MD_Dialog.tgl_DialogFocus"
+                "module": "cmp_MD_Timepicker",
+                "type": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes"
               }
             }
           ],
@@ -764,19 +554,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Dialog.tgl_DialogFocus.TabIndex"
+                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Dialog.tgl_DialogFocus.TabIndex",
+                  "fullyQualifiedName": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "TabIndex",
-                "module": "cmp_MD_Dialog",
-                "type": "cmp_MD_Dialog.tgl_DialogFocus"
+                "member": "FocusedBorderThickness",
+                "module": "cmp_MD_Timepicker",
+                "type": "cmp_MD_Timepicker.con_timeSelect.txt_timMinutes"
               }
             }
           ],
@@ -786,27 +576,27 @@
           "properties": {
             "level": "Medium"
           },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 0
+          "ruleId": "acc-FocusBorderShouldBeVisible",
+          "ruleIndex": 3
         },
         {
           "locations": [
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Navigation_Drawer.gal_sideMenu.AccessibleLabel"
+                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Navigation_Drawer.gal_sideMenu.AccessibleLabel",
+                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "cmp_MD_Navigation_Drawer",
-                "type": "cmp_MD_Navigation_Drawer.gal_sideMenu"
+                "module": "cmp_MD_Timepicker",
+                "type": "cmp_MD_Timepicker.gal_clock"
               }
             }
           ],
@@ -824,19 +614,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Navigation_Drawer.gal_sideMenu.TabIndex"
+                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Navigation_Drawer.gal_sideMenu.TabIndex",
+                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "cmp_MD_Navigation_Drawer",
-                "type": "cmp_MD_Navigation_Drawer.gal_sideMenu"
+                "module": "cmp_MD_Timepicker",
+                "type": "cmp_MD_Timepicker.gal_clock"
               }
             }
           ],
@@ -854,19 +644,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet.AccessibleLabel"
+                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.btn_time.FocusedBorderThickness"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet.AccessibleLabel",
+                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.btn_time.FocusedBorderThickness",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "AccessibleLabel",
-                "module": "cmp_MD_SideSheet",
-                "type": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet"
+                "member": "FocusedBorderThickness",
+                "module": "cmp_MD_Timepicker",
+                "type": "cmp_MD_Timepicker.gal_clock.btn_time"
               }
             }
           ],
@@ -876,27 +666,27 @@
           "properties": {
             "level": "Medium"
           },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 1
+          "ruleId": "acc-FocusBorderShouldBeVisible",
+          "ruleIndex": 3
         },
         {
           "locations": [
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet.TabIndex"
+                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.btn_time.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet.TabIndex",
+                  "fullyQualifiedName": "cmp_MD_Timepicker.gal_clock.btn_time.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "cmp_MD_SideSheet",
-                "type": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet"
+                "module": "cmp_MD_Timepicker",
+                "type": "cmp_MD_Timepicker.gal_clock.btn_time"
               }
             }
           ],
@@ -1057,7 +847,7 @@
             "level": "Low"
           },
           "ruleId": "acc-TabOrderShouldBeChecked",
-          "ruleIndex": 3
+          "ruleIndex": 4
         },
         {
           "locations": [
@@ -1087,7 +877,7 @@
             "level": "Low"
           },
           "ruleId": "acc-TabOrderShouldBeChecked",
-          "ruleIndex": 3
+          "ruleIndex": 4
         },
         {
           "locations": [
@@ -1177,7 +967,277 @@
             "level": "Medium"
           },
           "ruleId": "acc-FocusBorderShouldBeVisible",
-          "ruleIndex": 2
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_Button.btn_buttonBackground.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_Button.btn_buttonBackground.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "cmp_MD_Button",
+                "type": "cmp_MD_Button.btn_buttonBackground"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_Checkbox.img_checkbox.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_Checkbox.img_checkbox.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "cmp_MD_Checkbox",
+                "type": "cmp_MD_Checkbox.img_checkbox"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_Checkbox.img_checkbox.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_Checkbox.img_checkbox.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "cmp_MD_Checkbox",
+                "type": "cmp_MD_Checkbox.img_checkbox"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_ContrastChecker.Icon2_1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_ContrastChecker.Icon2_1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "cmp_MD_ContrastChecker",
+                "type": "cmp_MD_ContrastChecker.Icon2_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_ContrastChecker.Icon2_1.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_ContrastChecker.Icon2_1.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "cmp_MD_ContrastChecker",
+                "type": "cmp_MD_ContrastChecker.Icon2_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader.FocusedBorderThickness"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader.FocusedBorderThickness",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "FocusedBorderThickness",
+                "module": "cmp_MD_Dialog",
+                "type": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-FocusBorderShouldBeVisible",
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "cmp_MD_Dialog",
+                "type": "cmp_MD_Dialog.con_DialogArea.con_DialogBG.con_DialogMain.lbl_dialogHeader"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_Dialog.tgl_DialogFocus.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_Dialog.tgl_DialogFocus.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "cmp_MD_Dialog",
+                "type": "cmp_MD_Dialog.tgl_DialogFocus"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_Dialog.tgl_DialogFocus.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_Dialog.tgl_DialogFocus.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "cmp_MD_Dialog",
+                "type": "cmp_MD_Dialog.tgl_DialogFocus"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
         },
         {
           "locations": [
@@ -1274,49 +1334,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Slider.btn_sliderLabel.TabIndex"
+                  "fullyQualifiedName": "cmp_MD_Navigation_Drawer.gal_sideMenu.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Slider.btn_sliderLabel.TabIndex",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "TabIndex",
-                "module": "cmp_MD_Slider",
-                "type": "cmp_MD_Slider.btn_sliderLabel"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
-          "ruleIndex": 0
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_Slider.txt_sliderText.AccessibleLabel"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_Slider.txt_sliderText.AccessibleLabel",
+                  "fullyQualifiedName": "cmp_MD_Navigation_Drawer.gal_sideMenu.AccessibleLabel",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "AccessibleLabel",
-                "module": "cmp_MD_Slider",
-                "type": "cmp_MD_Slider.txt_sliderText"
+                "module": "cmp_MD_Navigation_Drawer",
+                "type": "cmp_MD_Navigation_Drawer.gal_sideMenu"
               }
             }
           ],
@@ -1334,79 +1364,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.AccessibleLabel"
+                  "fullyQualifiedName": "cmp_MD_Navigation_Drawer.gal_sideMenu.TabIndex"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.AccessibleLabel",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "AccessibleLabel",
-                "module": "cmp_MD_Slider",
-                "type": "cmp_MD_Slider.sld_slider"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Medium"
-          },
-          "ruleId": "acc-AccessibleLabelNeeded",
-          "ruleIndex": 1
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.ShowValue"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.ShowValue",
-                  "relativeAddress": 0
-                }
-              },
-              "properties": {
-                "member": "ShowValue",
-                "module": "cmp_MD_Slider",
-                "type": "cmp_MD_Slider.sld_slider"
-              }
-            }
-          ],
-          "message": {
-            "id": "issue"
-          },
-          "properties": {
-            "level": "Low"
-          },
-          "ruleId": "acc-StateIndicationTextNeeded",
-          "ruleIndex": 4
-        },
-        {
-          "locations": [
-            {
-              "logicalLocations": [
-                {
-                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.TabIndex"
-                }
-              ],
-              "physicalLocation": {
-                "address": {
-                  "fullyQualifiedName": "cmp_MD_Slider.sld_slider.TabIndex",
+                  "fullyQualifiedName": "cmp_MD_Navigation_Drawer.gal_sideMenu.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "cmp_MD_Slider",
-                "type": "cmp_MD_Slider.sld_slider"
+                "module": "cmp_MD_Navigation_Drawer",
+                "type": "cmp_MD_Navigation_Drawer.gal_sideMenu"
               }
             }
           ],
@@ -1424,19 +1394,49 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Slider.btn_sliderLine.TabIndex"
+                  "fullyQualifiedName": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet.AccessibleLabel"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Slider.btn_sliderLine.TabIndex",
+                  "fullyQualifiedName": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "cmp_MD_SideSheet",
+                "type": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet.TabIndex",
                   "relativeAddress": 0
                 }
               },
               "properties": {
                 "member": "TabIndex",
-                "module": "cmp_MD_Slider",
-                "type": "cmp_MD_Slider.btn_sliderLine"
+                "module": "cmp_MD_SideSheet",
+                "type": "cmp_MD_SideSheet.con_closeSheet.img_closeSheet"
               }
             }
           ],
@@ -2084,19 +2084,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.varReset"
+                  "fullyQualifiedName": "cmp_MD_Slider.isValidationError"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Timepicker.varReset",
+                  "fullyQualifiedName": "cmp_MD_Slider.isValidationError",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "varReset",
-                "module": "cmp_MD_Timepicker",
-                "type": "cmp_MD_Timepicker"
+                "member": "isValidationError",
+                "module": "cmp_MD_Slider",
+                "type": "cmp_MD_Slider"
               }
             }
           ],
@@ -2114,19 +2114,19 @@
             {
               "logicalLocations": [
                 {
-                  "fullyQualifiedName": "cmp_MD_Slider.isValidationError"
+                  "fullyQualifiedName": "cmp_MD_Timepicker.varReset"
                 }
               ],
               "physicalLocation": {
                 "address": {
-                  "fullyQualifiedName": "cmp_MD_Slider.isValidationError",
+                  "fullyQualifiedName": "cmp_MD_Timepicker.varReset",
                   "relativeAddress": 0
                 }
               },
               "properties": {
-                "member": "isValidationError",
-                "module": "cmp_MD_Slider",
-                "type": "cmp_MD_Slider"
+                "member": "varReset",
+                "module": "cmp_MD_Timepicker",
+                "type": "cmp_MD_Timepicker"
               }
             }
           ],
@@ -2180,6 +2180,23 @@
               }
             },
             {
+              "id": "acc-StateIndicationTextNeeded",
+              "messageStrings": {
+                "issue": {
+                  "text": "Add State indication text"
+                }
+              },
+              "properties": {
+                "componentType": "app",
+                "howToFix": [
+                  "Set ShowValue = true to show the current state of the control."
+                ],
+                "level": "Low",
+                "primaryCategory": "accessibility",
+                "whyFix": "Users won't get confirmation of their actions if the state of the control isn't showing."
+              }
+            },
+            {
               "id": "acc-FocusBorderShouldBeVisible",
               "messageStrings": {
                 "issue": {
@@ -2211,23 +2228,6 @@
                 "level": "Low",
                 "primaryCategory": "accessibility",
                 "whyFix": "When a screen reader reads the elements of a slide, it's important that they appear in the order that a user would see them, instead of the order they were added to the slide."
-              }
-            },
-            {
-              "id": "acc-StateIndicationTextNeeded",
-              "messageStrings": {
-                "issue": {
-                  "text": "Add State indication text"
-                }
-              },
-              "properties": {
-                "componentType": "app",
-                "howToFix": [
-                  "Set ShowValue = true to show the current state of the control."
-                ],
-                "level": "Low",
-                "primaryCategory": "accessibility",
-                "whyFix": "Users won't get confirmation of their actions if the state of the control isn't showing."
               }
             },
             {
