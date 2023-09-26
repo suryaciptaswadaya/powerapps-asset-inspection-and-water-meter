@@ -150,7 +150,8 @@ scr_MeterInput As screen:
                         user_id:First(c_ActiveUserData).ID,
                         image_id: Value(s_ImageId),
                         avg_per_day_since_last_reading: n_avg_usage_per_day,
-                        is_input_by_user: 1
+                        is_input_by_user: 1,
+                        tenant_ID:cbb_MI_MeterID.Selected.tenant_ID
                     }
                 );
                 Patch(
@@ -164,7 +165,8 @@ scr_MeterInput As screen:
                         user_id:First(c_ActiveUserData).ID,
                         image_id: Value(s_ImageId),
                         avg_per_day_since_last_reading: n_avg_usage_per_day,
-                        is_input_by_user: 1
+                        is_input_by_user: 1,
+                        tenant_ID:cbb_MI_MeterID.Selected.tenant_ID
                     }
                 );
             
@@ -179,7 +181,8 @@ scr_MeterInput As screen:
                                 current_meter: Value(txi_MI_CurrentMeter.Text) - (Value * n_avg_usage_per_day),
                                 date_input: DateAdd(date_mtr.SelectedDate, Value * -1),
                                 avg_per_day_since_last_reading: n_avg_usage_per_day,
-                                is_input_by_user: 0
+                                is_input_by_user: 0,
+                                tenant_ID:cbb_MI_MeterID.Selected.tenant_ID
                             }
                         );
                     )
