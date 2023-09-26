@@ -71,7 +71,7 @@ scr_ListMeterDaily As screen:
             PaddingRight: =0
             PaddingTop: =0
             Size: =22
-            Text: =ThisItem.meter_id&"-"&ThisItem.tenant_name
+            Text: =ThisItem.meter_id&"-"&ThisItem.name_tenant
             VerticalAlign: =VerticalAlign.Top
             Width: =461
             X: =130
