@@ -71,7 +71,7 @@ scr_ListMeterDaily As screen:
             PaddingRight: =0
             PaddingTop: =0
             Size: =22
-            Text: =ThisItem.meter_id
+            Text: =ThisItem.meter_id&"-"&ThisItem.tenant_name
             VerticalAlign: =VerticalAlign.Top
             Width: =461
             X: =130
@@ -217,7 +217,15 @@ scr_ListMeterDaily As screen:
                 Height: =70
                 OnSelect: |
                     =ClearCollect(c_ActiveUserData,Filter(c_Users,ID = Gallery2.Selected.ID));
-                    ClearCollect(c_MeteringLogs, Filter(Sort(tbl_metering_logs,Created,SortOrder.Descending),user_id = First(c_ActiveUserData).ID));
+                    ClearCollect(c_MeteringLogs, 
+                        Filter(
+                            Sort(
+                                AddColumns(tbl_metering_logs,"tenant_name",LookUp(c_MstTenant,Title=tbl_metering_logs[@meter_id],tenant_name)),
+                                Created,SortOrder.Descending
+                            ),
+                            user_id = First(c_ActiveUserData).ID
+                        )
+                    );
                     Set(b_UserLogin,false);
                 Size: =24
                 Text: =ThisItem.name
