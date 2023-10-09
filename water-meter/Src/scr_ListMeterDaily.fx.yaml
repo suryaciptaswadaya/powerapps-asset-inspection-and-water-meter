@@ -240,7 +240,7 @@ scr_ListMeterDaily As screen:
                     );
                     
                     Set(b_UserLogin,false);
-                    Filter(c_MeteringLogs,date_input = d_DateNow)
+                    //Filter(c_MeteringLogs,date_input = d_DateNow)
                     
                 Size: =24
                 Text: =ThisItem.name
