@@ -221,7 +221,7 @@ scr_ListMeterDaily As screen:
                         Filter(
                             Sort(
                                 AddColumns(tbl_metering_logs,
-                                    "tenant_name",First(Filter(c_MstTenant,Title=tbl_metering_logs[@meter_id])).tenant_name  //LookUp(c_MstTenant,Title=tbl_metering_logs[@meter_id],tenant_name)
+                                    "name_tenant",First(Filter(c_MstTenant,Title=tbl_metering_logs[@meter_id])).tenant_name  //LookUp(c_MstTenant,Title=tbl_metering_logs[@meter_id],tenant_name)
                                 ),
                                 Created,SortOrder.Descending
                             ),
