@@ -170,7 +170,17 @@ scr_ListMeterDaily As screen:
         Height: =50
         Icon: =Icon.Reload
         OnSelect: |
-            =ClearCollect(c_MeteringLogs, Filter(Sort(tbl_metering_logs,Created,SortOrder.Descending),user_id = First(c_ActiveUserData).ID));
+            =ClearCollect(c_MeteringLogs, 
+                Filter(
+                    Sort(
+                        AddColumns(tbl_metering_logs,
+                            "name_tenant",First(Filter(c_MstTenant,Title=tbl_metering_logs[@meter_id])).tenant_name  //LookUp(c_MstTenant,Title=tbl_metering_logs[@meter_id],tenant_name)
+                        ),
+                        Created,SortOrder.Descending
+                    ),
+                   user_id = First(c_ActiveUserData).ID && Created >= DateAdd(Now(),-3)
+                )
+            );
         Width: =49
         X: =574
         Y: =99
@@ -215,7 +225,7 @@ scr_ListMeterDaily As screen:
             Button4 As button:
                 Fill: =RGBA(56, 106, 59, 1)
                 Height: =70
-                OnSelect: |
+                OnSelect: |+
                     =ClearCollect(c_ActiveUserData,Filter(c_Users,ID = Gallery2.Selected.ID));
                     ClearCollect(c_MeteringLogs, 
                         Filter(
@@ -225,10 +235,13 @@ scr_ListMeterDaily As screen:
                                 ),
                                 Created,SortOrder.Descending
                             ),
-                            user_id = First(c_ActiveUserData).ID
+                           user_id = First(c_ActiveUserData).ID && Created >= DateAdd(Now(),-3)
                         )
                     );
+                    
                     Set(b_UserLogin,false);
+                    Filter(c_MeteringLogs,date_input = d_DateNow)
+                    
                 Size: =24
                 Text: =ThisItem.name
                 Width: =479
