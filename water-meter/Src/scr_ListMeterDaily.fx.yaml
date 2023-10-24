@@ -236,7 +236,7 @@ scr_ListMeterDaily As screen:
                                 ),
                                 Created,SortOrder.Descending
                             ),
-                           user_id = First(c_ActiveUserData).ID )
+                           user_id = First(c_ActiveUserData).ID
                         )
                     );
                     
