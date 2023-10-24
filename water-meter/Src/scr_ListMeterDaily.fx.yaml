@@ -230,12 +230,12 @@ scr_ListMeterDaily As screen:
                     ClearCollect(c_MeteringLogs, 
                         Filter(
                             Sort(
-                                AddColumns(tbl_metering_logs,
+                                AddColumns(Filter(tbl_metering_logs,Created >= DateAdd(Now(),-7)),
                                     "name_tenant",First(Filter(c_MstTenant,tenant_ID=tbl_metering_logs[@meter_id])).tenant_name  //LookUp(c_MstTenant,Title=tbl_metering_logs[@meter_id],tenant_name)
                                 ),
                                 Created,SortOrder.Descending
                             ),
-                           user_id = First(c_ActiveUserData).ID && Created >= DateAdd(Now(),-7)
+                           user_id = First(c_ActiveUserData).ID )
                         )
                     );
                     
