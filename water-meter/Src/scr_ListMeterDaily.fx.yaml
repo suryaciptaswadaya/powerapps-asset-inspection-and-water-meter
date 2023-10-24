@@ -227,11 +227,12 @@ scr_ListMeterDaily As screen:
                 Height: =70
                 OnSelect: |+
                     =ClearCollect(c_ActiveUserData,Filter(c_Users,ID = Gallery2.Selected.ID));
+                    ClearCollect(c_Filteredmetering_logs,Filter(tbl_metering_logs,Created >= DateAdd(Now(),-7)));
                     ClearCollect(c_MeteringLogs, 
                         Filter(
                             Sort(
-                                AddColumns(Filter(tbl_metering_logs,Created >= DateAdd(Now(),-7)),
-                                    "name_tenant",First(Filter(c_MstTenant,tenant_ID=tbl_metering_logs[@meter_id])).tenant_name  //LookUp(c_MstTenant,Title=tbl_metering_logs[@meter_id],tenant_name)
+                                AddColumns(c_Filteredmetering_logs,
+                                    "name_tenant",First(Filter(c_MstTenant,tenant_ID=c_Filteredmetering_logs[@meter_id])).tenant_name  //LookUp(c_MstTenant,Title=tbl_metering_logs[@meter_id],tenant_name)
                                 ),
                                 Created,SortOrder.Descending
                             ),
