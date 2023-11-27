@@ -123,7 +123,8 @@ scr_MeterInput As screen:
             );
             
             //Cek Pembacaan sebelumnya
-            ClearCollect(c_LastReading, FirstN(SortByColumns(Filter(tbl_metering_logs, meter_id = cbb_MI_MeterID.Selected.meter_ID && date_input < date_mtr.SelectedDate), "date_input", SortOrder.Descending), 1));
+            //ClearCollect(c_LastReading, FirstN(SortByColumns(Filter(tbl_metering_logs, meter_id = cbb_MI_MeterID.Selected.meter_ID && date_input < date_mtr.SelectedDate), "date_input", SortOrder.Descending), 1));
+            ClearCollect(c_LastReading, Last(Filter(tbl_metering_logs, meter_id = cbb_MI_MeterID.Selected.meter_ID)));
             Set(n_AdditionalUsage, Value(txi_MI_CurrentMeter.Text) - First(c_LastReading).current_meter);
             
             If(IsEmpty(c_LastReading),
