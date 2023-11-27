@@ -1,0 +1,129 @@
+Screen1 As screen:
+
+    Button3 As button:
+        Height: =70
+        OnSelect: =ClearCollect(c_DataCollection, Filter(tbl_metering_logs, meter_id = "G00003.001" && date_input > Date(2023,10,24)))
+        Size: =24
+        Text: ="Data Screen"
+        Width: =280
+        X: =40
+        Y: =40
+        ZIndex: =1
+
+    DataTable1 As dataTable.datatable:
+        BorderStyle: =BorderStyle.Solid
+        DisplayMode: =DisplayMode.Edit
+        Fill: =RGBA(0, 0, 0, 0)
+        HeadingSize: =21
+        Height: =500
+        Items: =c_DataCollection
+        Size: =21
+        Width: =584
+        X: =28
+        Y: =148
+        ZIndex: =2
+
+        ID_Column1 As dataTableColumn.textualColumn:
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="ID"
+            FieldName: ="ID"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =1
+            Text: =ThisItem.ID
+            Width: =100
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+        date_input_Column1 As dataTableColumn.textualColumn:
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="date_input"
+            FieldName: ="date_input"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =2
+            Text: =ThisItem.date_input
+            Width: =100
+            X: =0
+            Y: =0
+            ZIndex: =2
+
+        current_meter_Column1 As dataTableColumn.textualColumn:
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="current_meter"
+            FieldName: ="current_meter"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =3
+            Text: =ThisItem.current_meter
+            Width: =100
+            X: =0
+            Y: =0
+            ZIndex: =3
+
+        meter_id_Column1 As dataTableColumn.textualColumn:
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="meter_id"
+            FieldName: ="meter_id"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =4
+            Text: =ThisItem.meter_id
+            Width: =100
+            X: =0
+            Y: =0
+            ZIndex: =4
+
+        avg_per_day_since_last_reading_Column1 As dataTableColumn.textualColumn:
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="avg_per_day_since_last_reading"
+            FieldName: ="avg_per_day_since_last_reading"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =5
+            Text: =ThisItem.avg_per_day_since_last_reading
+            Width: =100
+            X: =0
+            Y: =0
+            ZIndex: =5
+
+        additional_since_last_reading_Column1 As dataTableColumn.textualColumn:
+            DisplayMode: =DisplayMode.Edit
+            FieldDisplayName: ="additional_since_last_reading"
+            FieldName: ="additional_since_last_reading"
+            FieldVariantName: ="textualColumn"
+            Height: =Parent.Height
+            LayoutHeight: =Parent.Height
+            Order: =6
+            Text: =ThisItem.additional_since_last_reading
+            Width: =100
+            X: =0
+            Y: =0
+            ZIndex: =6
+
+    Button3_1 As button:
+        Height: =70
+        OnSelect: |-
+            =//ClearCollect(c_DataCollection, Filter(tbl_metering_logs, meter_id = "G00003.001" && date_input > Date(2023,10,24)))
+            
+            ClearCollect(c_DataCollection2, c_DataCollection);
+            ForAll(c_DataCollection2,
+                Patch(tbl_metering_logs, First(Filter(tbl_metering_logs, ID = c_DataCollection2[@ID])),
+                {
+                    additional_since_last_reading:
+                    avg_per_day_since_last_reading:
+                })
+            )
+        Size: =24
+        Text: ="Update Data"
+        Width: =280
+        X: =40
+        Y: =717
+        ZIndex: =3
+

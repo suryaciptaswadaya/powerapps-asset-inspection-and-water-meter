@@ -115,7 +115,7 @@
     "ManualOfflineProfileId": "",
     "Name": "[DEV] - Water Meter",
     "OriginatingVersion": "1.326",
-    "ParserErrorCount": 0,
+    "ParserErrorCount": 4,
     "ShowStatusBar": false
   },
   "PublishInfo": {
@@ -132,6 +132,7 @@
   "ScreenOrder": [
     "scr_HomeScreen",
     "scr_MeterInput",
-    "scr_ListMeterDaily"
+    "scr_ListMeterDaily",
+    "Screen1"
   ]
 }
