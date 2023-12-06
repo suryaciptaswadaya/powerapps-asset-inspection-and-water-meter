@@ -240,6 +240,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_action1",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -700,6 +701,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_action2",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -995,6 +997,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cir_iconBG",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1232,6 +1235,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmp_MD_Banner",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1453,6 +1457,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_Banner",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1665,6 +1670,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_BannerButtons",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1888,6 +1894,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_bannerBoxshadow",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2156,6 +2163,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_bannerIcon",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2423,6 +2431,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_bannerText",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2701,6 +2710,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "rec_bannerBG",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2858,6 +2868,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "tim_bannerTransition",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [

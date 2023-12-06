@@ -258,6 +258,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_button",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -692,6 +693,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_buttonBackground",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1021,6 +1023,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmp_MD_Button",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1239,6 +1242,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_img_text",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1452,6 +1456,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_boxShadow",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1692,6 +1697,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_textWidthButton",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1959,6 +1965,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_icon",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2321,6 +2328,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_text",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [

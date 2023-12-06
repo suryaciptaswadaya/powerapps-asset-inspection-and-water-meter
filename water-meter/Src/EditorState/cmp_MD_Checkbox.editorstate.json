@@ -164,6 +164,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_hover",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -467,6 +468,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmp_MD_Checkbox",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -656,6 +658,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_checkbox",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [

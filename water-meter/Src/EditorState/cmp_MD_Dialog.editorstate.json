@@ -275,6 +275,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_dialogAction1",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -762,6 +763,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_dialogAction2",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1129,6 +1131,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_dialogBG",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1466,6 +1469,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmp_MD_Dialog",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1663,6 +1667,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_DialogArea",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1908,6 +1913,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_DialogBG",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2167,6 +2173,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_DialogBtns",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2406,6 +2413,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_DialogMain",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2646,6 +2654,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_dialogBoxshadow",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2943,6 +2952,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_dialogHeader",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3343,6 +3353,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_dialogText",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3627,6 +3638,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "tgl_DialogFocus",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [

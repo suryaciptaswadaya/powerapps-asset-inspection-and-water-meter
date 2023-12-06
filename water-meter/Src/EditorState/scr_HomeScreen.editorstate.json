@@ -79,6 +79,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "clear_coll",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -398,6 +399,7 @@
       },
       "MetaDataIDKey": "",
       "Name": "cmp_MD_Bottom_Navigation_1",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -564,6 +566,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Label6",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -816,6 +819,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "Logo",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -989,6 +993,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "scr_HomeScreen",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [

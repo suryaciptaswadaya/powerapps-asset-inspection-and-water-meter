@@ -227,6 +227,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_navSideMenu",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -564,6 +565,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmp_MD_Navigation_Drawer",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -743,7 +745,8 @@
           "NameMapSourceSchema": "?"
         },
         "ZIndex",
-        "Visible"
+        "Visible",
+        "MaxTemplateSize"
       ],
       "GalleryTemplateChildName": "galleryTemplate2_3",
       "HasDynamicProperties": false,
@@ -756,6 +759,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "gal_sideMenu",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -883,6 +887,11 @@
           "Category": "Design",
           "PropertyName": "Width",
           "RuleProviderType": "Unknown"
+        },
+        {
+          "Category": "Design",
+          "PropertyName": "MaxTemplateSize",
+          "RuleProviderType": "Unknown"
         }
       ],
       "StyleName": "defaultGalleryStyle",
@@ -903,6 +912,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "galleryTemplate2_3",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1013,6 +1023,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_sideMenuBoxShadow",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1198,6 +1209,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "%TemplateBrowseGalleryImage.ID%",
       "Name": "img_icoSideMenu",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1417,6 +1429,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "rec_sideMenuBG",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [

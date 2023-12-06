@@ -227,7 +227,7 @@ scr_ListMeterDaily As screen:
                 Height: =70
                 OnSelect: |+
                     =ClearCollect(c_ActiveUserData,Filter(c_Users,ID = Gallery2.Selected.ID));
-                    ClearCollect(c_Filteredmetering_logs,Filter(tbl_metering_logs,Created >= DateAdd(Now(),-7)));
+                    ClearCollect(c_Filteredmetering_logs,Filter(tbl_metering_logs,Created >= DateAdd(Now(),-7),is_input_by_user=1));
                     ClearCollect(c_MeteringLogs, 
                         Filter(
                             Sort(

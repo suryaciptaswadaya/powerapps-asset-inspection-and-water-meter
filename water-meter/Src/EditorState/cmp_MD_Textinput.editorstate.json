@@ -256,6 +256,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmp_MD_Textinput",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -566,6 +567,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_textInput",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -816,6 +818,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_TextInputAccent",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1061,6 +1064,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_textWidthPrefix",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 11,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1311,6 +1315,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_textWidthSuffix",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 10,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1561,6 +1566,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_textWidthTitle",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1815,6 +1821,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_trailingIcon",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2137,6 +2144,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_error",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2524,6 +2532,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_helper",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2953,6 +2962,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_prefix",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3325,6 +3335,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_remainingChars",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3749,6 +3760,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_suffix",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -4085,6 +4097,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_TextInputHeightchecker",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 13,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -4473,6 +4486,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_Title",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -4757,6 +4771,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "rect_Underline",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -4929,6 +4944,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "tgl_TextInputError",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 12,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -5310,6 +5326,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_BG",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -5886,6 +5903,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_Placeholder",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -6458,6 +6476,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_TextInput",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [

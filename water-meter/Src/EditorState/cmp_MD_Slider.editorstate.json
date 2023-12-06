@@ -198,6 +198,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_sliderLabel",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -597,6 +598,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_sliderLine",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -876,6 +878,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cir_sliderHandle",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1103,6 +1106,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmp_MD_Slider",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1316,6 +1320,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_sliderHandleShadow",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1499,6 +1504,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_sliderLabelTriangle",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1728,6 +1734,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "rec_sliderTextMarker",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2022,6 +2029,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "sld_slider",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2464,6 +2472,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_sliderText",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [

@@ -208,6 +208,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_timAction1",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 9,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -623,6 +624,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_timAction2",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 8,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -977,6 +979,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_timBG",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1396,6 +1399,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_time",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1844,6 +1848,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_timeAM",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2286,6 +2291,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_timePM",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2541,6 +2547,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cir_clockBG",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2760,6 +2767,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmp_MD_Timepicker",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3023,6 +3031,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_AMPM",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3228,6 +3237,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_timeSelect",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3425,7 +3435,8 @@
           "IsLockable": false,
           "NameMapSourceSchema": "?"
         },
-        "ZIndex"
+        "ZIndex",
+        "MaxTemplateSize"
       ],
       "GalleryTemplateChildName": "galleryTemplate6_1",
       "HasDynamicProperties": false,
@@ -3438,6 +3449,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "gal_clock",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 6,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3560,6 +3572,11 @@
           "Category": "Design",
           "PropertyName": "ZIndex",
           "RuleProviderType": "Unknown"
+        },
+        {
+          "Category": "Design",
+          "PropertyName": "MaxTemplateSize",
+          "RuleProviderType": "Unknown"
         }
       ],
       "StyleName": "defaultGalleryStyle",
@@ -3580,6 +3597,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "galleryTemplate6_1",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3690,6 +3708,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_timBoxshadow",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3880,6 +3899,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_clock",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -4145,6 +4165,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lb_timSpacing2",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 5,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -4492,6 +4513,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_timColon",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -4832,6 +4854,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_timHeader",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -5152,6 +5175,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_timSpacing1",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -5449,6 +5473,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "tim_hourTransition",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 7,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -5876,6 +5901,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_timHours",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -6353,6 +6379,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "txt_timMinutes",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [

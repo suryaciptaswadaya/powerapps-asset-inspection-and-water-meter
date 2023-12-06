@@ -214,6 +214,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_line",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -580,6 +581,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_toggleHover",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -885,6 +887,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cir_Toggle",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1085,6 +1088,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmp_MD_Toggle",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1287,6 +1291,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_toggleShadow",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1462,6 +1467,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "tgl_HelperToggle",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [

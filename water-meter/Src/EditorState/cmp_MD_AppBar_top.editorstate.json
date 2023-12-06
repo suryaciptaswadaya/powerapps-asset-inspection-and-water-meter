@@ -149,6 +149,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_icon1",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -490,6 +491,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_icon2",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -831,6 +833,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_icon3",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1172,6 +1175,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "btn_icon4",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1541,6 +1545,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "cmp_MD_AppBar_top",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -1756,6 +1761,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_AppBar",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2005,6 +2011,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_icon1",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2244,6 +2251,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_icon2",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2483,6 +2491,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_icon3",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2722,6 +2731,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "con_icon4",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -2941,6 +2951,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "html_AppBarBoxShadow",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3162,6 +3173,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_icon1",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3433,6 +3445,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_icon2",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3704,6 +3717,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_icon3",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -3975,6 +3989,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "img_icon4",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 0,
       "PersistMetaDataIDKey": false,
       "Properties": [
@@ -4321,6 +4336,7 @@
       "LayoutName": "",
       "MetaDataIDKey": "",
       "Name": "lbl_title",
+      "OptimizeForDevices": "Off",
       "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
