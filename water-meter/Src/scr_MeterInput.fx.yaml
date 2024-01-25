@@ -176,6 +176,8 @@ scr_MeterInput As screen:
                 );
             
                 //Tambah data otomatis by sistem, flag is_input_by_user = 0
+                //saat ini didisable
+                /*
                 If(n_AdditionalData > 0,
                     ForAll(Sequence(n_AdditionalData), 
                          Patch(
@@ -192,6 +194,7 @@ scr_MeterInput As screen:
                         );
                     )
                 );
+                */
             
                 Notify("Data Metering Berhasil Disimpan");
                 //Set(meterIDScan,"");
