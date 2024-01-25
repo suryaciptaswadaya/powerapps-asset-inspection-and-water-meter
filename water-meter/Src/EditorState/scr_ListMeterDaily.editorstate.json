@@ -2644,7 +2644,7 @@
       "MetaDataIDKey": "",
       "Name": "grp_PopupImage",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 19,
+      "ParentIndex": 20,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2696,7 +2696,7 @@
       "MetaDataIDKey": "",
       "Name": "grp_UserLogin",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 20,
+      "ParentIndex": 19,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
