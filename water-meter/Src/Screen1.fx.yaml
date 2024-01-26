@@ -2,7 +2,12 @@ Screen1 As screen:
 
     Button3 As button:
         Height: =70
-        OnSelect: =ClearCollect(c_DataCollection, Filter(tbl_metering_logs, meter_id = "G00003.001" && date_input > Date(2023,10,24)))
+        OnSelect: |-
+            =ClearCollect(c_AllMeter, mst_meter);
+            Clear(c_AllReadingData);
+            ForAll(c_AllMeter,
+                Collect(c_AllReadingData, Filter(tbl_metering_logs, meter_id = c_AllMeter[@Title]))
+            );
         Size: =24
         Text: ="Data Screen"
         Width: =280
@@ -110,7 +115,10 @@ Screen1 As screen:
     Button3_1 As button:
         Height: =70
         OnSelect: |-
-            =ClearCollect(c_DataCollection, FirstN(tbl_metering_logs, 2000));
+            =
+            
+            
+            ClearCollect(c_DataCollection, FirstN(tbl_metering_logs, 2000));
             
             ClearCollect(c_DataCollection2, c_DataCollection);
             ForAll(c_DataCollection2,
