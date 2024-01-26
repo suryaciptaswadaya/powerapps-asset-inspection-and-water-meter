@@ -2012,7 +2012,7 @@
       "MetaDataIDKey": "",
       "Name": "con_icon1",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 4,
+      "ParentIndex": 1,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2252,7 +2252,7 @@
       "MetaDataIDKey": "",
       "Name": "con_icon2",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 1,
+      "ParentIndex": 2,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -2492,7 +2492,7 @@
       "MetaDataIDKey": "",
       "Name": "con_icon3",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 2,
+      "ParentIndex": 3,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {
@@ -4337,7 +4337,7 @@
       "MetaDataIDKey": "",
       "Name": "lbl_title",
       "OptimizeForDevices": "Off",
-      "ParentIndex": 3,
+      "ParentIndex": 4,
       "PersistMetaDataIDKey": false,
       "Properties": [
         {

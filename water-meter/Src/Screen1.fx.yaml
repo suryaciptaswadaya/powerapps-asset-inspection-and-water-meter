@@ -6,7 +6,7 @@ Screen1 As screen:
             =ClearCollect(c_AllMeter, mst_meter);
             Clear(c_AllReadingData);
             ForAll(c_AllMeter,
-                Collect(c_AllReadingData, Filter(tbl_metering_logs, meter_id = c_AllMeter[@Title]))
+                Collect(c_AllReadingData, Filter(tbl_metering_logs, meter_id = c_AllMeter[@Title] && is_input_by_user = 1))
             );
         Size: =24
         Text: ="Data Screen"
@@ -21,7 +21,7 @@ Screen1 As screen:
         Fill: =RGBA(0, 0, 0, 0)
         HeadingSize: =21
         Height: =500
-        Items: =c_DataCollection
+        Items: =c_AllReadingData
         Size: =21
         Width: =584
         X: =28
@@ -115,16 +115,13 @@ Screen1 As screen:
     Button3_1 As button:
         Height: =70
         OnSelect: |-
-            =
-            
-            
-            ClearCollect(c_DataCollection, FirstN(tbl_metering_logs, 2000));
+            =ClearCollect(c_DataCollection, Filter(tbl_metering_logs, is_input_by_user = 1 && ID > 2603));
             
             ClearCollect(c_DataCollection2, c_DataCollection);
             ForAll(c_DataCollection2,
                 Patch(tbl_metering_logs, First(Filter(tbl_metering_logs, ID = c_DataCollection2[@ID])),
                 {
-                    additional_since_last_reading: Value(c_DataCollection2[@current_meter]) - Value(First(SortByColumns(Filter(c_DataCollection, meter_id = c_DataCollection2[@meter_id] && ID < c_DataCollection2[@ID]), "ID", SortOrder.Descending)).current_meter)
+                    additional_since_last_reading: Value(c_DataCollection2[@current_meter]) - Value(First(SortByColumns(Filter(c_AllReadingData, meter_id = c_DataCollection2[@meter_id] && ID < c_DataCollection2[@ID]), "ID", SortOrder.Descending)).current_meter)
                 })
             )
         Size: =24
@@ -143,4 +140,14 @@ Screen1 As screen:
         X: =40
         Y: =817
         ZIndex: =4
+
+    Label10_1 As label:
+        Height: =70
+        Size: =21
+        Text: |-
+            ="Total Reading : " & CountRows(c_AllReadingData)
+        Width: =560
+        X: =40
+        Y: =887
+        ZIndex: =5
 
