@@ -110,14 +110,13 @@ Screen1 As screen:
     Button3_1 As button:
         Height: =70
         OnSelect: |-
-            =//ClearCollect(c_DataCollection, Filter(tbl_metering_logs, meter_id = "G00003.001" && date_input > Date(2023,10,24)))
+            =ClearCollect(c_DataCollection, FirstN(tbl_metering_logs, 2000));
             
             ClearCollect(c_DataCollection2, c_DataCollection);
             ForAll(c_DataCollection2,
                 Patch(tbl_metering_logs, First(Filter(tbl_metering_logs, ID = c_DataCollection2[@ID])),
                 {
-                    additional_since_last_reading: Value(c_DataCollection2[@current_meter]) - Value(First(SortByColumns(Filter(c_DataCollection, meter_id = c_DataCollection2[@meter_id] && ID < c_DataCollection2[@ID]), "ID", SortOrder.Descending)).current_meter),
-                    avg_per_day_since_last_reading: Value(c_DataCollection2[@current_meter]) - Value(First(SortByColumns(Filter(c_DataCollection, meter_id = c_DataCollection2[@meter_id] && ID < c_DataCollection2[@ID]), "ID", SortOrder.Descending)).current_meter)
+                    additional_since_last_reading: Value(c_DataCollection2[@current_meter]) - Value(First(SortByColumns(Filter(c_DataCollection, meter_id = c_DataCollection2[@meter_id] && ID < c_DataCollection2[@ID]), "ID", SortOrder.Descending)).current_meter)
                 })
             )
         Size: =24
@@ -126,4 +125,14 @@ Screen1 As screen:
         X: =40
         Y: =717
         ZIndex: =3
+
+    Label10 As label:
+        Height: =70
+        Size: =21
+        Text: |-
+            ="Last ID : 2603 "
+        Width: =560
+        X: =40
+        Y: =817
+        ZIndex: =4
 

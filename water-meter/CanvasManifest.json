@@ -136,6 +136,7 @@
     "scr_HomeScreen",
     "scr_MeterInput",
     "scr_ListMeterDaily",
-    "Screen1"
+    "Screen1",
+    "Debug Screen"
   ]
 }
