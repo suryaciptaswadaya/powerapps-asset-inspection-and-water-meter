@@ -127,10 +127,10 @@ scr_MeterInput As screen:
             ClearCollect(c_LastReading, Last(Filter(tbl_metering_logs, meter_id = cbb_MI_MeterID.Selected.meter_ID)));
             Set(n_AdditionalUsage, Value(txi_MI_CurrentMeter.Text) - First(c_LastReading).current_meter);
             
-            If(n_AdditionalUsage < 0,
+            /*If(n_AdditionalUsage < 0,
                 Notify("Pembacaan meteran tidak dapat lebih kecil dari pembacaan sebelumnya. Mohon periksa kembali");
                 Set(b_Continue, false);
-            );
+            );*/
             
             If(IsEmpty(c_LastReading),
                 Set(n_avg_usage_per_day, Value(txi_MI_CurrentMeter.Text));
