@@ -18,8 +18,8 @@ cmp_MD_ContrastChecker As CanvasComponent:
         Size: =14
         Text: |-
             =With({
-                primColorArray: AddColumns(ForAll(Split(Right(Parent.primaryColorHex, 6), ""), {Result: ThisRecord.Value}), "Value", Switch(Lower(Result), "a", 10, "b", 11, "c", 12, "d", 13, "e", 14, "f", 15, Value(Result))),
-               backColorArray: AddColumns(ForAll(Split(Right(Parent.backgroundColorHex, 6), ""), {Result: ThisRecord.Value}), "Value", Switch(Result, "a", 10, "b", 11, "c", 12, "d", 13, "e", 14, "f", 15, Value(Result)))},
+                primColorArray: AddColumns(ForAll(Split(Right(Parent.primaryColorHex, 6), ""), {Result: ThisRecord.Value}), Value, Switch(Lower(Result), "a", 10, "b", 11, "c", 12, "d", 13, "e", 14, "f", 15, Value(Result))),
+               backColorArray: AddColumns(ForAll(Split(Right(Parent.backgroundColorHex, 6), ""), {Result: ThisRecord.Value}), Value, Switch(Result, "a", 10, "b", 11, "c", 12, "d", 13, "e", 14, "f", 15, Value(Result)))},
             Abs(Round( (299*(Index(primColorArray, 1).Value*16+Index(primColorArray, 2).Value)+587*(Index(primColorArray, 3).Value*16+Index(primColorArray, 4).Value)+114*(Index(primColorArray, 5).Value*16+Index(primColorArray, 6).Value))/1000
             
             -
@@ -63,8 +63,8 @@ cmp_MD_ContrastChecker As CanvasComponent:
         Size: =14
         Text: |-
             =With({
-                primColorArray: AddColumns(ForAll(Split(Right(Parent.primaryColorHex, 6), ""), {Result: ThisRecord.Value}), "Value", Switch(Lower(Result), "a", 10, "b", 11, "c", 12, "d", 13, "e", 14, "f", 15, Value(Result))),
-               backColorArray: AddColumns(ForAll(Split(Right(Parent.backgroundColorHex, 6), ""), {Result: ThisRecord.Value}), "Value", Switch(Result, "a", 10, "b", 11, "c", 12, "d", 13, "e", 14, "f", 15, Value(Result)))},
+                primColorArray: AddColumns(ForAll(Split(Right(Parent.primaryColorHex, 6), ""), {Result: ThisRecord.Value}), Value, Switch(Lower(Result), "a", 10, "b", 11, "c", 12, "d", 13, "e", 14, "f", 15, Value(Result))),
+               backColorArray: AddColumns(ForAll(Split(Right(Parent.backgroundColorHex, 6), ""), {Result: ThisRecord.Value}), Value, Switch(Result, "a", 10, "b", 11, "c", 12, "d", 13, "e", 14, "f", 15, Value(Result)))},
             
             Abs(
             (Index(primColorArray, 1).Value*16+Index(primColorArray, 2).Value)-(Index(backColorArray, 1).Value*16+Index(backColorArray, 2).Value)

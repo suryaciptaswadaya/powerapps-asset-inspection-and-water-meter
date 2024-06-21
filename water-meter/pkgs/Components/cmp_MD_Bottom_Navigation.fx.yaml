@@ -56,6 +56,7 @@ cmp_MD_Bottom_Navigation As CanvasComponent:
     ZIndex: =12
 
     "gal_Nav As gallery.'BrowseLayout_Horizontal_TwoTextOneImageVariant_ver4.0'":
+        '#CopilotOverlayLabel': ="Filtered"
         Fill: =ColorValue(cmp_MD_Bottom_Navigation.primaryColorHex)
         Height: =Parent.Height
         Items: =cmp_MD_Bottom_Navigation.items

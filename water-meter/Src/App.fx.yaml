@@ -5,7 +5,7 @@ App As appinfo:
         
         ClearCollect(c_MeterMaster, 
            AddColumns(mst_meter,
-            "tenant_name",LookUp(c_MstTenant,tenant_ID = mst_meter[@tenant_ID],tenant_name)
+            tenant_name,LookUp(c_MstTenant,tenant_ID = mst_meter[@tenant_ID],tenant_name)
            );
         );
         ClearCollect(c_Users,Sort(tbl_users,name,SortOrder.Ascending));

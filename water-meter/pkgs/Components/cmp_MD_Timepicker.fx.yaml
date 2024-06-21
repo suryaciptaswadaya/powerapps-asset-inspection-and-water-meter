@@ -425,14 +425,15 @@ cmp_MD_Timepicker As CanvasComponent:
         ZIndex: =9
 
     gal_clock As gallery.galleryVertical:
+        '#CopilotOverlayLabel': ="Filtered"
         Height: =256
         Items: |-
             =AddColumns(
                 Sequence(If(!varChooseMinute && cmp_MD_Timepicker.format=24, 24, 12), 1, 1),
-                "Degrees", 30*Value,
-                "Rad", 30*Value/180*Pi(),
-                "Hours", If(Value=24, 0,Value),
-                "Minutes", If(Value=12, 0, Value*5)
+                Degrees, 30*Value,
+                Rad, 30*Value/180*Pi(),
+                Hours, If(Value=24, 0,Value),
+                Minutes, If(Value=12, 0, Value*5)
             )
         Layout: =Layout.Vertical
         TemplatePadding: =0

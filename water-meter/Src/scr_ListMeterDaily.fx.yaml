@@ -14,6 +14,7 @@ scr_ListMeterDaily As screen:
         ZIndex: =1
 
     "gal_LMD_MeterLogs As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver5.0'":
+        '#CopilotOverlayLabel': ="Filtered"
         BorderColor: =RGBA(0, 0, 0, 1)
         BorderThickness: =1
         DelayItemLoading: =true
@@ -30,6 +31,9 @@ scr_ListMeterDaily As screen:
         ZIndex: =2
 
         Title3 As label:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Color: =RGBA(71, 69, 64, 1)
+            DisabledColor: =RGBA(186, 186, 186, 1)
             FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
             Height: =32
             OnSelect: =Select(Parent)
@@ -46,6 +50,9 @@ scr_ListMeterDaily As screen:
             ZIndex: =1
 
         Subtitle3 As label:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Color: =RGBA(71, 69, 64, 1)
+            DisabledColor: =RGBA(186, 186, 186, 1)
             FontWeight: =FontWeight.Semibold
             Height: =33
             OnSelect: =Select(Parent)
@@ -64,6 +71,9 @@ scr_ListMeterDaily As screen:
             ZIndex: =2
 
         Body1 As label:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Color: =RGBA(71, 69, 64, 1)
+            DisabledColor: =RGBA(186, 186, 186, 1)
             Height: =34
             OnSelect: =Select(Parent)
             PaddingBottom: =0
@@ -79,6 +89,7 @@ scr_ListMeterDaily As screen:
             ZIndex: =3
 
         Separator3 As rectangle:
+            BorderColor: =RGBA(0, 0, 255, 1)
             Fill: =RGBA(219, 219, 219, 1)
             Height: =1
             OnSelect: =Select(Parent)
@@ -174,7 +185,7 @@ scr_ListMeterDaily As screen:
                 Filter(
                     Sort(
                         AddColumns(tbl_metering_logs,
-                            "name_tenant",First(Filter(c_MstTenant,tenant_ID=tbl_metering_logs[@meter_id])).tenant_name  //LookUp(c_MstTenant,Title=tbl_metering_logs[@meter_id],tenant_name)
+                            name_tenant,First(Filter(c_MstTenant,tenant_ID=tbl_metering_logs[@meter_id])).tenant_name  //LookUp(c_MstTenant,Title=tbl_metering_logs[@meter_id],tenant_name)
                         ),
                         Created,SortOrder.Descending
                     ),
@@ -210,6 +221,7 @@ scr_ListMeterDaily As screen:
             ZIndex: =14
 
         Gallery2 As gallery.galleryVertical:
+            '#CopilotOverlayLabel': ="Filtered"
             DelayItemLoading: =true
             Height: =567
             Items: =c_Users
@@ -232,7 +244,7 @@ scr_ListMeterDaily As screen:
                         Filter(
                             Sort(
                                 AddColumns(c_Filteredmetering_logs,
-                                    "name_tenant",First(Filter(c_MstTenant,tenant_ID=c_Filteredmetering_logs[@meter_id])).tenant_name  //LookUp(c_MstTenant,Title=tbl_metering_logs[@meter_id],tenant_name)
+                                    name_tenant,First(Filter(c_MstTenant,tenant_ID=c_Filteredmetering_logs[@meter_id])).tenant_name  //LookUp(c_MstTenant,Title=tbl_metering_logs[@meter_id],tenant_name)
                                 ),
                                 Created,SortOrder.Descending
                             ),

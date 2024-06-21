@@ -112,7 +112,7 @@ scr_MeterInput As screen:
                 Set(b_Continue, false);
             );
             
-            If(IsBlank(AddMediaButton1),
+            If(IsBlank(AddMediaButton1.Media),
                 Notify("Kamu Belum Melampirkan Foto");
                 Set(b_Continue, false);
             );
@@ -126,6 +126,11 @@ scr_MeterInput As screen:
             //ClearCollect(c_LastReading, FirstN(SortByColumns(Filter(tbl_metering_logs, meter_id = cbb_MI_MeterID.Selected.meter_ID && date_input < date_mtr.SelectedDate), "date_input", SortOrder.Descending), 1));
             ClearCollect(c_LastReading, Last(Filter(tbl_metering_logs, meter_id = cbb_MI_MeterID.Selected.meter_ID)));
             Set(n_AdditionalUsage, Value(txi_MI_CurrentMeter.Text) - First(c_LastReading).current_meter);
+            
+            If(n_AdditionalUsage < 0,
+                Notify("Pembacaan meteran tidak dapat lebih kecil dari pembacaan sebelumnya. Mohon periksa kembali");
+                Set(b_Continue, false);
+            );
             
             If(IsEmpty(c_LastReading),
                 Set(n_avg_usage_per_day, Value(txi_MI_CurrentMeter.Text));
@@ -252,19 +257,19 @@ scr_MeterInput As screen:
         Items: |-
             =Search(
                 AddColumns(c_MeterMaster,
-                    "tenant_name_code",meter_ID &" - "& tenant_name
+                    tenant_name_code,meter_ID &" - "& tenant_name
                 ),
-                    cbb_MI_MeterID.SearchText,"Title","tenant_name"
+                    cbb_MI_MeterID.SearchText,Title,tenant_name
                 )
         OnChange: =Reset(txi_MI_CurrentMeter)
         SearchFields: =["tenant_name_code"]
         SearchItems: |-
             =Search(Search(
                 AddColumns(c_MeterMaster,
-                    "tenant_name_code",meter_ID &" - "& tenant_name
+                    tenant_name_code,meter_ID &" - "& tenant_name
                 ),
-                    cbb_MI_MeterID.SearchText,"Title","tenant_name"
-                ),cbb_MI_MeterID.SearchText,"tenant_name_code")
+                    cbb_MI_MeterID.SearchText,Title,tenant_name
+                ),cbb_MI_MeterID.SearchText,tenant_name_code)
         SelectMultiple: =false
         Size: =21
         Width: =402
