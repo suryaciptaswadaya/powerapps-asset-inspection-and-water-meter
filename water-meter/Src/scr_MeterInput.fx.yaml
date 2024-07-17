@@ -130,7 +130,7 @@ scr_MeterInput As screen:
             /*If(n_AdditionalUsage < 0,
                 Notify("Pembacaan meteran tidak dapat lebih kecil dari pembacaan sebelumnya. Mohon periksa kembali");
                 Set(b_Continue, false);
-            );*/
+            );*/ 
             
             If(IsEmpty(c_LastReading),
                 Set(n_avg_usage_per_day, Value(txi_MI_CurrentMeter.Text));
